@@ -1,0 +1,152 @@
+.form {
+    align-self: center;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
+    background-color: #fff;
+    padding: 2em;
+    align-items: center;
+
+    &-img {
+        width: 200px;
+        height: 150px;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    &-btn {
+        font-size: 1.2em !important;
+        width: 300px;
+        margin-top: 1em !important;
+    }
+
+    &-link {
+
+        text-align: left;
+        width: 300px;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    &-label {
+        width: 80%;
+        font-size: 1.2em;
+    }
+
+    &-alt {
+        display: flex;
+
+        &-btn {
+            width: 300px;
+            z-index: 10;
+            display: flex !important;
+            align-items: center !important;
+            font-size: 1.2em !important;
+            text-align: center !important;
+            justify-content: space-around !important;
+        }
+
+    }
+
+    &-title {
+        font-family: 'Indie Flower',
+            cursive;
+        z-index: 100;
+        width: max-content;
+        text-align: center;
+        margin: 0 0 1em 0;
+        text-transform: uppercase;
+        font-weight: 700;
+        align-items: center;
+        
+        position: relative;
+        display: flex;
+
+        &-login {
+            color: #bbb;
+            font-size: 4em;
+            font-family: 'Indie Flower',
+            cursive;
+            cursor: pointer;
+            width: 300px;
+            transition: .3s;
+            margin-right: .5em;
+            text-align: center;
+            margin-bottom: 0;
+
+            &:hover {
+                color: #549900;
+            }
+        }
+
+        &-signup {
+            color: #bbb;
+            font-size: 4em;
+            font-family: 'Indie Flower',
+            cursive;
+            cursor: pointer;
+            margin-left: .5em;
+            width: 300px;
+            transition: .3s;
+            text-align: center;
+
+            &:hover {
+                color: #549900;
+            }
+        }
+
+        &-underline {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 5px;
+            width: 300px;
+            background-color: #549900;
+            transition: .5s;
+        }
+    }
+
+    &-input {
+        width: 80%;
+        margin: 1em 0;
+
+
+        .label {
+            font-size: .8em !important;
+            border-color: #00192D !important;
+            width: 70px !important;
+            transform: rotate(-45deg);
+            color: white !important;
+
+            &::after {
+                transform: rotate(45deg);
+                top: -4px !important;
+                left: 2px !important;
+            }
+        }
+
+        input {
+            font-size: 1.5em;
+        }
+    }
+
+    p {
+        color: #222 !important;
+        z-index: 10;
+        font-size: 1.1em;
+        margin: 2em 0;
+    }
+}
+
+.active-title {
+    color: #549900;
+}
+
+.right {
+    left: 54%;
+    transition: .5s;
+}

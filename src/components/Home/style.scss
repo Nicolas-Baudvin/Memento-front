@@ -1,0 +1,79 @@
+.home {
+    display: flex;
+    justify-content: space-between;
+
+    &-right {
+        width: 50%;
+    }
+
+    &-left {
+        position: relative;
+        background-image: url("../../../assets/todo.jpg");
+        background-size: cover;
+        background-position: center;
+        width: 50%;
+
+        &-title {
+            text-transform: uppercase;
+            color: white;
+            text-align: center;
+        }
+
+        &-postit {
+            position: absolute;
+            height: 380px;
+            top: 40%;
+            left: 33%;
+
+            h1 {
+                font-family: 'Indie Flower',
+                    cursive;
+                text-transform: uppercase;
+            }
+
+            p {
+                position: relative;
+                top: 2em;
+                left: 2em;
+                font-family: 'Indie Flower',
+                    cursive;
+                font-size: 1.5em;
+            }
+
+            &-nav {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+
+                &-list {
+                    display: flex;
+
+                    &__item {
+                        margin: 0 1em;
+                        width: max-content;
+                        cursor: pointer;
+                        font-size: 1.2em;
+
+                        &:hover {
+                            text-decoration: underline;
+                        }
+                    }
+                }
+            }
+        }
+
+        &-links {
+            font-family: 'Indie Flower', cursive;
+            text-transform: capitalize;
+        }
+    }
+}
+
+
+@media only screen and (max-width: 1920px) {}
+
+@media only screen and (max-width: 1366px) {}
+
+@media only screen and (max-width: 1080px) {}
+
+@media only screen and (max-width: 767px) {}
