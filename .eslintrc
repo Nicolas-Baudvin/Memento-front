@@ -1,0 +1,36 @@
+{
+  "extends": "airbnb",
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "settings": {
+    "import/resolver": "webpack"
+  },
+  "parser": "babel-eslint",
+  "rules": {
+    "comma-dangle": "off",
+    "brace-style": ["error", "stroustrup"],
+    "no-param-reassign": ["error", { "props": false }],
+    "no-mixed-operators": ["error", { "allowSamePrecedence": true }],
+    "jsx-a11y/no-static-element-interactions": "off",
+    "jsx-a11y/href-no-hash": "off",
+    "jsx-a11y/anchor-is-valid": "off",
+    "jsx-a11y/mouse-events-have-key-events": "off",
+    "jsx-a11y/click-events-have-key-events": "off",
+    "jsx-a11y/no-noninteractive-element-interactions": "off",
+    "react/jsx-filename-extension": "off",
+    "react/forbid-prop-types": "off",
+    "react/no-access-state-in-setstate": "warn",
+    "react/jsx-one-expression-per-line": "off",
+    "react/no-unescaped-entities": "off",
+    "react/state-in-constructor": "off",
+    "quotes": "off",
+
+    "prefer-destructuring": "off",
+    "react/jsx-wrap-multilines": "off",
+    "react/jsx-closing-tag-location": "off",
+    "react/destructuring-assignment": "off",
+    "react/prop-types": "off"
+  }
+}
