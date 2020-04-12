@@ -13,6 +13,12 @@ const port = 3000;
 
 const devMode = process.env.NODE_ENV !== 'production';
 
+const env = DotenvPlugin.config({ path: '.env' }).parsed;
+const envKeys = Object.keys(env).reduce((prev, next) => {
+  prev[`process.env.${next}`] = JSON.stringify(env[next]);
+  return prev;
+}, {});
+
 // Config de Webpack
 module.exports = {
   // Passe le build par dèfaut en déeveloppement
@@ -132,5 +138,6 @@ module.exports = {
       filename: '[name].css',
       chunkFilename: '[id].css',
     }),
+    new Webpack.DefinePlugin(envKeys),
   ],
 };
