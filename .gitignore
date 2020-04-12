@@ -8,3 +8,5 @@ yarn.lock
 Thumbs.db
 
 yarn-error.log
+
+.env
