@@ -69,6 +69,7 @@
 
         &-nav {
             display: flex;
+            align-items: center;
             position: absolute;
             top: 3em;
             left: 3em;
@@ -91,10 +92,16 @@
         &-title {
             font-size: 3em;
             text-align: center;
+            letter-spacing: .5em;
+            margin: 2em 0;
         }
 
         &-text {
             font-size: 1.5em;
+            font-weight: lighter;
+            strong {
+                font-weight: bold;
+            }
         }
     }
 }
