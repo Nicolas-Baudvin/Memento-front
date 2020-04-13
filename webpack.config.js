@@ -3,6 +3,8 @@ const path = require('path');
 
 // Plugins de traitement pour dist/
 const TerserPlugin = require("terser-webpack-plugin");
+const DotenvPlugin = require("dotenv");
+const Webpack = require("webpack");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const HtmlWebPackPlugin = require('html-webpack-plugin');
