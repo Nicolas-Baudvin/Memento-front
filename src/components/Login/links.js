@@ -1,11 +1,12 @@
 import React from "react";
 import "./style.scss";
 
-export default () => {
+export default ({ state, setstate }) => {
+
   return (
     <>
-      <a href="#" className="form-link">Mot de passe oublié ?</a>
-      <a href="" className="form-link">Tu n'as pas de compte ?</a>
+      <a className="form-link">Mot de passe oublié ?</a>
+      <a onClick={(e) => setstate({ ...state, currentView: "Signup" })} className="form-link">Tu n'as pas de compte ?</a>
     </>
   );
 };

@@ -1,6 +1,7 @@
 // Dependances
 import React, { useState, useEffect } from "react";
 import { Input, Button, Icon } from 'semantic-ui-react';
+import { useDispatch } from "react-redux";
 import cx from 'classnames';
 
 import "./style.scss";
@@ -13,8 +14,10 @@ import EmailInput from './Inputs/email';
 import PasswordInput from './Inputs/password';
 import UsernameInput from './Inputs/username';
 import ConfPassInput from './Inputs/confPass';
+import { submitLoginForm, submitSignupForm } from "../../store/Registration/actions";
 
 export default () => {
+  const dispatch = useDispatch();
   const initialState = {
     currentView: "Login",
     email: '',
@@ -26,17 +29,26 @@ export default () => {
   const [state, setstate] = useState(initialState);
 
   const hanldeSubmitForm = () => {
-    if (state.currentView === "Login") {
-      // Submit login data
+    const {
+      email, password, confPass, username, currentView
+    } = state;
+
+    if (currentView === "Login") {
+      if (email && password) {
+        dispatch(submitLoginForm({ email, password }));
+      }
     }
-    else if (state.currentView === "Signup") {
+    else if (currentView === "Signup") {
       // submit signup data
+      if (email && password && confPass && username) {
+
+        dispatch(submitSignupForm({
+          email, password, confPass, username
+        }));
+
+      }
     }
   };
-
-  useEffect(() => {
-    console.log(state);
-  }, [state]);
 
   return (
     <form onSubmit={hanldeSubmitForm} className="form">
@@ -54,7 +66,7 @@ export default () => {
       }
 
       {
-        state.currentView === "Login" && <Links />
+        state.currentView === "Login" && <Links setstate={setstate} state={state} />
       }
 
       <Button type="submit" className="form-btn" content="Connexion" primary />
