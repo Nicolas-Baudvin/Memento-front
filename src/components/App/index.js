@@ -10,6 +10,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 // Composants React
 import Home from 'src/components/Home';
 import About from 'src/components/About';
+import Contact from 'src/components/Contact';
 // Données
 // Styles et assets
 import './app.scss';
@@ -27,6 +28,9 @@ const App = () => {
         </Route>
         <Route exact path="/a-propos/">
           <About />
+        </Route>
+        <Route exact path="/contact/">
+          <Contact />
         </Route>
       </Switch>
     </Router>
