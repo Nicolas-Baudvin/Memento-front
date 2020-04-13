@@ -19,13 +19,13 @@ export default () => {
           <nav className="home-left-postit-nav">
             <ul className="home-left-postit-nav-list">
               <li onClick={() => history.push("/a-propos/")} className="home-left-postit-nav-list__item">
-                <a href="" className="home-left-links"> à propos </a>
+                <a className="home-left-links"> à propos </a>
               </li>
               <li className="home-left-postit-nav-list__item">
-                <a href="" className="home-left-links"> Mentions légales </a>
+                <a className="home-left-links"> Mentions légales </a>
               </li>
-              <li className="home-left-postit-nav-list__item">
-                <a href="" className="home-left-links"> Contact </a>
+              <li onClick={() => history.push("/contact/")} className="home-left-postit-nav-list__item">
+                <a className="home-left-links"> Contact </a>
               </li>
             </ul>
           </nav>
