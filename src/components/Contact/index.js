@@ -5,11 +5,19 @@ import {
 } from 'semantic-ui-react';
 import "./style.scss";
 import { useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
+
+// Components
+import Header from './header';
+import EmailInput from './emailInput';
+import SubjectInput from './subjectInput';
+import MessageInput from './messageInput';
 
 export default () => {
   const history = useHistory();
+  const { datas } = useSelector((GlobalState) => GlobalState.userData);
   const initialState = {
-    email: '',
+    email: datas.email || '',
     subject: '',
     message: '',
   };
@@ -18,14 +26,8 @@ export default () => {
 
   return (
     <main className="contact">
-      <header>
-        <nav className="contact-nav">
-          <Icon onClick={() => history.push("/")} name="arrow alternate circle left" size="big" color="blue" />
-          <a onClick={() => history.push("/")} className="contact-nav-links">Retour Page D'Accueil</a>
-        </nav>
-        {/*  TODO: Logo ici */}
-      </header>
-      <h1 className="contact-title">Un bug ? Une question ? Ou juste des mot gentils :) ? C'est ici que ça se passe !</h1>
+      <Header history={history} />
+      <h1 className="contact-title">Un bug ? Une question ? Ou juste des mots gentils :) ? C'est ici que ça se passe !</h1>
       <div className="contact-bodycontainer">
 
         <div className="contact-right">
@@ -34,42 +36,11 @@ export default () => {
 
           <form action="" className="contact-right-form">
 
-            <label className="contact-right-form-label" htmlFor="Email">Email</label>
-            <Input
-              value={state.email}
-              onChange={(e) => setstate({ ...state, email: e.target.value })}
-              className="contact-right-form-input"
-              type="email"
-              name="email"
-              id="email"
-              placeholder="example@example.fr"
-              icon="at"
-            />
+            <EmailInput state={state} setstate={setstate} />
 
-            <label className="contact-right-form-label" htmlFor="Sujet">Sujet</label>
-            <Input
-              value={state.subject}
-              onChange={(e) => setstate({ ...state, subject: e.target.value })}
-              className="contact-right-form-input"
-              type="text"
-              name="sujet"
-              id="sujet"
-              placeholder="Bug, Suggestions, Question..."
-              size="big"
-              icon="question circle"
-            />
+            <SubjectInput state={state} setstate={setstate} />
 
-            <label className="contact-right-form-label" htmlFor="Text">Message</label>
-            <TextArea
-              value={state.message}
-              onChange={(e) => setstate({ ...state, message: e.target.value })}
-              className="contact-right-form-input"
-              name="Text"
-              id="Text"
-              cols="30"
-              rows="10"
-              placeholder="Ecrivez votre message ici..."
-            />
+            <MessageInput state={state} setstate={setstate} />
 
             <Button className="contact-right-form-btn" primary icon>
               <span>Envoyer</span>
