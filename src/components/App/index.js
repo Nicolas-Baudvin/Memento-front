@@ -11,15 +11,19 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Home from 'src/components/Home';
 import About from 'src/components/About';
 import Contact from 'src/components/Contact';
+import Popup from 'src/components/Popup';
+import NotFound from 'src/components/NotFound';
 // Données
 // Styles et assets
 import './app.scss';
 import 'semantic-ui-css/semantic.min.css';
+import { useSelector } from 'react-redux';
 
 /**
  * Code
  */
 const App = () => {
+  const { isVisible, isSuccess, message } = useSelector((globalState) => globalState.popup);
   return (
     <Router as="div" id="app">
       <Switch>
@@ -32,7 +36,11 @@ const App = () => {
         <Route exact path="/contact/">
           <Contact />
         </Route>
+        <Route path="*">
+          <NotFound />
+        </Route>
       </Switch>
+      <Popup isVisible={isVisible} message={message} isSuccess={isSuccess} />
     </Router>
   );
 };
