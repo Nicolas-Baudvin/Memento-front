@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./style.scss";
 
 // component
@@ -8,6 +8,7 @@ import { useHistory } from "react-router-dom";
 
 export default () => {
   const history = useHistory();
+
   return (
     <main className="home">
 
