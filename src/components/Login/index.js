@@ -1,8 +1,7 @@
 // Dependances
-import React, { useState, useEffect } from "react";
-import { Input, Button, Icon } from 'semantic-ui-react';
+import React, { useState } from "react";
+import { Button } from 'semantic-ui-react';
 import { useDispatch } from "react-redux";
-import cx from 'classnames';
 
 import "./style.scss";
 
@@ -15,6 +14,7 @@ import PasswordInput from './Inputs/password';
 import UsernameInput from './Inputs/username';
 import ConfPassInput from './Inputs/confPass';
 import { submitLoginForm, submitSignupForm } from "../../store/Registration/actions";
+import { failMessage } from "../../store/Popup/actions";
 
 export default () => {
   const dispatch = useDispatch();
@@ -28,7 +28,8 @@ export default () => {
 
   const [state, setstate] = useState(initialState);
 
-  const hanldeSubmitForm = () => {
+  const hanldeSubmitForm = (e) => {
+    e.preventDefault();
     const {
       email, password, confPass, username, currentView
     } = state;
@@ -37,15 +38,18 @@ export default () => {
       if (email && password) {
         dispatch(submitLoginForm({ email, password }));
       }
+      else {
+        dispatch(failMessage("Tous les champs sont obligatoires"));
+      }
     }
     else if (currentView === "Signup") {
-      // submit signup data
       if (email && password && confPass && username) {
-
         dispatch(submitSignupForm({
           email, password, confPass, username
         }));
-
+      }
+      else {
+        dispatch(failMessage("Tous les champs sont obligatoires"));
       }
     }
   };
