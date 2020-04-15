@@ -1,0 +1,50 @@
+.header {
+    &-sidemenu {
+        position: absolute;
+        top: 5em;
+        right: 1em;
+        display: flex;
+        flex-direction: column;
+        background-color: #fff;
+        padding: 1em;
+        box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+        width: 300px;
+
+        &-title {
+            font-size: 1.3em;
+            font-weight: bold;
+
+            &:last-child {
+                transition: .3s;
+                cursor: pointer;
+                &:hover {
+                    background-color: #ddd;
+                    transition: .3s;
+                }
+            }
+        }
+
+        &-mainTitle {
+            font-size: 1.6em;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        &-tabMenu {
+            ul {
+                li {
+                    margin: .5em 0;
+                    transition: .3s;
+                    cursor: pointer;
+                    padding: .5em;
+                    text-transform: capitalize;
+
+                    &:hover {
+                        background-color: #ddd;
+                        transition: .3s;
+                    }
+                }
+            }
+        }
+    }
+}
