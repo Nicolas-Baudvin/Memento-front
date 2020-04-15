@@ -22,3 +22,9 @@ body {
     display: flex;
     flex-direction: column;
 }
+
+.dimmed.dimmable>.ui.animating.dimmer,
+.dimmed.dimmable>.ui.visible.dimmer,
+.ui.active.dimmer {
+    backdrop-filter: blur(4px);
+}
