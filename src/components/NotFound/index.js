@@ -10,7 +10,7 @@ export default () => {
 
   return (
     <div className="notFound">
-      <img src="assets/404-not-found.png" alt="404" />
+      <img src="/assets/404-not-found.png" alt="404" />
       <h2>La page que vous avez demandé n'existe pas.</h2>
       Retourner à ...
       <nav>
