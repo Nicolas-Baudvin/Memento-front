@@ -26,6 +26,7 @@ export default (store) => (next) => (action) => {
 
           const dataCrypted = cryptUserData(res.data);
           localStorage.setItem("udta", dataCrypted);
+          next(action);
         })
         .catch((err) => {
           console.log(err.response.data);
@@ -38,8 +39,6 @@ export default (store) => (next) => (action) => {
             store.dispatch(failMessage(err.response.data.errors));
           }
         });
-
-      next(action);
       break;
     }
     case SUBMIT_SIGNUP_FORM: {
@@ -51,6 +50,7 @@ export default (store) => (next) => (action) => {
         .then((res) => {
           console.log(res);
           store.dispatch(successMessage(res.data.message));
+          next(action);
         })
         .catch((err) => {
           console.log(err.response.data);
@@ -63,7 +63,6 @@ export default (store) => (next) => (action) => {
           }
         });
 
-      next(action);
       break;
     }
     default: {
