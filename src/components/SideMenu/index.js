@@ -1,12 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import { Icon } from 'semantic-ui-react';
 import { useDispatch } from "react-redux";
-import "./style.scss";
 import { useHistory } from "react-router-dom";
+import "./style.scss";
+
+// Actions
+import { logOut } from "src/store/Registration/actions";
+
+// Component
+import Settings from 'src/components/Settings';
 
 export default ({ handleOpen }) => {
+  const initialState = {
+    open: false,
+  };
+  const [state, setstate] = useState(initialState);
   const dispatch = useDispatch();
   const history = useHistory();
+
+  const openSettings = () => {
+    setstate({ ...state, open: true });
+  };
+
+  const closeSettings = () => {
+    setstate({ ...state, open: false });
+  };
+
   return (
     <div className="header-sidemenu">
       <h2 className="header-sidemenu-mainTitle">Menu</h2>
@@ -14,7 +33,7 @@ export default ({ handleOpen }) => {
         <div className="header-sidemenu-title"> <Icon name="table" /> Tableau</div>
         <ul>
           <li onClick={handleOpen}>Nouveau</li>
-          <li>Options</li>
+          <Settings state={state} handleOpen={openSettings} handleClose={closeSettings} />
         </ul>
       </div>
       <div className="header-sidemenu-tabMenu">
@@ -26,7 +45,7 @@ export default ({ handleOpen }) => {
         </ul>
       </div>
       <div className="header-sidemenu-tabMenu">
-        <div className="header-sidemenu-title"> <Icon name="log out" /> Disconnect</div>
+        <div onClick={() => dispatch(logOut())} className="header-sidemenu-title"> <Icon name="log out" /> Déconnexion</div>
       </div>
     </div>
   );

@@ -1,9 +1,9 @@
 .header {
     &-sidemenu {
+        display: flex;
         position: absolute;
         top: 5em;
         right: 1em;
-        display: flex;
         flex-direction: column;
         background-color: #fff;
         padding: 1em;
@@ -17,6 +17,8 @@
             &:last-child {
                 transition: .3s;
                 cursor: pointer;
+                padding: .5em 0;
+
                 &:hover {
                     background-color: #ddd;
                     transition: .3s;
@@ -48,3 +50,11 @@
         }
     }
 }
+
+@media only screen and (max-width: 1920px) and (min-width: 1366px) {}
+
+@media only screen and (max-width: 1366px) and (min-width: 1080px) {}
+
+@media only screen and (max-width: 1080px) and (min-width: 767px) {}
+
+@media only screen and (max-width: 767px) {}
