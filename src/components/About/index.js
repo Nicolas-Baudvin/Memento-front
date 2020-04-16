@@ -1,6 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { Icon } from 'semantic-ui-react';
+import { Icon, Popup } from 'semantic-ui-react';
 
 import "./style.scss";
 
@@ -15,9 +15,26 @@ export default () => {
           <a onClick={() => history.push("/")} href="#" className="about-header-nav__item"> Retour Page d'Accueil </a>
         </nav>
 
-        <h2 className="about-header-simple"> <strong>Simplicité</strong></h2>
-        <h2 className="about-header-ergon"> <strong>Ergonomie</strong></h2>
-        <h2 className="about-header-realtime"> <strong>Temps réel</strong></h2>
+        <Popup
+          trigger={<h2 className="about-header-simple"> <strong>Simplicité</strong></h2>}
+          content="Le site a été pensé afin de rendre la vie de l'utilisateur plus simple grâce à une interface claire et propre."
+          openOnTriggerClick
+          inverted
+        />
+
+        <Popup
+          trigger={<h2 className="about-header-ergon"> <strong>Ergonomie</strong></h2>}
+          content="Le site a été pensé afin de rendre la vie de l'utilisateur plus simple grâce à une interface claire et propre."
+          openOnTriggerClick
+          inverted
+        />
+
+        <Popup
+          trigger={<h2 className="about-header-realtime"> <strong>Temps réel</strong></h2>}
+          content="Vous avez la possibilitée de partager vos listes avec vos amis, collègues ou votre famille en temps réel. Une modification ? Vos invités la verront directement une fois validée !"
+          openOnTriggerClick
+          inverted
+        />
 
       </header>
       <main className="about-body">

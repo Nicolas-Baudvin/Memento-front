@@ -4,13 +4,18 @@ import axios from "axios";
 import { decryptUserData, cryptUserData } from 'src/Utils/crypt';
 
 // actions
-import { SUBMIT_LOGIN_FORM, SUBMIT_SIGNUP_FORM } from "./actions";
+import { SUBMIT_LOGIN_FORM, SUBMIT_SIGNUP_FORM, LOGOUT } from "./actions";
 import { failMessage, successMessage } from "../Popup/actions";
 
 export default (store) => (next) => (action) => {
   const state = store.getState();
 
   switch (action.type) {
+    case LOGOUT: {
+      localStorage.clear();
+      next(action);
+      break;
+    }
     case SUBMIT_LOGIN_FORM: {
       axios({
         method: "POST",

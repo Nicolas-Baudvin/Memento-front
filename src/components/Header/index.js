@@ -21,7 +21,7 @@ export default ({ history, handleOpen }) => {
       <h1 className="workmenu-header-title" onClick={() => history.push("/vos-tableaux/")}>Memento</h1>
       <Button onClick={() => setstate({ ...state, show: !state.show })} content="Menu" icon="bars" />
       {
-        state.show && <Menu handleOpen={handleOpen} state={state} setstate={setstate} />
+        state.show && <Menu handleOpen={handleOpen} />
       }
     </header>
   );

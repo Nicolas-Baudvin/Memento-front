@@ -26,6 +26,7 @@ import { useSelector } from 'react-redux';
 const App = () => {
   const { isVisible, isSuccess, message } = useSelector((globalState) => globalState.popup);
   const { isConnected } = useSelector((globalState) => globalState.userData);
+
   return (
     <Router as="div" id="app">
       <Switch>

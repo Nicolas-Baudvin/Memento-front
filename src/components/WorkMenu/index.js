@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Header from 'src/components/Header';
 import Modal from 'src/components/WorkMenu/modal';
 import Tabs from 'src/components/WorkMenu/tabs';
+import Teams from 'src/components/WorkMenu/teams';
 
 // Actions
 import { failMessage } from 'src/store/Popup/actions';
@@ -111,9 +112,7 @@ export default () => {
           </div>
         }
         {
-          state.view === "Teams" && <div className="workmenu-body-teams">
-
-          </div>
+          state.view === "Teams" && <Teams teams={false} />
         }
 
       </main>
