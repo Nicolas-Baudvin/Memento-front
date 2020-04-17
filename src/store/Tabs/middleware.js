@@ -34,14 +34,16 @@ export default (store) => (next) => (action) => {
         .catch((err) => {
           console.log(err);
           if (!err.response) {
-            store.dispatch(failMessage("Une erreur est survenue sur le serveur. Réessayez ou contacter un administrateur"));
+            return store.dispatch(failMessage("Une erreur est survenue sur le serveur. Réessayez ou contacter un administrateur"));
+          }
+          if (err.response.status === 401) {
+            store.dispatch(logOut());
+            return store.dispatch(failMessage("Votre session a expiré. Veuillez vous reconnecter."));
           }
           if (Array.isArray(err.response.data.errors)) {
-            store.dispatch(failMessage(err.response.data.errors[0].msg));
+            return store.dispatch(failMessage(err.response.data.errors[0].msg));
           }
-          else {
-            store.dispatch(failMessage(err.response.data.errors));
-          }
+          return store.dispatch(failMessage(err.response.data.errors));
         });
 
       break;
@@ -72,12 +74,17 @@ export default (store) => (next) => (action) => {
         })
         .catch((err) => {
           console.log(err);
+          if (!err.response) {
+            return store.dispatch(failMessage("Le serveur a rencontré un problème. Veuillez contacter un administrateur"));
+          }
+          if (err.response.status === 401) {
+            store.dispatch(logOut());
+            return store.dispatch(failMessage("Votre session a expiré. Veuillez vous reconnecter."));
+          }
           if (Array.isArray(err.response.data.errors)) {
-            store.dispatch(failMessage(err.response.data.errors[0].msg));
+            return store.dispatch(failMessage(err.response.data.errors[0].msg));
           }
-          else {
-            store.dispatch(failMessage(err.response.data.errors));
-          }
+          return store.dispatch(failMessage(err.response.data.errors));
         });
 
       break;
@@ -98,7 +105,10 @@ export default (store) => (next) => (action) => {
           next(action);
         })
         .catch((err) => {
-          console.log(err.response.status);
+          console.log(err);
+          if (!err.response) {
+            return store.dispatch(failMessage("Le serveur a rencontré un problème. Veuillez contacter un administrateur"));
+          }
           if (err.response.status === 401) {
             store.dispatch(logOut());
             return store.dispatch(failMessage("Votre session a expiré. Veuillez vous reconnecter."));
