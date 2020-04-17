@@ -4,7 +4,7 @@ import axios from "axios";
 import { cryptUserData } from 'src/Utils/crypt';
 
 // actions
-import { SUBMIT_LOGIN_FORM, SUBMIT_SIGNUP_FORM, LOGOUT } from "./actions";
+import { SUBMIT_LOGIN_FORM, SUBMIT_SIGNUP_FORM, LOGOUT, UPDATE_USERNAME, UPDATE_EMAIL, UPDATE_PASSWORD, FORGOT_PASSWORD } from "./actions";
 import { failMessage, successMessage } from "../Popup/actions";
 
 export default (store) => (next) => (action) => {
@@ -70,6 +70,26 @@ export default (store) => (next) => (action) => {
           return store.dispatch(failMessage(err.response.data.errors));
         });
 
+      break;
+    }
+    case UPDATE_USERNAME: {
+
+      next(action);
+      break;
+    }
+    case UPDATE_EMAIL: {
+
+      next(action);
+      break;
+    }
+    case UPDATE_PASSWORD: {
+
+      next(action);
+      break;
+    }
+    case FORGOT_PASSWORD: {
+
+      next(action);
       break;
     }
     default: {
