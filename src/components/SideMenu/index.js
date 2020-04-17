@@ -33,7 +33,7 @@ export default ({ handleOpen }) => {
         <div className="header-sidemenu-title"> <Icon name="table" /> Tableau</div>
         <ul>
           <li onClick={handleOpen}>Nouveau</li>
-          <Settings state={state} handleOpen={openSettings} handleClose={closeSettings} />
+          <Settings isOpen={state.open} handleOpen={openSettings} handleClose={closeSettings} />
         </ul>
       </div>
       <div className="header-sidemenu-tabMenu">
