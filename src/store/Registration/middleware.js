@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // utils
-import { decryptUserData, cryptUserData } from 'src/Utils/crypt';
+import { cryptUserData } from 'src/Utils/crypt';
 
 // actions
 import { SUBMIT_LOGIN_FORM, SUBMIT_SIGNUP_FORM, LOGOUT } from "./actions";
@@ -35,14 +35,15 @@ export default (store) => (next) => (action) => {
         })
         .catch((err) => {
           console.log(err.response.data);
-
+          if (!err.response) {
+            return store.dispatch(failMessage("Le serveur a rencontré un problème. Veuillez contacter un administrateur"));
+          }
           if (Array.isArray(err.response.data.errors)) {
             const { msg } = err.response.data.errors[0];
-            store.dispatch(failMessage(msg));
+            return store.dispatch(failMessage(msg));
           }
-          else {
-            store.dispatch(failMessage(err.response.data.errors));
-          }
+
+          return store.dispatch(failMessage(err.response.data.errors));
         });
       break;
     }
@@ -59,13 +60,14 @@ export default (store) => (next) => (action) => {
         })
         .catch((err) => {
           console.log(err.response.data);
+          if (!err.response) {
+            return store.dispatch(failMessage("Le serveur a rencontré un problème. Veuillez contacter un administrateur"));
+          }
           if (Array.isArray(err.response.data.errors)) {
             const { msg } = err.response.data.errors[0];
-            store.dispatch(failMessage(msg));
+            return store.dispatch(failMessage(msg));
           }
-          else {
-            store.dispatch(failMessage(err.response.data.errors));
-          }
+          return store.dispatch(failMessage(err.response.data.errors));
         });
 
       break;
