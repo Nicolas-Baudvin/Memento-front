@@ -4,7 +4,17 @@ import axios from "axios";
 import { cryptUserData } from 'src/Utils/crypt';
 
 // actions
-import { SUBMIT_LOGIN_FORM, SUBMIT_SIGNUP_FORM, LOGOUT, UPDATE_USERNAME, UPDATE_EMAIL, UPDATE_PASSWORD, FORGOT_PASSWORD, logOut } from "./actions";
+import {
+  SUBMIT_LOGIN_FORM,
+  SUBMIT_SIGNUP_FORM,
+  LOGOUT,
+  UPDATE_USERNAME,
+  UPDATE_EMAIL,
+  UPDATE_PASSWORD,
+  FORGOT_PASSWORD,
+  logOut,
+  DELETE_ACCOUNT
+} from "./actions";
 import { failMessage, successMessage } from "../Popup/actions";
 
 export default (store) => (next) => (action) => {
@@ -220,6 +230,43 @@ export default (store) => (next) => (action) => {
           return store.dispatch(failMessage(err.response.data.errors));
         });
 
+      break;
+    }
+    case DELETE_ACCOUNT: {
+      const { userID, token } = state.userData.datas;
+
+      axios({
+        method: 'post',
+        url: `${process.env.API_URL}auth/delete/`,
+        data: {
+          userID
+        },
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+        .then((res) => {
+          console.log(res);
+
+          store.dispatch(successMessage(res.data.message));
+          store.dispatch(logOut());
+          next(action);
+        })
+        .catch((err) => {
+          console.log(err);
+          if (!err.response) {
+            return store.dispatch(failMessage("Le serveur a rencontré un problème. Veuillez contacter un administrateur"));
+          }
+          if (err.response.status === 401) {
+            store.dispatch(logOut());
+            return store.dispatch(failMessage("Votre session a expiré. Veuillez vous reconnecter"));
+          }
+          if (Array.isArray(err.response.data.errors)) {
+            const { msg } = err.response.data.errors[0];
+            return store.dispatch(failMessage(msg));
+          }
+          return store.dispatch(failMessage(err.response.data.errors));
+        });
       break;
     }
     default: {
