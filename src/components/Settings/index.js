@@ -1,12 +1,18 @@
 import React, { useState } from "react";
 import {
-  Modal, Header, Icon, Button, Input
+  Modal, Header, Icon, Button, Input, Confirm
 } from 'semantic-ui-react';
 import { useSelector, useDispatch } from "react-redux";
 import { settingsNav } from 'src/Utils/navs';
 import "./style.scss";
-import { updateUsername, updatePassword, updateEmail } from "../../store/Registration/actions";
+import { updateUsername, updatePassword, updateEmail, deleteAccount } from "../../store/Registration/actions";
 import { failMessage } from "../../store/Popup/actions";
+
+// Components
+import EditUsername from './changeUsername';
+import EditPassword from './changePassword';
+import EditEmail from './changeEmail';
+import DeleteAccount from './deleteAccount';
 
 export default ({ handleOpen, isOpen, handleClose }) => {
   const dispatch = useDispatch();
@@ -20,6 +26,7 @@ export default ({ handleOpen, isOpen, handleClose }) => {
     newPassConf: '',
     oldEmail: datas.email,
     newEmail: '',
+    openConfirm: false
   };
   const [state, setstate] = useState(initialState);
 
@@ -31,6 +38,10 @@ export default ({ handleOpen, isOpen, handleClose }) => {
     }
 
     return dispatch(updatePassword({ oldPass, newPass, newPassConf }));
+  };
+
+  const closeConfirm = () => {
+    setstate({ ...state, openConfirm: false });
   };
 
   return (
@@ -64,104 +75,16 @@ export default ({ handleOpen, isOpen, handleClose }) => {
           <div className="settings-body">
             <h3 className="settings-title">{state.currentMenu}</h3>
             {
-              state.currentMenu === "Mon Compte" && <div className="settings-body-data">
-                <label className="settings-body-data-label" htmlFor="username">Votre pseudo</label>
-                <div className="settings-body-data-group">
-
-                  <Input
-                    className="settings-body-data-input"
-                    value={state.username}
-                    disabled={state.usernameIsDisabled}
-                    onChange={(e) => setstate({ ...state, username: e.target.value })}
-                  />
-
-                  <Button
-                    className="settings-body-data-btn"
-                    onClick={() => setstate({ ...state, usernameIsDisabled: !state.usernameIsDisabled })}
-                    content="Changer"
-                    primary
-                  />
-
-                </div>
-
-                <Button icon="checkmark"
-                  onClick={() => dispatch(updateUsername(state.username))}
-                  className="settings-body-data-submit"
-                  content="Confirmer"
-                  color="green"
-                />
-              </div>
+              state.currentMenu === "Mon Compte" && <EditUsername state={state} setstate={setstate} />
             }
             {
-              state.currentMenu === "Changer de mot de passe" && <div className="settings-body-data">
-                <label className="settings-body-data-label" htmlFor="oldpass">Votre ancien mot de passe</label>
-                <Input
-                  type="password"
-                  icon="key"
-                  placeholder="On ressort le vieux une dernière fois ..."
-                  className="settings-body-data-input"
-                  value={state.oldPass}
-                  onChange={(e) => setstate({ ...state, oldPass: e.target.value })}
-                />
-                <label className="settings-body-data-label" htmlFor="newpass">Votre nouveau mot de passe</label>
-                <Input
-                  type="password"
-                  icon="lock"
-                  placeholder="Place aux jeunes !"
-                  className="settings-body-data-input"
-                  value={state.newPass}
-                  onChange={(e) => setstate({ ...state, newPass: e.target.value })}
-                />
-
-                <label className="settings-body-data-label" htmlFor="newpassconf">Confirmez le mot de passe</label>
-                <Input
-                  type="password"
-                  icon="lock"
-                  placeholder="Hmm.. Tu es sûr ?"
-                  className="settings-body-data-input"
-                  value={state.newPassConf}
-                  onChange={(e) => setstate({ ...state, newPassConf: e.target.value })}
-                />
-
-                <Button
-                  icon="checkmark"
-                  onClick={handleSubmitChangePass}
-                  className="settings-body-data-submit"
-                  content="Confirmer"
-                  color="green"
-                />
-              </div>
+              state.currentMenu === "Changer de mot de passe" && <EditPassword state={state} setstate={setstate} handleSubmitChangePass={handleSubmitChangePass} />
             }
             {
-              state.currentMenu === "Changer d'email" && <div className="settings-body-data">
-                <label className="settings-body-data-label" htmlFor="oldpass">Votre ancien email</label>
-                <Input
-                  type="email"
-                  icon="at"
-                  placeholder="On ressort le vieux une dernière fois ..."
-                  className="settings-body-data-input"
-                  value={state.oldEmail}
-                  onChange={(e) => setstate({ ...state, oldEmail: e.target.value })}
-                />
-
-                <label className="settings-body-data-label" htmlFor="oldpass">Votre nouvel email</label>
-                <Input
-                  type="email"
-                  icon="at"
-                  placeholder="On ressort le vieux une dernière fois ..."
-                  className="settings-body-data-input"
-                  value={state.newEmail}
-                  onChange={(e) => setstate({ ...state, newEmail: e.target.value })}
-                />
-
-                <Button
-                  onClick={() => dispatch(updateEmail({ newEmail: state.newEmail, oldEmail: state.oldEmail }))}
-                  className="settings-body-data-submit"
-                  content="Confirmer"
-                  color="green"
-                  icon="checkmark"
-                />
-              </div>
+              state.currentMenu === "Changer d'email" && <EditEmail state={state} setstate={setstate} />
+            }
+            {
+              state.currentMenu === "Supprimer mon compte" && <DeleteAccount state={state} setstate={setstate} closeConfirm={closeConfirm} />
             }
           </div>
         </div>
