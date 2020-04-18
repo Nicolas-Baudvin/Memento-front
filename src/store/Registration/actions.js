@@ -12,14 +12,14 @@ export const updateUsername = (username) => ({
   username
 });
 
-export const updateEmail = (email) => ({
+export const updateEmail = (payload) => ({
   type: UPDATE_EMAIL,
-  email
+  payload
 });
 
-export const updatePassword = (password) => ({
+export const updatePassword = (payload) => ({
   type: UPDATE_PASSWORD,
-  password
+  payload
 });
 
 export const forgotPassword = () => ({

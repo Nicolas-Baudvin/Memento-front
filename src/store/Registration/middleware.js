@@ -4,7 +4,7 @@ import axios from "axios";
 import { cryptUserData } from 'src/Utils/crypt';
 
 // actions
-import { SUBMIT_LOGIN_FORM, SUBMIT_SIGNUP_FORM, LOGOUT, UPDATE_USERNAME, UPDATE_EMAIL, UPDATE_PASSWORD, FORGOT_PASSWORD } from "./actions";
+import { SUBMIT_LOGIN_FORM, SUBMIT_SIGNUP_FORM, LOGOUT, UPDATE_USERNAME, UPDATE_EMAIL, UPDATE_PASSWORD, FORGOT_PASSWORD, logOut } from "./actions";
 import { failMessage, successMessage } from "../Popup/actions";
 
 export default (store) => (next) => (action) => {
@@ -34,7 +34,6 @@ export default (store) => (next) => (action) => {
           next(action);
         })
         .catch((err) => {
-          console.log(err.response.data);
           if (!err.response) {
             return store.dispatch(failMessage("Le serveur a rencontré un problème. Veuillez contacter un administrateur"));
           }
@@ -59,7 +58,6 @@ export default (store) => (next) => (action) => {
           next(action);
         })
         .catch((err) => {
-          console.log(err.response.data);
           if (!err.response) {
             return store.dispatch(failMessage("Le serveur a rencontré un problème. Veuillez contacter un administrateur"));
           }
@@ -73,23 +71,155 @@ export default (store) => (next) => (action) => {
       break;
     }
     case UPDATE_USERNAME: {
+      const { username } = action;
+      const { token, userID } = state.userData.datas;
+      console.log(username, process.env.UPDATE_USERNAME_API, state.userData.datas);
+      axios({
+        method: 'POST',
+        url: `${process.env.UPDATE_USERNAME_API}`,
+        data: {
+          userID,
+          username
+        },
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+        .then((res) => {
+          console.log(res);
+          const { userData, message } = res.data;
+          const datas = userData;
 
-      next(action);
+          datas.token = token;
+          datas.userID = userData._id;
+
+          const CryptedData = cryptUserData(datas);
+          localStorage.setItem("udta", CryptedData);
+
+          action.datas = datas;
+
+          store.dispatch(successMessage(message));
+          next(action);
+        })
+        .catch((err) => {
+          if (!err.response) {
+            return store.dispatch(failMessage("Le serveur a rencontré un problème. Veuillez contacter un administrateur"));
+          }
+          if (err.response.status === 401) {
+            store.dispatch(logOut());
+            return store.dispatch(failMessage("Votre session a expiré. Veuillez vous reconnecter"));
+          }
+          if (Array.isArray(err.response.data.errors)) {
+            const { msg } = err.response.data.errors[0];
+            return store.dispatch(failMessage(msg));
+          }
+          return store.dispatch(failMessage(err.response.data.errors));
+        });
       break;
     }
     case UPDATE_EMAIL: {
+      const { token } = state.userData.datas;
 
-      next(action);
+      axios({
+        method: 'post',
+        url: `${process.env.UPDATE_EMAIL_API}`,
+        data: {
+          ...action.payload,
+          userID: state.userData.datas.userID
+        },
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+        .then((res) => {
+          console.log(res);
+
+          store.dispatch(successMessage(res.data.message));
+
+          next(action);
+        })
+        .catch((err) => {
+          console.log(err);
+          if (!err.response) {
+            return store.dispatch(failMessage("Le serveur a rencontré un problème. Veuillez contacter un administrateur"));
+          }
+          if (err.response.status === 401) {
+            store.dispatch(logOut());
+            return store.dispatch(failMessage("Votre session a expiré. Veuillez vous reconnecter"));
+          }
+          if (Array.isArray(err.response.data.errors)) {
+            const { msg } = err.response.data.errors[0];
+            return store.dispatch(failMessage(msg));
+          }
+          return store.dispatch(failMessage(err.response.data.errors));
+        });
+
       break;
     }
     case UPDATE_PASSWORD: {
+      const token = state.userData.datas.token;
 
-      next(action);
+      axios({
+        method: 'POST',
+        url: `${process.env.UPDATE_PASSWORD_API}`,
+        data: {
+          ...action.payload,
+          userID: state.userData.datas.userID
+        },
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+        .then((res) => {
+          console.log(res);
+          store.dispatch(successMessage(res.data.message));
+
+          next(action);
+        })
+        .catch((err) => {
+          console.log(err);
+          if (!err.response) {
+            return store.dispatch(failMessage("Le serveur a rencontré un problème. Veuillez contacter un administrateur"));
+          }
+          if (err.response.status === 401) {
+            store.dispatch(logOut());
+            return store.dispatch(failMessage("Votre session a expiré. Veuillez vous reconnecter"));
+          }
+          if (Array.isArray(err.response.data.errors)) {
+            const { msg } = err.response.data.errors[0];
+            return store.dispatch(failMessage(msg));
+          }
+          return store.dispatch(failMessage(err.response.data.errors));
+        });
+
       break;
     }
     case FORGOT_PASSWORD: {
+      axios({
+        method: 'post',
+        url: `${process.env.FORGOT_PASSWORD_API}`,
+        data: {
+          ...action.payload,
+          userID: state.userData.datas.userID
+        }
+      })
+        .then((res) => {
+          console.log(res);
+          store.dispatch(successMessage(res.data.message));
+          next(action);
+        })
+        .catch((err) => {
+          console.log(err);
+          if (!err.response) {
+            return store.dispatch(failMessage("Le serveur a rencontré un problème. Veuillez contacter un administrateur"));
+          }
+          if (Array.isArray(err.response.data.errors)) {
+            const { msg } = err.response.data.errors[0];
+            return store.dispatch(failMessage(msg));
+          }
+          return store.dispatch(failMessage(err.response.data.errors));
+        });
 
-      next(action);
       break;
     }
     default: {

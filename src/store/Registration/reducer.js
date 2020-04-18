@@ -1,5 +1,5 @@
 import { decryptUserData } from 'src/Utils/crypt';
-import { SUBMIT_LOGIN_FORM, SUBMIT_SIGNUP_FORM, LOGOUT } from "./actions";
+import { SUBMIT_LOGIN_FORM, SUBMIT_SIGNUP_FORM, LOGOUT, UPDATE_USERNAME, UPDATE_PASSWORD, UPDATE_EMAIL, FORGOT_PASSWORD } from "./actions";
 
 const initialState = {
   datas: localStorage.getItem("udta") ? decryptUserData(localStorage.getItem("udta")) : false,
@@ -22,6 +22,22 @@ export default (state = initialState, action) => {
       };
     }
     case SUBMIT_SIGNUP_FORM: {
+      return state;
+    }
+    case UPDATE_USERNAME: {
+      return {
+        ...state,
+        isConnected: true,
+        datas: action.datas
+      };
+    }
+    case UPDATE_PASSWORD: {
+      return state;
+    }
+    case UPDATE_EMAIL: {
+      return state;
+    }
+    case FORGOT_PASSWORD: {
       return state;
     }
     default: {
