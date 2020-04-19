@@ -8,7 +8,7 @@ module.exports = merge(devConfig, {
     devtoolModuleFilenameTemplate: '[absolute-resource-path]',
     devtoolFallbackModuleFilenameTemplate: '[absolute-resource-path]?[hash]'
   },
-  target: 'node',
+  target: "node",
   externals: [nodeExternals()],
   devtool: 'inline-cheap-module-source-map',
   module: {
