@@ -5,10 +5,10 @@ import { useHistory } from "react-router-dom";
 import "./style.scss";
 
 // Actions
-import { logOut } from "src/store/Registration/actions";
+import { logOut } from "../../store/Registration/actions";
 
 // Component
-import Settings from 'src/components/Settings';
+import Settings from '../Settings';
 
 export default ({ handleOpen }) => {
   const initialState = {

@@ -8,12 +8,12 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
  * Imports locaux
  */
 // Composants React
-import Home from 'src/components/Home';
-import About from 'src/components/About';
-import Contact from 'src/components/Contact';
-import Popup from 'src/components/Popup';
-import NotFound from 'src/components/NotFound';
-import WorkMenu from 'src/components/WorkMenu';
+import Home from '../Home';
+import About from '../About';
+import Contact from '../Contact';
+import Popup from '../Popup';
+import NotFound from '../NotFound';
+import WorkMenu from '../WorkMenu';
 // Données
 // Styles et assets
 import './app.scss';

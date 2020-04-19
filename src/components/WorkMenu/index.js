@@ -4,15 +4,16 @@ import "./style.scss";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-// Components
-import Header from 'src/components/Header';
-import Modal from 'src/components/WorkMenu/modal';
-import Tabs from 'src/components/WorkMenu/tabs';
-import Teams from 'src/components/WorkMenu/teams';
-
 // Actions
-import { failMessage } from 'src/store/Popup/actions';
-import { newTab, myTabs } from "src/store/Tabs/actions";
+import { failMessage } from '../../store/Popup/actions';
+import { newTab, myTabs } from "../../store/Tabs/actions";
+
+
+// Components
+import Modal from './modal';
+import Header from '../Header';
+import Tabs from './tabs';
+import Teams from './teams';
 
 export default () => {
   const { tabs } = useSelector((GlobalState) => GlobalState.mytabs);

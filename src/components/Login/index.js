@@ -13,6 +13,8 @@ import EmailInput from './Inputs/email';
 import PasswordInput from './Inputs/password';
 import UsernameInput from './Inputs/username';
 import ConfPassInput from './Inputs/confPass';
+
+// Actions
 import { submitLoginForm, submitSignupForm } from "../../store/Registration/actions";
 import { failMessage } from "../../store/Popup/actions";
 

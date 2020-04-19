@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import {
-  Modal, Header, Icon, Button, Input, Confirm
+  Modal, Header, Icon, Button
 } from 'semantic-ui-react';
 import { useSelector, useDispatch } from "react-redux";
-import { settingsNav } from 'src/Utils/navs';
-import "./style.scss";
-import { updateUsername, updatePassword, updateEmail, deleteAccount } from "../../store/Registration/actions";
+import { settingsNav } from '../../Utils/navs';
+import { updatePassword } from "../../store/Registration/actions";
 import { failMessage } from "../../store/Popup/actions";
+
+// Styles
+import "./style.scss";
 
 // Components
 import EditUsername from './changeUsername';

@@ -2,9 +2,13 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Confirm, Icon } from 'semantic-ui-react';
+
+// Styles
 import "./style.scss";
-import { failMessage } from "src/store/Popup/actions";
-import { deleteTab } from "src/store/Tabs/actions";
+
+// actions
+import { failMessage } from "../../store/Popup/actions";
+import { deleteTab } from "../../store/Tabs/actions";
 
 export default ({ openThisTab }) => {
   const { tabs } = useSelector((GlobalState) => GlobalState.mytabs);

@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import "./style.scss";
 
 // component
-import Registration from "src/components/Login";
 import { useHistory } from "react-router-dom";
+import Registration from "../Login";
 
 
 export default () => {
