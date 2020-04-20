@@ -59,7 +59,7 @@ describe('<WorkSpace />', () => {
     expect(wrapper.find('.workspace')).to.have.lengthOf(1);
     const firstDiv = wrapper.find('div').first();
 
-    expect(firstDiv.prop('data-tabId')).to.deep.equal(123);
+    expect(firstDiv.prop('data-tabid')).to.deep.equal(123);
   });
 
   it("should add a task on click", () => {
