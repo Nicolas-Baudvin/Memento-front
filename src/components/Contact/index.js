@@ -1,11 +1,13 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from "react";
 import {
-  Input, Button, Icon, TextArea
+  Button, Icon
 } from 'semantic-ui-react';
-import "./style.scss";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
+
+// styles
+import "./style.scss";
 
 // Components
 import Header from './header';
