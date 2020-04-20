@@ -58,6 +58,26 @@ describe('<WorkSpace />', () => {
 
     expect(wrapper.find('.workspace')).to.have.lengthOf(1);
     const firstDiv = wrapper.find('div').first();
+
     expect(firstDiv.prop('data-tabId')).to.deep.equal(123);
+  });
+
+  it("should add a task on click", () => {
+    const wrapper = shallow(<WorkSpace />);
+    const lists = wrapper.find('.workspace-body-list').length;
+    const button = wrapper.find('.workspace-body-list-add');
+
+    expect(button).to.have.lengthOf(lists);
+
+    const inputValue = wrapper.find('.workspace-body-list-input').props().value;
+
+    button.simulate('click');
+
+    const task = wrapper.find('.workspace-body-list-task');
+    expect(task).to.have.lengthOf(1);
+
+    taskText = task.text();
+
+    expect(taskText).to.deep.equal(inputValue);
   });
 });
