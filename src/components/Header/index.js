@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Button, Popup } from 'semantic-ui-react';
-import { useLocation } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 // Components
 import Menu from '../SideMenu';
 
-export default ({ history, handleOpen }) => {
+export default ({ handleOpen }) => {
   const { tabs } = useSelector((GlobalState) => GlobalState.mytabs);
   const { pathname } = useLocation();
   const initialState = {
@@ -15,6 +15,7 @@ export default ({ history, handleOpen }) => {
     content: ''
   };
   const [state, setstate] = useState(initialState);
+  const history = useHistory();
 
   const handleHelpBtn = () => {
     console.log(pathname);

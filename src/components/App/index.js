@@ -47,7 +47,7 @@ const App = () => {
             !isConnected ? <Redirect from="/vos-tableaux/" to="/" /> : <WorkMenu />
           }
         </Route>
-        <Route exact path="/vos-tableaux/:id">
+        <Route exact path="/vos-tableaux/:name/:id">
           {
             !isConnected ? <Redirect from="/vos-tableaux/:id" to="/" /> : <WorkSpace />
           }

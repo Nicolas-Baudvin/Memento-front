@@ -49,8 +49,8 @@ export default () => {
     });
   };
 
-  const openThisTab = (tabId) => {
-    console.log("opening tab...", tabId);
+  const openThisTab = (tabId, name) => {
+    if (tabId) history.push(`/vos-tableaux/${name}/${tabId}`);
   };
 
   const handleSubmitNewTab = () => {
@@ -73,7 +73,7 @@ export default () => {
   return (
     <div className="workmenu">
 
-      <Header history={history} handleOpen={handleOpen} />
+      <Header handleOpen={handleOpen} />
 
       <main className="workmenu-body">
 

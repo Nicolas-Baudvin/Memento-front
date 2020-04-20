@@ -48,7 +48,7 @@ export default ({ openThisTab }) => {
               size="small"
               content="Toutes les listes et tâches liées à ce tableau seront définitivement perdus. Êtes vous sûr de vouloir continuer ?"
             />
-            <img onClick={() => openThisTab(tab._id)} className="workmenu-tabs-item-img" src={tab.imgPath} alt="Fond de votre tableau" />
+            <img onClick={() => openThisTab(tab._id, tab.name)} className="workmenu-tabs-item-img" src={tab.imgPath} alt="Fond de votre tableau" />
           </div>
         ))
       }
