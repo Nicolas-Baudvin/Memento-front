@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 /**
  * Imports locaux
@@ -14,11 +15,11 @@ import Contact from '../Contact';
 import Popup from '../Popup';
 import NotFound from '../NotFound';
 import WorkMenu from '../WorkMenu';
+import WorkSpace from '../WorkSpace';
 // Données
 // Styles et assets
 import './app.scss';
 import 'semantic-ui-css/semantic.min.css';
-import { useSelector } from 'react-redux';
 
 /**
  * Code
@@ -44,6 +45,11 @@ const App = () => {
         <Route exact path="/vos-tableaux/">
           {
             !isConnected ? <Redirect from="/vos-tableaux/" to="/" /> : <WorkMenu />
+          }
+        </Route>
+        <Route exact path="/vos-tableaux/:id">
+          {
+            !isConnected ? <Redirect from="/vos-tableaux/:id" to="/" /> : <WorkSpace />
           }
         </Route>
         <Route path="*">
