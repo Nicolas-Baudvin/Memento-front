@@ -1,7 +1,7 @@
 import CryptoJS from 'crypto-js';
 
 /**
- * @param {object} dataToDecrypt
+ * @param {Object} dataToDecrypt
  */
 export const decryptUserData = (dataToDecrypt) => {
 
@@ -12,7 +12,7 @@ export const decryptUserData = (dataToDecrypt) => {
 };
 
 /**
- * @param {object} dataToEncrypt
+ * @param {Object} dataToEncrypt
  */
 export const cryptUserData = (dataToEncrypt) => {
   return CryptoJS.AES.encrypt(JSON.stringify(dataToEncrypt), process.env.SECRET_CRYPTO_KEY).toString();
