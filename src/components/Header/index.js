@@ -18,7 +18,7 @@ export default ({ handleOpen }) => {
   const history = useHistory();
 
   const handleHelpBtn = () => {
-    console.log(pathname);
+    console.log(pathname.substring(14), pathname);
 
     if (pathname === "/vos-tableaux/") {
       if (!tabs.length) {
@@ -26,8 +26,8 @@ export default ({ handleOpen }) => {
       }
       return setstate({ ...state, content: "Vous avez créer votre tableau ? Parfait ! Maintenant cliquez dessus pour accéder à votre espace de travail !", open: true });
     }
-    else if (pathname === "/tableau/:id") {
-      // Autre aide
+    if (pathname === `/vos-tableaux/${pathname.substring(14)}`) {
+      return setstate({ ...state, content: "Bienvenue dans votre espace de travail ! C'est ici que vous allez pouvoir créer vos listes, vos tâches et inviter vos amis. Pour commencer cliquez sur 'ajouter une liste' en haut de la page et écrivez ensuite le nom que vous voulez lui donner", open: true });
     }
   };
 
