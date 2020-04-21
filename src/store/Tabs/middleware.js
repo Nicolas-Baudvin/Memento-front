@@ -2,13 +2,38 @@ import axios from 'axios';
 import { cryptUserData } from 'src/Utils/crypt';
 
 // actions
-import { NEW_TAB, MY_TABS, DELETE_TAB } from './actions';
+import { NEW_TAB, MY_TABS, DELETE_TAB, NEW_CURRENT_TAB, NEW_CURRENT_FRIEND_TAB } from './actions';
 import { successMessage, failMessage } from '../Popup/actions';
 import { logOut } from '../Registration/actions';
 
 export default (store) => (next) => (action) => {
   const state = store.getState();
   switch (action.type) {
+    case NEW_CURRENT_FRIEND_TAB: {
+      const { tab } = action;
+      if (typeof tab !== "undefined") {
+        const cryptedTab = cryptUserData(tab);
+
+        localStorage.setItem("currentTab", cryptedTab);
+
+        action.currentTab = tab;
+        next(action);
+      }
+      break;
+    }
+    case NEW_CURRENT_TAB: {
+      const currentTab = state.mytabs.tabs.find((tab) => tab._id === action.tabId);
+
+      if (Object.keys(currentTab).length) {
+        action.currentTab = currentTab;
+        const cryptedTab = cryptUserData(currentTab);
+        localStorage.setItem("currentTab", cryptedTab);
+      }
+      else action.currentTab = {};
+
+      next(action);
+      break;
+    }
     case DELETE_TAB: {
       const token = state.userData.datas.token;
       const data = {
@@ -99,10 +124,12 @@ export default (store) => (next) => (action) => {
         }
       })
         .then((res) => {
-          const cryptedTabs = cryptUserData(res.data.tabs);
-          localStorage.setItem("tabs", cryptedTabs);
-          action.tabs = res.data.tabs;
-          next(action);
+          if (res.data.tabs.length > 0) {
+            const cryptedTabs = cryptUserData(res.data.tabs);
+            localStorage.setItem("tabs", cryptedTabs);
+            action.tabs = res.data.tabs;
+            next(action);
+          }
         })
         .catch((err) => {
           console.log(err);

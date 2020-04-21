@@ -1,8 +1,9 @@
 import { decryptUserData } from 'src/Utils/crypt';
-import { NEW_TAB, MY_TABS, DELETE_TAB } from "./actions";
+import { NEW_TAB, MY_TABS, DELETE_TAB, NEW_CURRENT_TAB } from "./actions";
 
 const initialState = {
   tabs: localStorage.getItem("tabs") ? decryptUserData(localStorage.getItem("tabs")) : [],
+  currentTab: localStorage.getItem("currentTab") ? decryptUserData(localStorage.getItem("currentTab")) : {}
 };
 
 export default (state = initialState, action) => {
@@ -23,6 +24,13 @@ export default (state = initialState, action) => {
       return {
         ...state,
         tabs: action.tabs
+      };
+    }
+    case NEW_CURRENT_TAB: {
+      console.log(action.currentTab);
+      return {
+        ...state,
+        currentTab: action.currentTab
       };
     }
     default: {
