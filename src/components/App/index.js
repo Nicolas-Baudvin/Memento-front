@@ -47,9 +47,14 @@ const App = () => {
             !isConnected ? <Redirect from="/vos-tableaux/" to="/" /> : <WorkMenu />
           }
         </Route>
-        <Route exact path="/vos-tableaux/:name/:id">
+        <Route exact path="/vos-tableaux/:name/:id([a-f\d]{24})">
           {
-            !isConnected ? <Redirect from="/vos-tableaux/:id" to="/" /> : <WorkSpace />
+            !isConnected ? <Redirect from="/vos-tableaux/:id" to="/" /> : <WorkSpace isInvited={false} />
+          }
+        </Route>
+        <Route exact path="/join/:friendTabId/:link/">
+          {
+            !isConnected ? <Redirect from="/join/:friendTabId/:link/" to="/" /> : <WorkSpace isInvited />
           }
         </Route>
         <Route path="*">
