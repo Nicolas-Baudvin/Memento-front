@@ -6,13 +6,42 @@
     min-height: 100vh;
 
     &-body {
+        position: relative;
+        display: flex;
+        flex-direction: column;
         width: 100%;
-        margin-top: 2em;
         padding: 1em;
 
         .ui.labeled.icon.button,
         .ui.labeled.icon.buttons .button {
             position: unset;
         }
+
+        &-header {
+            display: flex;
+            width: 100%;
+            
+            &-input {
+                width: 0px;
+                transition: .3s;
+                margin-left: 2em !important;
+            }
+
+            &-menuBtn {
+                margin-right: 2em !important;
+            }
+        }
+
+        &-lists {
+            width: 70%;
+            align-self: center;
+            height: 400px;
+        }
     }
+}
+
+
+.addlist-active {
+    width: 200px;
+    transition: .3s;
 }
