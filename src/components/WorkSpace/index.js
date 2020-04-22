@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { Input, Button, Popup } from 'semantic-ui-react';
 import cx from 'classnames';
 import "./style.scss";
@@ -8,6 +8,8 @@ import "./style.scss";
 // Components
 import Header from "../Header";
 import List from "./List";
+import Guests from "./Guest";
+import Menu from './Menu';
 
 // Actions
 import { newSocketTab, connectToTab } from "../../store/Socket/actions";
@@ -19,8 +21,9 @@ export default ({ isInvited }) => {
     addlist: ''
   };
   const dispatch = useDispatch();
+  const history = useHistory();
   const [state, setstate] = useState(initialState);
-  const { currentSocket } = useSelector((globalState) => globalState.sockets);
+  const { currentSocket, guests } = useSelector((globalState) => globalState.sockets);
   const { currentTab } = useSelector((globalState) => globalState.mytabs);
   const { userID } = useSelector((globalState) => globalState.userData.datas);
 
@@ -66,6 +69,9 @@ export default ({ isInvited }) => {
     if (isInvited) {
       dispatch(connectToTab({ link, friendTabId }));
     }
+    if (currentTab.userID !== userID) {
+
+    }
   }, []);
 
   return (
@@ -73,9 +79,9 @@ export default ({ isInvited }) => {
       <Header />
       <div className="workspace-body">
         <div className="workspace-body-header">
-          <Button className="workspace-body-header-menuBtn" icon="bars" content={currentTab.name} primary />
+          <Menu className="workspace-body-header-menuBtn" isInvited={isInvited} />
           {
-            userID === currentTab.userID && <Popup
+            userID === currentTab.userID && currentSocket && <Popup
               content="C'est le liens qui te permettra d'inviter tes amis !"
               trigger={<Input
                 className="workspace-body-invitation"
@@ -91,18 +97,22 @@ export default ({ isInvited }) => {
             />
           }
           <Popup
-            content="Créer une liste"
+            content="C'est ici que tu vas créer ta liste. Appuie sur le bouton de gauche pour valider ton choix !"
             trigger={
               <Input
                 value={state.addlist}
                 onChange={(e) => setstate({ ...state, addlist: e.target.value })}
-                action={{ color: 'blue', icon: 'add', content: 'Ajouter une liste', onClick: handleAddListbtn }}
+                action={{
+                  color: 'blue', icon: 'add', content: 'Ajouter une liste', onClick: handleAddListbtn
+                }}
                 actionPosition="left"
                 className={cx("workspace-body-header-input", { "addlist-active": state.openAddList })}
-                placeholder="Nom de la liste"
+                placeholder="Nom de votre liste"
               />
             }
           />
+
+          <Guests guests={guests} />
 
         </div>
         <List />

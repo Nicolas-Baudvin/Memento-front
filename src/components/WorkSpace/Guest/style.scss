@@ -1,0 +1,31 @@
+.guests {
+
+    position: absolute;
+    top: 1em;
+    right: 1em;
+
+
+    &-item {
+        font-family: 'Indie Flower', cursive;
+        width: 40px;
+        height: 40px;
+        padding: .70em;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border-radius: 50%;
+        background-color: rgba(20, 140, 238, 1);
+        color: white;
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size: 1.3em;
+        transition: .3s;
+        cursor: pointer;
+
+        &:hover {
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            transform: translate(0, 2px);
+            transition: .3s
+        }
+    }
+}

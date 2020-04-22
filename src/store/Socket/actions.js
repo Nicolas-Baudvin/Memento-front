@@ -3,6 +3,12 @@ export const DELETE_SOCKET_TAB = "action/DELETE_SOCKET_TAB";
 export const INVITE_TO_TAB = "action/INVITE_TO_TAB";
 export const CONNECT_TO_FRIEND_TAB = "action/CONNECT_TO_TAB";
 export const NEW_GUEST = "action/NEW_GUEST";
+export const GUEST_LEAVE = "action/GUEST_LEAVE";
+
+export const guestLeave = (socketId) => ({
+  type: GUEST_LEAVE,
+  socketId
+});
 
 export const connectToTab = (payload) => ({
   type: CONNECT_TO_FRIEND_TAB,
@@ -24,7 +30,7 @@ export const deleteSocketTab = (payload) => ({
   payload
 });
 
-export const newGuest = () => (userData) => ({
+export const newGuest = (userData) => ({
   type: NEW_GUEST,
   userData
 });

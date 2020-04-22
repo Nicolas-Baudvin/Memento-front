@@ -5,6 +5,10 @@
     background-size: cover;
     min-height: 100vh;
 
+    &-menu {
+        border-radius: 5px;
+    }
+
     &-body {
         position: relative;
         display: flex;
@@ -30,6 +34,10 @@
             &-menuBtn {
                 margin-right: 2em !important;
             }
+        }
+
+        &-invitation {
+            margin-left: 2em !important;
         }
 
         &-lists {

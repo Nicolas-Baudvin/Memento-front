@@ -1,0 +1,22 @@
+.ui.top.attached.menu {
+    border-radius: 5px !important;
+    background-color: rgba(24, 162, 253, 1);
+    border: none !important;
+}
+
+.ui.item.simple.dropdown {
+
+
+    .bars.icon {
+        margin: 0 !important;
+        color: white;
+    }
+
+    &::before {
+        display: none !important;
+    }
+
+    &::after {
+        display: none !important;
+    }
+}
