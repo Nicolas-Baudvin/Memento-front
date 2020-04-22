@@ -18,8 +18,6 @@ export default ({ handleOpen }) => {
   const history = useHistory();
 
   const handleHelpBtn = () => {
-    console.log(pathname.substring(14), pathname);
-
     if (pathname === "/vos-tableaux/") {
       if (!tabs.length) {
         return setstate({ ...state, content: "Pour commencer, Cliquez sur créer un tableau, puis donnez lui le nom et l'image de fond que vous souhaitez. Ne vous en faites pas, vous pourrez les changer ensuite !", open: true });
