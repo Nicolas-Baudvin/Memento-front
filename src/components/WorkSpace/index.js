@@ -14,6 +14,7 @@ import Menu from './Menu';
 // Actions
 import { newSocketTab, connectToTab } from "../../store/Socket/actions";
 import { newCurrentTab } from "../../store/Tabs/actions";
+import { failMessage } from "../../store/Popup/actions";
 
 export default ({ isInvited }) => {
   const initialState = {
@@ -58,6 +59,10 @@ export default ({ isInvited }) => {
   };
 
   useEffect(() => {
+    if (currentTab.userID !== userID && !isInvited) {
+      history.push("/");
+      return dispatch(failMessage("Vous ne pouvez pas accéder à un tableau qui ne vous appartient pas"));
+    }
     if (!isInvited) {
       console.log("Création d'une nouvelle instance...");
       dispatch(newSocketTab({ id, name }));
@@ -69,9 +74,7 @@ export default ({ isInvited }) => {
     if (isInvited) {
       dispatch(connectToTab({ link, friendTabId }));
     }
-    if (currentTab.userID !== userID) {
-
-    }
+    console.log(currentTab.userID, userID, isInvited);
   }, []);
 
   return (
