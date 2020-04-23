@@ -10,6 +10,7 @@ import Header from "../Header";
 import List from "./List";
 import Guests from "./Guest";
 import Menu from './Menu';
+import Owner from './Owner';
 
 // Actions
 import { newSocketTab, connectToTab } from "../../store/Socket/actions";
@@ -27,7 +28,6 @@ export default ({ isInvited }) => {
   const { currentSocket, guests } = useSelector((globalState) => globalState.sockets);
   const { currentTab } = useSelector((globalState) => globalState.mytabs);
   const { userID } = useSelector((globalState) => globalState.userData.datas);
-
   /**
    * @param link - pour invités seulement
    * @param friendTabId - pour invités seulement
@@ -59,10 +59,6 @@ export default ({ isInvited }) => {
   };
 
   useEffect(() => {
-    if (currentTab.userID !== userID && !isInvited) {
-      history.push("/");
-      return dispatch(failMessage("Vous ne pouvez pas accéder à un tableau qui ne vous appartient pas"));
-    }
     if (!isInvited) {
       console.log("Création d'une nouvelle instance...");
       dispatch(newSocketTab({ id, name }));
@@ -74,11 +70,15 @@ export default ({ isInvited }) => {
     if (isInvited) {
       dispatch(connectToTab({ link, friendTabId }));
     }
-    console.log(currentTab.userID, userID, isInvited);
+    if (currentTab.userID !== userID && !isInvited) {
+      console.log(currentTab.userID, userID);
+      history.push("/");
+      return dispatch(failMessage("Vous ne pouvez pas accéder à un tableau qui ne vous appartient pas"));
+    }
   }, []);
 
   return (
-    <div data-tabid={id} className="workspace" style={{ backgroundImage: `url(../../../${currentTab.imgPath})` }}>
+    <div data-tabid={id} className="workspace" style={{ backgroundImage: `url(../../../${currentTab && currentTab.imgPath})` }}>
       <Header />
       <div className="workspace-body">
         <div className="workspace-body-header">
@@ -114,8 +114,12 @@ export default ({ isInvited }) => {
               />
             }
           />
-
-          <Guests guests={guests} />
+          <div className="workspace-body-header-members">
+            {
+              currentSocket && <Owner currentSocket={currentSocket} isInvited={isInvited} />
+            }
+            <Guests guests={currentSocket.guests} isInvited={isInvited} />
+          </div>
 
         </div>
         <List />
