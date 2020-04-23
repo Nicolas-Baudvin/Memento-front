@@ -1,4 +1,4 @@
-import { NEW_SOCKET_TAB, CONNECT_TO_FRIEND_TAB, NEW_GUEST, GUEST_LEAVE } from "./actions";
+import { NEW_SOCKET_TAB, CONNECT_TO_FRIEND_TAB, NEW_GUEST, GUEST_LEAVE, UPDATE_CURRENT_SOCKET } from "./actions";
 import { decryptUserData } from '../../Utils/crypt';
 import { DELETE_TAB } from "../Tabs/actions";
 
@@ -26,7 +26,6 @@ export default (state = initialState, action) => {
       };
     }
     case NEW_SOCKET_TAB: {
-      console.log("Check current Socket", action.currentSocket)
       state.mySockets.push(action.currentSocket);
       state.socketsList.push(action.currentSocket);
       return {
@@ -43,6 +42,12 @@ export default (state = initialState, action) => {
       state.guests.push(action.userData);
       return {
         ...state,
+      };
+    }
+    case UPDATE_CURRENT_SOCKET: {
+      return {
+        ...state,
+        currentSocket: action.currentSocket
       };
     }
     default: {

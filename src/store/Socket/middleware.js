@@ -1,11 +1,12 @@
 import axios from 'axios';
 import socketIo from 'socket.io-client';
 import {
-  NEW_SOCKET_TAB, DELETE_SOCKET_TAB, CONNECT_TO_FRIEND_TAB, newGuest, NEW_GUEST, guestLeave
+  NEW_SOCKET_TAB, DELETE_SOCKET_TAB, CONNECT_TO_FRIEND_TAB, newGuest, NEW_GUEST, guestLeave, updateCurrentSocket, UPDATE_CURRENT_SOCKET
 } from './actions';
 import { successMessage, failMessage } from '../Popup/actions';
 import { cryptUserData } from '../../Utils/crypt';
 import { newFriendTab } from '../Tabs/actions';
+import { logOut } from '../Registration/actions';
 
 let socket;
 
@@ -49,6 +50,12 @@ export default (store) => (next) => (action) => {
         });
       });
 
+      socket.on("fail_identify", (err) => {
+        console.log(err);
+        store.dispatch(failMessage("Votre session a expiré. Veuillez vous reconnecter"));
+        store.dispatch(logOut());
+      });
+
       socket.on("confirm creation", (data) => {
         const cryptedSocket = cryptUserData(data);
         localStorage.setItem("socketTab", cryptedSocket);
@@ -58,21 +65,28 @@ export default (store) => (next) => (action) => {
       });
 
       socket.on("user joined room", (data) => {
-        console.log(newGuest(data.userData));
         store.dispatch(successMessage(data.message));
         store.dispatch(newGuest(data.userData));
-        next(action);
+        store.dispatch(updateCurrentSocket(data.currentSocket));
       });
 
-      socket.on("user leave", (socketId) => {
-        const { guests } = state.sockets;
-        console.log("leave", socketId);
-
-        store.dispatch(guestLeave(socketId));
+      socket.on("user leave", (data) => {
+        store.dispatch(guestLeave(data.socketId));
+        if (data.currentSocket) store.dispatch(updateCurrentSocket(data.currentSocket));
       });
       break;
     }
+    case UPDATE_CURRENT_SOCKET: {
+      const { currentSocket } = action;
+      const cryptedNewSocket = cryptUserData(currentSocket);
+
+      localStorage.setItem("socketTab", cryptedNewSocket);
+
+      next(action);
+      break;
+    }
     case NEW_GUEST: {
+      console.log(action);
       next(action);
       break;
     }
