@@ -59,21 +59,20 @@ export default ({ isInvited }) => {
   };
 
   useEffect(() => {
-    if (!isInvited) {
-      console.log("Création d'une nouvelle instance...");
-      dispatch(newSocketTab({ id, name }));
+    if (currentTab.userID === userID && !isInvited) {
+      if (!isInvited) {
+        dispatch(newSocketTab({ id, name }));
+      }
+      if (!isInvited) {
+        dispatch(newCurrentTab(id));
+      }
     }
-    if (!isInvited) {
-      console.log("Recherche de la table en cours...");
-      dispatch(newCurrentTab(id));
+    else {
+      history.push("/");
+      return dispatch(failMessage("Vous ne pouvez pas accéder à un tableau qui ne vous appartient pas"));
     }
     if (isInvited) {
       dispatch(connectToTab({ link, friendTabId }));
-    }
-    if (currentTab.userID !== userID && !isInvited) {
-      console.log(currentTab.userID, userID);
-      history.push("/");
-      return dispatch(failMessage("Vous ne pouvez pas accéder à un tableau qui ne vous appartient pas"));
     }
   }, []);
 

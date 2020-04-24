@@ -24,7 +24,7 @@ export default (store) => (next) => (action) => {
     case NEW_CURRENT_TAB: {
       const currentTab = state.mytabs.tabs.find((tab) => tab._id === action.tabId);
       console.log(currentTab);
-      if (Object.keys(currentTab).length) {
+      if (currentTab && Object.keys(currentTab).length) {
         action.currentTab = currentTab;
         const cryptedTab = cryptUserData(currentTab);
         localStorage.setItem("currentTab", cryptedTab);
