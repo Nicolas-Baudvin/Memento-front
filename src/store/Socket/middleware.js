@@ -1,7 +1,14 @@
-import axios from 'axios';
 import socketIo from 'socket.io-client';
 import {
-  NEW_SOCKET_TAB, DELETE_SOCKET_TAB, CONNECT_TO_FRIEND_TAB, newGuest, NEW_GUEST, guestLeave, updateCurrentSocket, UPDATE_CURRENT_SOCKET
+  NEW_SOCKET_TAB,
+  DELETE_SOCKET_TAB,
+  CONNECT_TO_FRIEND_TAB,
+  newGuest,
+  NEW_GUEST,
+  guestLeave,
+  updateCurrentSocket,
+  UPDATE_CURRENT_SOCKET,
+  LEAVE_ROOM
 } from './actions';
 import { successMessage, failMessage } from '../Popup/actions';
 import { cryptUserData } from '../../Utils/crypt';
@@ -13,6 +20,14 @@ let socket;
 export default (store) => (next) => (action) => {
   const state = store.getState();
   switch (action.type) {
+    case LEAVE_ROOM: {
+      const userData = state.userData.datas;
+
+      socket.emit("leave room", { name: state.sockets.currentSocket.invitationLink, userData });
+      socket.disconnect();
+      next(action);
+      break;
+    }
     case CONNECT_TO_FRIEND_TAB: {
       const { link, friendTabId } = action.payload;
       const { email, username, userID } = state.userData.datas;
@@ -23,12 +38,24 @@ export default (store) => (next) => (action) => {
       socket.on("success identify", () => {
         socket.emit("join tab", { link, friendTabId, userData: { username, email, userID } });
 
+        socket.on("fail_identify", (err) => {
+          console.log(err);
+          store.dispatch(failMessage("Votre session a expiré. Veuillez vous reconnecter"));
+          store.dispatch(logOut());
+        });
+
         socket.on("tab joined", (data) => {
           store.dispatch(newFriendTab(data.tabData));
           action.currentSocket = data.socket;
           store.dispatch(successMessage(`Vous êtes désormais dans l'instance de ${data.socket.owner.username}`));
           next(action);
         });
+      });
+
+      socket.on("user leave", (data) => {
+        console.log("One user leave")
+        store.dispatch(guestLeave(data.socketId));
+        if (data.currentSocket) store.dispatch(updateCurrentSocket(data.currentSocket));
       });
 
       socket.on("join error", (error) => {

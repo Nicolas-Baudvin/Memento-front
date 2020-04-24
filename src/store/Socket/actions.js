@@ -5,6 +5,7 @@ export const CONNECT_TO_FRIEND_TAB = "action/CONNECT_TO_TAB";
 export const NEW_GUEST = "action/NEW_GUEST";
 export const GUEST_LEAVE = "action/GUEST_LEAVE";
 export const UPDATE_CURRENT_SOCKET = "action/UPDATE_CURRENT_SOCKET";
+export const LEAVE_ROOM = "action/LEAVE_ROOM";
 
 export const updateCurrentSocket = (currentSocket) => ({
   type: UPDATE_CURRENT_SOCKET,
@@ -39,4 +40,9 @@ export const deleteSocketTab = (payload) => ({
 export const newGuest = (userData) => ({
   type: NEW_GUEST,
   userData
+});
+
+export const leaveRoom = (room) => ({
+  type: LEAVE_ROOM,
+  room
 });
