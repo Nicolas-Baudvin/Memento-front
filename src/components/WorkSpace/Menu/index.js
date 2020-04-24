@@ -1,9 +1,18 @@
 import React from "react";
 import { Menu, Dropdown, Icon } from 'semantic-ui-react';
+import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { leaveRoom } from '../../../store/Socket/actions';
 
 import './style.scss';
 
 export default () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const handleClickOnDisconnect = () => {
+    history.push("/");
+    dispatch(leaveRoom());
+  };
   return (
     <div className="workspace-menu">
       <Menu attached="top">
@@ -23,7 +32,7 @@ export default () => {
             <Dropdown.Item>Editer les droits invités</Dropdown.Item>
             <Dropdown.Divider />
             <Dropdown.Header>Autre</Dropdown.Header>
-            <Dropdown.Item>Déconnexion de l'instance</Dropdown.Item>
+            <Dropdown.Item onClick={handleClickOnDisconnect}>Déconnexion de l'instance</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
       </Menu>
