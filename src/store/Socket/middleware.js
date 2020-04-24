@@ -97,6 +97,10 @@ export default (store) => (next) => (action) => {
         store.dispatch(updateCurrentSocket(data.currentSocket));
       });
 
+      socket.on("create error", (data) => {
+        store.dispatch(failMessage(data.errors));
+      });
+
       socket.on("user leave", (data) => {
         store.dispatch(guestLeave(data.socketId));
         if (data.currentSocket) store.dispatch(updateCurrentSocket(data.currentSocket));
