@@ -4,7 +4,6 @@ import { Popup } from 'semantic-ui-react';
 import './style.scss';
 
 export default ({ guests }) => {
-  console.log(guests);
   return (
     <div className="guests">
       {
