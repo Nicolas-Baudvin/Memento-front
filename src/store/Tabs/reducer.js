@@ -27,7 +27,6 @@ export default (state = initialState, action) => {
       };
     }
     case NEW_CURRENT_TAB: {
-      console.log(action.currentTab);
       return {
         ...state,
         currentTab: action.currentTab

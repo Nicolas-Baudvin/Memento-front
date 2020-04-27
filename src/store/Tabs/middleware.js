@@ -23,13 +23,15 @@ export default (store) => (next) => (action) => {
     }
     case NEW_CURRENT_TAB: {
       const currentTab = state.mytabs.tabs.find((tab) => tab._id === action.tabId);
-      console.log(currentTab);
       if (currentTab && Object.keys(currentTab).length) {
         action.currentTab = currentTab;
         const cryptedTab = cryptUserData(currentTab);
         localStorage.setItem("currentTab", cryptedTab);
       }
-      else action.currentTab = {};
+      else {
+        store.dispatch(failMessage("Vous ne possédez aucun tableau de ce nom"));
+        action.currentTab = {};
+      }
 
       next(action);
       break;
