@@ -1,5 +1,5 @@
 {
-  "name": "react-modele",
+  "name": "memento",
   "jest": {
     "rootDir": "src/",
     "moduleNameMapper": {
@@ -12,7 +12,6 @@
     ],
     "moduleDirectories": [
       "node_modules",
-      "bower_components",
       "shared",
       "src"
     ],
