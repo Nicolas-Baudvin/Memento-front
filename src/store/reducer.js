@@ -4,11 +4,13 @@ import popup from './Popup/reducer';
 import mytabs from './Tabs/reducer';
 import sockets from './Socket/reducer';
 import mylists from './Lists/reducer';
+import mytasks from './Tasks/reducer';
 
 export default combineReducers({
   userData,
   popup,
   mytabs,
   sockets,
-  mylists
+  mylists,
+  mytasks
 });

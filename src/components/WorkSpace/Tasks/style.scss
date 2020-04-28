@@ -1,0 +1,25 @@
+.tasks {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    width: 100%;
+    
+    &-item {
+        margin: 1em 0;
+        width: 100%;
+        border-radius: 7px;
+        font-size: 1.1em;
+        cursor: pointer;
+        box-shadow: 0 2px 2px 0px rgba(0, 0, 0, .4);
+        background-color: #fff;
+        padding: .5em;
+        transition: .3s;
+
+        &:hover {
+            transition: .2s;
+            box-shadow: 0 4px 2px 0px rgba(0, 0, 0, .3);
+            transform: translate(0, -1px);
+        }
+
+    }
+}
