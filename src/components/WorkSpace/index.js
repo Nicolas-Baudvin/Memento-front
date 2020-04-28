@@ -11,8 +11,6 @@ import BodyHeader from './BodyHeader';
 // Actions
 import { newSocketTab, connectToTab } from "../../store/Socket/actions";
 import { newCurrentTab } from "../../store/Tabs/actions";
-import { failMessage } from "../../store/Popup/actions";
-import { list } from "postcss";
 import { myLists } from "../../store/Lists/actions";
 
 export default ({ isInvited }) => {
@@ -22,6 +20,7 @@ export default ({ isInvited }) => {
   const { currentTab } = useSelector((globalState) => globalState.mytabs);
   const { userID } = useSelector((globalState) => globalState.userData.datas);
   const { lists } = useSelector((GlobalState) => GlobalState.mylists);
+
   /**
    * @param link - pour invités seulement
    * @param friendTabId - pour invités seulement
@@ -46,9 +45,7 @@ export default ({ isInvited }) => {
   }, []);
 
   useEffect(() => {
-    console.log("rechercher des listes en cours...")
-    if (currentTab && !lists.length) {
-      console.log(currentTab._id);
+    if (currentTab && !lists.length && !isInvited) {
       dispatch(myLists(currentTab._id));
     }
   }, [currentTab]);
@@ -58,7 +55,7 @@ export default ({ isInvited }) => {
       <Header />
       <div className="workspace-body">
         <BodyHeader isInvited={isInvited} />
-        <List lists={lists} />
+        <List lists={lists} isInvited={isInvited} />
       </div>
     </div>
   );
