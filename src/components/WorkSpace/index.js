@@ -20,6 +20,7 @@ export default ({ isInvited }) => {
   const { currentTab } = useSelector((globalState) => globalState.mytabs);
   const { userID } = useSelector((globalState) => globalState.userData.datas);
   const { lists } = useSelector((GlobalState) => GlobalState.mylists);
+  const { currentSocket } = useSelector((GlobalState) => GlobalState.sockets);
 
   /**
    * @param link - pour invités seulement
@@ -30,7 +31,12 @@ export default ({ isInvited }) => {
   } = useParams();
 
   useEffect(() => {
-    dispatch(newCurrentTab(id));
+    if (!isInvited) {
+      dispatch(newCurrentTab(id));
+    }
+  }, []);
+
+  useEffect(() => {
     if (Object.keys(currentTab).length) {
       if (currentTab.userID === userID && !isInvited) {
         dispatch(newSocketTab({ id, name }));
@@ -42,20 +48,20 @@ export default ({ isInvited }) => {
         dispatch(connectToTab({ link, friendTabId }));
       }
     }
-  }, []);
+  }, [currentTab]);
 
   useEffect(() => {
-    if (currentTab && !lists.length && !isInvited) {
+    if (currentSocket && currentTab && !isInvited && !lists.length) {
       dispatch(myLists(currentTab._id));
     }
-  }, [currentTab]);
+  }, [currentSocket]);
 
   return (
     <div data-tabid={id} className="workspace" style={{ backgroundImage: `url(../../../${currentTab && currentTab.imgPath})` }}>
       <Header />
       <div className="workspace-body">
         <BodyHeader isInvited={isInvited} />
-        <List lists={lists} isInvited={isInvited} />
+        <List currentTab={currentTab} lists={lists} isInvited={isInvited} />
       </div>
     </div>
   );

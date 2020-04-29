@@ -11,7 +11,7 @@ import { myTasks, newTask } from "../../../store/Tasks/actions";
 // Styles
 import './style.scss';
 
-export default ({ lists, isInvited }) => {
+export default ({ lists, isInvited, currentTab }) => {
   const { tasks } = useSelector((GlobalState) => GlobalState.mytasks);
   const dispatch = useDispatch();
 
@@ -50,25 +50,29 @@ export default ({ lists, isInvited }) => {
   return (
     <div className="workspace-body-lists">
       {
-        lists.length > 0 && lists.map((list) => <div key={list._id} data-order={list.order} className="list">
-          <div className="list-header">
-            <h2 onClick={showTitleInput} className="list-header-title show"> {list.name} </h2>
-            <Input
-              className="list-header-input"
-              placeholder="Nom de la liste"
-              action={{ content: 'Envoyer', color: 'blue', onClick: handleUpdateListName }}
-            />
-          </div>
-          <div className="list-tasks">
-            {
-              tasks.length > 0 && <Tasks tasks={tasks} listId={list._id} />
-            }
-            <form onSubmit={addTaskToList(list._id)} className="list-tasks-input">
-              <TextArea placeholder="Votre tâche ..." />
-              <Button content="Nouvelle tâche" primary icon="add" />
-            </form>
-          </div>
-        </div>)
+        lists.length > 0 && lists.map((list) => {
+
+          if (currentTab._id === list.tabId) return (
+            <div key={list._id} data-order={list.order} className="list">
+              <div className="list-header">
+                <h2 onClick={showTitleInput} className="list-header-title show"> {list.name} </h2>
+                <Input
+                  className="list-header-input"
+                  placeholder="Nom de la liste"
+                  action={{ content: 'Envoyer', color: 'blue', onClick: handleUpdateListName }}
+                />
+              </div>
+              <div className="list-tasks">
+                {
+                  tasks.length > 0 && <Tasks tasks={tasks} listId={list._id} />
+                }
+                <form onSubmit={addTaskToList(list._id)} className="list-tasks-input">
+                  <TextArea placeholder="Votre tâche ..." />
+                  <Button content="Nouvelle tâche" primary icon="add" />
+                </form>
+              </div>
+            </div>);
+        })
       }
     </div>
   );
