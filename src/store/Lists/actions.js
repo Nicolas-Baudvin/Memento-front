@@ -2,6 +2,11 @@ export const NEW_LIST = "action/NEW_LIST";
 export const UPDATE_LIST = "action/UPDATE_LIST";
 export const DELETE_LIST = "action/DELETE_LIST";
 export const MY_LISTS = "action/MY_LISTS";
+export const CLEAN_LISTS = "action/CLEAN_LISTS";
+
+export const cleanLists = () => ({
+  type: CLEAN_LISTS
+});
 
 export const newList = (listData) => ({
   type: NEW_LIST,

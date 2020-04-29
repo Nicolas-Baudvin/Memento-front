@@ -2,13 +2,20 @@ import Axios from "axios";
 import { cryptUserData } from 'src/Utils/crypt';
 
 // Actions
-import { NEW_LIST, MY_LISTS, DELETE_LIST, UPDATE_LIST } from "./actions";
+import { NEW_LIST, MY_LISTS, DELETE_LIST, UPDATE_LIST, CLEAN_LISTS } from "./actions";
 import { failMessage } from "../Popup/actions";
 import { logOut } from "../Registration/actions";
 
 export default (store) => (next) => (action) => {
   const state = store.getState();
   switch (action.type) {
+    case CLEAN_LISTS: {
+
+      localStorage.removeItem("lists");
+
+      next(action);
+      break;
+    }
     case NEW_LIST: {
       const order = state.mylists.lists.length;
       const { name, tabId } = action.listData;
