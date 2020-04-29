@@ -6,7 +6,6 @@ export default ({ tasks, listId, isInvited }) => {
     <div className="tasks">
       {
         tasks.map((task) => {
-          console.log(task.listId === listId);
           if (task.listId === listId) {
             return (
               <div key={task._id} data-order={task.order} className="tasks-item">

@@ -14,6 +14,8 @@ import Modal from './modal';
 import Header from '../Header';
 import Tabs from './tabs';
 import Teams from './teams';
+import { cleanLists } from "../../store/Lists/actions";
+import { disconnectFromChannel } from "../../store/Socket/actions";
 
 export default () => {
   const { tabs } = useSelector((GlobalState) => GlobalState.mytabs);
@@ -67,6 +69,8 @@ export default () => {
   };
 
   useEffect(() => {
+    dispatch(disconnectFromChannel());
+    dispatch(cleanLists());
     dispatch(myTabs());
   }, []);
 

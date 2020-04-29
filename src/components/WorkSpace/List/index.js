@@ -37,12 +37,15 @@ export default ({ lists, isInvited }) => {
   };
 
   useEffect(() => {
+    console.log(lists, tasks);
     if (!isInvited) {
-      lists.forEach((list) => {
-        dispatch(myTasks(list._id));
-      });
+      if (tasks.length === 0 || (lists.length > 0 && tasks[0].listId !== lists[0]._id)) {
+        lists.forEach((list) => {
+          dispatch(myTasks(list._id));
+        });
+      }
     }
-  }, []);
+  }, [lists]);
 
   return (
     <div className="workspace-body-lists">
