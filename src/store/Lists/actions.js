@@ -4,6 +4,16 @@ export const DELETE_LIST = "action/DELETE_LIST";
 export const MY_LISTS = "action/MY_LISTS";
 export const CLEAN_LISTS = "action/CLEAN_LISTS";
 
+// Guests
+export const UPDATE_FRIEND_LISTS = "action/UPDATE_FRIEND_LISTS";
+
+export const updateFriendLists = (lists) => ({
+  type: UPDATE_FRIEND_LISTS,
+  lists
+});
+
+// Owner
+
 export const cleanLists = () => ({
   type: CLEAN_LISTS
 });

@@ -1,12 +1,15 @@
-import { NEW_TASK, MY_TASKS, DELETE_TASK, UPDATE_TASK } from "./actions";
+import { NEW_TASK, MY_TASKS, DELETE_TASK, UPDATE_TASK, UPDATE_FRIEND_TASKS } from "./actions";
 
 const initialState = {
-  tasks: []
+  tasks: [],
+  friendTasks: []
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-
+    case UPDATE_FRIEND_TASKS: {
+      return state;
+    }
     case NEW_TASK: {
       return {
         ...state,

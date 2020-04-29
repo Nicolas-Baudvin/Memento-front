@@ -2,17 +2,20 @@ import Axios from "axios";
 import { cryptUserData } from 'src/Utils/crypt';
 
 // Actions
-import { NEW_LIST, MY_LISTS, DELETE_LIST, UPDATE_LIST, CLEAN_LISTS } from "./actions";
+import { NEW_LIST, MY_LISTS, DELETE_LIST, UPDATE_LIST, CLEAN_LISTS, UPDATE_FRIEND_LISTS } from "./actions";
 import { failMessage } from "../Popup/actions";
 import { logOut } from "../Registration/actions";
+import { sendLists } from "../Socket/actions";
 
 export default (store) => (next) => (action) => {
   const state = store.getState();
   switch (action.type) {
+    case UPDATE_FRIEND_LISTS: {
+      next(action);
+      break;
+    }
     case CLEAN_LISTS: {
-
       localStorage.removeItem("lists");
-
       next(action);
       break;
     }
@@ -41,6 +44,7 @@ export default (store) => (next) => (action) => {
 
           localStorage.setItem("lists", cryptedLists);
           action.lists = lists;
+          store.dispatch(sendLists(cryptedLists));
           next(action);
         })
         .catch((err) => {
@@ -75,8 +79,7 @@ export default (store) => (next) => (action) => {
       })
         .then((res) => {
           const { lists } = res.data;
-
-          if (lists) {
+          if (lists.length) {
             const cryptedLists = cryptUserData(lists);
             localStorage.setItem("lists", cryptedLists);
             action.lists = lists;

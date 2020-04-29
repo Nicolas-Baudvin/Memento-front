@@ -3,6 +3,16 @@ export const MY_TASKS = "action/MY_TASKS";
 export const DELETE_TASK = "action/DELETE_TASK";
 export const UPDATE_TASK = "action/UPDATE_TASK";
 
+// Guests
+export const UPDATE_FRIEND_TASKS = "action/UPDATE_FRIEND_TASKS";
+
+export const updateFriendTasks = (tasks) => ({
+  type: UPDATE_FRIEND_TASKS,
+  tasks
+});
+
+// Owner
+
 export const newTask = (taskData) => ({
   type: NEW_TASK,
   taskData

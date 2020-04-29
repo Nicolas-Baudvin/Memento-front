@@ -7,6 +7,18 @@ export const GUEST_LEAVE = "action/GUEST_LEAVE";
 export const UPDATE_CURRENT_SOCKET = "action/UPDATE_CURRENT_SOCKET";
 export const LEAVE_ROOM = "action/LEAVE_ROOM";
 export const DISCONNECT_FROM_CHANNEL = "action/DISCONNECT_FROM_CHANNEL";
+export const SEND_LISTS = "action/SEND_LISTS";
+export const SEND_TASKS = "action/SEND_TASKS";
+
+export const sendLists = (lists) => ({
+  type: SEND_LISTS,
+  lists
+});
+
+export const sendTasks = (tasks) => ({
+  type: SEND_TASKS,
+  tasks
+});
 
 export const disconnectFromChannel = () => ({
   type: DISCONNECT_FROM_CHANNEL

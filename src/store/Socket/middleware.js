@@ -9,7 +9,10 @@ import {
   updateCurrentSocket,
   UPDATE_CURRENT_SOCKET,
   LEAVE_ROOM,
-  DISCONNECT_FROM_CHANNEL
+  DISCONNECT_FROM_CHANNEL,
+  SEND_LISTS,
+  SEND_TASKS,
+  sendLists
 } from './actions';
 import { successMessage, failMessage } from '../Popup/actions';
 import { cryptUserData } from '../../Utils/crypt';
@@ -21,6 +24,16 @@ let socket;
 export default (store) => (next) => (action) => {
   const state = store.getState();
   switch (action.type) {
+    case SEND_LISTS: {
+      const link = state.sockets.currentSocket.invitationLink;
+      socket.emit("send lists", [action.lists, link]);
+      next(action);
+      break;
+    }
+    case SEND_TASKS: {
+      next(action);
+      break;
+    }
     case DISCONNECT_FROM_CHANNEL: {
       localStorage.removeItem("socketTab");
       if (socket) {
@@ -103,6 +116,7 @@ export default (store) => (next) => (action) => {
         store.dispatch(successMessage(data.message));
         store.dispatch(newGuest(data.userData));
         store.dispatch(updateCurrentSocket(data.currentSocket));
+        store.dispatch(sendLists(localStorage.getItem("lists"))); // TODO: Envoyée tâche et liste à la connexion d'un utilisateur
       });
 
       socket.on("create error", (data) => {
@@ -125,7 +139,6 @@ export default (store) => (next) => (action) => {
       break;
     }
     case NEW_GUEST: {
-      console.log(action);
       next(action);
       break;
     }

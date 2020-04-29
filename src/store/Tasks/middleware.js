@@ -1,13 +1,17 @@
 import axios from 'axios';
 
 // Actions
-import { NEW_TASK, UPDATE_TASK, MY_TASKS, DELETE_TASK } from './actions';
+import { NEW_TASK, UPDATE_TASK, MY_TASKS, DELETE_TASK, UPDATE_FRIEND_TASKS } from './actions';
 import { failMessage } from "../Popup/actions";
 import { logOut } from "../Registration/actions";
 
 export default (store) => (next) => (action) => {
   const state = store.getState();
   switch (action.type) {
+    case UPDATE_FRIEND_TASKS: {
+      next(action);
+      break;
+    }
     case NEW_TASK: {
       const { title, listId } = action.taskData;
       const { userID, token } = state.userData.datas;
@@ -27,7 +31,6 @@ export default (store) => (next) => (action) => {
         }
       })
         .then((res) => {
-          console.log(res.data);
           action.tasks = res.data.tasks;
           next(action);
         })
@@ -68,7 +71,6 @@ export default (store) => (next) => (action) => {
         }
       })
         .then((res) => {
-          console.log(res.data.tasks);
           action.tasks = res.data.tasks;
           next(action);
         })
