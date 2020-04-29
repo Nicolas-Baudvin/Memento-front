@@ -1,4 +1,4 @@
-import { NEW_SOCKET_TAB, CONNECT_TO_FRIEND_TAB, NEW_GUEST, GUEST_LEAVE, UPDATE_CURRENT_SOCKET, LEAVE_ROOM } from "./actions";
+import { NEW_SOCKET_TAB, CONNECT_TO_FRIEND_TAB, NEW_GUEST, GUEST_LEAVE, UPDATE_CURRENT_SOCKET, LEAVE_ROOM, DISCONNECT_FROM_CHANNEL } from "./actions";
 import { decryptUserData } from '../../Utils/crypt';
 import { DELETE_TAB } from "../Tabs/actions";
 
@@ -12,6 +12,15 @@ const initialState = {
 export default (state = initialState, action) => {
 
   switch (action.type) {
+    case DISCONNECT_FROM_CHANNEL: {
+      return {
+        ...state,
+        socketsList: [],
+        mySockets: [],
+        currentSocket: '',
+        guests: []
+      };
+    }
     case LEAVE_ROOM: {
       return {
         ...state,

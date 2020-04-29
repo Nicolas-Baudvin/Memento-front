@@ -6,6 +6,11 @@ export const NEW_GUEST = "action/NEW_GUEST";
 export const GUEST_LEAVE = "action/GUEST_LEAVE";
 export const UPDATE_CURRENT_SOCKET = "action/UPDATE_CURRENT_SOCKET";
 export const LEAVE_ROOM = "action/LEAVE_ROOM";
+export const DISCONNECT_FROM_CHANNEL = "action/DISCONNECT_FROM_CHANNEL";
+
+export const disconnectFromChannel = () => ({
+  type: DISCONNECT_FROM_CHANNEL
+});
 
 export const updateCurrentSocket = (currentSocket) => ({
   type: UPDATE_CURRENT_SOCKET,

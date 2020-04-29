@@ -8,7 +8,8 @@ import {
   guestLeave,
   updateCurrentSocket,
   UPDATE_CURRENT_SOCKET,
-  LEAVE_ROOM
+  LEAVE_ROOM,
+  DISCONNECT_FROM_CHANNEL
 } from './actions';
 import { successMessage, failMessage } from '../Popup/actions';
 import { cryptUserData } from '../../Utils/crypt';
@@ -20,6 +21,14 @@ let socket;
 export default (store) => (next) => (action) => {
   const state = store.getState();
   switch (action.type) {
+    case DISCONNECT_FROM_CHANNEL: {
+      localStorage.removeItem("socketTab");
+      if (socket) {
+        socket.emit("end");
+      }
+      next(action);
+      break;
+    }
     case LEAVE_ROOM: {
       const userData = state.userData.datas;
 
@@ -53,7 +62,6 @@ export default (store) => (next) => (action) => {
       });
 
       socket.on("user leave", (data) => {
-        console.log("One user leave")
         store.dispatch(guestLeave(data.socketId));
         if (data.currentSocket) store.dispatch(updateCurrentSocket(data.currentSocket));
       });
