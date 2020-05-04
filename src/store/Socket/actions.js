@@ -9,6 +9,18 @@ export const LEAVE_ROOM = "action/LEAVE_ROOM";
 export const DISCONNECT_FROM_CHANNEL = "action/DISCONNECT_FROM_CHANNEL";
 export const SEND_LISTS = "action/SEND_LISTS";
 export const SEND_TASKS = "action/SEND_TASKS";
+export const STORE_FRIEND_LISTS = "action/STORE_FRIEND_LISTS";
+export const STORE_FRIEND_TASKS = "action/STORE_FRIEND_TASKS";
+
+export const storeFriendTasks = (tasks) => ({
+  type: STORE_FRIEND_TASKS,
+  tasks
+});
+
+export const storeFriendLists = (lists) => ({
+  type: STORE_FRIEND_LISTS,
+  lists
+});
 
 export const sendLists = (lists) => ({
   type: SEND_LISTS,

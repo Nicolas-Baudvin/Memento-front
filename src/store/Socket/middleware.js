@@ -3,8 +3,6 @@ import {
   NEW_SOCKET_TAB,
   DELETE_SOCKET_TAB,
   CONNECT_TO_FRIEND_TAB,
-  newGuest,
-  NEW_GUEST,
   guestLeave,
   updateCurrentSocket,
   UPDATE_CURRENT_SOCKET,
@@ -12,10 +10,15 @@ import {
   DISCONNECT_FROM_CHANNEL,
   SEND_LISTS,
   SEND_TASKS,
-  sendLists
+  sendLists,
+  STORE_FRIEND_LISTS,
+  storeFriendLists,
+  sendTasks,
+  storeFriendTasks,
+  STORE_FRIEND_TASKS
 } from './actions';
 import { successMessage, failMessage } from '../Popup/actions';
-import { cryptUserData } from '../../Utils/crypt';
+import { cryptUserData, decryptUserData } from '../../Utils/crypt';
 import { newFriendTab } from '../Tabs/actions';
 import { logOut } from '../Registration/actions';
 
@@ -24,6 +27,14 @@ let socket;
 export default (store) => (next) => (action) => {
   const state = store.getState();
   switch (action.type) {
+    case STORE_FRIEND_TASKS: {
+      next(action);
+      break;
+    }
+    case STORE_FRIEND_LISTS: {
+      next(action);
+      break;
+    }
     case SEND_LISTS: {
       const link = state.sockets.currentSocket.invitationLink;
       socket.emit("send lists", [action.lists, link]);
@@ -31,6 +42,10 @@ export default (store) => (next) => (action) => {
       break;
     }
     case SEND_TASKS: {
+      const { tasks } = action;
+      const link = state.sockets.currentSocket.invitationLink;
+      const cryptedTasks = cryptUserData(tasks);
+      socket.emit("send tasks", [cryptedTasks, link]);
       next(action);
       break;
     }
@@ -71,6 +86,17 @@ export default (store) => (next) => (action) => {
           action.currentSocket = data.socket;
           store.dispatch(successMessage(`Vous êtes désormais dans l'instance de ${data.socket.owner.username}`));
           next(action);
+        });
+
+        socket.on("send owner lists", (data) => {
+          const decryptedLists = decryptUserData(data.lists);
+          store.dispatch(storeFriendLists(decryptedLists));
+        });
+
+        socket.on("send owner tasks", (data) => {
+          console.log(data.tasks);
+          const decryptedTasks = decryptUserData(data.tasks);
+          store.dispatch(storeFriendTasks(decryptedTasks));
         });
       });
 
@@ -114,9 +140,10 @@ export default (store) => (next) => (action) => {
 
       socket.on("user joined room", (data) => {
         store.dispatch(successMessage(data.message));
-        store.dispatch(newGuest(data.userData));
         store.dispatch(updateCurrentSocket(data.currentSocket));
-        store.dispatch(sendLists(localStorage.getItem("lists"))); // TODO: Envoyée tâche et liste à la connexion d'un utilisateur
+        store.dispatch(sendLists(localStorage.getItem("lists")));
+        console.log("tâche à envoyer", store.getState().mytasks.tasks);
+        store.dispatch(sendTasks(store.getState().mytasks.tasks));
       });
 
       socket.on("create error", (data) => {
@@ -124,7 +151,6 @@ export default (store) => (next) => (action) => {
       });
 
       socket.on("user leave", (data) => {
-        store.dispatch(guestLeave(data.socketId));
         if (data.currentSocket) store.dispatch(updateCurrentSocket(data.currentSocket));
       });
       break;
@@ -135,10 +161,6 @@ export default (store) => (next) => (action) => {
 
       localStorage.setItem("socketTab", cryptedNewSocket);
 
-      next(action);
-      break;
-    }
-    case NEW_GUEST: {
       next(action);
       break;
     }

@@ -14,6 +14,7 @@ import './style.scss';
 export default ({ lists, isInvited, currentTab }) => {
   const { tasks } = useSelector((GlobalState) => GlobalState.mytasks);
   const dispatch = useDispatch();
+  console.log(tasks);
 
   const handleUpdateListName = (e) => {
     const input = e.target.parentNode;

@@ -39,36 +39,38 @@ export default ({ isInvited }) => {
     <div className="workspace-body-header">
       <Menu className="workspace-body-header-menuBtn" isInvited={isInvited} />
       {
-        userID === currentTab.userID && currentSocket && <Popup
-          content="C'est le liens qui te permettra d'inviter tes amis !"
-          trigger={<Input
-            className="workspace-body-invitation"
-            action={{
-              color: 'blue',
-              labelPosition: 'right',
-              icon: 'copy',
-              content: 'Copier',
-              onClick: copyToClipBoard
-            }}
-            defaultValue={`http://localhost:3000/join/${currentTab._id}/${currentSocket.invitationLink}/`}
-          />}
-        />
-      }
-      <Popup
-        content="C'est ici que tu vas créer ta liste. Appuie sur le bouton de gauche pour valider ton choix !"
-        trigger={
-          <Input
-            value={state.addlist}
-            onChange={(e) => setstate({ ...state, addlist: e.target.value })}
-            action={{
-              color: 'blue', icon: 'add', content: 'Ajouter une liste', onClick: handleAddListbtn
-            }}
-            actionPosition="left"
-            className="workspace-body-header-input"
-            placeholder="Nom de votre liste"
+        userID === currentTab.userID && currentSocket && <>
+          <Popup
+            content="C'est le liens qui te permettra d'inviter tes amis !"
+            trigger={<Input
+              className="workspace-body-invitation"
+              action={{
+                color: 'blue',
+                labelPosition: 'right',
+                icon: 'copy',
+                content: 'Copier',
+                onClick: copyToClipBoard
+              }}
+              defaultValue={`http://localhost:3000/join/${currentTab._id}/${currentSocket.invitationLink}/`}
+            />}
           />
-        }
-      />
+          <Popup
+            content="C'est ici que tu vas créer ta liste. Appuie sur le bouton de gauche pour valider ton choix !"
+            trigger={
+              <Input
+                value={state.addlist}
+                onChange={(e) => setstate({ ...state, addlist: e.target.value })}
+                action={{
+                  color: 'blue', icon: 'add', content: 'Ajouter une liste', onClick: handleAddListbtn
+                }}
+                actionPosition="left"
+                className="workspace-body-header-input"
+                placeholder="Nom de votre liste"
+              />
+            }
+          />
+        </>
+      }
       <div className="workspace-body-header-members">
         {
           currentSocket && <Owner currentSocket={currentSocket} isInvited={isInvited} />

@@ -1,4 +1,4 @@
-import { NEW_SOCKET_TAB, CONNECT_TO_FRIEND_TAB, NEW_GUEST, GUEST_LEAVE, UPDATE_CURRENT_SOCKET, LEAVE_ROOM, DISCONNECT_FROM_CHANNEL } from "./actions";
+import { NEW_SOCKET_TAB, CONNECT_TO_FRIEND_TAB, NEW_GUEST, GUEST_LEAVE, UPDATE_CURRENT_SOCKET, LEAVE_ROOM, DISCONNECT_FROM_CHANNEL, STORE_FRIEND_LISTS, STORE_FRIEND_TASKS } from "./actions";
 import { decryptUserData } from '../../Utils/crypt';
 import { DELETE_TAB } from "../Tabs/actions";
 import { UPDATE_FRIEND_LISTS } from "../Lists/actions";
@@ -7,12 +7,26 @@ const initialState = {
   socketsList: [],
   mySockets: [],
   currentSocket: localStorage.getItem("socketTab") ? decryptUserData(localStorage.getItem("socketTab")) : '',
-  guests: []
+  guests: [],
+  fLists: [],
+  fTasks: [],
 };
 
 export default (state = initialState, action) => {
 
   switch (action.type) {
+    case STORE_FRIEND_TASKS: {
+      return {
+        ...state,
+        fTasks: action.tasks
+      };
+    }
+    case STORE_FRIEND_LISTS: {
+      return {
+        ...state,
+        fLists: action.lists
+      };
+    }
     case UPDATE_FRIEND_LISTS: {
       return state;
     }

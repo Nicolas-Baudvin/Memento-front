@@ -8,6 +8,10 @@ import Header from "../Header";
 import List from "./List";
 import BodyHeader from './BodyHeader';
 
+// Invited components
+import InvitedList from './Invited/Lists';
+import InvitedTask from './Invited/Tasks';
+
 // Actions
 import { newSocketTab, connectToTab } from "../../store/Socket/actions";
 import { newCurrentTab } from "../../store/Tabs/actions";
@@ -21,6 +25,7 @@ export default ({ isInvited }) => {
   const { userID } = useSelector((globalState) => globalState.userData.datas);
   const { lists } = useSelector((GlobalState) => GlobalState.mylists);
   const { currentSocket } = useSelector((GlobalState) => GlobalState.sockets);
+  console.log(currentSocket);
 
   /**
    * @param link - pour invités seulement
@@ -34,6 +39,9 @@ export default ({ isInvited }) => {
     if (!isInvited) {
       dispatch(newCurrentTab(id));
     }
+    if (isInvited) {
+      dispatch(connectToTab({ link, friendTabId }));
+    }
   }, []);
 
   useEffect(() => {
@@ -41,11 +49,8 @@ export default ({ isInvited }) => {
       if (currentTab.userID === userID && !isInvited) {
         dispatch(newSocketTab({ id, name }));
       }
-      else {
+      if (!isInvited && currentTab.userID !== userID) {
         history.push("/");
-      }
-      if (isInvited) {
-        dispatch(connectToTab({ link, friendTabId }));
       }
     }
   }, [currentTab]);
@@ -61,7 +66,12 @@ export default ({ isInvited }) => {
       <Header />
       <div className="workspace-body">
         <BodyHeader isInvited={isInvited} />
-        <List currentTab={currentTab} lists={lists} isInvited={isInvited} />
+        {
+          !isInvited && <List currentTab={currentTab} lists={lists} isInvited={isInvited} />
+        }
+        {
+          isInvited && <InvitedList />
+        }
       </div>
     </div>
   );
