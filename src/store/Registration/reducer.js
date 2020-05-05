@@ -1,4 +1,4 @@
-import { decryptUserData } from 'src/Utils/crypt';
+import { decryptUserData } from '../../Utils/crypt';
 import { SUBMIT_LOGIN_FORM, SUBMIT_SIGNUP_FORM, LOGOUT, UPDATE_USERNAME, UPDATE_PASSWORD, UPDATE_EMAIL, FORGOT_PASSWORD } from "./actions";
 
 const initialState = {
