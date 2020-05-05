@@ -10,6 +10,15 @@ const sinonChai = require('sinon-chai');
 const chaiJestSnapshot = require('chai-jest-snapshot');
 const enzymeToJSON = require('enzyme-to-json/serializer');
 
+const localStorageMock = {
+  getItem: jest.fn(),
+  setItem: jest.fn(),
+  removeItem: jest.fn(),
+  clear: jest.fn()
+};
+
+global.localStorage = localStorageMock;
+
 chai
   .use(chaiJestDiff.default())
   .use(dirtyChai)
