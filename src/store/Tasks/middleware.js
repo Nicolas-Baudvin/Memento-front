@@ -4,6 +4,7 @@ import axios from 'axios';
 import { NEW_TASK, UPDATE_TASK, MY_TASKS, DELETE_TASK, UPDATE_FRIEND_TASKS } from './actions';
 import { failMessage } from "../Popup/actions";
 import { logOut } from "../Registration/actions";
+import { sendTasks } from '../Socket/actions';
 
 export default (store) => (next) => (action) => {
   const state = store.getState();
@@ -32,6 +33,7 @@ export default (store) => (next) => (action) => {
       })
         .then((res) => {
           action.tasks = res.data.tasks;
+          store.dispatch(sendTasks(res.data.tasks));
           next(action);
         })
         .catch((err) => {

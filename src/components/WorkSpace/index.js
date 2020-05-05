@@ -10,7 +10,6 @@ import BodyHeader from './BodyHeader';
 
 // Invited components
 import InvitedList from './Invited/Lists';
-import InvitedTask from './Invited/Tasks';
 
 // Actions
 import { newSocketTab, connectToTab } from "../../store/Socket/actions";
@@ -25,7 +24,6 @@ export default ({ isInvited }) => {
   const { userID } = useSelector((globalState) => globalState.userData.datas);
   const { lists } = useSelector((GlobalState) => GlobalState.mylists);
   const { currentSocket } = useSelector((GlobalState) => GlobalState.sockets);
-  console.log(currentSocket);
 
   /**
    * @param link - pour invités seulement

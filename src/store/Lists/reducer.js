@@ -1,4 +1,4 @@
-import { decryptUserData } from 'src/Utils/crypt';
+import { decryptUserData } from '../../Utils/crypt';
 
 import { MY_LISTS, UPDATE_LIST, DELETE_LIST, NEW_LIST, CLEAN_LISTS } from "./actions";
 
@@ -20,10 +20,16 @@ export default (state = initialState, action) => {
       };
     }
     case UPDATE_LIST: {
-      return state;
+      return {
+        ...state,
+        lists: action.lists
+      };
     }
     case DELETE_LIST: {
-      return state;
+      return {
+        ...state,
+        lists: action.lists
+      };
     }
     case MY_LISTS: {
       return {

@@ -1,4 +1,4 @@
-import { decryptUserData } from 'src/Utils/crypt';
+import { decryptUserData } from '../../Utils/crypt';
 import { NEW_TAB, MY_TABS, DELETE_TAB, NEW_CURRENT_TAB, NEW_CURRENT_FRIEND_TAB } from "./actions";
 
 const initialState = {

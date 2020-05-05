@@ -93,13 +93,83 @@ export default (store) => (next) => (action) => {
       break;
     }
     case DELETE_LIST: {
+      const { listID } = action;
 
-      next(action);
+      Axios({
+        url: process.env.DELETE_LIST_URL,
+        method: 'POST',
+        data: {
+          listID,
+          userID: state.userData.datas.userID,
+          tabId: state.mytabs.currentTab._id
+        },
+        headers: {
+          Authorization: `Bearer ${state.userData.datas.token}`
+        }
+      })
+        .then((res) => {
+          const { lists } = res.data;
+          console.log("delete", lists);
+          action.lists = lists;
+          const cryptedLists = cryptUserData(lists);
+          localStorage.setItem("lists", cryptedLists);
+          store.dispatch(sendLists(cryptedLists));
+          next(action);
+        })
+        .catch((err) => {
+          if (!err.response) {
+            return store.dispatch(failMessage("Une erreur est survenue sur le serveur. Réessayez ou contacter un administrateur"));
+          }
+          if (err.response.status === 401) {
+            store.dispatch(logOut());
+            return store.dispatch(failMessage("Votre session a expiré. Veuillez vous reconnecter."));
+          }
+          if (Array.isArray(err.response.data.errors)) {
+            return store.dispatch(failMessage(err.response.data.errors[0].msg));
+          }
+          return store.dispatch(failMessage(err.response.data.errors));
+        });
+
       break;
     }
     case UPDATE_LIST: {
+      const { listData } = action;
 
-      next(action);
+      Axios({
+        method: 'POST',
+        url: `${process.env.API_URL}list/update/`,
+        data: {
+          listData,
+          userID: state.userData.datas.userID,
+          tabId: state.mytabs.currentTab._id
+        },
+        headers: {
+          Authorization: `Bearer ${state.userData.datas.token}`
+        }
+      })
+        .then((res) => {
+          const { lists } = res.data;
+          console.log("update", lists);
+          action.lists = lists;
+          const cryptedLists = cryptUserData(lists);
+          localStorage.setItem("lists", cryptedLists);
+          store.dispatch(sendLists(cryptedLists));
+          next(action);
+        })
+        .catch((err) => {
+          if (!err.response) {
+            return store.dispatch(failMessage("Une erreur est survenue sur le serveur. Réessayez ou contacter un administrateur"));
+          }
+          if (err.response.status === 401) {
+            store.dispatch(logOut());
+            return store.dispatch(failMessage("Votre session a expiré. Veuillez vous reconnecter."));
+          }
+          if (Array.isArray(err.response.data.errors)) {
+            return store.dispatch(failMessage(err.response.data.errors[0].msg));
+          }
+          return store.dispatch(failMessage(err.response.data.errors));
+        });
+
       break;
     }
     default: {
