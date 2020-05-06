@@ -27,6 +27,7 @@
                 font-size: 1.5em;
                 font-weight: bold;
                 transition: .3s;
+
                 &:hover {
                     text-shadow: 0 0 5px rgba(0, 0, 0, .5);
                     transform: scale(1.1);
@@ -86,14 +87,27 @@
         }
 
         &-title {
-            margin: 0;
-            color: white;
-            font-family: 'Indie Flower', cursive;
-            text-transform: uppercase;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+
+            h1 {
+                margin: .7em 0 0 0;
+                color: white;
+                font-family: 'Indie Flower',
+                    cursive;
+                text-transform: uppercase;
+            }
+
+            &-logo {
+                width: 50px;
+                height: 50px;
+            }
 
             &:hover {
-                text-decoration: underline;
+                h1 {
+                    text-decoration: underline;
+                }
             }
         }
 
