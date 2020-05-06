@@ -28,8 +28,9 @@ export default ({ isInvited, currentTab }) => {
     input.classList.remove("show");
     settings.classList.add("show");
     title.classList.add("show");
-    // TODO: Mise à jour du titre
-    dispatch(updateList({ newTitle: value, list }));
+    if (value) {
+      dispatch(updateList({ newTitle: value, list }));
+    }
   };
 
   const addTaskToList = (listId) => (e) => {

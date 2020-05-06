@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Input, Popup } from 'semantic-ui-react';
 import { useDispatch } from "react-redux";
 
@@ -7,11 +7,18 @@ import { Button } from '../../../Utils/Components';
 import { deleteList } from "../../../store/Lists/actions";
 
 export default ({ showTitleInput, handleUpdateListName, list }) => {
+  const initialState = {};
+
+  const [state, setstate] = useState(initialState);
   const dispatch = useDispatch();
   const showSettings = () => {
     if (list._id) {
       dispatch(deleteList(list._id));
     }
+  };
+
+  const handleChange = (listId) => (e) => {
+    setstate({ ...state, [listId]: e.target.value });
   };
 
   return (
@@ -26,7 +33,8 @@ export default ({ showTitleInput, handleUpdateListName, list }) => {
       <Input
         className="list-header-input"
         placeholder="Nom de la liste"
-        action={{ content: 'Envoyer', color: 'blue', onClick: handleUpdateListName(list) }}
+        onChange={handleChange(list._id)}
+        action={{ content: state[list._id] ? 'Envoyer' : 'Retour', color: state[list._id] ? 'blue' : 'red', onClick: handleUpdateListName(list) }}
       />
     </div>
   );
