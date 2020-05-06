@@ -13,7 +13,6 @@ export default ({ isInvited }) => {
   const { currentSocket } = useSelector((globalState) => globalState.sockets);
   const { currentTab } = useSelector((globalState) => globalState.mytabs);
   const { userID } = useSelector((globalState) => globalState.userData.datas);
-  console.log(currentTab)
   const initialState = {
     addlist: ''
   };
