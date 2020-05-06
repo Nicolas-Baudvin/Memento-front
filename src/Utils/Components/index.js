@@ -24,7 +24,7 @@ export const Button = (props) => {
 
   return (
     <button {...props} style={style} type="button">
-      <Icon name={icon} size={iconSize || "normal"} />
+      <Icon name={icon} size={iconSize || null} />
     </button>
   );
 };
