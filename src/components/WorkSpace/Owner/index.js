@@ -5,7 +5,7 @@ import {
 
 import "./style.scss";
 
-export default ({ currentSocket, isInvited }) => {
+export default ({ currentSocket }) => {
 
   return (
     <div className="owner">

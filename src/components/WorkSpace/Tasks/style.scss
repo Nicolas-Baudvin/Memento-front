@@ -5,7 +5,11 @@
     width: 100%;
     
     &-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
         margin: 1em 0;
+        position: relative;
         width: 100%;
         border-radius: 7px;
         font-size: 1.1em;
@@ -15,11 +19,26 @@
         padding: .5em;
         transition: .3s;
 
-        &:hover {
-            transition: .2s;
-            box-shadow: 0 4px 2px 0px rgba(0, 0, 0, .3);
-            transform: translate(0, -1px);
+        p {
+            margin: 0;
+            display: none;
         }
 
+        .show {
+            display: flex !important;
+        }
+    }
+}
+
+.task {
+    &-menu {
+        
+        &-form {
+            display: none;
+
+            .input {
+                width: 140px;
+            }
+        }
     }
 }
