@@ -4,7 +4,8 @@ export default (url) => new Promise((resolve, reject) => {
   xhr.responseType = 'blob';
   xhr.onload = () => {
     if (xhr.status === 200) {
-      resolve(xhr.response);
+      const picURL = window.URL.createObjectURL(xhr.response);
+      resolve(picURL);
     }
     else {
       reject(xhr.statusText);
