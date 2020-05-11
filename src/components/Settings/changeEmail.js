@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Input } from 'semantic-ui-react';
 import { useDispatch } from "react-redux";
-import { updateEmail } from "../../store/Registration/actions";
+import { updateEmail } from "../../../../store/Registration/actions";
 
 export default ({ state, setstate }) => {
   const dispatch = useDispatch();
