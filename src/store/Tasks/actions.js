@@ -1,9 +1,5 @@
-export const NEW_TASK = "action/NEW_TASK";
-export const MY_TASKS = "action/MY_TASKS";
-export const DELETE_TASK = "action/DELETE_TASK";
-export const UPDATE_TASK = "action/UPDATE_TASK";
-
 // Guests
+
 export const UPDATE_FRIEND_TASKS = "action/UPDATE_FRIEND_TASKS";
 
 export const updateFriendTasks = (tasks) => ({
@@ -12,6 +8,11 @@ export const updateFriendTasks = (tasks) => ({
 });
 
 // Owner
+
+export const NEW_TASK = "action/NEW_TASK";
+export const MY_TASKS = "action/MY_TASKS";
+export const DELETE_TASK = "action/DELETE_TASK";
+export const UPDATE_TASK = "action/UPDATE_TASK";
 
 export const newTask = (taskData) => ({
   type: NEW_TASK,
