@@ -43,7 +43,7 @@ export default (store) => (next) => (action) => {
     }
     case SEND_TASKS: {
       const { tasks } = action;
-      const link = state.sockets.currentSocket.invitationLink;
+      const link = store.getState().sockets.currentSocket.invitationLink;
       const cryptedTasks = cryptUserData(tasks);
       socket.emit("send tasks", [cryptedTasks, link]);
       next(action);

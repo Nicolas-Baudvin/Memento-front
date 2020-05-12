@@ -70,7 +70,7 @@ export default ({ isInvited, currentTab }) => {
               />
               <div className="list-tasks">
                 {
-                  tasks.length > 0 && <Tasks tasks={tasks} listId={list._id} />
+                  tasks && tasks.length > 0 && <Tasks tasks={tasks} listId={list._id} />
                 }
                 <TaskForm
                   addTaskToList={addTaskToList}

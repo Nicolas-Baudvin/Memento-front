@@ -1,11 +1,14 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import "./style.scss";
 
 // components
 import { Input } from "semantic-ui-react";
 import Menu from './Menu';
+import { updateTaskName } from "../../../store/Tasks/actions";
 
 export default ({ tasks, listId }) => {
+  const dispatch = useDispatch();
   const initialState = {
     value: ''
   };
@@ -13,14 +16,40 @@ export default ({ tasks, listId }) => {
   const [state, setstate] = useState(initialState);
 
   const handleSubmit = (taskId) => (e) => {
+    console.log(state.value);
     e.preventDefault();
-    const value = state.value;
+    const title = state.value;
+    dispatch(updateTaskName({ taskId, title }));
     setstate({ ...state, value: '' });
 
     e.target.classList.remove("show");
     e.target.previousSibling.classList.add("show");
+    e.target.parentNode.firstChild.style.display = "block";
+  };
 
-    // TODO: envoyer les changements
+  const styles = (label) => {
+    if (!label) return {};
+
+    switch (label) {
+      case "red": {
+        return {
+          backgroundColor: "#db2828"
+        };
+      }
+      case "green": {
+        return {
+          backgroundColor: "#21ba45"
+        };
+      }
+      case "blue": {
+        return {
+          backgroundColor: "#2185d0"
+        };
+      }
+      default: {
+        return {};
+      }
+    }
   };
 
   return (
@@ -30,6 +59,7 @@ export default ({ tasks, listId }) => {
           if (task.listId === listId) {
             return (
               <div key={task._id} data-order={task.order} className="tasks-item">
+                <div className="tasks-item-label" style={styles(task.label)} />
                 <p className="show">{task.title}</p>
                 <form onSubmit={handleSubmit(task._id)} className="task-menu-form" action="">
                   <Input
@@ -46,7 +76,7 @@ export default ({ tasks, listId }) => {
                     }
                   />
                 </form>
-                <Menu taskId={task.id} />
+                <Menu taskId={task._id} />
               </div>
             );
           }

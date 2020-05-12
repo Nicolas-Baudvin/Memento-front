@@ -12,7 +12,9 @@ export const updateFriendTasks = (tasks) => ({
 export const NEW_TASK = "action/NEW_TASK";
 export const MY_TASKS = "action/MY_TASKS";
 export const DELETE_TASK = "action/DELETE_TASK";
-export const UPDATE_TASK = "action/UPDATE_TASK";
+export const UPDATE_TASK_NAME = "action/UPDATE_TASK_NAME";
+export const UPDATE_TASK_ORDER = "action/UPDATE_TASK_ORDER";
+export const UPDATE_TASK_LABEL = "action/UPDATE_TASK_LABEL";
 
 export const newTask = (taskData) => ({
   type: NEW_TASK,
@@ -29,7 +31,17 @@ export const deleteTask = (taskId) => ({
   taskId
 });
 
-export const updateTask = (taskData) => ({
-  type: UPDATE_TASK,
+export const updateTaskName = (taskData) => ({
+  type: UPDATE_TASK_NAME,
+  taskData
+});
+
+export const updateTaskOrder = (taskData) => ({
+  type: UPDATE_TASK_ORDER,
+  taskData
+});
+
+export const updateTaskLabel = (taskData) => ({
+  type: UPDATE_TASK_LABEL,
   taskData
 });

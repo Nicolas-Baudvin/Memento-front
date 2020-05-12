@@ -1,25 +1,25 @@
 import React from "react";
 import { Dropdown, Icon } from 'semantic-ui-react';
 import { useDispatch } from "react-redux";
-import { updateTask } from "../../../../store/Tasks/actions";
+import { updateTaskLabel, deleteTask } from "../../../../store/Tasks/actions";
 
 export default ({ taskId }) => {
   const dispatch = useDispatch();
 
-  const handleClickLabel = (color) => (e) => {
-    // TODO: Ajouter un label avec la couleur désignée
-    dispatch(updateTask({ importance: color, code: "#db2828" }));
+  const handleClickLabel = (label) => (e) => {
+    dispatch(updateTaskLabel({ label, taskId }));
   };
 
   const handleClickChangeName = (e) => {
-    // TODO: Faire apparaitre un Input pour changer le nom
     const task = e.target.parentNode.parentNode.parentNode; // pas fifou
     task.lastChild.previousSibling.classList.add("show");
-    task.firstChild.classList.remove('show');
+    task.firstChild.nextSibling.classList.remove('show');
+    task.firstChild.style.display = "none";
   };
 
   const handleClickDelete = () => {
-    // TODO: Supprimer la tâche
+    console.log(taskId);
+    dispatch(deleteTask(taskId));
   };
 
   return (
