@@ -7,6 +7,7 @@ import "./style.scss";
 import Header from "../Header";
 import List from "./List";
 import BodyHeader from './BodyHeader';
+import SideActionMenu from './SideActionMenu';
 
 // Invited components
 import InvitedList from './Invited/Lists';
@@ -62,14 +63,17 @@ export default ({ isInvited }) => {
   return (
     <div data-tabid={id} className="workspace" style={{ backgroundImage: `url(../../../${currentTab && currentTab.imgPath})` }}>
       <Header />
-      <div className="workspace-body">
-        <BodyHeader isInvited={isInvited} />
-        {
-          !isInvited && <List currentTab={currentTab} lists={lists} isInvited={isInvited} />
-        }
-        {
-          isInvited && <InvitedList />
-        }
+      <div className="container">
+        <div className="workspace-body">
+          <BodyHeader isInvited={isInvited} />
+          {
+            !isInvited && <List currentTab={currentTab} lists={lists} isInvited={isInvited} />
+          }
+          {
+            isInvited && <InvitedList />
+          }
+        </div>
+        <SideActionMenu />
       </div>
     </div>
   );

@@ -60,7 +60,7 @@ export default ({ isInvited }) => {
                 value={state.addlist}
                 onChange={(e) => setstate({ ...state, addlist: e.target.value })}
                 action={{
-                  color: 'blue', icon: 'add', content: 'Ajouter une liste', onClick: handleAddListbtn
+                  color: 'blue', icon: 'add', content: 'Ajouter une liste', onClick: handleAddListbtn, className: "list-add"
                 }}
                 actionPosition="left"
                 className="workspace-body-header-input"

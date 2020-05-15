@@ -16,10 +16,9 @@ export default ({ tasks, listId }) => {
   const [state, setstate] = useState(initialState);
 
   const handleSubmit = (taskId) => (e) => {
-    console.log(state.value);
     e.preventDefault();
     const title = state.value;
-    dispatch(updateTaskName({ taskId, title }));
+    if (title) dispatch(updateTaskName({ taskId, title }));
     setstate({ ...state, value: '' });
 
     e.target.classList.remove("show");
@@ -69,8 +68,8 @@ export default ({ tasks, listId }) => {
                     onChange={(e) => setstate({ ...state, value: e.target.value })}
                     action={
                       {
-                        content: "Envoyer",
-                        primary: true,
+                        content: state.value ? "Envoyer" : "Retour",
+                        color: state.value ? "blue" : "red",
                         type: "submit"
                       }
                     }

@@ -5,6 +5,8 @@
     background-size: cover;
     min-height: 100vh;
 
+    
+
     &-menu {
         border-radius: 5px;
     }
@@ -54,5 +56,38 @@
             margin-top: 6em;
             display: flex;
         }
+    }
+}
+
+.container {
+    display: flex;
+}
+
+.sideActionMenu {
+    color: black;
+    width: 20%;
+    height: 100%;
+    overflow: auto;
+    background-color: #FDFDFD;
+    padding: 1.5em;
+    display: flex;
+    flex-direction: column;
+    margin-top: 1em;
+    border-radius: 3px;
+
+    &-title {
+        align-self: center;
+        margin: 0;
+    }
+
+    &-actions {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &-subTitle {
+        font-size: 1.3em;
+        align-self: center;
+        margin: 0;
     }
 }
