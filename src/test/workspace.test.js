@@ -5,6 +5,7 @@ import { shallow, mount } from 'enzyme';
 import sinon from 'sinon';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
+import 'babel-polyfill';
 
 // Component
 import WorkSpace from '../components/WorkSpace';
@@ -12,10 +13,17 @@ import BodyHeader from '../components/WorkSpace/BodyHeader';
 import Header from '../components/Header';
 import List from '../components/WorkSpace/List';
 
-// reducer
-// import reducer from '../store/reducer';
+// actions
+import { NEW_LIST, MY_LISTS } from '../store/Lists/actions';
+import { NEW_CURRENT_TAB } from '../store/Tabs/actions';
+import { NEW_SOCKET_TAB } from '../store/Socket/actions';
 
-const reducer = (state) => state;
+// pending
+
+
+// reducer
+import reducer from '../store/reducer';
+// import reducer from '../store/reducer';
 
 const mockHistoryPush = jest.fn();
 const mockLocationPathname = jest.fn();
@@ -35,36 +43,23 @@ jest.mock('react-router', () => ({
     pathname: mockLocationPathname
   })
 }));
+const mockDispatch = jest.fn();
+jest.mock('react-redux', () => ({
+  useDispatch: () => mockDispatch,
+  useSelector: () => jest.fn()
+}));
 
 describe('<WorkSpace />', () => {
   describe('<WorkSpace /> Owner', () => {
     const invited = false;
     describe('<Workspace /> Tabs Testing', () => {
-      const mockStore = createStore(reducer, {
-        userData: { datas: { userID: "123" } },
-        mytabs: {
-          tabs: [],
-          currentTab: { userID: '123' }
-        },
-        mylists: {
-          lists: []
-        },
-        sockets: {
-          currentSocket: { owner: { username: 'John' } },
-          mySockets: [],
-          socketsList: []
-        },
-        mytasks: {
-          tasks: []
-        },
-      });
+
       const wrapper = mount(
-        <Provider store={mockStore}>
-          <WorkSpace isInvited={invited} />
-        </Provider>
+        <WorkSpace isInvited={invited} />
       );
 
       it('should renders without crash', () => {
+        console.log(mockStore.getState());
         expect(wrapper.contains(<Header />)).to.deep.equal(true);
         expect(wrapper.contains(<BodyHeader isInvited={invited} />)).to.deep.equal(true);
         expect(wrapper.contains(
@@ -74,6 +69,9 @@ describe('<WorkSpace />', () => {
             isInvited={invited}
           />
         )).to.deep.equal(true);
+      });
+      it("should have an invitation link", () => {
+
       });
     });
   });
