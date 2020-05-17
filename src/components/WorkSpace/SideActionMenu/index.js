@@ -1,9 +1,14 @@
-import React, { useState } from "react";
-import { Divider, Popup, Button } from 'semantic-ui-react';
+import React, { useState, useContext } from "react";
+import { Divider, Popup, Button, Input } from 'semantic-ui-react';
 import { useSelector } from "react-redux";
 
 // Components
-import Actions from "./Actions";
+import Nav from "./Actions";
+
+//
+
+// Context
+import searchContext from '../List/searchContext';
 
 export default ({ isInvited }) => {
   const initialState = {
@@ -11,18 +16,25 @@ export default ({ isInvited }) => {
   };
   const { currentSocket } = useSelector((GlobalState) => GlobalState.sockets);
   const [state, setstate] = useState(initialState);
+  const search = useContext(searchContext);
+
+  const handleSearchChange = (e) => {
+    search.setCurrentSearch(e.target.value);
+  };
 
   return (
     <div className="sideActionMenu-container">
-      <nav className="sideActionMenu-nav">
-        <Button className="sideActionMenu-nav-btn" size="huge" icon="wechat" />
-        <Button className="sideActionMenu-nav-btn" size="huge" icon="arrow alternate circle right" />
-      </nav>
+      <Nav state={state} setstate={setstate} isInvited={isInvited} />
       <div className="sideActionMenu">
 
         <h2 className="sideActionMenu-title">Menu</h2>
         <Divider />
-        <Actions currentSocket={currentSocket} isInvited={isInvited} state={state} setstate={setstate} />
+        <Input
+          loading={state.isLoading}
+          onChange={handleSearchChange}
+          icon="search"
+          placeholder="Chercher une carte"
+        />
         <Divider />
         <h2 className="sideActionMenu-subTitle">Membres Connectés</h2>
         <Divider />
@@ -51,12 +63,30 @@ export default ({ isInvited }) => {
         </div>
         <Divider />
         {
-          state.view === "last-actions" && <> <h3 className="sideActionMenu-subTitle"> Dernières actions </h3>
+          state.view === "last-actions" && <>
+            <h3 className="sideActionMenu-subTitle"> Dernières actions </h3>
             <Divider />
+            <div className="sideActionMenu-actions">
+              {/* actions */}
+            </div>
           </>
         }
         {
           state.view === "chat" && <>
+            <h3 className="sideActionMenu-subTitle">Discussion</h3>
+            <Divider />
+            <div className="sideActionMenu-chat">
+              {/* chat */}
+            </div>
+          </>
+        }
+        {
+          state.view === "tabInfo" && <>
+            <h3 className="sideActionMenu-subTitle">À propos</h3>
+            <Divider />
+            <div className="sideActionMenu-tabInfo">
+
+            </div>
           </>
         }
 

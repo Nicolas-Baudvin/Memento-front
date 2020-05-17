@@ -13,6 +13,8 @@ export default ({ tasks, listId }) => {
     value: ''
   };
 
+  console.log("dans composant task",tasks);
+
   const [state, setstate] = useState(initialState);
 
   const handleSubmit = (taskId) => (e) => {

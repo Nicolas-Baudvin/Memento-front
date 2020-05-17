@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 // Components
@@ -8,15 +8,26 @@ import TaskForm from './taskForm';
 
 // Actions
 import { myTasks, newTask } from "../../../store/Tasks/actions";
+import { updateList } from "../../../store/Lists/actions";
 
 // Styles
 import './style.scss';
-import { updateList } from "../../../store/Lists/actions";
+
+// Context
+import SearchContext from './searchContext';
 
 export default ({ isInvited, currentTab }) => {
+  const search = useContext(SearchContext);
+
   const { tasks } = useSelector((GlobalState) => GlobalState.mytasks);
   const { lists } = useSelector((GlobalState) => GlobalState.mylists);
   const dispatch = useDispatch();
+
+  const initialState = {
+    sortedTasks: tasks,
+  };
+
+  const [state, setstate] = useState(initialState);
 
   const handleUpdateListName = (list) => (e) => {
     e.preventDefault();
@@ -57,27 +68,44 @@ export default ({ isInvited, currentTab }) => {
     }
   }, [lists]);
 
+  useEffect(() => {
+    if (tasks && !state.sortedTasks.length) setstate({ ...state, sortedTasks: tasks });
+  }, [tasks]);
+
+  useEffect(() => {
+    console.log(search.value);
+
+    if (!search.value) {
+      return setstate({ ...state, sortedTasks: tasks });
+    }
+
+    const sort = state.sortedTasks.filter((task) => task.title.includes(search.value));
+    setstate({ sortedTasks: sort });
+  }, [search.value]);
+
   return (
     <div className="workspace-body-lists">
       {
         lists && lists.length > 0 && lists.map((list) => {
-          if (currentTab._id === list.tabId) return (
-            <div key={list._id} data-order={list.order} className="list">
-              <ListHeader
-                showTitleInput={showTitleInput}
-                handleUpdateListName={handleUpdateListName}
-                list={list}
-              />
-              <div className="list-tasks">
-                {
-                  tasks && tasks.length > 0 && <Tasks tasks={tasks} listId={list._id} />
-                }
-                <TaskForm
-                  addTaskToList={addTaskToList}
+          if (currentTab._id === list.tabId) {
+            return (
+              <div key={list._id} data-order={list.order} className="list">
+                <ListHeader
+                  showTitleInput={showTitleInput}
+                  handleUpdateListName={handleUpdateListName}
                   list={list}
                 />
-              </div>
-            </div>);
+                <div className="list-tasks">
+                  {
+                  tasks && tasks.length > 0 && <Tasks tasks={state.sortedTasks} listId={list._id} />
+                }
+                  <TaskForm
+                    addTaskToList={addTaskToList}
+                    list={list}
+                  />
+                </div>
+              </div>);
+          }
         })
       }
     </div>

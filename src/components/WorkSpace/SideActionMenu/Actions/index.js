@@ -1,52 +1,37 @@
 import React from "react";
-import { Popup, Button } from "semantic-ui-react";
+import { Popup, Button, Input } from "semantic-ui-react";
+import { useContext } from "react";
 
-export default ({ state, setstate }) => {
+export default ({ state, setstate, isInvited }) => {
+  const { isLoading, view } = state;
 
-  const handleClickChangeView = (view) => (e) => {
-    setstate({ ...state, view });
+  const handleClickChangeView = (viewName) => (e) => {
+    setstate({ ...state, view: viewName });
   };
 
   return (
-    <ul className="sideActionMenu-actions">
-
-      <li className="sideActionMenu-actions__item">
+    <>
+      <nav className="sideActionMenu-nav">
+        <Popup
+          trigger={<Button onClick={handleClickChangeView('chat')} size="huge" icon="wechat" color="vk" />}
+          content="Accéder au chat"
+        />
+        <Popup
+          trigger={<Button onClick={handleClickChangeView('tabInfo')} size="huge" icon="table" color="linkedin" />}
+          content="À propos de ce tableau"
+        />
         {
-          state.view === "last-actions" && <Popup
-            trigger={<Button onClick={handleClickChangeView('chat')} icon="wechat" color="vk" />}
-            content="Accéder au chat"
+          !isInvited && <Popup
+            trigger={<Button icon="trash alternate" size="huge" color="red" />}
+            content="Supprimer le tableau"
           />
         }
-        {
-          state.view === "chat" && <Popup
-            trigger={<Button onClick={handleClickChangeView('last-actions')} icon="arrow alternate circle left" color="vk" />}
-            content="Retour"
-          />
-        }
-
-      </li>
-
-      <li className="sideActionMenu-actions__item">
         <Popup
-          trigger={<Button icon="table" color="linkedin" />}
-          content="Changer la description du tableau"
+          trigger={<Button className="sideActionMenu-nav-btn" size="huge" icon="arrow alternate circle right" />}
+          content="Retour aux actions"
         />
-      </li>
 
-      <li className="sideActionMenu-actions__item">
-        <Popup
-          trigger={<Button icon="search" color="linkedin" />}
-          content="Chercher une tâche"
-        />
-      </li>
-
-      <li className="sideActionMenu-actions__item">
-        <Popup
-          trigger={<Button icon="trash alternate" color="red" />}
-          content="Supprimer le tableau"
-        />
-      </li>
-
-    </ul>
+      </nav>
+    </>
   );
 };

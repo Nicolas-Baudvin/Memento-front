@@ -27,6 +27,7 @@
     "react/state-in-constructor": "off",
     "quotes": "off",
     "no-underscore-dangle": "off",
+    "linebreak-style": "off",
 
     "prefer-destructuring": "off",
     "react/jsx-wrap-multilines": "off",

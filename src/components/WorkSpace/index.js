@@ -9,6 +9,9 @@ import List from "./List";
 import BodyHeader from './BodyHeader';
 import SideActionMenu from './SideActionMenu';
 
+// Hooks
+import useSearch from '../../hooks/useSearch';
+
 // Invited components
 import InvitedList from './Invited/Lists';
 
@@ -17,14 +20,17 @@ import { newSocketTab, connectToTab } from "../../store/Socket/actions";
 import { newCurrentTab } from "../../store/Tabs/actions";
 import { myLists } from "../../store/Lists/actions";
 
-export default ({ isInvited }) => {
+// Context
+import SearchContext from "./List/searchContext";
 
+export default ({ isInvited }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { currentTab } = useSelector((globalState) => globalState.mytabs);
   const { userID } = useSelector((globalState) => globalState.userData.datas);
   const { lists } = useSelector((GlobalState) => GlobalState.mylists);
   const { currentSocket } = useSelector((GlobalState) => GlobalState.sockets);
+  const search = useSearch();
 
   /**
    * @param link - pour invités seulement
@@ -61,22 +67,24 @@ export default ({ isInvited }) => {
   }, [currentSocket]);
 
   return (
-    <div data-tabid={id} className="workspace" style={{ backgroundImage: `url(../../../${currentTab && currentTab.imgPath})` }}>
-      <Header />
-      <div className="container">
-        <div className="workspace-body">
-          <BodyHeader isInvited={isInvited} />
+    <SearchContext.Provider value={search}>
+      <div data-tabid={id} className="workspace" style={{ backgroundImage: `url(../../../${currentTab && currentTab.imgPath})` }}>
+        <Header />
+        <div className="container">
+          <div className="workspace-body">
+            <BodyHeader isInvited={isInvited} />
+            {
+              !isInvited && <List currentTab={currentTab} lists={lists} isInvited={isInvited} />
+            }
+            {
+              isInvited && <InvitedList />
+            }
+          </div>
           {
-            !isInvited && <List currentTab={currentTab} lists={lists} isInvited={isInvited} />
-          }
-          {
-            isInvited && <InvitedList />
+            currentSocket && <SideActionMenu guests={currentSocket.guests} isInvited={isInvited} />
           }
         </div>
-        {
-          currentSocket && <SideActionMenu guests={currentSocket.guests} isInvited={isInvited} />
-        }
       </div>
-    </div>
+    </SearchContext.Provider>
   );
 };
