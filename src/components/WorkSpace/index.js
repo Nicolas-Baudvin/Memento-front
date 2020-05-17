@@ -73,7 +73,9 @@ export default ({ isInvited }) => {
             isInvited && <InvitedList />
           }
         </div>
-        <SideActionMenu />
+        {
+          currentSocket && <SideActionMenu guests={currentSocket.guests} isInvited={isInvited} />
+        }
       </div>
     </div>
   );
