@@ -50,9 +50,10 @@
         &-lists {
             width: 70%;
             align-self: center;
-            height: 400px;
+            height: 100%;
             margin-top: 6em;
             display: flex;
+            overflow: auto;
         }
     }
 }

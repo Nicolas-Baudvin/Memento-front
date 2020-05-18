@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Confirm } from 'semantic-ui-react';
 import { useDispatch } from "react-redux";
-import { deleteAccount } from "../../../../store/Registration/actions";
+import { deleteAccount } from "../../../store/Registration/actions";
 
 export default ({ state, setstate, closeConfirm }) => {
   const dispatch = useDispatch();

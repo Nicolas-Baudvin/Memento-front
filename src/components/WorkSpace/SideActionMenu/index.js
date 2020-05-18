@@ -14,7 +14,8 @@ import searchContext from '../List/searchContext';
 export default ({ isInvited }) => {
   const { actions } = useSelector((GlobalState) => GlobalState.lastActions);
   const initialState = {
-    view: 'last-actions'
+    view: 'last-actions',
+    isOpen: false
   };
   const { currentSocket } = useSelector((GlobalState) => GlobalState.sockets);
   const [state, setstate] = useState(initialState);

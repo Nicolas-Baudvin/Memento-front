@@ -3,8 +3,6 @@ import { Popup, Input } from 'semantic-ui-react';
 import { useSelector, useDispatch } from "react-redux";
 
 // Components
-import Guests from "../Guest";
-import Owner from '../Owner';
 import Menu from '../Menu';
 import { newList } from "../../../store/Lists/actions";
 

@@ -19,20 +19,23 @@ export default () => {
         <Dropdown item icon="bars" simple>
           <Dropdown.Menu>
             <Dropdown.Item>
-              <Icon name="dropdown" />
-              <span className="text">Options</span>
-
-              <Dropdown.Menu>
-                <Dropdown.Item>Changer le nom du tableau</Dropdown.Item>
-                <Dropdown.Item>Changer l'image du tableau</Dropdown.Item>
-              </Dropdown.Menu>
+              <Icon name="table" />
+              Changer de tableau
             </Dropdown.Item>
-            <Dropdown.Item>Changer de tableau</Dropdown.Item>
-            <Dropdown.Item>Expulser un invité</Dropdown.Item>
-            <Dropdown.Item>Editer les droits invités</Dropdown.Item>
+            <Dropdown.Item>
+              <Icon name="log out" />
+              Expulser un invité
+            </Dropdown.Item>
+            <Dropdown.Item>
+              <Icon name="edit" />
+              Editer les droits invités
+            </Dropdown.Item>
             <Dropdown.Divider />
             <Dropdown.Header>Autre</Dropdown.Header>
-            <Dropdown.Item onClick={handleClickOnDisconnect}>Déconnexion de l'instance</Dropdown.Item>
+            <Dropdown.Item onClick={handleClickOnDisconnect}>
+              <Icon name="power off" />
+              Déconnexion de l'instance
+            </Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
       </Menu>

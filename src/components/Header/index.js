@@ -5,11 +5,10 @@ import { useSelector } from "react-redux";
 import loadPic from '../../Utils/loadPic';
 
 // Components
-import Menu from './SideMenu';
 import Nav from './Nav';
 import Title from './Title';
 
-export default ({ handleOpen }) => {
+export default () => {
   const { tabs } = useSelector((GlobalState) => GlobalState.mytabs);
   const initialState = {
     show: false,
@@ -37,10 +36,7 @@ export default ({ handleOpen }) => {
     <header className="workmenu-header">
       <Nav tabs={tabs} state={state} setstate={setstate} />
       <Title state={state} />
-      <Button onClick={() => setstate({ ...state, show: !state.show })} content="Menu" icon="bars" />
-      {
-        state.show && <Menu handleOpen={handleOpen} />
-      }
+      <Button content="Menu" icon="bars" />
     </header>
   );
 };

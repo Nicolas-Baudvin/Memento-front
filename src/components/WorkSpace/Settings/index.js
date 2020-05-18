@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import {
-  Modal, Header, Icon, Button
+  Modal, Header, Icon, Button, Popup
 } from 'semantic-ui-react';
 import { useSelector, useDispatch } from "react-redux";
-import { settingsNav } from '../../../../Utils/navs';
-import { updatePassword } from "../../../../store/Registration/actions";
-import { failMessage } from "../../../../store/Popup/actions";
+import { settingsNav } from '../../../Utils/navs';
+import { updatePassword } from "../../../store/Registration/actions";
+import { failMessage } from "../../../store/Popup/actions";
 
 // Styles
 import "./style.scss";
@@ -48,7 +48,10 @@ export default ({ handleOpen, isOpen, handleClose }) => {
 
   return (
     <Modal
-      trigger={<li onClick={handleOpen}>Paramètres</li>}
+      trigger={<Popup
+        trigger={<Button onClick={handleOpen} icon="user" size="huge" />}
+        content="Mon compte"
+      />}
       open={isOpen}
       onClose={handleClose}
       basic
