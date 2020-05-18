@@ -72,13 +72,14 @@
     margin-top: 1em;
     border-radius: 0 3px 3px 0;
     position: relative;
+    overflow: auto;
 
     &-container {
         width: 20%;
-        height: 10.5vh;
+        height: 7%;
         display: flex;
         position: absolute;
-        right: -29.7em;
+        right: -18%;
         transition: .5s;
     }
     
@@ -91,7 +92,7 @@
         margin-top: 1em;
         border-radius: 3px 0 0 3px;
         overflow: auto;
-
+        
         .open {
             &:before {
                 transform: translateY(12px) rotate(135deg);
@@ -99,17 +100,17 @@
             &:after {
                 transform: translateY(-12px) rotate(-135deg);
             }
-
+            
             div {
                 transform: scale(0);
             }
         }
-
+        
         &-open {
-            margin: 0.7em 0;
+            margin: 0.5em 0;
             width: 30px;
             height: 30px;
-
+            
             &:after,
             &:before,
             div {
@@ -122,24 +123,24 @@
                 transition: all 0.2s ease-in-out;
                 cursor: pointer;
             }
-
+            
             &:hover {
                 &:before {
                     transform: translateY(12px) rotate(135deg);
                 }
             }
-
+            
             &:hover {
                 &:after {
                     transform: translateY(-12px) rotate(-135deg);
                 }
             }
-
+            
             &:hover div {
                 transform: scale(0);
             }
         }
-
+        
         .button {
             margin: 0.7em 0 !important;
             background-color: #1e8ae2 !important;
@@ -147,22 +148,22 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-
+            
             &:hover {
                 background-color: rgb(26, 115, 189) !important;
                 transition: 0.3s;
             }
-
+            
             .icon {
                 color: white;
             }
         }
     }
-
+    
     &-guests {
         display: flex;
         flex-wrap: wrap;
-
+        
         &__item {
             &--title {
                 border-radius: 50%;
@@ -181,7 +182,7 @@
             }
         }
     }
-
+    
     &-owner {
         border-radius: 50%;
         background-color: rgba(18, 131, 206, 1);
@@ -197,7 +198,7 @@
         transition: 0.3s;
         margin-left: 0.5em;
         font-weight: bold;
-
+        
         &-title {
             font-weight: lighter;
             display: flex;
@@ -206,19 +207,19 @@
             margin: 0;
         }
     }
-
+    
     &-title {
         align-self: center;
         margin: 0;
     }
-
+    
     &-actions {
         display: flex;
         flex-direction: column;
         overflow-y: auto;
         padding: 0.5em 0;
         height: 100%;
-
+        
         &__item {
             display: flex;
             flex-direction: column;
@@ -235,7 +236,7 @@
             }
         }
     }
-
+    
     &-subTitle {
         font-size: 1.3em;
         align-self: center;
@@ -247,5 +248,5 @@
 .menuOpen {
     right: 0;
     transition: .5s;
-    height: 90vh;
+    height: 90%;
 }
