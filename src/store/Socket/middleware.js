@@ -22,6 +22,7 @@ import { successMessage, failMessage } from '../Popup/actions';
 import { cryptUserData, decryptUserData } from '../../Utils/crypt';
 import { newFriendTab } from '../Tabs/actions';
 import { logOut } from '../Registration/actions';
+import { storeActions } from '../ActionsOnWorkSpace/actions';
 
 let socket;
 
@@ -30,7 +31,8 @@ export default (store) => (next) => (action) => {
   switch (action.type) {
     case SEND_ACTIONS: {
       const link = state.sockets.currentSocket.invitationLink;
-      socket.emit("send actions", [action.data, link]);
+      const CryptedActions = cryptUserData(action.data);
+      socket.emit("send actions", [CryptedActions, link]);
       next(action);
       break;
     }
@@ -105,6 +107,12 @@ export default (store) => (next) => (action) => {
           const decryptedTasks = decryptUserData(data.tasks);
           store.dispatch(storeFriendTasks(decryptedTasks));
         });
+
+        socket.on("send tab actions", (actions) => {
+          console.log(actions);
+          const decryptedActions = decryptUserData(actions);
+          store.dispatch(storeActions(decryptedActions));
+        })
       });
 
       socket.on("user leave", (data) => {

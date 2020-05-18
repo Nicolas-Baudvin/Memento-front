@@ -1,4 +1,4 @@
-import { NEW_ACTION, TAB_ACTIONS } from "./actions";
+import { NEW_ACTION, TAB_ACTIONS, STORE_ACTIONS } from "./actions";
 
 const initialState = {
   actions: ''
@@ -16,6 +16,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         actions: action.data.reverse()
+      };
+    }
+    case STORE_ACTIONS: {
+      return {
+        ...state,
+        actions: action.actions.reverse()
       };
     }
     default: {
