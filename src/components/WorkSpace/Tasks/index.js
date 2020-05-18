@@ -55,8 +55,6 @@ export default ({ tasks, listId, list }) => {
     value: ''
   };
 
-  console.log("dans composant task", tasks);
-
   const [state, setstate] = useState(initialState);
 
   const handleSubmit = (taskId, task) => (e) => {

@@ -24,7 +24,7 @@ export default ({ state, setstate, isInvited }) => {
           />
         }
         <Popup
-          trigger={<Button className="sideActionMenu-nav-btn" size="huge" icon="arrow alternate circle left" />}
+          trigger={<Button onClick={handleClickChangeView('last-actions')} className="sideActionMenu-nav-btn" size="huge" icon="arrow alternate circle left" />}
           content="Retour au menu principal"
         />
 
