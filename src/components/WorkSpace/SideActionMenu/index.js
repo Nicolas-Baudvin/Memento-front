@@ -12,6 +12,7 @@ import { tabAction } from "../../../store/ActionsOnWorkSpace/actions";
 import searchContext from '../List/searchContext';
 
 export default ({ isInvited }) => {
+  const { actions } = useSelector((GlobalState) => GlobalState.lastActions);
   const initialState = {
     view: 'last-actions'
   };
@@ -73,7 +74,17 @@ export default ({ isInvited }) => {
             <h3 className="sideActionMenu-subTitle"> Dernières actions </h3>
             <Divider />
             <div className="sideActionMenu-actions">
-              {/* actions */}
+              {
+                actions && actions.map((act) => {
+                  return (<div className="sideActionMenu-actions__item">
+                    <time>{act.createdAt.replace('T', ' ').replace('Z', '').substring(0, 19)}</time>
+                    <p>
+                      <span>{`${act.author} `}</span>
+                      {act.action}
+                    </p>
+                  </div>);
+                })
+              }
             </div>
           </>
         }

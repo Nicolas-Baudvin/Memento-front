@@ -158,7 +158,26 @@
     &-actions {
         display: flex;
         justify-content: space-around;
+        flex-direction: column;
         margin: 0.5em 0;
+        overflow-y: auto;
+
+        &__item {
+            display: flex;
+            flex-direction: column;
+            margin: 1em 0;
+            span {
+                font-weight: bold;
+            }
+            p {
+
+            }
+            time {
+                font-style: italic;
+                font-weight: lighter;
+                font-size: .8em;
+            }
+        }
     }
 
     &-subTitle {

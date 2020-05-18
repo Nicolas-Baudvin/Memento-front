@@ -49,7 +49,7 @@ export default (store) => (next) => (action) => {
           action.lists = lists;
           store.dispatch(sendLists(cryptedLists));
           store.dispatch(newAction({
-            action: `${username} a ajouter la liste ${name} au tableau !`,
+            action: `a ajouter la liste "${name}" au tableau !`,
             tabId,
             author: username,
             authorID: userID
@@ -127,7 +127,7 @@ export default (store) => (next) => (action) => {
           localStorage.setItem("lists", cryptedLists);
           store.dispatch(sendLists(cryptedLists));
           store.dispatch(newAction({
-            action: `${username} a supprimer la liste ${name} du tableau !`,
+            action: `a supprimer la liste "${name}" du tableau !`,
             tabId,
             author: username,
             authorID: userID
@@ -175,7 +175,7 @@ export default (store) => (next) => (action) => {
           localStorage.setItem("lists", cryptedLists);
           store.dispatch(sendLists(cryptedLists));
           store.dispatch(newAction({
-            action: `${username} a changer le nom de la liste ${list.name} en ${newTitle} !`,
+            action: `a changer le nom de la liste "${list.name}" en "${newTitle}" !`,
             tabId: list.tabId,
             author: username,
             authorID: userID

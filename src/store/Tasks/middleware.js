@@ -36,7 +36,7 @@ export default (store) => (next) => (action) => {
           action.tasks = res.data.tasks;
           store.dispatch(sendTasks(res.data.tasks));
           store.dispatch(newAction({
-            action: `${username} a ajouter la tâche ${title} à la liste ${name} !`,
+            action: `a ajouter la tâche "${title}" à la liste "${name}" !`,
             tabId: currentTab._id,
             author: username,
             authorID: userID
@@ -84,7 +84,7 @@ export default (store) => (next) => (action) => {
           store.dispatch(sendTasks(tasks));
           action.tasks = tasks;
           store.dispatch(newAction({
-            action: `${username} a changer le nom de la tâche ${oldTitle} par ${title} !`,
+            action: `a changer le nom de la tâche "${oldTitle}" par "${title}" !`,
             tabId,
             author: username,
             authorID: userID
@@ -132,7 +132,7 @@ export default (store) => (next) => (action) => {
           action.tasks = tasks;
           store.dispatch(sendTasks(tasks));
           store.dispatch(newAction({
-            action: `${username} a ajouter un label à la tâche ${title} !`,
+            action: `a ajouter un label à la tâche "${title}" !`,
             tabId,
             author: username,
             authorID: userID
@@ -213,7 +213,7 @@ export default (store) => (next) => (action) => {
           action.tasks = tasks;
           store.dispatch(sendTasks(tasks));
           store.dispatch(newAction({
-            action: `${username} a supprimer une tâche de la liste ${listName} !`,
+            action: `a supprimer une tâche de la liste "${listName}" !`,
             tabId,
             author: username,
             authorID: userID

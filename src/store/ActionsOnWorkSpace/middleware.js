@@ -7,7 +7,7 @@ export default (store) => (next) => (action) => {
   switch (action.type) {
     case NEW_ACTION: {
       const {
-        action: lastAction, tabId, author, authorID
+        action: lastAction, tabId, author, authorID, target
       } = action.actionData;
       const { userID, token } = store.getState().userData.datas;
 

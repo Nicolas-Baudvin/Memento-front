@@ -1,7 +1,7 @@
 import { NEW_ACTION, TAB_ACTIONS } from "./actions";
 
 const initialState = {
-  actions: []
+  actions: ''
 };
 
 export default (state = initialState, action) => {
