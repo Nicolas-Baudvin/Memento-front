@@ -6,7 +6,6 @@ export const newAction = (actionData) => ({
   actionData
 });
 
-export const tabAction = (tabId) => ({
+export const tabAction = () => ({
   type: TAB_ACTIONS,
-  tabId
 });

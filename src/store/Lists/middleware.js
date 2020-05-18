@@ -2,10 +2,13 @@ import Axios from "axios";
 import { cryptUserData } from 'src/Utils/crypt';
 
 // Actions
-import { NEW_LIST, MY_LISTS, DELETE_LIST, UPDATE_LIST, CLEAN_LISTS, UPDATE_FRIEND_LISTS } from "./actions";
+import {
+  NEW_LIST, MY_LISTS, DELETE_LIST, UPDATE_LIST, CLEAN_LISTS, UPDATE_FRIEND_LISTS
+} from "./actions";
 import { failMessage } from "../Popup/actions";
 import { logOut } from "../Registration/actions";
 import { sendLists } from "../Socket/actions";
+import { newAction } from "../ActionsOnWorkSpace/actions";
 
 export default (store) => (next) => (action) => {
   const state = store.getState();
@@ -22,7 +25,7 @@ export default (store) => (next) => (action) => {
     case NEW_LIST: {
       const order = state.mylists.lists.length;
       const { name, tabId } = action.listData;
-      const { token, userID } = state.userData.datas;
+      const { token, userID, username } = state.userData.datas;
 
       Axios({
         method: 'POST',
@@ -45,6 +48,13 @@ export default (store) => (next) => (action) => {
           localStorage.setItem("lists", cryptedLists);
           action.lists = lists;
           store.dispatch(sendLists(cryptedLists));
+          store.dispatch(newAction({
+            action: `${username} a ajouter la liste ${name} au tableau !`,
+            tabId,
+            author: username,
+            authorID: userID
+          }));
+
           next(action);
         })
         .catch((err) => {
@@ -94,6 +104,8 @@ export default (store) => (next) => (action) => {
     }
     case DELETE_LIST: {
       const { listID } = action;
+      const { name, tabId } = action.listData;
+      const { token, userID, username } = state.userData.datas;
 
       Axios({
         url: process.env.DELETE_LIST_URL,
@@ -104,7 +116,7 @@ export default (store) => (next) => (action) => {
           tabId: state.mytabs.currentTab._id
         },
         headers: {
-          Authorization: `Bearer ${state.userData.datas.token}`
+          Authorization: `Bearer ${token}`
         }
       })
         .then((res) => {
@@ -114,6 +126,12 @@ export default (store) => (next) => (action) => {
           const cryptedLists = cryptUserData(lists);
           localStorage.setItem("lists", cryptedLists);
           store.dispatch(sendLists(cryptedLists));
+          store.dispatch(newAction({
+            action: `${username} a supprimer la liste ${name} du tableau !`,
+            tabId,
+            author: username,
+            authorID: userID
+          }));
           next(action);
         })
         .catch((err) => {
@@ -134,6 +152,8 @@ export default (store) => (next) => (action) => {
     }
     case UPDATE_LIST: {
       const { listData } = action;
+      const { list, newTitle } = action.listData;
+      const { token, userID, username } = state.userData.datas;
 
       Axios({
         method: 'POST',
@@ -144,7 +164,7 @@ export default (store) => (next) => (action) => {
           tabId: state.mytabs.currentTab._id
         },
         headers: {
-          Authorization: `Bearer ${state.userData.datas.token}`
+          Authorization: `Bearer ${token}`
         }
       })
         .then((res) => {
@@ -154,6 +174,12 @@ export default (store) => (next) => (action) => {
           const cryptedLists = cryptUserData(lists);
           localStorage.setItem("lists", cryptedLists);
           store.dispatch(sendLists(cryptedLists));
+          store.dispatch(newAction({
+            action: `${username} a changer le nom de la liste ${list.name} en ${newTitle} !`,
+            tabId: list.tabId,
+            author: username,
+            authorID: userID
+          }));
           next(action);
         })
         .catch((err) => {

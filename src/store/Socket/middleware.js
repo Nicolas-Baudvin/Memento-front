@@ -15,7 +15,8 @@ import {
   storeFriendLists,
   sendTasks,
   storeFriendTasks,
-  STORE_FRIEND_TASKS
+  STORE_FRIEND_TASKS,
+  SEND_ACTIONS
 } from './actions';
 import { successMessage, failMessage } from '../Popup/actions';
 import { cryptUserData, decryptUserData } from '../../Utils/crypt';
@@ -27,6 +28,12 @@ let socket;
 export default (store) => (next) => (action) => {
   const state = store.getState();
   switch (action.type) {
+    case SEND_ACTIONS: {
+      const link = state.sockets.currentSocket.invitationLink;
+      socket.emit("send actions", [action.data, link]);
+      next(action);
+      break;
+    }
     case STORE_FRIEND_TASKS: {
       next(action);
       break;

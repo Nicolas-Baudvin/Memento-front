@@ -1,11 +1,12 @@
-import React, { useState, useContext } from "react";
-import { Divider, Popup, Button, Input } from 'semantic-ui-react';
-import { useSelector } from "react-redux";
+import React, { useState, useContext, useEffect } from "react";
+import { Divider, Popup, Input } from 'semantic-ui-react';
+import { useSelector, useDispatch } from "react-redux";
 
 // Components
 import Nav from "./Actions";
 
-//
+// Actions
+import { tabAction } from "../../../store/ActionsOnWorkSpace/actions";
 
 // Context
 import searchContext from '../List/searchContext';
@@ -21,6 +22,11 @@ export default ({ isInvited }) => {
   const handleSearchChange = (e) => {
     search.setCurrentSearch(e.target.value);
   };
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(tabAction());
+  }, []);
 
   return (
     <div className="sideActionMenu-container">
@@ -54,7 +60,7 @@ export default ({ isInvited }) => {
             currentSocket && currentSocket.guests.map((guest) => (
               <div className="sideActionMenu-guests__item">
                 <Popup
-                  trigger={<div className="sideActionMenu guests__item--title">{guest.userData.username.substring(0, 1)}</div>}
+                  trigger={<div className="sideActionMenu-guests__item--title">{guest.userData.username.substring(0, 1)}</div>}
                   content={guest.userData.username}
                 />
               </div>

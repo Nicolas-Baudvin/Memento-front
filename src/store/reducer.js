@@ -5,6 +5,7 @@ import mytabs from './Tabs/reducer';
 import sockets from './Socket/reducer';
 import mylists from './Lists/reducer';
 import mytasks from './Tasks/reducer';
+import lastActions from './ActionsOnWorkSpace/reducer';
 
 export default combineReducers({
   userData,
@@ -12,5 +13,6 @@ export default combineReducers({
   mytabs,
   sockets,
   mylists,
-  mytasks
+  mytasks,
+  lastActions
 });

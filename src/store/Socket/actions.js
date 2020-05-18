@@ -11,6 +11,13 @@ export const SEND_LISTS = "action/SEND_LISTS";
 export const SEND_TASKS = "action/SEND_TASKS";
 export const STORE_FRIEND_LISTS = "action/STORE_FRIEND_LISTS";
 export const STORE_FRIEND_TASKS = "action/STORE_FRIEND_TASKS";
+export const SEND_ACTIONS = "action/SEND_ACTIONS";
+
+
+export const sendActions = (data) => ({
+  type: SEND_ACTIONS,
+  data
+});
 
 export const storeFriendTasks = (tasks) => ({
   type: STORE_FRIEND_TASKS,

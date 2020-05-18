@@ -26,9 +26,10 @@ export const myTasks = (listId) => ({
   listId
 });
 
-export const deleteTask = (taskId) => ({
+export const deleteTask = (taskId, listName) => ({
   type: DELETE_TASK,
-  taskId
+  taskId,
+  listName
 });
 
 export const updateTaskName = (taskData) => ({

@@ -44,10 +44,10 @@ export default ({ isInvited, currentTab }) => {
     }
   };
 
-  const addTaskToList = (listId) => (e) => {
+  const addTaskToList = (listId, list) => (e) => {
     e.preventDefault();
     const title = e.target.querySelector('textarea').value;
-    dispatch(newTask({ listId, title }));
+    dispatch(newTask({ listId, title, name: list.name }));
     e.target.querySelector('textarea').value = '';
   };
 
@@ -69,18 +69,16 @@ export default ({ isInvited, currentTab }) => {
   }, [lists]);
 
   useEffect(() => {
-    if (tasks && !state.sortedTasks.length) setstate({ ...state, sortedTasks: tasks });
+    if (tasks) setstate({ ...state, sortedTasks: tasks });
   }, [tasks]);
 
   useEffect(() => {
-    console.log(search.value);
-
     if (!search.value) {
       return setstate({ ...state, sortedTasks: tasks });
     }
 
     const sort = state.sortedTasks.filter((task) => task.title.includes(search.value));
-    setstate({ sortedTasks: sort });
+    return setstate({ sortedTasks: sort });
   }, [search.value]);
 
   return (
@@ -97,7 +95,7 @@ export default ({ isInvited, currentTab }) => {
                 />
                 <div className="list-tasks">
                   {
-                  tasks && tasks.length > 0 && <Tasks tasks={state.sortedTasks} listId={list._id} />
+                  tasks && tasks.length > 0 && <Tasks list={list} tasks={state.sortedTasks} listId={list._id} />
                 }
                   <TaskForm
                     addTaskToList={addTaskToList}

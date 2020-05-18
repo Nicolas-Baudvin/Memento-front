@@ -3,23 +3,23 @@ import { Dropdown, Icon } from 'semantic-ui-react';
 import { useDispatch } from "react-redux";
 import { updateTaskLabel, deleteTask } from "../../../../store/Tasks/actions";
 
-export default ({ taskId }) => {
+export default ({ taskId, task, list }) => {
   const dispatch = useDispatch();
 
   const handleClickLabel = (label) => (e) => {
-    dispatch(updateTaskLabel({ label, taskId }));
+    dispatch(updateTaskLabel({ label, taskId, title: task.title }));
   };
 
   const handleClickChangeName = (e) => {
-    const task = e.target.parentNode.parentNode.parentNode; // pas fifou
-    task.lastChild.previousSibling.classList.add("show");
-    task.firstChild.nextSibling.classList.remove('show');
-    task.firstChild.style.display = "none";
+    const currentTask = e.target.parentNode.parentNode.parentNode; // pas fifou
+    currentTask.lastChild.previousSibling.classList.add("show");
+    currentTask.firstChild.nextSibling.classList.remove('show');
+    currentTask.firstChild.style.display = "none";
   };
 
   const handleClickDelete = () => {
     console.log(taskId);
-    dispatch(deleteTask(taskId));
+    dispatch(deleteTask(taskId, list.name));
   };
 
   return (

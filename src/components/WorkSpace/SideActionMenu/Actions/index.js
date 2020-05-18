@@ -1,10 +1,7 @@
 import React from "react";
-import { Popup, Button, Input } from "semantic-ui-react";
-import { useContext } from "react";
+import { Popup, Button } from "semantic-ui-react";
 
 export default ({ state, setstate, isInvited }) => {
-  const { isLoading, view } = state;
-
   const handleClickChangeView = (viewName) => (e) => {
     setstate({ ...state, view: viewName });
   };
@@ -27,8 +24,8 @@ export default ({ state, setstate, isInvited }) => {
           />
         }
         <Popup
-          trigger={<Button className="sideActionMenu-nav-btn" size="huge" icon="arrow alternate circle right" />}
-          content="Retour aux actions"
+          trigger={<Button className="sideActionMenu-nav-btn" size="huge" icon="arrow alternate circle left" />}
+          content="Retour au menu principal"
         />
 
       </nav>

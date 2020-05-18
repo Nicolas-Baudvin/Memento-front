@@ -70,13 +70,6 @@ export default ({ isInvited }) => {
           />
         </>
       }
-      <div className="workspace-body-header-members">
-        {
-          currentSocket && <Owner currentSocket={currentSocket} isInvited={isInvited} />
-        }
-        <Guests guests={currentSocket.guests} isInvited={isInvited} />
-      </div>
-
     </div>
   );
 };

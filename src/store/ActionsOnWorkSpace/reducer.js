@@ -9,13 +9,13 @@ export default (state = initialState, action) => {
     case NEW_ACTION: {
       return {
         ...state,
-        actions: [...state.actions, action.data]
+        actions: action.data
       };
     }
     case TAB_ACTIONS: {
       return {
         ...state,
-        actions: [action.data]
+        actions: action.data
       };
     }
     default: {

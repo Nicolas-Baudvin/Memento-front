@@ -5,6 +5,7 @@ import { NEW_TASK, UPDATE_TASK_NAME, MY_TASKS, DELETE_TASK, UPDATE_FRIEND_TASKS,
 import { failMessage } from "../Popup/actions";
 import { logOut } from "../Registration/actions";
 import { sendTasks } from '../Socket/actions';
+import { newAction } from '../ActionsOnWorkSpace/actions';
 
 export default (store) => (next) => (action) => {
   const state = store.getState();
@@ -14,8 +15,8 @@ export default (store) => (next) => (action) => {
       break;
     }
     case NEW_TASK: {
-      const { title, listId } = action.taskData;
-      const { userID, token } = state.userData.datas;
+      const { title, listId, name } = action.taskData;
+      const { userID, token, username } = state.userData.datas;
       const { currentTab } = state.mytabs;
 
       axios({
@@ -34,6 +35,12 @@ export default (store) => (next) => (action) => {
         .then((res) => {
           action.tasks = res.data.tasks;
           store.dispatch(sendTasks(res.data.tasks));
+          store.dispatch(newAction({
+            action: `${username} a ajouter la tâche ${title} à la liste ${name} !`,
+            tabId: currentTab._id,
+            author: username,
+            authorID: userID
+          }));
           next(action);
         })
         .catch((err) => {
@@ -54,9 +61,9 @@ export default (store) => (next) => (action) => {
       break;
     }
     case UPDATE_TASK_NAME: {
-      const { title, taskId } = action.taskData;
+      const { title, taskId, oldTitle } = action.taskData;
       const tabId = store.getState().mytabs.currentTab._id;
-      const { token, userID } = state.userData.datas;
+      const { token, userID, username } = state.userData.datas;
 
       axios({
         method: 'POST',
@@ -76,6 +83,12 @@ export default (store) => (next) => (action) => {
           const { tasks } = res.data;
           store.dispatch(sendTasks(tasks));
           action.tasks = tasks;
+          store.dispatch(newAction({
+            action: `${username} a changer le nom de la tâche ${oldTitle} par ${title} !`,
+            tabId,
+            author: username,
+            authorID: userID
+          }));
           next(action);
         })
         .catch((err) => {
@@ -96,8 +109,8 @@ export default (store) => (next) => (action) => {
       break;
     }
     case UPDATE_TASK_LABEL: {
-      const { label, taskId } = action.taskData;
-      const { userID, token } = state.userData.datas;
+      const { label, taskId, title } = action.taskData;
+      const { userID, token, username } = state.userData.datas;
       const tabId = store.getState().mytabs.currentTab._id;
 
       axios({
@@ -118,6 +131,12 @@ export default (store) => (next) => (action) => {
           const { tasks } = res.data;
           action.tasks = tasks;
           store.dispatch(sendTasks(tasks));
+          store.dispatch(newAction({
+            action: `${username} a ajouter un label à la tâche ${title} !`,
+            tabId,
+            author: username,
+            authorID: userID
+          }));
           next(action);
         })
         .catch((err) => {
@@ -173,8 +192,8 @@ export default (store) => (next) => (action) => {
       break;
     }
     case DELETE_TASK: {
-      const { taskId } = action;
-      const { userID, token } = state.userData.datas;
+      const { taskId, listName } = action;
+      const { userID, token, username } = state.userData.datas;
       const tabId = store.getState().mytabs.currentTab._id;
 
       axios({
@@ -193,6 +212,12 @@ export default (store) => (next) => (action) => {
           const { tasks } = res.data;
           action.tasks = tasks;
           store.dispatch(sendTasks(tasks));
+          store.dispatch(newAction({
+            action: `${username} a supprimer une tâche de la liste ${listName} !`,
+            tabId,
+            author: username,
+            authorID: userID
+          }));
           next(action);
         })
         .catch((err) => {
