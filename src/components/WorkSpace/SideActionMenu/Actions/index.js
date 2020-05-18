@@ -2,6 +2,7 @@ import React from "react";
 import { Popup, Button } from "semantic-ui-react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import cx from 'classnames';
 // components
 import Settings from '../../Settings';
 
@@ -15,21 +16,22 @@ export default ({ state, setstate, isInvited }) => {
     setstate({ ...state, view: viewName });
   };
 
-  const handleClickDisconnect = () => {
-    dispatch(logOut());
-  };
+  const handleClickDisconnect = () => dispatch(logOut());
 
-  const handleClose = () => {
-    setstate({ ...state, isOpen: false });
-  };
+  const handleClose = () => setstate({ ...state, isOpen: false });
 
-  const handleOpen = () => {
-    setstate({ ...state, isOpen: true });
+  const handleOpen = () => setstate({ ...state, isOpen: true });
+
+  const handleClickOpenMenu = () => {
+    setstate({ ...state, menuIsOpen: !state.menuIsOpen });
   };
 
   return (
     <>
       <nav className="sideActionMenu-nav">
+        <div onClick={handleClickOpenMenu} className={cx("sideActionMenu-nav-open", { open: state.menuIsOpen })}>
+          <div />
+        </div>
         {
           state.view !== "last-actions" && <Popup
             trigger={<Button onClick={handleClickChangeView('last-actions')} className="sideActionMenu-nav-btn" size="huge" icon="arrow alternate circle left" />}

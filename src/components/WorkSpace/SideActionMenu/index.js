@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Divider, Popup, Input } from 'semantic-ui-react';
 import { useSelector, useDispatch } from "react-redux";
+import cx from 'classnames';
 
 // Components
 import Nav from "./Actions";
@@ -15,7 +16,8 @@ export default ({ isInvited }) => {
   const { actions } = useSelector((GlobalState) => GlobalState.lastActions);
   const initialState = {
     view: 'last-actions',
-    isOpen: false
+    isOpen: false,
+    menuIsOpen: false
   };
   const { currentSocket } = useSelector((GlobalState) => GlobalState.sockets);
   const [state, setstate] = useState(initialState);
@@ -31,7 +33,7 @@ export default ({ isInvited }) => {
   }, []);
 
   return (
-    <div className="sideActionMenu-container">
+    <div className={cx("sideActionMenu-container", { menuOpen: state.menuIsOpen })}>
       <Nav state={state} setstate={setstate} isInvited={isInvited} />
       <div className="sideActionMenu">
 
