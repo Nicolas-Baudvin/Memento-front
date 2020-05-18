@@ -78,8 +78,8 @@
         height: 10vh;
         display: flex;
         position: absolute;
-        right: -28.7em;
-        transition: .5s
+        right: -29.7em;
+        transition: .5s;
     }
     
     &-nav {
@@ -108,6 +108,7 @@
         &-open {
             margin: 0.7em 0;
             width: 30px;
+            height: 30px;
 
             &:after,
             &:before,
