@@ -66,7 +66,7 @@ export default ({ isInvited }) => {
           state.view === "tabInfo" && <>
             <h3 className="sideActionMenu-subTitle">À propos</h3>
             <Divider />
-            <About />
+            <About currentTab={currentTab} isInvited={isInvited} />
           </>
         }
 

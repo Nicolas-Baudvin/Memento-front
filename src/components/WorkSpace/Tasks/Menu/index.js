@@ -1,11 +1,12 @@
 import React from "react";
 import { Dropdown, Icon } from 'semantic-ui-react';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateTaskLabel, deleteTask } from "../../../../store/Tasks/actions";
 
 export default ({ taskId, task, list }) => {
   const dispatch = useDispatch();
-
+  const { currentSocket } = useSelector((GlobalState) => GlobalState.sockets);
+  console.log(currentSocket);
   const handleClickLabel = (label) => (e) => {
     dispatch(updateTaskLabel({ label, taskId, title: task.title }));
   };
@@ -20,6 +21,10 @@ export default ({ taskId, task, list }) => {
   const handleClickDelete = () => {
     console.log(taskId);
     dispatch(deleteTask(taskId, list.name));
+  };
+
+  const handleClickTaskAssign = (userData) => (e) => {
+    console.log(userData);
   };
 
   return (
@@ -45,6 +50,24 @@ export default ({ taskId, task, list }) => {
               <Icon name="circle" color="green" />
               <span>Importance Faible</span>
             </Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown.Item>
+        <Dropdown.Item>S'assigner cette tâche</Dropdown.Item>
+        <Dropdown.Item>
+          <Icon name="dropdown" />
+          <span>Assigner à ...</span>
+
+          <Dropdown.Menu>
+            {
+              currentSocket && currentSocket.guests.length === 0 && <Dropdown.Item>
+                Aucun invité
+              </Dropdown.Item>
+            }
+            {
+              currentSocket && currentSocket.guests.map((guest) => <Dropdown.Item onClick={handleClickTaskAssign(guest.userData)}>
+                {guest.userData.username}
+              </Dropdown.Item>)
+            }
           </Dropdown.Menu>
         </Dropdown.Item>
         <Dropdown.Item onClick={handleClickDelete}>Supprimer</Dropdown.Item>

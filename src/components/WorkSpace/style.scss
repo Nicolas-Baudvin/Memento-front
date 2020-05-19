@@ -64,7 +64,7 @@
 
 .sideActionMenu {
     color: black;
-    width: 100%;
+    width: 388px;
     background-color: rgb(241, 241, 241);
     padding: 1.5em;
     display: flex;
@@ -72,6 +72,61 @@
     margin-top: 1em;
     border-radius: 0 3px 3px 0;
     position: relative;
+    overflow-y: auto;
+
+    &-about {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        &-pics {
+            display: flex;
+            overflow-y: hidden;
+            overflow-x: scroll;
+            width: 300px;
+            padding: 1em;
+            
+            &__item {
+                cursor: pointer;
+                margin: 0 0.5em;
+
+                .focused {
+                    box-shadow: 0 0 0 5px rgba(18, 131, 206, 0.5);
+                }
+
+                img {
+                    width: 100px;
+                    height: 100px;
+                }
+            }
+        }
+
+        &-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 2em;
+        }
+
+        &-bg {
+            width: 140px;
+            height: 140px;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        &-title {
+            font-weight: lighter;
+
+            span {
+                font-weight: bold;
+            }
+        }
+
+        .button {
+            margin: 1em 0 !important;
+        }
+    }
 
     &-container {
         width: 20%;
@@ -244,7 +299,7 @@
 }
 
 .menuOpen {
-    right: 0;
+    right: 2em;
     transition: 0.5s;
-    height: 90%;
+    height: 80%;
 }
