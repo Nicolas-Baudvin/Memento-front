@@ -7,6 +7,14 @@ export const updateFriendTasks = (tasks) => ({
   tasks
 });
 
+// Both
+export const TASK_ASSIGNED = "action/TASK_ASSIGNED";
+
+export const taskAssigned = (data) => ({
+  type: TASK_ASSIGNED,
+  data
+});
+
 // Owner
 
 export const NEW_TASK = "action/NEW_TASK";
