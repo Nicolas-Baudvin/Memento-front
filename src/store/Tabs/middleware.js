@@ -2,13 +2,22 @@ import axios from 'axios';
 import { cryptUserData } from 'src/Utils/crypt';
 
 // actions
-import { NEW_TAB, MY_TABS, DELETE_TAB, NEW_CURRENT_TAB, NEW_CURRENT_FRIEND_TAB } from './actions';
+import { NEW_TAB, MY_TABS, DELETE_TAB, NEW_CURRENT_TAB, NEW_CURRENT_FRIEND_TAB, UPDATE_TAB_PIC, UPDATE_TAB_NAME } from './actions';
 import { successMessage, failMessage } from '../Popup/actions';
 import { logOut } from '../Registration/actions';
 
 export default (store) => (next) => (action) => {
   const state = store.getState();
   switch (action.type) {
+    case UPDATE_TAB_PIC: {
+
+      next(action);
+      break;
+    }
+    case UPDATE_TAB_NAME: {
+      next(action);
+      break;
+    }
     case NEW_CURRENT_FRIEND_TAB: {
       const { tab } = action;
       if (typeof tab !== "undefined") {

@@ -3,6 +3,18 @@ export const MY_TABS = "action-MY_TABS";
 export const DELETE_TAB = "action-DELETE_TAB";
 export const NEW_CURRENT_TAB = "action-NEW_CURRENT_TAB";
 export const NEW_CURRENT_FRIEND_TAB = "action-NEW_CURRENT_FRIEND_TAB";
+export const UPDATE_TAB_NAME = "action/UPDATE_TAB_NAME";
+export const UPDATE_TAB_PIC = "action/UPDATE_TAB_PIC";
+
+export const updateTabName = (tabData) => ({
+  type: UPDATE_TAB_NAME,
+  tabData
+});
+
+export const updateTabPic = (tabData) => ({
+  type: UPDATE_TAB_PIC,
+  tabData
+});
 
 export const newFriendTab = (tab) => ({
   type: NEW_CURRENT_FRIEND_TAB,
