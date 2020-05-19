@@ -13,7 +13,6 @@ import { newTab, myTabs } from "../../store/Tabs/actions";
 import Modal from './modal';
 import Header from '../Header';
 import Tabs from './tabs';
-import Teams from './teams';
 import { cleanLists } from "../../store/Lists/actions";
 import { disconnectFromChannel } from "../../store/Socket/actions";
 
@@ -88,12 +87,6 @@ export default () => {
             icon="table"
             content="Vos tableaux"
           />
-          <Button
-            onClick={() => setstate({ ...state, view: "Teams" })}
-            basic
-            icon="users"
-            content="équipes"
-          />
         </div>
         {
           state.view === "Tabs" && <div className="workmenu-body-tabs">
@@ -115,9 +108,6 @@ export default () => {
             <Tabs openThisTab={openThisTab} />
 
           </div>
-        }
-        {
-          state.view === "Teams" && <Teams teams={false} />
         }
 
       </main>
