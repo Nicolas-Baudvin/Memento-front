@@ -1,22 +1,35 @@
 import React, { useState, useEffect } from "react";
 import { Button } from 'semantic-ui-react';
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useHistory, useLocation } from "react-router-dom";
 
+// Utils
 import loadPic from '../../Utils/loadPic';
+
+// Actions
+import { logOut } from "../../store/Registration/actions";
 
 // Components
 import Nav from './Nav';
 import Title from './Title';
+import Settings from './Settings';
 
 export default () => {
+  const history = useHistory();
+  const dispatch = useDispatch();
   const { tabs } = useSelector((GlobalState) => GlobalState.mytabs);
+  const { datas } = useSelector((GlobalState) => GlobalState.userData);
+  const { pathname } = useLocation();
+
   const initialState = {
     show: false,
     open: false,
     content: '',
-    logo: ''
+    logo: '',
+    isOpen: false
   };
   const [state, setstate] = useState(initialState);
+  console.log(state)
 
   const getLogo = async (url) => {
     try {
@@ -28,15 +41,36 @@ export default () => {
     }
   };
 
+  const handleClickDisconnect = () => dispatch(logOut());
+
+  const handleClose = () => {
+    setstate({ ...state, isOpen: false });
+  };
+
+  const handleOpen = () => {
+    setstate({ ...state, isOpen: true });
+  };
+
   useEffect(() => {
     getLogo("/assets/logo.png");
   }, []);
 
   return (
-    <header className="workmenu-header">
+    <header className="workmenu-header" style={pathname === "/vos-tableaux/" || pathname === "/vos-tableaux" ? { backgroundColor: "#2D94CF" } : {}}>
       <Nav tabs={tabs} state={state} setstate={setstate} />
       <Title state={state} />
-      <Button content="Menu" icon="bars" />
+      <nav>
+        <Button onClick={() => history.push("/contact/")} icon="phone" />
+        <Button onClick={() => history.push("/mentions-legales/")} icon="legal" />
+        {
+          datas && <Settings
+            isOpen={state.isOpen}
+            handleClose={handleClose}
+            handleOpen={handleOpen}
+          />
+        }
+        <Button onClick={handleClickDisconnect} icon="power off" />
+      </nav>
     </header>
   );
 };
