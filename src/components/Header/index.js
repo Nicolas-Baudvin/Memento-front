@@ -29,7 +29,6 @@ export default () => {
     isOpen: false
   };
   const [state, setstate] = useState(initialState);
-  console.log(state)
 
   const getLogo = async (url) => {
     try {
