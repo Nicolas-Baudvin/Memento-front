@@ -16,11 +16,12 @@ import {
   sendTasks,
   storeFriendTasks,
   STORE_FRIEND_TASKS,
-  SEND_ACTIONS
+  SEND_ACTIONS,
+  SEND_TAB
 } from './actions';
 import { successMessage, failMessage } from '../Popup/actions';
 import { cryptUserData, decryptUserData } from '../../Utils/crypt';
-import { newFriendTab } from '../Tabs/actions';
+import { newFriendTab, updateTab } from '../Tabs/actions';
 import { logOut } from '../Registration/actions';
 import { storeActions } from '../ActionsOnWorkSpace/actions';
 
@@ -29,10 +30,17 @@ let socket;
 export default (store) => (next) => (action) => {
   const state = store.getState();
   switch (action.type) {
+    case SEND_TAB: {
+      const link = state.sockets.currentSocket.invitationLink;
+      const cryptedTab = cryptUserData(action.data);
+      socket.emit("send tab", [cryptedTab, link]);
+      next(action);
+      break;
+    }
     case SEND_ACTIONS: {
       const link = state.sockets.currentSocket.invitationLink;
-      const CryptedActions = cryptUserData(action.data);
-      socket.emit("send actions", [CryptedActions, link]);
+      const cryptedActions = cryptUserData(action.data);
+      socket.emit("send actions", [cryptedActions, link]);
       next(action);
       break;
     }
@@ -103,16 +111,22 @@ export default (store) => (next) => (action) => {
         });
 
         socket.on("send owner tasks", (data) => {
-          console.log(data.tasks);
           const decryptedTasks = decryptUserData(data.tasks);
           store.dispatch(storeFriendTasks(decryptedTasks));
         });
 
         socket.on("send tab actions", (actions) => {
-          console.log(actions);
           const decryptedActions = decryptUserData(actions);
           store.dispatch(storeActions(decryptedActions));
-        })
+        });
+
+        socket.on("tab updated", (data) => {
+          const { tab, currentSocket } = data;
+          const decryptedTab = decryptUserData(tab);
+          currentSocket.tab = decryptedTab;
+          store.dispatch(updateTab(decryptedTab));
+          store.dispatch(updateCurrentSocket(currentSocket));
+        });
       });
 
       socket.on("user leave", (data) => {
@@ -157,7 +171,6 @@ export default (store) => (next) => (action) => {
         store.dispatch(successMessage(data.message));
         store.dispatch(updateCurrentSocket(data.currentSocket));
         store.dispatch(sendLists(localStorage.getItem("lists")));
-        console.log("tâche à envoyer", store.getState().mytasks.tasks);
         store.dispatch(sendTasks(store.getState().mytasks.tasks));
       });
 

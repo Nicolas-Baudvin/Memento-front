@@ -5,6 +5,12 @@ export const NEW_CURRENT_TAB = "action-NEW_CURRENT_TAB";
 export const NEW_CURRENT_FRIEND_TAB = "action-NEW_CURRENT_FRIEND_TAB";
 export const UPDATE_TAB_NAME = "action/UPDATE_TAB_NAME";
 export const UPDATE_TAB_PIC = "action/UPDATE_TAB_PIC";
+export const UPDATE_TAB = "action/UPDATE_TAB";
+
+export const updateTab = (tab) => ({
+  type: UPDATE_TAB,
+  tab
+});
 
 export const updateTabName = (tabData) => ({
   type: UPDATE_TAB_NAME,

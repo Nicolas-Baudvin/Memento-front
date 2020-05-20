@@ -12,7 +12,12 @@ export const SEND_TASKS = "action/SEND_TASKS";
 export const STORE_FRIEND_LISTS = "action/STORE_FRIEND_LISTS";
 export const STORE_FRIEND_TASKS = "action/STORE_FRIEND_TASKS";
 export const SEND_ACTIONS = "action/SEND_ACTIONS";
+export const SEND_TAB = "action/SEND_TAB";
 
+export const sendTab = (data) => ({
+  type: SEND_TAB,
+  data
+});
 
 export const sendActions = (data) => ({
   type: SEND_ACTIONS,
