@@ -44,11 +44,12 @@ export default ({ currentTab, isInvited }) => {
 
   const handleSubmitNewName = (e) => {
     e.preventDefault();
-    if (state.nameValue) return dispatch(updateTabName(state.nameValue));
+    if (state.nameValue) return dispatch(updateTabName({ name: state.nameValue, tabId: currentTab._id }));
     return dispatch(failMessage("Vous devez choisir une image"));
   };
 
   const handleClickChoosePic = (imgPath) => (e) => {
+    console.log(imgPath);
     const newArray = picsPath.map((picture) => {
       if (picture.path === imgPath) {
         picture.isSelected = true;
@@ -62,7 +63,7 @@ export default ({ currentTab, isInvited }) => {
   };
 
   const handleClickNewPic = () => {
-    if (state.picSelected) return dispatch(updateTabPic(state.picSelected));
+    if (state.picSelected) return dispatch(updateTabPic({ imgPath: state.picSelected, tabId: currentTab._id }));
     return dispatch(failMessage("Le champs doit être rempli"));
   };
 
@@ -73,14 +74,14 @@ export default ({ currentTab, isInvited }) => {
 
   return (
     <div className="sideActionMenu-about">
-      <h3 className="sideActionMenu-about-title">Bienvenue sur le tableau <span>{currentTab.name}</span> </h3>
+      <h3 className="sideActionMenu-about-title"><span>{currentTab.name}</span> </h3>
       {
         state.pic && <img className="sideActionMenu-about-bg" src={state.pic} alt="bg" />
       }
       {
         !isInvited && <>
           <form className="sideActionMenu-about-form" onSubmit={handleSubmitNewName} action="">
-            <Input placeholder="Nouveau nom du tableau" />
+            <Input value={state.nameValue} onChange={(e) => setstate({...state, nameValue: e.target.value })} placeholder="Nouveau nom du tableau" />
             <Button icon="edit" primary content="Changer le nom du tableau" />
           </form>
           <Divider />

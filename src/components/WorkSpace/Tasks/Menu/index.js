@@ -6,7 +6,6 @@ import { updateTaskLabel, deleteTask } from "../../../../store/Tasks/actions";
 export default ({ taskId, task, list }) => {
   const dispatch = useDispatch();
   const { currentSocket } = useSelector((GlobalState) => GlobalState.sockets);
-  console.log(currentSocket);
   const handleClickLabel = (label) => (e) => {
     dispatch(updateTaskLabel({ label, taskId, title: task.title }));
   };
