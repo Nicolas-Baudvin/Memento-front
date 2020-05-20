@@ -63,7 +63,7 @@ export default ({ taskId, task, list }) => {
               </Dropdown.Item>
             }
             {
-              currentSocket && currentSocket.guests.map((guest) => <Dropdown.Item onClick={handleClickTaskAssign(guest.userData)}>
+              currentSocket && currentSocket.guests.map((guest) => <Dropdown.Item key={guest.userData.username} onClick={handleClickTaskAssign(guest.userData)}>
                 {guest.userData.username}
               </Dropdown.Item>)
             }

@@ -12,7 +12,7 @@ export default () => {
     <div className="workspace-body-lists">
       {
         fLists.length > 0 && fLists.map((list) => {
-          if (tab._id === list.tabId) {
+          if (tab && tab._id === list.tabId) {
             return (
               <div key={list._id} data-order={list.order} className="list">
                 <ListHeader list={list} />

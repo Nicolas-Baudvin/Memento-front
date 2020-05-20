@@ -45,10 +45,18 @@ export default (store) => (next) => (action) => {
       break;
     }
     case STORE_FRIEND_TASKS: {
+      if (typeof action.tasks.cryptedData === "string") {
+        const decryptedTasks = decryptUserData(action.tasks.cryptedData);
+        action.tasks = decryptedTasks;
+      }
       next(action);
       break;
     }
     case STORE_FRIEND_LISTS: {
+      if (typeof action.lists.cryptedData === "string") {
+        const decryptedLists = decryptUserData(action.lists.cryptedData);
+        action.lists = decryptedLists;
+      }
       next(action);
       break;
     }
@@ -102,7 +110,13 @@ export default (store) => (next) => (action) => {
           store.dispatch(newFriendTab(data.tabData));
           action.currentSocket = data.socket;
           store.dispatch(successMessage(`Vous êtes désormais dans l'instance de ${data.socket.owner.username}`));
+          store.dispatch(storeFriendLists(data.lists));
+          store.dispatch(storeFriendTasks(data.tasks));
           next(action);
+        });
+
+        socket.on("join error", (message) => {
+          store.dispatch(failMessage(message.errors));
         });
 
         socket.on("send owner lists", (data) => {

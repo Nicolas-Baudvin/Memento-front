@@ -82,7 +82,6 @@ export default (store) => (next) => (action) => {
         }
       })
         .then((res) => {
-          console.log(res.data);
           if (res.data.tab !== null) {
             action.tab = res.data.tab;
             const cryptedTab = cryptUserData(res.data.tab);
