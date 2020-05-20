@@ -1,0 +1,80 @@
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+
+// Actions
+import { failMessage } from '../../../store/Popup/actions';
+import { newTab } from "../../../store/Tabs/actions";
+
+// Components
+import Tabs from '../tabs';
+import Modal from "../modal";
+import VisitedTabs from './VisitedTabs';
+
+export default ({
+  setstate,
+  state
+}) => {
+  const refBtn = React.createRef();
+  const { tabs } = useSelector((GlobalState) => GlobalState.mytabs);
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const handleClose = () => {
+    setstate({ ...state, isOpen: false });
+  };
+
+  const handleOpen = () => {
+    setstate({ ...state, isOpen: true });
+  };
+
+  const handleChangeTabName = (e) => {
+    setstate({ ...state, tabName: e.target.value });
+  };
+
+  const handleClickImg = (num, path) => {
+    setstate({
+      ...state,
+      imgSelected: num,
+      imgPath: path
+    });
+  };
+
+  const openThisTab = (tabId, name) => {
+    if (tabId) history.push(`/vos-tableaux/${name}/${tabId}`);
+  };
+
+  const handleSubmitNewTab = () => {
+    const { imgPath, tabName, imgSelected } = state;
+
+    if (!imgSelected || !imgPath) {
+      return dispatch(failMessage("Vous devez selectionner une image de fond pour continuer"));
+    }
+    if (!tabName) {
+      return dispatch(failMessage("Vous devez choisir un nom pour votre tableau"));
+    }
+    handleClose();
+    return dispatch(newTab({ imgPath, tabName }));
+  };
+
+  return (
+    <div className="workmenu-body-tabs">
+      <h2 className="workmenu-body-tabs-title">
+        Mes Tableaux
+        <Modal
+          handleClose={handleClose}
+          handleOpen={handleOpen}
+          state={state}
+          refBtn={refBtn}
+          handleChangeTabName={handleChangeTabName}
+          handleClickImg={handleClickImg}
+          handleSubmitNewTab={handleSubmitNewTab}
+        />
+      </h2>
+      {
+        tabs.length === 0 && <p>Vous n'avez pas encore créé de Tableau !</p>
+      }
+      <Tabs openThisTab={openThisTab} />
+      <VisitedTabs />
+    </div>
+  );
+};
