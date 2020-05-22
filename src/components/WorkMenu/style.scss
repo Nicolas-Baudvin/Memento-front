@@ -4,6 +4,15 @@
     width: 100%;
     min-height: 100vh;
 
+    &-svg {
+        position: absolute;
+        left: -10em;
+        bottom: 6em;
+        z-index: -1;
+        width: 90%;
+        height: 90%;
+    }
+
     &-tabs {
         display: flex;
         flex-wrap: wrap;
@@ -130,6 +139,10 @@
         width: 60%;
         margin: 3em auto;
         display: flex;
+
+        .white {
+            color: white !important;
+        }
 
         &-menu {
             display: flex;
