@@ -1,7 +1,9 @@
 import axios from 'axios';
 
 // Actions
-import { NEW_TASK, UPDATE_TASK_NAME, MY_TASKS, DELETE_TASK, UPDATE_FRIEND_TASKS, UPDATE_TASK_LABEL } from './actions';
+import {
+  NEW_TASK, UPDATE_TASK_NAME, MY_TASKS, DELETE_TASK, UPDATE_FRIEND_TASKS, UPDATE_TASK_LABEL, TASK_ASSIGNED
+} from './actions';
 import { failMessage } from "../Popup/actions";
 import { logOut } from "../Registration/actions";
 import { sendTasks } from '../Socket/actions';
@@ -12,6 +14,56 @@ export default (store) => (next) => (action) => {
   switch (action.type) {
     case UPDATE_FRIEND_TASKS: {
       next(action);
+      break;
+    }
+    case TASK_ASSIGNED: {
+      const { username: usernameToAssign, taskId, order, listName } = action.data;
+      const { isSelfAssign } = action;
+      const { _id: tabId } = store.getState().mytabs.currentTab;
+      const { userID, token, username } = state.userData.datas;
+
+      console.log(action);
+      axios({
+        method: "POST",
+        url: `${process.env.API_URL}task/assign-task/`,
+        data: {
+          tabId,
+          username: isSelfAssign ? username : usernameToAssign,
+          taskId,
+          userID
+        },
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+        .then((res) => {
+          console.log(res.data.tasks);
+          const tasks = res.data.tasks;
+          action.tasks = tasks;
+          store.dispatch(sendTasks(tasks));
+          store.dispatch(newAction({
+            action: `a assigné la tâche n°${order} de la liste '${listName}' à ${isSelfAssign ? username : usernameToAssign}`,
+            author: username,
+            tabId,
+            authorID: userID
+          }));
+          next(action);
+        })
+        .catch((err) => {
+          console.log(err);
+          if (!err.response) {
+            return store.dispatch(failMessage("Une erreur est survenue sur le serveur. Réessayez ou contacter un administrateur"));
+          }
+          if (err.response.status === 401) {
+            store.dispatch(logOut());
+            return store.dispatch(failMessage("Votre session a expiré. Veuillez vous reconnecter."));
+          }
+          if (Array.isArray(err.response.data.errors)) {
+            return store.dispatch(failMessage(err.response.data.errors[0].msg));
+          }
+          return store.dispatch(failMessage(err.response.data.errors));
+        });
+
       break;
     }
     case NEW_TASK: {
@@ -202,7 +254,7 @@ export default (store) => (next) => (action) => {
         data: {
           taskId,
           tabId,
-          userID
+          userID,
         },
         headers: {
           Authorization: `Bearer ${token}`

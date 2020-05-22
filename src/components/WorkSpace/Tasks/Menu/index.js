@@ -1,7 +1,7 @@
 import React from "react";
 import { Dropdown, Icon } from 'semantic-ui-react';
 import { useDispatch, useSelector } from "react-redux";
-import { updateTaskLabel, deleteTask } from "../../../../store/Tasks/actions";
+import { updateTaskLabel, deleteTask, taskAssigned } from "../../../../store/Tasks/actions";
 
 export default ({ taskId, task, list }) => {
   const dispatch = useDispatch();
@@ -22,8 +22,20 @@ export default ({ taskId, task, list }) => {
     dispatch(deleteTask(taskId, list.name));
   };
 
-  const handleClickTaskAssign = (userData) => (e) => {
-    console.log(userData);
+  const handleClickTaskAssign = (username, selfAssign) => (e) => {
+    if (selfAssign) {
+      return dispatch(taskAssigned({
+        taskId,
+        listName: list.name,
+        order: task.order
+      }, selfAssign));
+    }
+    dispatch(taskAssigned({
+      username,
+      taskId,
+      listName: list.name,
+      order: task.order
+    }));
   };
 
   return (
@@ -51,7 +63,7 @@ export default ({ taskId, task, list }) => {
             </Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown.Item>
-        <Dropdown.Item>S'assigner cette tâche</Dropdown.Item>
+        <Dropdown.Item onClick={handleClickTaskAssign(null, true)}>S'assigner cette tâche</Dropdown.Item>
         <Dropdown.Item>
           <Icon name="dropdown" />
           <span>Assigner à ...</span>
@@ -63,7 +75,7 @@ export default ({ taskId, task, list }) => {
               </Dropdown.Item>
             }
             {
-              currentSocket && currentSocket.guests.map((guest) => <Dropdown.Item key={guest.userData.username} onClick={handleClickTaskAssign(guest.userData)}>
+              currentSocket && currentSocket.guests.map((guest) => <Dropdown.Item key={guest.userData.username} onClick={handleClickTaskAssign(guest.userData.username, false)}>
                 {guest.userData.username}
               </Dropdown.Item>)
             }

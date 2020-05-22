@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import "./style.scss";
 
 // components
-import { Input, Popup } from "semantic-ui-react";
+import { Input, Popup, Divider } from "semantic-ui-react";
 import Menu from './Menu';
 import { updateTaskName } from "../../../store/Tasks/actions";
 
@@ -80,23 +80,28 @@ export default ({ tasks, listId, list }) => {
                   content={checkImportance(task.label)}
                   position="bottom left"
                 />
-                <p className="show">{task.title}</p>
-                <form onSubmit={handleSubmit(task._id, task)} className="task-menu-form" action="">
-                  <Input
-                    placeholder="Nouveau nom"
-                    size="mini"
-                    value={state.value}
-                    onChange={(e) => setstate({ ...state, value: e.target.value })}
-                    action={
-                      {
-                        content: state.value ? "Envoyer" : "Retour",
-                        color: state.value ? "blue" : "red",
-                        type: "submit"
+                <div className="tasks-item-main">
+                  <p className="show">{task.title}</p>
+                  <form onSubmit={handleSubmit(task._id, task)} className="task-menu-form" action="">
+                    <Input
+                      placeholder="Nouveau nom"
+                      size="mini"
+                      value={state.value}
+                      onChange={(e) => setstate({ ...state, value: e.target.value })}
+                      action={
+                        {
+                          content: state.value ? "Envoyer" : "Retour",
+                          color: state.value ? "blue" : "red",
+                          type: "submit"
+                        }
                       }
-                    }
-                  />
-                </form>
-                <Menu taskId={task._id} task={task} list={list} />
+                    />
+                  </form>
+                  <Menu taskId={task._id} task={task} list={list} />
+                </div>
+                {
+                  task.assigned && <div className="tasks-item-assigned">Assignée à <span> {task.assigned} </span></div>
+                }
               </div>
             );
           }

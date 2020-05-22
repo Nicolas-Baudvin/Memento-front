@@ -10,9 +10,10 @@ export const updateFriendTasks = (tasks) => ({
 // Both
 export const TASK_ASSIGNED = "action/TASK_ASSIGNED";
 
-export const taskAssigned = (data) => ({
+export const taskAssigned = (data, isSelfAssign) => ({
   type: TASK_ASSIGNED,
-  data
+  data,
+  isSelfAssign // bool
 });
 
 // Owner

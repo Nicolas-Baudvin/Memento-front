@@ -7,10 +7,8 @@
     &-item {
         position: relative;
         display: flex;
-        align-items: center;
-        justify-content: space-between;
+        flex-direction: column;
         margin: 1em 0;
-        position: relative;
         width: 100%;
         border-radius: 7px;
         font-size: 1.1em;
@@ -19,6 +17,26 @@
         padding: .5em;
         transition: .3s;
 
+        &-assigned {
+            font-size: .8em;
+            color: #aaa;
+            align-self: flex-end;
+            margin: 0 .5em 0 0;
+            font-style: italic;
+
+            span {
+                font-weight: bold;
+            }
+        }
+
+        &-main {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
         &-label {
             border-top-left-radius: 7px;
             border-bottom-left-radius: 7px;
@@ -26,6 +44,7 @@
             width: 15px;
             position: absolute;
             left: 0;
+            top: 0;
         }
 
         p {
