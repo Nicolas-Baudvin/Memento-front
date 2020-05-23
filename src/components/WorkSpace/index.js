@@ -1,6 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from 'react-router-dom';
+import { DragDropContext } from 'react-beautiful-dnd';
+
+
 import "./style.scss";
 
 // Components
@@ -29,7 +32,9 @@ export default ({ isInvited }) => {
   const { currentTab } = useSelector((globalState) => globalState.mytabs);
   const { userID } = useSelector((globalState) => globalState.userData.datas);
   const { lists } = useSelector((GlobalState) => GlobalState.mylists);
+  const { tasks } = useSelector((GlobalState) => GlobalState.mytasks);
   const { currentSocket } = useSelector((GlobalState) => GlobalState.sockets);
+  const [sortedTasks, setSortedTasks] = useState(tasks);
   const search = useSearch();
 
   /**
@@ -39,6 +44,63 @@ export default ({ isInvited }) => {
   const {
     id, name, link, friendTabId
   } = useParams();
+  const onDragEnd = (result) => {
+    const { destination, source, draggableId } = result;
+
+    if (!destination) {
+      return;
+    }
+
+    if (destination.droppableId === source.droppableId && destination.index === source.index) {
+      return;
+    }
+
+    const sourceList = lists.filter((x) => x._id === source.droppableId)[0];
+    const destList = lists.filter((x) => x._id === destination.droppableId)[0];
+    if (sourceList._id === destList._id) {
+      const sourceTask = sortedTasks.filter((x) => x._id === draggableId)[0];
+      const destTask = sortedTasks[destination.index];
+      const sourceOrder = sourceTask.order;
+      const destOrder = destTask.order;
+
+      sourceTask.order = destOrder;
+      destTask.order = sourceOrder;
+      const newArray = sortedTasks.map((task) => {
+        if (sourceTask._id === task._id) {
+          task = sourceTask;
+        }
+        if (task.order >= sourceTask.order) {
+          task.order += 1;
+        }
+        return task;
+      });
+      setSortedTasks(newArray.sort((a, b) => a.order - b.order));
+      console.log(newArray);
+    }
+    if (sourceList._id !== destList._id) {
+      const sourceTask = sortedTasks.filter((x) => x._id === draggableId)[0];
+      const destTask = sortedTasks[destination.index];
+      const destOrder = destTask.order;
+
+      sourceTask.order = destOrder;
+      sourceTask.listId = destination.droppableId;
+
+      const newArray = sortedTasks.map((task) => {
+        if (sourceTask._id === task._id) {
+          task = sourceTask;
+        }
+        if (task.order >= sourceTask.order && task.listId === source.droppableId && sourceTask._id !== task._id) task.order -= 1;
+        if (task.order >= sourceTask.order && task.listId !== source.droppableId && sourceTask._id !== task._id) task.order += 1;
+        return task;
+      });
+      setSortedTasks(newArray.sort((a, b) => a.order - b.order));
+      console.log(newArray.sort((a, b) => a.order - b.order));
+    }
+  };
+
+  useEffect(() => {
+    setSortedTasks(tasks);
+  }, [tasks]);
 
   useEffect(() => {
     if (!isInvited) {
@@ -74,7 +136,11 @@ export default ({ isInvited }) => {
           <div className="workspace-body">
             <BodyHeader isInvited={isInvited} />
             {
-              !isInvited && <List currentTab={currentTab} lists={lists} isInvited={isInvited} />
+              !isInvited && <DragDropContext onDragEnd={onDragEnd}>
+                <div className="workspace-body-lists">
+                  <List tasks={sortedTasks} currentTab={currentTab} lists={lists} isInvited={isInvited} />
+                </div>
+              </DragDropContext>
             }
             {
               isInvited && <InvitedList />

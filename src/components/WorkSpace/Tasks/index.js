@@ -3,7 +3,8 @@ import { useDispatch } from "react-redux";
 import "./style.scss";
 
 // components
-import { Input, Popup, Divider } from "semantic-ui-react";
+import { Input, Popup } from "semantic-ui-react";
+import { Draggable } from "react-beautiful-dnd";
 import Menu from './Menu';
 import { updateTaskName } from "../../../store/Tasks/actions";
 
@@ -68,45 +69,36 @@ export default ({ tasks, listId, list }) => {
     e.target.parentNode.firstChild.style.display = "block";
   };
 
-  return (
-    <div className="tasks">
-      {
-        tasks.map((task) => {
-          if (task.listId === listId) {
-            return (
-              <div key={task._id} data-order={task.order} className="tasks-item">
-                <Popup
-                  trigger={<div className="tasks-item-label" style={styles(task.label)} />}
-                  content={checkImportance(task.label)}
-                  position="bottom left"
-                />
-                <div className="tasks-item-main">
-                  <p className="show">{task.title}</p>
-                  <form onSubmit={handleSubmit(task._id, task)} className="task-menu-form" action="">
-                    <Input
-                      placeholder="Nouveau nom"
-                      size="mini"
-                      value={state.value}
-                      onChange={(e) => setstate({ ...state, value: e.target.value })}
-                      action={
-                        {
-                          content: state.value ? "Envoyer" : "Retour",
-                          color: state.value ? "blue" : "red",
-                          type: "submit"
-                        }
-                      }
-                    />
-                  </form>
-                  <Menu taskId={task._id} task={task} list={list} />
-                </div>
+  return tasks.map((task, index) => task.listId === listId && <Draggable index={index} key={task._id} draggableId={String(task._id)}>
+    {
+      (provided) => <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} data-order={task.order} className="tasks-item">
+        <Popup
+          trigger={<div className="tasks-item-label" style={styles(task.label)} />}
+          content={checkImportance(task.label)}
+        />
+        <div className="tasks-item-main">
+          <p className="show">{task.title}</p>
+          <form onSubmit={handleSubmit(task._id, task)} className="task-menu-form" action="">
+            <Input
+              placeholder="Nouveau nom"
+              size="mini"
+              value={state.value}
+              onChange={(e) => setstate({ ...state, value: e.target.value })}
+              action={
                 {
-                  task.assigned && <div className="tasks-item-assigned">Assignée à <span> {task.assigned} </span></div>
+                  content: state.value ? "Envoyer" : "Retour",
+                  color: state.value ? "blue" : "red",
+                  type: "submit"
                 }
-              </div>
-            );
-          }
-        })
-      }
-    </div>
-  );
+              }
+            />
+          </form>
+          <Menu taskId={task._id} task={task} list={list} />
+        </div>
+        {
+          task.assigned && <div className="tasks-item-assigned">Assignée à <span> {task.assigned} </span></div>
+        }
+      </div>
+    }
+  </Draggable>);
 };

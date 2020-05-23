@@ -1,5 +1,7 @@
 import React, { useEffect, useContext, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Droppable } from 'react-beautiful-dnd';
+
 
 // Components
 import Tasks from '../Tasks';
@@ -16,10 +18,9 @@ import './style.scss';
 // Context
 import SearchContext from './searchContext';
 
-export default ({ isInvited, currentTab }) => {
+export default ({ isInvited, currentTab, tasks }) => {
   const search = useContext(SearchContext);
 
-  const { tasks } = useSelector((GlobalState) => GlobalState.mytasks);
   const { lists } = useSelector((GlobalState) => GlobalState.mylists);
   const dispatch = useDispatch();
 
@@ -39,7 +40,8 @@ export default ({ isInvited, currentTab }) => {
     input.classList.remove("show");
     settings.classList.add("show");
     title.classList.add("show");
-    if (value) {
+    if (value)
+    {
       dispatch(updateList({ newTitle: value, list }));
     }
   };
@@ -59,8 +61,10 @@ export default ({ isInvited, currentTab }) => {
   };
 
   useEffect(() => {
-    if (!isInvited) {
-      if (tasks.length === 0 || (lists.length > 0 && tasks[0].listId !== lists[0]._id)) {
+    if (!isInvited)
+    {
+      if (tasks.length === 0 || (lists.length > 0 && tasks[0].listId !== lists[0]._id))
+      {
         lists.forEach((list) => {
           dispatch(myTasks(list._id));
         });
@@ -73,7 +77,8 @@ export default ({ isInvited, currentTab }) => {
   }, [tasks]);
 
   useEffect(() => {
-    if (!search.value) {
+    if (!search.value)
+    {
       return setstate({ ...state, sortedTasks: tasks });
     }
 
@@ -82,30 +87,27 @@ export default ({ isInvited, currentTab }) => {
   }, [search.value]);
 
   return (
-    <div className="workspace-body-lists">
-      {
-        lists && lists.length > 0 && lists.map((list) => {
-          if (currentTab._id === list.tabId) {
-            return (
-              <div key={list._id} data-order={list.order} className="list">
-                <ListHeader
-                  showTitleInput={showTitleInput}
-                  handleUpdateListName={handleUpdateListName}
-                  list={list}
-                />
-                <div className="list-tasks">
-                  {
-                  tasks && tasks.length > 0 && <Tasks list={list} tasks={state.sortedTasks} listId={list._id} />
-                }
-                  <TaskForm
-                    addTaskToList={addTaskToList}
-                    list={list}
-                  />
-                </div>
-              </div>);
-          }
-        })
-      }
+    lists && lists.length > 0 && lists.map((list) => currentTab._id === list.tabId && <div key={list._id} data-order={list.order} className="list">
+      <ListHeader
+        showTitleInput={showTitleInput}
+        handleUpdateListName={handleUpdateListName}
+        list={list}
+      />
+      <Droppable direction="vertical" droppableId={String(list._id)}>
+        {(provided) => <div ref={provided.innerRef} className="list-tasks">
+          <div className="tasks">
+            <Tasks list={list} tasks={state.sortedTasks} listId={list._id} />
+            {provided.placeholder}
+          </div>
+
+          <TaskForm
+            addTaskToList={addTaskToList}
+            list={list}
+          />
+        </div>
+        }
+      </Droppable>
     </div>
+    )
   );
 };

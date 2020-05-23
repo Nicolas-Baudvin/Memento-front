@@ -11,9 +11,9 @@ export default ({ showTitleInput, handleUpdateListName, list }) => {
 
   const [state, setstate] = useState(initialState);
   const dispatch = useDispatch();
-  const showSettings = () => {
+  const deleteItem = () => {
     if (list._id) {
-      dispatch(deleteList(list._id));
+      dispatch(deleteList({ listID: list._id, name: list.name }));
     }
   };
 
@@ -26,7 +26,7 @@ export default ({ showTitleInput, handleUpdateListName, list }) => {
       <h2 onClick={showTitleInput} className="list-header-title show"> {list.name} </h2>
       <Popup
         trigger={
-          <Button className="list-header-settingsBtn show" onClick={() => showSettings(list)} icon="delete" color="#ff0000" />
+          <Button className="list-header-settingsBtn show" onClick={() => deleteItem(list)} icon="delete" color="#ff0000" />
         }
         content="Supprimer"
       />
