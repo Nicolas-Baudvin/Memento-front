@@ -10,6 +10,7 @@ import { newTab } from "../../../store/Tabs/actions";
 import Tabs from '../tabs';
 import Modal from "../modal";
 import VisitedTabs from './VisitedTabs';
+import FavTabs from './FavTabs';
 
 export default ({
   setstate,
@@ -75,6 +76,7 @@ export default ({
       }
       <Tabs openThisTab={openThisTab} />
       <VisitedTabs />
+      <FavTabs />
     </div>
   );
 };
