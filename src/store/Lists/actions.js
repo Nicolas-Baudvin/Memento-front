@@ -28,9 +28,9 @@ export const updateList = (listData) => ({
   listData
 });
 
-export const deleteList = (listID) => ({
+export const deleteList = (listData) => ({
   type: DELETE_LIST,
-  listID
+  listData
 });
 
 export const myLists = (tabId) => ({

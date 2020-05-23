@@ -103,8 +103,7 @@ export default (store) => (next) => (action) => {
       break;
     }
     case DELETE_LIST: {
-      const { listID } = action;
-      const { name, tabId } = action.listData;
+      const { name, listID } = action.listData;
       const { token, userID, username } = state.userData.datas;
 
       Axios({
@@ -113,7 +112,7 @@ export default (store) => (next) => (action) => {
         data: {
           listID,
           userID: state.userData.datas.userID,
-          tabId: state.mytabs.currentTab._id
+          tabId: store.getState().mytabs.currentTab._id
         },
         headers: {
           Authorization: `Bearer ${token}`
@@ -121,7 +120,6 @@ export default (store) => (next) => (action) => {
       })
         .then((res) => {
           const { lists } = res.data;
-          console.log("delete", lists);
           action.lists = lists;
           const cryptedLists = cryptUserData(lists);
           localStorage.setItem("lists", cryptedLists);
@@ -135,6 +133,7 @@ export default (store) => (next) => (action) => {
           next(action);
         })
         .catch((err) => {
+          console.log(err);
           if (!err.response) {
             return store.dispatch(failMessage("Une erreur est survenue sur le serveur. Réessayez ou contacter un administrateur"));
           }
