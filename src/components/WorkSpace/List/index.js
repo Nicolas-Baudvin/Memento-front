@@ -94,9 +94,9 @@ export default ({ isInvited, currentTab, tasks }) => {
         list={list}
       />
       <Droppable direction="vertical" droppableId={list._id}>
-        {(provided) => <div ref={provided.innerRef} className="list-tasks">
+        {(provided, snapshot) => <div ref={provided.innerRef} className="list-tasks">
           <div className="tasks">
-            <Tasks list={list} tasks={state.sortedTasks} listId={list._id} />
+            <Tasks snapshot={snapshot} list={list} tasks={state.sortedTasks} listId={list._id} />
             {provided.placeholder}
           </div>
 

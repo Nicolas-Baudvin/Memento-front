@@ -69,9 +69,9 @@ export default ({ tasks, listId, list }) => {
     e.target.parentNode.firstChild.style.display = "block";
   };
 
-  return tasks.map((task) => task.listId === listId && <Draggable index={task.order} key={task._id} draggableId={task._id}>
+  return tasks.sort((a, b) => a.order - b.order).map((task) => task.listId === listId && <Draggable index={task.order} key={task._id} draggableId={task._id}>
     {
-      (provided) => <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} data-order={task.order} className="tasks-item">
+      (provided) => <div style={{ backgroundColor: provided.isDraggingOver ? 'blue' : 'white' }} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} data-order={task.order} className="tasks-item">
         <Popup
           trigger={<div className="tasks-item-label" style={styles(task.label)} />}
           content={checkImportance(task.label)}

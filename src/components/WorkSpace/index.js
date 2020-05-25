@@ -49,26 +49,16 @@ export default ({ isInvited }) => {
 
   const onDragEnd = (result) => {
     const { destination, source, draggableId } = result;
+    const sourceList = lists.filter((x) => x._id === source.droppableId)[0];
+    const sourceTask = sortedTasks.filter((x) => x._id === draggableId)[0];
     let newSortedTasks;
 
-    if (!destination) {
-      return;
-    }
-
-    if (destination.droppableId === source.droppableId && destination.index === source.index) {
-      return;
-    }
-
-    const sourceList = lists.filter((x) => x._id === source.droppableId)[0];
-    const destList = lists.filter((x) => x._id === destination.droppableId)[0];
-    const sourceTask = sortedTasks.filter((x) => x._id === draggableId)[0];
-
-    if (sourceList._id === destList._id) {
+    if (sourceList._id === destination.droppableId) {
       newSortedTasks = sortedTasks.map((item) => {
         if (item._id === sourceTask._id) {
           item.order = destination.index;
         }
-        if (item._id !== sourceTask._id && item.listId === sourceTask.listId) {
+        else if (item.listId === sourceTask.listId) {
           if (source.index < item.order && destination.index >= item.order) {
             item.order -= 1;
           }
@@ -77,12 +67,11 @@ export default ({ isInvited }) => {
           }
         }
         return item;
-      }).sort((a, b) => a.order - b.order);
+      });
 
       setSortedTasks(newSortedTasks);
     }
-
-    if (sourceList._id !== destList._id) {
+    else {
       newSortedTasks = sortedTasks.map((task) => {
         if (sourceTask._id === task._id) {
           task.order = destination.index;
@@ -97,17 +86,14 @@ export default ({ isInvited }) => {
           }
         }
         return task;
-      }).sort((a, b) => a.order - b.order);
+      });
 
       setSortedTasks(newSortedTasks);
     }
   };
 
   useEffect(() => {
-    console.log("att")
-    if (tasks.length > 0) {
       setSortedTasks(tasks);
-    }
   }, [tasks]);
 
   useEffect(() => {
