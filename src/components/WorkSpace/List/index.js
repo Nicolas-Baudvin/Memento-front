@@ -93,7 +93,7 @@ export default ({ isInvited, currentTab, tasks }) => {
         handleUpdateListName={handleUpdateListName}
         list={list}
       />
-      <Droppable direction="vertical" droppableId={String(list._id)}>
+      <Droppable direction="vertical" droppableId={list._id}>
         {(provided) => <div ref={provided.innerRef} className="list-tasks">
           <div className="tasks">
             <Tasks list={list} tasks={state.sortedTasks} listId={list._id} />
@@ -104,8 +104,7 @@ export default ({ isInvited, currentTab, tasks }) => {
             addTaskToList={addTaskToList}
             list={list}
           />
-        </div>
-        }
+        </div>}
       </Droppable>
     </div>
     )

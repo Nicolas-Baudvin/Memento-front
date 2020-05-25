@@ -69,7 +69,7 @@ export default ({ tasks, listId, list }) => {
     e.target.parentNode.firstChild.style.display = "block";
   };
 
-  return tasks.map((task, index) => task.listId === listId && <Draggable index={index} key={task._id} draggableId={String(task._id)}>
+  return tasks.map((task) => task.listId === listId && <Draggable index={task.order} key={task._id} draggableId={task._id}>
     {
       (provided) => <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} data-order={task.order} className="tasks-item">
         <Popup

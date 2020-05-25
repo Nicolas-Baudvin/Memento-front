@@ -34,18 +34,22 @@ export default ({ isInvited }) => {
   const { lists } = useSelector((GlobalState) => GlobalState.mylists);
   const { tasks } = useSelector((GlobalState) => GlobalState.mytasks);
   const { currentSocket } = useSelector((GlobalState) => GlobalState.sockets);
-  const [sortedTasks, setSortedTasks] = useState(tasks);
+  const [sortedTasks, setSortedTasks] = useState([]);
   const search = useSearch();
-
   /**
    * @param link - pour invités seulement
    * @param friendTabId - pour invités seulement
    * */
   const {
-    id, name, link, friendTabId
+    id,
+    name,
+    link,
+    friendTabId
   } = useParams();
+
   const onDragEnd = (result) => {
     const { destination, source, draggableId } = result;
+    let newSortedTasks;
 
     if (!destination) {
       return;
@@ -57,49 +61,53 @@ export default ({ isInvited }) => {
 
     const sourceList = lists.filter((x) => x._id === source.droppableId)[0];
     const destList = lists.filter((x) => x._id === destination.droppableId)[0];
+    const sourceTask = sortedTasks.filter((x) => x._id === draggableId)[0];
+
     if (sourceList._id === destList._id) {
-      const sourceTask = sortedTasks.filter((x) => x._id === draggableId)[0];
-      const destTask = sortedTasks[destination.index];
-      const sourceOrder = sourceTask.order;
-      const destOrder = destTask.order;
+      newSortedTasks = sortedTasks.map((item) => {
+        if (item._id === sourceTask._id) {
+          item.order = destination.index;
+        }
+        if (item._id !== sourceTask._id && item.listId === sourceTask.listId) {
+          if (source.index < item.order && destination.index >= item.order) {
+            item.order -= 1;
+          }
+          if (source.index > item.order && destination.index <= item.order) {
+            item.order += 1;
+          }
+        }
+        return item;
+      }).sort((a, b) => a.order - b.order);
 
-      sourceTask.order = destOrder;
-      destTask.order = sourceOrder;
-      const newArray = sortedTasks.map((task) => {
-        if (sourceTask._id === task._id) {
-          task = sourceTask;
-        }
-        if (task.order >= sourceTask.order) {
-          task.order += 1;
-        }
-        return task;
-      });
-      setSortedTasks(newArray.sort((a, b) => a.order - b.order));
-      console.log(newArray);
+      setSortedTasks(newSortedTasks);
     }
+
     if (sourceList._id !== destList._id) {
-      const sourceTask = sortedTasks.filter((x) => x._id === draggableId)[0];
-      const destTask = sortedTasks[destination.index];
-      const destOrder = destTask.order;
-
-      sourceTask.order = destOrder;
-      sourceTask.listId = destination.droppableId;
-
-      const newArray = sortedTasks.map((task) => {
+      newSortedTasks = sortedTasks.map((task) => {
         if (sourceTask._id === task._id) {
-          task = sourceTask;
+          task.order = destination.index;
+          task.listId = destination.droppableId;
         }
-        if (task.order >= sourceTask.order && task.listId === source.droppableId && sourceTask._id !== task._id) task.order -= 1;
-        if (task.order >= sourceTask.order && task.listId !== source.droppableId && sourceTask._id !== task._id) task.order += 1;
+        else {
+          if (task.order > source.index && task.listId === source.droppableId) {
+            task.order -= 1;
+          }
+          if (task.order >= destination.index && task.listId !== source.droppableId) {
+            task.order += 1;
+          }
+        }
         return task;
-      });
-      setSortedTasks(newArray.sort((a, b) => a.order - b.order));
-      console.log(newArray.sort((a, b) => a.order - b.order));
+      }).sort((a, b) => a.order - b.order);
+
+      setSortedTasks(newSortedTasks);
     }
   };
 
   useEffect(() => {
-    setSortedTasks(tasks);
+    console.log("att")
+    if (tasks.length > 0) {
+      setSortedTasks(tasks);
+    }
   }, [tasks]);
 
   useEffect(() => {
