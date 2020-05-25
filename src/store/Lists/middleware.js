@@ -126,7 +126,7 @@ export default (store) => (next) => (action) => {
           store.dispatch(sendLists(cryptedLists));
           store.dispatch(newAction({
             action: `a supprimer la liste "${name}" du tableau !`,
-            tabId,
+            tabId: store.getState().mytabs.currentTab._id,
             author: username,
             authorID: userID
           }));
