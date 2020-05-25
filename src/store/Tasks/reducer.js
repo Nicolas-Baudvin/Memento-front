@@ -1,4 +1,4 @@
-import { NEW_TASK, MY_TASKS, DELETE_TASK, UPDATE_FRIEND_TASKS, UPDATE_TASK_NAME, UPDATE_TASK_LABEL, TASK_ASSIGNED } from "./actions";
+import { NEW_TASK, MY_TASKS, DELETE_TASK, UPDATE_FRIEND_TASKS, UPDATE_TASK_NAME, UPDATE_TASK_LABEL, TASK_ASSIGNED, UPDATE_ORDER } from "./actions";
 
 const initialState = {
   tasks: [],
@@ -12,6 +12,9 @@ export default (state = initialState, action) => {
         ...state,
         tasks: action.tasks
       };
+    }
+    case UPDATE_ORDER: {
+      return state;
     }
     case UPDATE_FRIEND_TASKS: {
       return state;

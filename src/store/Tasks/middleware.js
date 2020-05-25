@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Actions
 import {
-  NEW_TASK, UPDATE_TASK_NAME, MY_TASKS, DELETE_TASK, UPDATE_FRIEND_TASKS, UPDATE_TASK_LABEL, TASK_ASSIGNED
+  NEW_TASK, UPDATE_TASK_NAME, MY_TASKS, DELETE_TASK, UPDATE_FRIEND_TASKS, UPDATE_TASK_LABEL, TASK_ASSIGNED, UPDATE_ORDER
 } from './actions';
 import { failMessage } from "../Popup/actions";
 import { logOut } from "../Registration/actions";
@@ -13,6 +13,10 @@ export default (store) => (next) => (action) => {
   const state = store.getState();
   switch (action.type) {
     case UPDATE_FRIEND_TASKS: {
+      next(action);
+      break;
+    }
+    case UPDATE_ORDER: {
       next(action);
       break;
     }
