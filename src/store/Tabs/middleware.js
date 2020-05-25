@@ -3,7 +3,7 @@ import { cryptUserData } from 'src/Utils/crypt';
 
 // actions
 import {
-  NEW_TAB, MY_TABS, DELETE_TAB, NEW_CURRENT_TAB, NEW_CURRENT_FRIEND_TAB, UPDATE_TAB_PIC, UPDATE_TAB_NAME, UPDATE_TAB
+  NEW_TAB, MY_TABS, DELETE_TAB, NEW_CURRENT_TAB, NEW_CURRENT_FRIEND_TAB, UPDATE_TAB_PIC, UPDATE_TAB_NAME, UPDATE_TAB, UPDATE_ORDER
 } from './actions';
 import { successMessage, failMessage } from '../Popup/actions';
 import { logOut } from '../Registration/actions';
