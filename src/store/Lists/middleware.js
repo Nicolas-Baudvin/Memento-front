@@ -1,12 +1,12 @@
 import Axios from "axios";
 import { cryptUserData } from 'src/Utils/crypt';
+import errorHandler from '../../Utils/Functions/AxiosErrorHandler';
+
 
 // Actions
 import {
   NEW_LIST, MY_LISTS, DELETE_LIST, UPDATE_LIST, CLEAN_LISTS, UPDATE_FRIEND_LISTS
 } from "./actions";
-import { failMessage } from "../Popup/actions";
-import { logOut } from "../Registration/actions";
 import { sendLists } from "../Socket/actions";
 import { newAction } from "../ActionsOnWorkSpace/actions";
 
@@ -57,19 +57,7 @@ export default (store) => (next) => (action) => {
 
           next(action);
         })
-        .catch((err) => {
-          if (!err.response) {
-            return store.dispatch(failMessage("Une erreur est survenue sur le serveur. Réessayez ou contacter un administrateur"));
-          }
-          if (err.response.status === 401) {
-            store.dispatch(logOut());
-            return store.dispatch(failMessage("Votre session a expiré. Veuillez vous reconnecter."));
-          }
-          if (Array.isArray(err.response.data.errors)) {
-            return store.dispatch(failMessage(err.response.data.errors[0].msg));
-          }
-          return store.dispatch(failMessage(err.response.data.errors));
-        });
+        .catch((err) => errorHandler(err, store.dispatch));
       break;
     }
     case MY_LISTS: {
@@ -96,10 +84,7 @@ export default (store) => (next) => (action) => {
             next(action);
           }
         })
-        .catch((err) => {
-          console.log(err);
-          store.dispatch(failMessage("Vos listes n'ont pas pu être chargées. Rafraîchissez la page et si l'erreur persiste contactez un administrateur"));
-        });
+        .catch((err) => errorHandler(err, store.dispatch));
       break;
     }
     case DELETE_LIST: {
@@ -132,20 +117,7 @@ export default (store) => (next) => (action) => {
           }));
           next(action);
         })
-        .catch((err) => {
-          console.log(err);
-          if (!err.response) {
-            return store.dispatch(failMessage("Une erreur est survenue sur le serveur. Réessayez ou contacter un administrateur"));
-          }
-          if (err.response.status === 401) {
-            store.dispatch(logOut());
-            return store.dispatch(failMessage("Votre session a expiré. Veuillez vous reconnecter."));
-          }
-          if (Array.isArray(err.response.data.errors)) {
-            return store.dispatch(failMessage(err.response.data.errors[0].msg));
-          }
-          return store.dispatch(failMessage(err.response.data.errors));
-        });
+        .catch((err) => errorHandler(err, store.dispatch));
 
       break;
     }
@@ -181,19 +153,7 @@ export default (store) => (next) => (action) => {
           }));
           next(action);
         })
-        .catch((err) => {
-          if (!err.response) {
-            return store.dispatch(failMessage("Une erreur est survenue sur le serveur. Réessayez ou contacter un administrateur"));
-          }
-          if (err.response.status === 401) {
-            store.dispatch(logOut());
-            return store.dispatch(failMessage("Votre session a expiré. Veuillez vous reconnecter."));
-          }
-          if (Array.isArray(err.response.data.errors)) {
-            return store.dispatch(failMessage(err.response.data.errors[0].msg));
-          }
-          return store.dispatch(failMessage(err.response.data.errors));
-        });
+        .catch((err) => errorHandler(err, store.dispatch));
 
       break;
     }

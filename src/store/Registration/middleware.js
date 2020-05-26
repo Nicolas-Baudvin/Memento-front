@@ -2,6 +2,8 @@ import axios from "axios";
 
 // utils
 import { cryptUserData } from 'src/Utils/crypt';
+import errorHandler from '../../Utils/Functions/AxiosErrorHandler';
+
 
 // actions
 import {
@@ -15,7 +17,7 @@ import {
   logOut,
   DELETE_ACCOUNT
 } from "./actions";
-import { failMessage, successMessage } from "../Popup/actions";
+import { successMessage } from "../Popup/actions";
 
 export default (store) => (next) => (action) => {
   const state = store.getState();
@@ -44,15 +46,7 @@ export default (store) => (next) => (action) => {
           next(action);
         })
         .catch((err) => {
-          if (!err.response) {
-            return store.dispatch(failMessage("Le serveur a rencontré un problème. Veuillez contacter un administrateur"));
-          }
-          if (Array.isArray(err.response.data.errors)) {
-            const { msg } = err.response.data.errors[0];
-            return store.dispatch(failMessage(msg));
-          }
-
-          return store.dispatch(failMessage(err.response.data.errors));
+          errorHandler(err, store.dispatch);
         });
       break;
     }
@@ -68,14 +62,7 @@ export default (store) => (next) => (action) => {
           next(action);
         })
         .catch((err) => {
-          if (!err.response) {
-            return store.dispatch(failMessage("Le serveur a rencontré un problème. Veuillez contacter un administrateur"));
-          }
-          if (Array.isArray(err.response.data.errors)) {
-            const { msg } = err.response.data.errors[0];
-            return store.dispatch(failMessage(msg));
-          }
-          return store.dispatch(failMessage(err.response.data.errors));
+          errorHandler(err, store.dispatch);
         });
 
       break;
@@ -112,18 +99,7 @@ export default (store) => (next) => (action) => {
           next(action);
         })
         .catch((err) => {
-          if (!err.response) {
-            return store.dispatch(failMessage("Le serveur a rencontré un problème. Veuillez contacter un administrateur"));
-          }
-          if (err.response.status === 401) {
-            store.dispatch(logOut());
-            return store.dispatch(failMessage("Votre session a expiré. Veuillez vous reconnecter"));
-          }
-          if (Array.isArray(err.response.data.errors)) {
-            const { msg } = err.response.data.errors[0];
-            return store.dispatch(failMessage(msg));
-          }
-          return store.dispatch(failMessage(err.response.data.errors));
+          errorHandler(err, store.dispatch);
         });
       break;
     }
@@ -150,18 +126,7 @@ export default (store) => (next) => (action) => {
         })
         .catch((err) => {
           console.log(err);
-          if (!err.response) {
-            return store.dispatch(failMessage("Le serveur a rencontré un problème. Veuillez contacter un administrateur"));
-          }
-          if (err.response.status === 401) {
-            store.dispatch(logOut());
-            return store.dispatch(failMessage("Votre session a expiré. Veuillez vous reconnecter"));
-          }
-          if (Array.isArray(err.response.data.errors)) {
-            const { msg } = err.response.data.errors[0];
-            return store.dispatch(failMessage(msg));
-          }
-          return store.dispatch(failMessage(err.response.data.errors));
+          errorHandler(err, store.dispatch);
         });
 
       break;
@@ -188,18 +153,7 @@ export default (store) => (next) => (action) => {
         })
         .catch((err) => {
           console.log(err);
-          if (!err.response) {
-            return store.dispatch(failMessage("Le serveur a rencontré un problème. Veuillez contacter un administrateur"));
-          }
-          if (err.response.status === 401) {
-            store.dispatch(logOut());
-            return store.dispatch(failMessage("Votre session a expiré. Veuillez vous reconnecter"));
-          }
-          if (Array.isArray(err.response.data.errors)) {
-            const { msg } = err.response.data.errors[0];
-            return store.dispatch(failMessage(msg));
-          }
-          return store.dispatch(failMessage(err.response.data.errors));
+          errorHandler(err, store.dispatch);
         });
 
       break;
@@ -220,14 +174,7 @@ export default (store) => (next) => (action) => {
         })
         .catch((err) => {
           console.log(err);
-          if (!err.response) {
-            return store.dispatch(failMessage("Le serveur a rencontré un problème. Veuillez contacter un administrateur"));
-          }
-          if (Array.isArray(err.response.data.errors)) {
-            const { msg } = err.response.data.errors[0];
-            return store.dispatch(failMessage(msg));
-          }
-          return store.dispatch(failMessage(err.response.data.errors));
+          errorHandler(err, store.dispatch);
         });
 
       break;
@@ -254,18 +201,7 @@ export default (store) => (next) => (action) => {
         })
         .catch((err) => {
           console.log(err);
-          if (!err.response) {
-            return store.dispatch(failMessage("Le serveur a rencontré un problème. Veuillez contacter un administrateur"));
-          }
-          if (err.response.status === 401) {
-            store.dispatch(logOut());
-            return store.dispatch(failMessage("Votre session a expiré. Veuillez vous reconnecter"));
-          }
-          if (Array.isArray(err.response.data.errors)) {
-            const { msg } = err.response.data.errors[0];
-            return store.dispatch(failMessage(msg));
-          }
-          return store.dispatch(failMessage(err.response.data.errors));
+          errorHandler(err, store.dispatch);
         });
       break;
     }

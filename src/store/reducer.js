@@ -6,6 +6,7 @@ import sockets from './Socket/reducer';
 import mylists from './Lists/reducer';
 import mytasks from './Tasks/reducer';
 import lastActions from './ActionsOnWorkSpace/reducer';
+import myfavs from './Favs/reducer';
 
 export default combineReducers({
   userData,
@@ -14,5 +15,6 @@ export default combineReducers({
   sockets,
   mylists,
   mytasks,
-  lastActions
+  lastActions,
+  myfavs
 });

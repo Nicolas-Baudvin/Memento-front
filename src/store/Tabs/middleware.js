@@ -1,12 +1,15 @@
 import axios from 'axios';
+
+// Utils
 import { cryptUserData } from 'src/Utils/crypt';
+import errorHandler from '../../Utils/Functions/AxiosErrorHandler';
+
 
 // actions
 import {
-  NEW_TAB, MY_TABS, DELETE_TAB, NEW_CURRENT_TAB, NEW_CURRENT_FRIEND_TAB, UPDATE_TAB_PIC, UPDATE_TAB_NAME, UPDATE_TAB, UPDATE_ORDER
+  NEW_TAB, MY_TABS, DELETE_TAB, NEW_CURRENT_TAB, NEW_CURRENT_FRIEND_TAB, UPDATE_TAB_PIC, UPDATE_TAB_NAME, UPDATE_TAB
 } from './actions';
 import { successMessage, failMessage } from '../Popup/actions';
-import { logOut } from '../Registration/actions';
 import { sendTab } from '../Socket/actions';
 import { newAction } from '../ActionsOnWorkSpace/actions';
 
@@ -50,19 +53,7 @@ export default (store) => (next) => (action) => {
             next(action);
           }
         })
-        .catch((err) => {
-          if (!err.response) {
-            return store.dispatch(failMessage("Une erreur est survenue sur le serveur. Réessayez ou contacter un administrateur"));
-          }
-          if (err.response.status === 401) {
-            store.dispatch(logOut());
-            return store.dispatch(failMessage("Votre session a expiré. Veuillez vous reconnecter."));
-          }
-          if (Array.isArray(err.response.data.errors)) {
-            return store.dispatch(failMessage(err.response.data.errors[0].msg));
-          }
-          return store.dispatch(failMessage(err.response.data.errors));
-        });
+        .catch((err) => errorHandler(err, store.dispatch));
       break;
     }
     case UPDATE_TAB_NAME: {
@@ -96,19 +87,7 @@ export default (store) => (next) => (action) => {
             next(action);
           }
         })
-        .catch((err) => {
-          if (!err.response) {
-            return store.dispatch(failMessage("Une erreur est survenue sur le serveur. Réessayez ou contacter un administrateur"));
-          }
-          if (err.response.status === 401) {
-            store.dispatch(logOut());
-            return store.dispatch(failMessage("Votre session a expiré. Veuillez vous reconnecter."));
-          }
-          if (Array.isArray(err.response.data.errors)) {
-            return store.dispatch(failMessage(err.response.data.errors[0].msg));
-          }
-          return store.dispatch(failMessage(err.response.data.errors));
-        });
+        .catch((err) => errorHandler(err, store.dispatch));
       break;
     }
     case NEW_CURRENT_FRIEND_TAB: {
@@ -160,20 +139,7 @@ export default (store) => (next) => (action) => {
           store.dispatch(successMessage(res.data.msg));
           next(action);
         })
-        .catch((err) => {
-          console.log(err);
-          if (!err.response) {
-            return store.dispatch(failMessage("Une erreur est survenue sur le serveur. Réessayez ou contacter un administrateur"));
-          }
-          if (err.response.status === 401) {
-            store.dispatch(logOut());
-            return store.dispatch(failMessage("Votre session a expiré. Veuillez vous reconnecter."));
-          }
-          if (Array.isArray(err.response.data.errors)) {
-            return store.dispatch(failMessage(err.response.data.errors[0].msg));
-          }
-          return store.dispatch(failMessage(err.response.data.errors));
-        });
+        .catch((err) => errorHandler(err, store.dispatch));
 
       break;
     }
@@ -201,20 +167,7 @@ export default (store) => (next) => (action) => {
           store.dispatch(successMessage(res.data.msg));
           next(action);
         })
-        .catch((err) => {
-          console.log(err);
-          if (!err.response) {
-            return store.dispatch(failMessage("Le serveur a rencontré un problème. Veuillez contacter un administrateur"));
-          }
-          if (err.response.status === 401) {
-            store.dispatch(logOut());
-            return store.dispatch(failMessage("Votre session a expiré. Veuillez vous reconnecter."));
-          }
-          if (Array.isArray(err.response.data.errors)) {
-            return store.dispatch(failMessage(err.response.data.errors[0].msg));
-          }
-          return store.dispatch(failMessage(err.response.data.errors));
-        });
+        .catch((err) => errorHandler(err, store.dispatch));
 
       break;
     }
@@ -235,20 +188,7 @@ export default (store) => (next) => (action) => {
             next(action);
           }
         })
-        .catch((err) => {
-          console.log(err);
-          if (!err.response) {
-            return store.dispatch(failMessage("Le serveur a rencontré un problème. Veuillez contacter un administrateur"));
-          }
-          if (err.response.status === 401) {
-            store.dispatch(logOut());
-            return store.dispatch(failMessage("Votre session a expiré. Veuillez vous reconnecter."));
-          }
-          if (Array.isArray(err.response.data.errors)) {
-            return store.dispatch(failMessage(err.response.data.errors[0].msg));
-          }
-          return store.dispatch(failMessage(err.response.data.errors));
-        });
+        .catch((err) => errorHandler(err, store.dispatch));
       break;
     }
     default: {

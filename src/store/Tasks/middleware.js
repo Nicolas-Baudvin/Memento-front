@@ -1,11 +1,12 @@
 import axios from 'axios';
 
+// Utils
+import errorHandler from '../../Utils/Functions/AxiosErrorHandler';
+
 // Actions
 import {
   NEW_TASK, UPDATE_TASK_NAME, MY_TASKS, DELETE_TASK, UPDATE_FRIEND_TASKS, UPDATE_TASK_LABEL, TASK_ASSIGNED, UPDATE_ORDER
 } from './actions';
-import { failMessage } from "../Popup/actions";
-import { logOut } from "../Registration/actions";
 import { sendTasks } from '../Socket/actions';
 import { newAction } from '../ActionsOnWorkSpace/actions';
 
@@ -17,7 +18,25 @@ export default (store) => (next) => (action) => {
       break;
     }
     case UPDATE_ORDER: {
-      next(action);
+      const { tasks } = action;
+      const { userID, token } = state.userData.datas;
+
+      axios({
+        method: 'POST',
+        url: `${process.env.API_URL}task/update-order`,
+        data: {
+          userID,
+          tasks
+        },
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+        .then((res) => {
+          console.log(res);
+          next(action);
+        })
+        .catch((err) => errorHandler(err, store.dispatch));
       break;
     }
     case TASK_ASSIGNED: {
@@ -53,21 +72,7 @@ export default (store) => (next) => (action) => {
           }));
           next(action);
         })
-        .catch((err) => {
-          console.log(err);
-          if (!err.response) {
-            return store.dispatch(failMessage("Une erreur est survenue sur le serveur. Réessayez ou contacter un administrateur"));
-          }
-          if (err.response.status === 401) {
-            store.dispatch(logOut());
-            return store.dispatch(failMessage("Votre session a expiré. Veuillez vous reconnecter."));
-          }
-          if (Array.isArray(err.response.data.errors)) {
-            return store.dispatch(failMessage(err.response.data.errors[0].msg));
-          }
-          return store.dispatch(failMessage(err.response.data.errors));
-        });
-
+        .catch((err) => errorHandler(err, store.dispatch));
       break;
     }
     case NEW_TASK: {
@@ -99,20 +104,7 @@ export default (store) => (next) => (action) => {
           }));
           next(action);
         })
-        .catch((err) => {
-          console.log(err);
-          if (!err.response) {
-            return store.dispatch(failMessage("Une erreur est survenue sur le serveur. Réessayez ou contacter un administrateur"));
-          }
-          if (err.response.status === 401) {
-            store.dispatch(logOut());
-            return store.dispatch(failMessage("Votre session a expiré. Veuillez vous reconnecter."));
-          }
-          if (Array.isArray(err.response.data.errors)) {
-            return store.dispatch(failMessage(err.response.data.errors[0].msg));
-          }
-          return store.dispatch(failMessage(err.response.data.errors));
-        });
+        .catch((err) => errorHandler(err, store.dispatch));
 
       break;
     }
@@ -147,20 +139,7 @@ export default (store) => (next) => (action) => {
           }));
           next(action);
         })
-        .catch((err) => {
-          console.log(err);
-          if (!err.response) {
-            return store.dispatch(failMessage("Une erreur est survenue sur le serveur. Réessayez ou contacter un administrateur"));
-          }
-          if (err.response.status === 401) {
-            store.dispatch(logOut());
-            return store.dispatch(failMessage("Votre session a expiré. Veuillez vous reconnecter."));
-          }
-          if (Array.isArray(err.response.data.errors)) {
-            return store.dispatch(failMessage(err.response.data.errors[0].msg));
-          }
-          return store.dispatch(failMessage(err.response.data.errors));
-        });
+        .catch((err) => errorHandler(err, store.dispatch));
 
       break;
     }
@@ -195,20 +174,7 @@ export default (store) => (next) => (action) => {
           }));
           next(action);
         })
-        .catch((err) => {
-          console.log(err);
-          if (!err.response) {
-            return store.dispatch(failMessage("Une erreur est survenue sur le serveur. Réessayez ou contacter un administrateur"));
-          }
-          if (err.response.status === 401) {
-            store.dispatch(logOut());
-            return store.dispatch(failMessage("Votre session a expiré. Veuillez vous reconnecter."));
-          }
-          if (Array.isArray(err.response.data.errors)) {
-            return store.dispatch(failMessage(err.response.data.errors[0].msg));
-          }
-          return store.dispatch(failMessage(err.response.data.errors));
-        });
+        .catch((err) => errorHandler(err, store.dispatch));
       break;
     }
     case MY_TASKS: {
@@ -230,20 +196,7 @@ export default (store) => (next) => (action) => {
           action.tasks = res.data.tasks;
           next(action);
         })
-        .catch((err) => {
-          console.log(err);
-          if (!err.response) {
-            return store.dispatch(failMessage("Une erreur est survenue sur le serveur. Réessayez ou contacter un administrateur"));
-          }
-          if (err.response.status === 401) {
-            store.dispatch(logOut());
-            return store.dispatch(failMessage("Votre session a expiré. Veuillez vous reconnecter."));
-          }
-          if (Array.isArray(err.response.data.errors)) {
-            return store.dispatch(failMessage(err.response.data.errors[0].msg));
-          }
-          return store.dispatch(failMessage(err.response.data.errors));
-        });
+        .catch((err) => errorHandler(err, store.dispatch));
 
       break;
     }
@@ -276,19 +229,7 @@ export default (store) => (next) => (action) => {
           }));
           next(action);
         })
-        .catch((err) => {
-          if (!err.response) {
-            return store.dispatch(failMessage("Une erreur est survenue sur le serveur. Réessayez ou contacter un administrateur"));
-          }
-          if (err.response.status === 401) {
-            store.dispatch(logOut());
-            return store.dispatch(failMessage("Votre session a expiré. Veuillez vous reconnecter."));
-          }
-          if (Array.isArray(err.response.data.errors)) {
-            return store.dispatch(failMessage(err.response.data.errors[0].msg));
-          }
-          return store.dispatch(failMessage(err.response.data.errors));
-        });
+        .catch((err) => errorHandler(err, store.dispatch));
 
       next(action);
       break;
