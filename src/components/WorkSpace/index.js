@@ -25,6 +25,7 @@ import { myLists } from "../../store/Lists/actions";
 
 // Context
 import SearchContext from "./List/searchContext";
+import { updateOrder } from "../../store/Tasks/actions";
 
 export default ({ isInvited }) => {
   const dispatch = useDispatch();
@@ -70,6 +71,7 @@ export default ({ isInvited }) => {
       });
 
       setSortedTasks(newSortedTasks);
+      dispatch(updateOrder(newSortedTasks));
     }
     else {
       newSortedTasks = sortedTasks.map((task) => {
@@ -89,11 +91,12 @@ export default ({ isInvited }) => {
       });
 
       setSortedTasks(newSortedTasks);
+      dispatch(updateOrder(newSortedTasks));
     }
   };
 
   useEffect(() => {
-      setSortedTasks(tasks);
+    setSortedTasks(tasks.sort((a, b) => a.order - b.order));
   }, [tasks]);
 
   useEffect(() => {

@@ -1,8 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Popup, Button } from "semantic-ui-react";
 import cx from 'classnames';
+import { useDispatch, useSelector } from "react-redux";
+import { addFav, deleteFav, myFavs } from "../../../../store/Favs/actions";
+
 
 export default ({ state, setstate, isInvited }) => {
+  const dispatch = useDispatch();
+  const { _id: tabId } = useSelector((GlobalState) => GlobalState.mytabs.currentTab);
+  const { favs } = useSelector((GlobalState) => GlobalState.myfavs);
+
+  const isFav = () => (favs ? favs.favTabs.includes(tabId) : false);
+  console.log(isFav());
+
   const handleClickChangeView = (viewName) => (e) => {
     setstate({ ...state, view: viewName });
   };
@@ -10,6 +20,14 @@ export default ({ state, setstate, isInvited }) => {
   const handleClickOpenMenu = () => {
     setstate({ ...state, menuIsOpen: !state.menuIsOpen });
   };
+
+  const handleClickAddToFav = () => dispatch(addFav(tabId));
+
+  const handleClickDeleteFav = () => dispatch(deleteFav(tabId));
+
+  useEffect(() => {
+    dispatch(myFavs());
+  }, []);
 
   return (
     <>
@@ -39,6 +57,17 @@ export default ({ state, setstate, isInvited }) => {
                 content="Supprimer le tableau"
               />
             }
+            <Popup
+              trigger={
+                <Button
+                  icon="star"
+                  size="huge"
+                  onClick={() => (isFav() ? handleClickDeleteFav() : handleClickAddToFav())}
+                  className={cx("", { yellow: isFav() })}
+                />
+              }
+              content={isFav() ? "Supprimer des favoris" : "Ajouter aux favoris"}
+            />
           </>
         }
       </nav>
