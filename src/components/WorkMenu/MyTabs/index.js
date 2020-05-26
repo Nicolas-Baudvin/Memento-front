@@ -76,7 +76,7 @@ export default ({
       }
       <Tabs openThisTab={openThisTab} />
       <VisitedTabs />
-      <FavTabs />
+      <FavTabs openThisTab={openThisTab} />
     </div>
   );
 };

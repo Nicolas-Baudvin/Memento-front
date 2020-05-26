@@ -50,9 +50,6 @@ export default () => {
           state.view === "Tabs" && <MyTabs state={state} setstate={setstate} handleOpen={handleOpen} />
         }
       </main>
-      <svg className="workmenu-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-        <path fill="#2D94CF" d="M41,-40.1C54.3,-37.8,66.9,-25.9,65.6,-14.3C64.3,-2.8,49.2,8.4,39.3,19.9C29.3,31.3,24.6,42.9,13.2,55.3C1.8,67.6,-16.2,80.8,-24.7,74.7C-33.3,68.7,-32.5,43.5,-37.3,26C-42.1,8.5,-52.6,-1.3,-53.8,-12.2C-55.1,-23,-47.2,-34.9,-36.7,-37.7C-26.2,-40.4,-13.1,-34,0.4,-34.5C13.9,-35,27.8,-42.3,41,-40.1Z" transform="translate(100 100)" />
-      </svg>
     </div>
   );
 };
