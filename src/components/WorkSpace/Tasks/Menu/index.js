@@ -1,20 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { Dropdown, Icon } from 'semantic-ui-react';
 import { useDispatch, useSelector } from "react-redux";
 import { updateTaskLabel, deleteTask, taskAssigned } from "../../../../store/Tasks/actions";
 
+// components
+import Modal from './Modal';
+
 export default ({ taskId, task, list }) => {
+  const [state, setstate] = useState({ open: false });
   const dispatch = useDispatch();
   const { currentSocket } = useSelector((GlobalState) => GlobalState.sockets);
   const handleClickLabel = (label) => (e) => {
     dispatch(updateTaskLabel({ label, taskId, title: task.title }));
-  };
-
-  const handleClickChangeName = (e) => {
-    const currentTask = e.target.parentNode.parentNode.parentNode; // pas fifou
-    currentTask.lastChild.previousSibling.classList.add("show");
-    currentTask.firstChild.nextSibling.classList.remove('show');
-    currentTask.firstChild.style.display = "none";
   };
 
   const handleClickDelete = () => {
@@ -39,11 +36,9 @@ export default ({ taskId, task, list }) => {
   };
 
   return (
-    <Dropdown item icon="cog" simple>
+    <Dropdown closeOnEscape closeOnBlur closeOnChange item icon="cog" simple>
       <Dropdown.Menu>
-        <Dropdown.Item onClick={handleClickChangeName}>
-          Modifier le nom
-        </Dropdown.Item>
+        <Modal onClick={() => setstate({ ...state, menuOpen: false })} list={list} task={task} state={state} setstate={setstate} />
         <Dropdown.Item>
           <Icon name="dropdown" />
           <span>Ajouter un label...</span>
