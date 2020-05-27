@@ -1,12 +1,11 @@
 import React, { useEffect, useContext, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Droppable } from 'react-beautiful-dnd';
+import { Droppable, Draggable } from 'react-beautiful-dnd';
 
 
 // Components
-import Tasks from '../Tasks';
 import ListHeader from './listHeader';
-import TaskForm from './taskForm';
+import TasksContainer from './TasksContainer';
 
 // Actions
 import { myTasks, newTask } from "../../../store/Tasks/actions";
@@ -27,7 +26,6 @@ export default ({ isInvited, currentTab, tasks }) => {
   const initialState = {
     sortedTasks: tasks,
   };
-
   const [state, setstate] = useState(initialState);
 
   const handleUpdateListName = (list) => (e) => {
@@ -40,10 +38,7 @@ export default ({ isInvited, currentTab, tasks }) => {
     input.classList.remove("show");
     settings.classList.add("show");
     title.classList.add("show");
-    if (value)
-    {
-      dispatch(updateList({ newTitle: value, list }));
-    }
+    if (value) dispatch(updateList({ newTitle: value, list }));
   };
 
   const addTaskToList = (listId, list) => (e) => {
@@ -77,36 +72,23 @@ export default ({ isInvited, currentTab, tasks }) => {
   }, [tasks]);
 
   useEffect(() => {
-    if (!search.value)
-    {
-      return setstate({ ...state, sortedTasks: tasks });
-    }
-
+    if (!search.value) return setstate({ ...state, sortedTasks: tasks });
     const sort = state.sortedTasks.filter((task) => task.title.includes(search.value));
     return setstate({ sortedTasks: sort });
   }, [search.value]);
 
   return (
-    lists && lists.length > 0 && lists.map((list) => currentTab._id === list.tabId && <div key={list._id} data-order={list.order} className="list">
-      <ListHeader
-        showTitleInput={showTitleInput}
-        handleUpdateListName={handleUpdateListName}
-        list={list}
-      />
-      <Droppable direction="vertical" droppableId={list._id}>
-        {(provided, snapshot) => <div ref={provided.innerRef} className="list-tasks">
-          <div className="tasks">
-            <Tasks snapshot={snapshot} list={list} tasks={state.sortedTasks} listId={list._id} />
-            {provided.placeholder}
-          </div>
-
-          <TaskForm
-            addTaskToList={addTaskToList}
+    lists.sort((a, b) => a.order - b.order).map((list) => <Draggable key={list._id} draggableId={list._id} index={list.order}>
+      {(provided) => (
+        <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} data-order={list.order} className="list">
+          <ListHeader
+            showTitleInput={showTitleInput}
+            handleUpdateListName={handleUpdateListName}
             list={list}
           />
-        </div>}
-      </Droppable>
-    </div>
-    )
+          <TasksContainer state={state} list={list} addTaskToList={addTaskToList} />
+        </div>
+      )}
+    </Draggable>)
   );
 };

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from 'react-router-dom';
-import { DragDropContext } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
 
 import "./style.scss";
@@ -21,7 +21,7 @@ import InvitedList from './Invited/Lists';
 // Actions
 import { newSocketTab, connectToTab } from "../../store/Socket/actions";
 import { newCurrentTab } from "../../store/Tabs/actions";
-import { myLists } from "../../store/Lists/actions";
+import { myLists, reorderLists } from "../../store/Lists/actions";
 
 // Context
 import SearchContext from "./List/searchContext";
@@ -36,6 +36,7 @@ export default ({ isInvited }) => {
   const { tasks } = useSelector((GlobalState) => GlobalState.mytasks);
   const { currentSocket } = useSelector((GlobalState) => GlobalState.sockets);
   const [sortedTasks, setSortedTasks] = useState([]);
+  const [sortedLists, setSortedLists] = useState([]);
   const search = useSearch();
   /**
    * @param link - pour invités seulement
@@ -47,19 +48,26 @@ export default ({ isInvited }) => {
     link,
     friendTabId
   } = useParams();
-
   const onDragEnd = (result) => {
-    const { destination, source, draggableId } = result;
+    const {
+      destination, source, draggableId, type
+    } = result;
     const sourceList = lists.filter((x) => x._id === source.droppableId)[0];
     const sourceTask = sortedTasks.filter((x) => x._id === draggableId)[0];
     let newSortedTasks;
 
-    if (sourceList._id === destination.droppableId) {
-      newSortedTasks = sortedTasks.map((item) => {
-        if (item._id === sourceTask._id) {
+    if (!destination) return;
+
+    if (destination.droppableId === source.droppableId && destination.index === source.index) return;
+
+    if (type === "column") {
+      console.log(destination, source, draggableId);
+
+      const newListArray = sortedLists.map((item) => {
+        if (draggableId === item._id) {
           item.order = destination.index;
         }
-        else if (item.listId === sourceTask.listId) {
+        else {
           if (source.index < item.order && destination.index >= item.order) {
             item.order -= 1;
           }
@@ -70,34 +78,54 @@ export default ({ isInvited }) => {
         return item;
       });
 
-      setSortedTasks(newSortedTasks);
-      dispatch(updateOrder(newSortedTasks));
-    }
-    else {
-      newSortedTasks = sortedTasks.map((task) => {
-        if (sourceTask._id === task._id) {
-          task.order = destination.index;
-          task.listId = destination.droppableId;
-        }
-        else {
-          if (task.order > source.index && task.listId === source.droppableId) {
-            task.order -= 1;
-          }
-          if (task.order >= destination.index && task.listId !== source.droppableId) {
-            task.order += 1;
-          }
-        }
-        return task;
-      });
+      console.log(newListArray);
 
-      setSortedTasks(newSortedTasks);
-      dispatch(updateOrder(newSortedTasks));
+      setSortedLists(newListArray);
+      dispatch(reorderLists(newListArray));
+    }
+
+    if (type === "task") {
+      if (sourceList._id === destination.droppableId) {
+        newSortedTasks = sortedTasks.map((item) => {
+          if (item._id === sourceTask._id) {
+            item.order = destination.index;
+          }
+          else if (item.listId === sourceTask.listId) {
+            if (source.index < item.order && destination.index >= item.order) {
+              item.order -= 1;
+            }
+            if (source.index > item.order && destination.index <= item.order) {
+              item.order += 1;
+            }
+          }
+          return item;
+        });
+
+        setSortedTasks(newSortedTasks);
+        dispatch(updateOrder(newSortedTasks));
+      }
+      else {
+        newSortedTasks = sortedTasks.map((task) => {
+          if (sourceTask._id === task._id) {
+            task.order = destination.index;
+            task.listId = destination.droppableId;
+          }
+          else {
+            if (task.order > source.index && task.listId === source.droppableId) {
+              task.order -= 1;
+            }
+            if (task.order >= destination.index && task.listId !== source.droppableId) {
+              task.order += 1;
+            }
+          }
+          return task;
+        });
+
+        setSortedTasks(newSortedTasks);
+        dispatch(updateOrder(newSortedTasks));
+      }
     }
   };
-
-  useEffect(() => {
-    setSortedTasks(tasks.sort((a, b) => a.order - b.order));
-  }, [tasks]);
 
   useEffect(() => {
     if (!isInvited) {
@@ -109,21 +137,29 @@ export default ({ isInvited }) => {
   }, []);
 
   useEffect(() => {
-    if (Object.keys(currentTab).length) {
-      if (currentTab.userID === userID && !isInvited) {
-        dispatch(newSocketTab({ id, name }));
-      }
-      if (!isInvited && currentTab.userID !== userID) {
-        history.push("/");
-      }
-    }
-  }, [currentTab]);
-
-  useEffect(() => {
     if (currentSocket && currentTab && !isInvited && !lists.length) {
       dispatch(myLists(currentTab._id));
     }
   }, [currentSocket]);
+
+  useEffect(() => {
+    if (lists) setSortedLists(lists.sort((a, b) => a.order - b.order));
+    if (tasks) setSortedTasks(tasks.sort((a, b) => a.order - b.order));
+  }, [tasks, lists]);
+
+  useEffect(() => {
+    if (Object.keys(currentTab).length)
+    {
+      if (currentTab.userID === userID && !isInvited)
+      {
+        dispatch(newSocketTab({ id, name }));
+      }
+      if (!isInvited && currentTab.userID !== userID)
+      {
+        history.push("/");
+      }
+    }
+  }, [currentTab]);
 
   return (
     <SearchContext.Provider value={search}>
@@ -134,9 +170,15 @@ export default ({ isInvited }) => {
             <BodyHeader isInvited={isInvited} />
             {
               !isInvited && <DragDropContext onDragEnd={onDragEnd}>
-                <div className="workspace-body-lists">
-                  <List tasks={sortedTasks} currentTab={currentTab} lists={lists} isInvited={isInvited} />
-                </div>
+                <Droppable type="column" droppableId="all-columns" direction="horizontal">
+                  {(provided) => (<div ref={provided.innerRef} {...provided.droppableProps} className="workspace-body-lists">
+                    {
+                      sortedLists && sortedLists.length > 0 && <List tasks={sortedTasks} currentTab={currentTab} lists={sortedLists} isInvited={isInvited} />
+                    }
+                    {provided.placeholder}
+                  </div>
+                  )}
+                </Droppable>
               </DragDropContext>
             }
             {

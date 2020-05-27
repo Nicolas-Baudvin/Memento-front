@@ -11,7 +11,6 @@ export default ({ state, setstate, isInvited }) => {
   const { favs } = useSelector((GlobalState) => GlobalState.myfavs);
 
   const isFav = () => (favs ? favs.favTabs.includes(tabId) : false);
-  console.log(isFav());
 
   const handleClickChangeView = (viewName) => (e) => {
     setstate({ ...state, view: viewName });
