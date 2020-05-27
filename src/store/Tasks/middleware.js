@@ -20,13 +20,15 @@ export default (store) => (next) => (action) => {
     case UPDATE_ORDER: {
       const { tasks } = action;
       const { userID, token } = state.userData.datas;
+      const { _id: tabId } = store.getState().mytabs.currentTab;
 
       axios({
         method: 'POST',
         url: `${process.env.API_URL}task/update-order`,
         data: {
           userID,
-          tasks
+          tasks,
+          tabId
         },
         headers: {
           Authorization: `Bearer ${token}`
@@ -34,6 +36,7 @@ export default (store) => (next) => (action) => {
       })
         .then((res) => {
           console.log(res);
+          if (res.data.tasks) store.dispatch(sendTasks(res.data.tasks.sort((a, b) => a.order - b.order)));
           next(action);
         })
         .catch((err) => errorHandler(err, store.dispatch));
