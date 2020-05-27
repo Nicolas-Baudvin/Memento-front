@@ -3,6 +3,12 @@ export const UPDATE_LIST = "action/UPDATE_LIST";
 export const DELETE_LIST = "action/DELETE_LIST";
 export const MY_LISTS = "action/MY_LISTS";
 export const CLEAN_LISTS = "action/CLEAN_LISTS";
+export const REORDER_LISTS = "action/REORDER_LISTS";
+
+export const reorderLists = (lists) => ({
+  type: REORDER_LISTS,
+  lists
+});
 
 // Guests
 export const UPDATE_FRIEND_LISTS = "action/UPDATE_FRIEND_LISTS";
