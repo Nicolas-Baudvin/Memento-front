@@ -17,13 +17,15 @@ import {
   storeFriendTasks,
   STORE_FRIEND_TASKS,
   SEND_ACTIONS,
-  SEND_TAB
+  SEND_TAB,
+  SEND_MESSAGE
 } from './actions';
 import { successMessage, failMessage } from '../Popup/actions';
 import { cryptUserData, decryptUserData } from '../../Utils/crypt';
 import { newFriendTab, updateTab } from '../Tabs/actions';
 import { logOut } from '../Registration/actions';
 import { storeActions } from '../ActionsOnWorkSpace/actions';
+import { newMessage } from '../Chat/actions';
 
 let socket;
 
@@ -41,6 +43,17 @@ export default (store) => (next) => (action) => {
       const link = state.sockets.currentSocket.invitationLink;
       const cryptedActions = cryptUserData(action.data);
       socket.emit("send actions", [cryptedActions, link]);
+      next(action);
+      break;
+    }
+    case SEND_MESSAGE: {
+      const link = state.sockets.currentSocket.invitationLink;
+      const { message } = action;
+      message.author = state.userData.datas.username;
+      message.authorID = state.userData.datas.userID;
+      message.tabId = state.mytabs.currentTab._id;
+
+      socket.emit("send message", ({ message, link }));
       next(action);
       break;
     }
@@ -141,6 +154,8 @@ export default (store) => (next) => (action) => {
           store.dispatch(updateTab(decryptedTab));
           store.dispatch(updateCurrentSocket(currentSocket));
         });
+
+        socket.on("send message", (messages) => store.dispatch(newMessage(messages)));
       });
 
       socket.on("user leave", (data) => {
@@ -195,6 +210,8 @@ export default (store) => (next) => (action) => {
       socket.on("user leave", (data) => {
         if (data.currentSocket) store.dispatch(updateCurrentSocket(data.currentSocket));
       });
+
+      socket.on("send message", (messages) => store.dispatch(newMessage(messages)));
       break;
     }
     case UPDATE_CURRENT_SOCKET: {

@@ -11,6 +11,7 @@ import listMw from './Lists/middleware';
 import taskMw from './Tasks/middleware';
 import actionMw from './ActionsOnWorkSpace/middleware';
 import favMw from './Favs/middleware';
+import chatMw from './Chat/middleware';
 
 
 // applyMiddleware branche les middlewares de l'application au bon endroit
@@ -24,7 +25,8 @@ const middlewares = applyMiddleware(
   listMw,
   taskMw,
   actionMw,
-  favMw
+  favMw,
+  chatMw
 );
 
 const withReduxDevTools = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

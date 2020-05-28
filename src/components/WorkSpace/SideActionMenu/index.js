@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Divider, Popup } from 'semantic-ui-react';
+import { Divider } from 'semantic-ui-react';
 import { useSelector, useDispatch } from "react-redux";
 import cx from 'classnames';
 

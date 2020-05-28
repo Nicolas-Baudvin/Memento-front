@@ -7,6 +7,7 @@ import mylists from './Lists/reducer';
 import mytasks from './Tasks/reducer';
 import lastActions from './ActionsOnWorkSpace/reducer';
 import myfavs from './Favs/reducer';
+import chat from './Chat/reducer';
 
 export default combineReducers({
   userData,
@@ -16,5 +17,6 @@ export default combineReducers({
   mylists,
   mytasks,
   lastActions,
-  myfavs
+  myfavs,
+  chat
 });
