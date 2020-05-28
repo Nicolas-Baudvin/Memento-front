@@ -13,7 +13,7 @@ export default ({ task, state, setstate }) => {
 
   const handleUpdateTaskTitle = (e) => {
     e.preventDefault();
-    if (value) dispatch(updateTaskName({ title: value, taskId: task._id, oldTitle: task.name }));
+    if (value) dispatch(updateTaskName({ title: value, taskId: task._id, oldTitle: task.title }));
     setstate({ ...state, open: false });
   };
   const handleChange = (e) => {
