@@ -167,7 +167,7 @@ export default ({ isInvited }) => {
         <Header />
         <div className="container">
           <div className="workspace-body">
-            <BodyHeader isInvited={isInvited} />
+            <BodyHeader currentTab={currentTab} currentSocket={currentSocket} userID={userID} isInvited={isInvited} />
             {
               !isInvited && <DragDropContext onDragEnd={onDragEnd}>
                 <Droppable type="column" droppableId="all-columns" direction="horizontal">

@@ -1,16 +1,15 @@
 import React, { useState } from "react";
 import { Popup, Input } from 'semantic-ui-react';
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
 // Components
 import Menu from '../Menu';
 import { newList } from "../../../store/Lists/actions";
 
-export default ({ isInvited }) => {
+export default ({
+  isInvited, userID, currentTab, currentSocket
+}) => {
   const dispatch = useDispatch();
-  const { currentSocket } = useSelector((globalState) => globalState.sockets);
-  const { currentTab } = useSelector((globalState) => globalState.mytabs);
-  const { userID } = useSelector((globalState) => globalState.userData.datas);
   const initialState = {
     addlist: ''
   };
@@ -34,13 +33,16 @@ export default ({ isInvited }) => {
 
   return (
     <div className="workspace-body-header">
+      {userID === currentTab.userID}
       <Menu className="workspace-body-header-menuBtn" isInvited={isInvited} />
       {
         userID === currentTab.userID && currentSocket && <>
           <Popup
             content="C'est le liens qui te permettra d'inviter tes amis !"
+            className="workspace-body-header-popup"
             trigger={<Input
               className="workspace-body-invitation"
+              value={`http://localhost:3000/join/${currentTab._id}/${currentSocket.invitationLink}/`}
               action={{
                 color: 'blue',
                 labelPosition: 'right',
@@ -53,6 +55,7 @@ export default ({ isInvited }) => {
           />
           <Popup
             content="C'est ici que tu vas créer ta liste. Appuie sur le bouton de gauche pour valider ton choix !"
+            className="workspace-body-header-popup"
             trigger={
               <Input
                 value={state.addlist}
