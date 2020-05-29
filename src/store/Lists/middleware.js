@@ -1,5 +1,5 @@
 import Axios from "axios";
-import { cryptUserData } from 'src/Utils/crypt';
+import { cryptUserData } from '../../Utils/crypt';
 import errorHandler from '../../Utils/Functions/AxiosErrorHandler';
 
 

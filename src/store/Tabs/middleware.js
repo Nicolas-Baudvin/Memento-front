@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Utils
-import { cryptUserData } from 'src/Utils/crypt';
+import { cryptUserData } from '../../Utils/crypt';
 import errorHandler from '../../Utils/Functions/AxiosErrorHandler';
 
 
