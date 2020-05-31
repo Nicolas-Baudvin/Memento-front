@@ -1,35 +1,35 @@
 import React, { useState } from "react";
 import { Dropdown, Icon } from 'semantic-ui-react';
 import { useDispatch, useSelector } from "react-redux";
+import PropTypes from 'prop-types';
+
+// Actions
 import { updateTaskLabel, deleteTask, taskAssigned } from "../../../../store/Tasks/actions";
 
 // components
 import Modal from './Modal';
 
-export default ({ taskId, task, list }) => {
+const Menu = ({ task, list }) => {
   const [state, setstate] = useState({ open: false });
   const dispatch = useDispatch();
   const { currentSocket } = useSelector((GlobalState) => GlobalState.sockets);
-  const handleClickLabel = (label) => (e) => {
-    dispatch(updateTaskLabel({ label, taskId, title: task.title }));
+  const handleClickLabel = (label) => () => {
+    dispatch(updateTaskLabel({ label, taskId: task._id, title: task.title }));
   };
 
-  const handleClickDelete = () => {
-    console.log(taskId);
-    dispatch(deleteTask(taskId, list.name));
-  };
+  const handleClickDelete = () => dispatch(deleteTask(task._id, list.name));
 
   const handleClickTaskAssign = (username, selfAssign) => (e) => {
     if (selfAssign) {
       return dispatch(taskAssigned({
-        taskId,
+        taskId: task._id,
         listName: list.name,
         order: task.order
       }, selfAssign));
     }
     dispatch(taskAssigned({
       username,
-      taskId,
+      taskId: task._id,
       listName: list.name,
       order: task.order
     }));
@@ -81,3 +81,10 @@ export default ({ taskId, task, list }) => {
     </Dropdown>
   );
 };
+
+Menu.propTypes = {
+  task: PropTypes.object.isRequired,
+  list: PropTypes.object.isRequired
+};
+
+export default Menu;

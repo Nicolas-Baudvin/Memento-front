@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { TextArea, Button } from 'semantic-ui-react';
+import { TextArea, Button, Divider } from 'semantic-ui-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { sendMessage } from '../../../../store/Socket/actions';
 import { findMessages } from '../../../../store/Chat/actions';
@@ -21,7 +21,9 @@ export default () => {
     dispatch(findMessages());
   }, []);
 
-  return (
+  return (<>
+    <h3 className="sideActionMenu-subTitle">Discussion</h3>
+    <Divider />
     <div className="sideActionMenu-chat">
       <div className="sideActionMenu-chat-messages">
         {
@@ -36,5 +38,6 @@ export default () => {
         <Button content="Envoyer" primary icon="send" />
       </form>
     </div>
+  </>
   );
 };

@@ -7,7 +7,7 @@ export default (store) => (next) => (action) => {
   switch (action.type) {
     case NEW_ACTION: {
       const {
-        action: lastAction, tabId, author, authorID, target
+        action: lastAction, tabId, author, authorID
       } = action.actionData;
       const { userID, token } = store.getState().userData.datas;
 
@@ -26,7 +26,6 @@ export default (store) => (next) => (action) => {
         }
       })
         .then((res) => {
-          console.log(res.data);
           action.data = res.data.actions;
           store.dispatch(sendActions(res.data.actions));
           next(action);
@@ -51,7 +50,6 @@ export default (store) => (next) => (action) => {
         Authorization: `Bearer ${token}`
       })
         .then((res) => {
-          console.log(res.data);
           action.data = res.data.actions;
           store.dispatch(sendActions(res.data.actions));
           next(action);

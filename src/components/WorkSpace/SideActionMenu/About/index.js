@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import cx from 'classnames';
 import { Button, Input, Divider } from 'semantic-ui-react';
 import { useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
 
 // Utils
 import loadPic from '../../../../Utils/loadPic';
 import { updateTabPic, updateTabName } from '../../../../store/Tabs/actions';
 import { failMessage } from '../../../../store/Popup/actions';
 
-export default ({ currentTab, isInvited }) => {
+const About = ({ currentTab, isInvited }) => {
   const dispatch = useDispatch();
   const picsPath = [
     { path: "/assets/tab-bg1.jpg", isSelected: false, key: 1 },
@@ -32,11 +33,13 @@ export default ({ currentTab, isInvited }) => {
   const [state, setstate] = useState(initialState);
 
   const getBg = async () => {
-    try {
+    try
+    {
       const img = await loadPic(currentTab.imgPath);
       setstate({ ...state, pic: img });
     }
-    catch (e) {
+    catch (e)
+    {
       console.log(e);
       setstate({ ...state, pic: false });
     }
@@ -51,7 +54,8 @@ export default ({ currentTab, isInvited }) => {
   const handleClickChoosePic = (imgPath) => (e) => {
     console.log(imgPath);
     const newArray = picsPath.map((picture) => {
-      if (picture.path === imgPath) {
+      if (picture.path === imgPath)
+      {
         picture.isSelected = true;
         return picture;
       }
@@ -72,7 +76,9 @@ export default ({ currentTab, isInvited }) => {
   }, []);
 
 
-  return (
+  return (<>
+    <h3 className="sideActionMenu-subTitle">À propos</h3>
+    <Divider />
     <div className="sideActionMenu-about">
       <h3 className="sideActionMenu-about-title"><span>{currentTab.name}</span> </h3>
       {
@@ -81,7 +87,7 @@ export default ({ currentTab, isInvited }) => {
       {
         !isInvited && <>
           <form className="sideActionMenu-about-form" onSubmit={handleSubmitNewName} action="">
-            <Input value={state.nameValue} onChange={(e) => setstate({...state, nameValue: e.target.value })} placeholder="Nouveau nom du tableau" />
+            <Input value={state.nameValue} onChange={(e) => setstate({ ...state, nameValue: e.target.value })} placeholder="Nouveau nom du tableau" />
             <Button icon="edit" primary content="Changer le nom du tableau" />
           </form>
           <Divider />
@@ -96,5 +102,13 @@ export default ({ currentTab, isInvited }) => {
         </>
       }
     </div>
+  </>
   );
 };
+
+About.propTypes = {
+  currentTab: PropTypes.object.isRequired,
+  isInvited: PropTypes.bool.isRequired
+};
+
+export default About;

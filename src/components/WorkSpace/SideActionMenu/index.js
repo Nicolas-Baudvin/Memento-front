@@ -1,7 +1,8 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Divider } from 'semantic-ui-react';
 import { useSelector, useDispatch } from "react-redux";
 import cx from 'classnames';
+import PropTypes from 'prop-types';
 
 // Components
 import Nav from "./Actions";
@@ -14,9 +15,8 @@ import Header from './Header';
 import { tabAction } from "../../../store/ActionsOnWorkSpace/actions";
 
 // Context
-import searchContext from '../List/searchContext';
 
-export default ({ isInvited }) => {
+const SideActionMenu = ({ isInvited }) => {
   const { actions } = useSelector((GlobalState) => GlobalState.lastActions);
   const initialState = {
     view: 'last-actions',
@@ -26,11 +26,7 @@ export default ({ isInvited }) => {
   const { currentSocket } = useSelector((GlobalState) => GlobalState.sockets);
   const { currentTab } = useSelector((GlobalState) => GlobalState.mytabs);
   const [state, setstate] = useState(initialState);
-  const search = useContext(searchContext);
 
-  const handleSearchChange = (e) => {
-    search.setCurrentSearch(e.target.value);
-  };
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -41,36 +37,27 @@ export default ({ isInvited }) => {
     <div className={cx("sideActionMenu-container", { menuOpen: state.menuIsOpen })}>
       <Nav state={state} setstate={setstate} isInvited={isInvited} />
       <div className="sideActionMenu">
-
         <Header
           currentSocket={currentSocket}
           state={state}
-          handleSearchChange={handleSearchChange}
         />
         <Divider />
         {
-          state.view === "last-actions" && <>
-            <h3 className="sideActionMenu-subTitle"> Dernières actions </h3>
-            <Divider />
-            <LastActions actions={actions} currentTab={currentTab} />
-          </>
+          state.view === "last-actions" && <LastActions actions={actions} currentTab={currentTab} />
         }
         {
-          state.view === "chat" && <>
-            <h3 className="sideActionMenu-subTitle">Discussion</h3>
-            <Divider />
-            <Chat />
-          </>
+          state.view === "chat" && <Chat />
         }
         {
-          state.view === "tabInfo" && <>
-            <h3 className="sideActionMenu-subTitle">À propos</h3>
-            <Divider />
-            <About currentTab={currentTab} isInvited={isInvited} />
-          </>
+          state.view === "tabInfo" && <About currentTab={currentTab} isInvited={isInvited} />
         }
-
       </div>
     </div>
   );
 };
+
+SideActionMenu.propTypes = {
+  isInvited: PropTypes.bool.isRequired
+};
+
+export default SideActionMenu;

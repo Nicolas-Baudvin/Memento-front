@@ -1,7 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Input } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
+import searchContext from '../../../List/searchContext';
 
-export default ({ state, handleSearchChange }) => {
+
+const Search = ({ state }) => {
+  const search = useContext(searchContext);
+
+  const handleSearchChange = (e) => {
+    search.setCurrentSearch(e.target.value);
+  };
+
   return <Input
     loading={state.isLoading}
     onChange={handleSearchChange}
@@ -9,3 +18,9 @@ export default ({ state, handleSearchChange }) => {
     placeholder="Chercher une carte"
   />;
 };
+
+Search.propTypes = {
+  state: PropTypes.object.isRequired,
+};
+
+export default Search;

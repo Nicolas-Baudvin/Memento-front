@@ -1,13 +1,16 @@
 import React from 'react';
 import { Divider, Popup } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
+
 
 import Search from './Search';
 
-export default ({ handleSearchChange, state, currentSocket }) => {
+const Header = ({ state, currentSocket }) => {
+
   return (<>
     <h2 className="sideActionMenu-title">Menu</h2>
     <Divider />
-    <Search handleSearchChange={handleSearchChange} state={state} />
+    <Search state={state} />
     <Divider />
     <h2 className="sideActionMenu-subTitle">Membres Connectés</h2>
     <Divider />
@@ -34,5 +37,12 @@ export default ({ handleSearchChange, state, currentSocket }) => {
         ))
       }
     </div>
-  </>)
+  </>);
 };
+
+Header.propTypes = {
+  state: PropTypes.object.isRequired,
+  currentSocket: PropTypes.object.isRequired
+};
+
+export default Header;

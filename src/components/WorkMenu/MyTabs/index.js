@@ -20,25 +20,18 @@ export default ({
   const { tabs } = useSelector((GlobalState) => GlobalState.mytabs);
   const history = useHistory();
   const dispatch = useDispatch();
-  const handleClose = () => {
-    setstate({ ...state, isOpen: false });
-  };
 
-  const handleOpen = () => {
-    setstate({ ...state, isOpen: true });
-  };
+  const handleClose = () => setstate({ ...state, isOpen: false });
 
-  const handleChangeTabName = (e) => {
-    setstate({ ...state, tabName: e.target.value });
-  };
+  const handleOpen = () => setstate({ ...state, isOpen: true });
 
-  const handleClickImg = (num, path) => {
-    setstate({
-      ...state,
-      imgSelected: num,
-      imgPath: path
-    });
-  };
+  const handleChangeTabName = (e) => setstate({ ...state, tabName: e.target.value });
+
+  const handleClickImg = (num, path) => setstate({
+    ...state,
+    imgSelected: num,
+    imgPath: path
+  });
 
   const openThisTab = (tabId, name) => {
     if (tabId) history.push(`/vos-tableaux/${name}/${tabId}`);

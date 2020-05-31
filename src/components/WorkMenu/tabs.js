@@ -19,9 +19,7 @@ export default ({ openThisTab }) => {
 
   const [state, setstate] = useState(initialState);
 
-  const handleCancel = () => {
-    setstate({ ...state, open: false });
-  };
+  const handleCancel = () => setstate({ ...state, open: false });
 
   const handleConfirm = () => {
     const tabId = state.tabId;

@@ -2,10 +2,13 @@ import React, { useEffect } from "react";
 import { Popup, Button } from "semantic-ui-react";
 import cx from 'classnames';
 import { useDispatch, useSelector } from "react-redux";
+import PropTypes from 'prop-types';
+
+// Actions
 import { addFav, deleteFav, myFavs } from "../../../../store/Favs/actions";
 
 
-export default ({ state, setstate, isInvited }) => {
+const Actions = ({ state, setstate, isInvited }) => {
   const dispatch = useDispatch();
   const { _id: tabId } = useSelector((GlobalState) => GlobalState.mytabs.currentTab);
   const { favs } = useSelector((GlobalState) => GlobalState.myfavs);
@@ -73,3 +76,11 @@ export default ({ state, setstate, isInvited }) => {
     </>
   );
 };
+
+Actions.propTypes = {
+  state: PropTypes.object.isRequired,
+  setstate: PropTypes.func.isRequired,
+  isInvited: PropTypes.bool.isRequired
+};
+
+export default Actions;

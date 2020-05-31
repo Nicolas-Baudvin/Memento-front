@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from 'react-router-dom';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import PropTypes from 'prop-types';
 
 
 import "./style.scss";
@@ -27,7 +28,7 @@ import { myLists, reorderLists } from "../../store/Lists/actions";
 import SearchContext from "./List/searchContext";
 import { updateOrder } from "../../store/Tasks/actions";
 
-export default ({ isInvited }) => {
+const WorkSpace = ({ isInvited }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { currentTab } = useSelector((globalState) => globalState.mytabs);
@@ -48,6 +49,7 @@ export default ({ isInvited }) => {
     link,
     friendTabId
   } = useParams();
+
   const onDragEnd = (result) => {
     const {
       destination, source, draggableId, type
@@ -61,8 +63,6 @@ export default ({ isInvited }) => {
     if (destination.droppableId === source.droppableId && destination.index === source.index) return;
 
     if (type === "column") {
-      console.log(destination, source, draggableId);
-
       const newListArray = sortedLists.map((item) => {
         if (draggableId === item._id) {
           item.order = destination.index;
@@ -77,8 +77,6 @@ export default ({ isInvited }) => {
         }
         return item;
       });
-
-      console.log(newListArray);
 
       setSortedLists(newListArray);
       dispatch(reorderLists(newListArray));
@@ -148,14 +146,11 @@ export default ({ isInvited }) => {
   }, [tasks, lists]);
 
   useEffect(() => {
-    if (Object.keys(currentTab).length)
-    {
-      if (currentTab.userID === userID && !isInvited)
-      {
+    if (Object.keys(currentTab).length) {
+      if (currentTab.userID === userID && !isInvited) {
         dispatch(newSocketTab({ id, name }));
       }
-      if (!isInvited && currentTab.userID !== userID)
-      {
+      if (!isInvited && currentTab.userID !== userID) {
         history.push("/");
       }
     }
@@ -193,3 +188,9 @@ export default ({ isInvited }) => {
     </SearchContext.Provider>
   );
 };
+
+WorkSpace.propTypes = {
+  isInvited: PropTypes.bool.isRequired
+};
+
+export default WorkSpace;

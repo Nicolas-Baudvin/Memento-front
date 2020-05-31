@@ -20,7 +20,6 @@ export default (store) => (next) => (action) => {
         }
       })
         .then((res) => {
-          console.log(res);
           action.tabs = res.data.tabs;
           next(action);
         })
@@ -43,7 +42,6 @@ export default (store) => (next) => (action) => {
         }
       })
         .then((res) => {
-          console.log(res);
           action.favs = res.data.favs;
           next(action);
         })
@@ -66,7 +64,6 @@ export default (store) => (next) => (action) => {
         }
       })
         .then((res) => {
-          console.log(res);
           action.favs = res.data.favs;
           next(action);
         })
@@ -87,7 +84,6 @@ export default (store) => (next) => (action) => {
         }
       })
         .then((res) => {
-          console.log(res);
           action.favs = res.data.favs;
           next(action);
         })

@@ -1,11 +1,17 @@
 import React, { useState } from 'react';
-import { Modal, TextArea, Button, Dropdown } from 'semantic-ui-react';
+import {
+  Modal, TextArea, Button, Dropdown
+} from 'semantic-ui-react';
 import { useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
 
-import './style.scss';
+// Actions
 import { updateTaskName } from '../../../../../store/Tasks/actions';
 
-export default ({ task, state, setstate }) => {
+// Styles
+import './style.scss';
+
+const ModalComponent = ({ task, state, setstate }) => {
   const [value, setValue] = useState(`${task.title} `);
   const dispatch = useDispatch();
 
@@ -16,10 +22,7 @@ export default ({ task, state, setstate }) => {
     if (value) dispatch(updateTaskName({ title: value, taskId: task._id, oldTitle: task.title }));
     setstate({ ...state, open: false });
   };
-  const handleChange = (e) => {
-    console.log(e.target.value);
-    setValue(e.target.value);
-  };
+  const handleChange = (e) => setValue(e.target.value);
 
   return (
     <Modal
@@ -44,3 +47,11 @@ export default ({ task, state, setstate }) => {
     </Modal>
   );
 };
+
+ModalComponent.propTypes = {
+  task: PropTypes.object.isRequired,
+  state: PropTypes.object.isRequired,
+  setstate: PropTypes.func.isRequired
+};
+
+export default ModalComponent;

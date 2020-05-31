@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React from "react";
+import PropTypes from 'prop-types';
+
 import "./style.scss";
 
 // components
-import { Input, Popup } from "semantic-ui-react";
+import { Popup } from "semantic-ui-react";
 import { Draggable } from "react-beautiful-dnd";
 import Menu from './Menu';
-import { updateTaskName } from "../../../store/Tasks/actions";
 
 export const styles = (label) => {
   if (!label) return {};
@@ -50,49 +50,24 @@ export const checkImportance = (color) => {
   }
 };
 
-export default ({ tasks, listId, list }) => {
-  const dispatch = useDispatch();
-  const initialState = {
-    value: ''
-  };
-
-  const [state, setstate] = useState(initialState);
-
-  const handleSubmit = (taskId, task) => (e) => {
-    e.preventDefault();
-    const title = state.value;
-    if (title) dispatch(updateTaskName({ taskId, title, oldName: task.title }));
-    setstate({ ...state, value: '' });
-
-    e.target.classList.remove("show");
-    e.target.previousSibling.classList.add("show");
-    e.target.parentNode.firstChild.style.display = "block";
-  };
-
-  return tasks.sort((a, b) => a.order - b.order).map((task) => task.listId === listId && <Draggable index={task.order} key={task._id} draggableId={task._id}>
+const Tasks = ({ tasks, list }) => (
+  tasks.sort((a, b) => a.order - b.order).map((task) => task.listId === list._id
+  && <Draggable index={task.order} key={task._id} draggableId={task._id}>
     {
-      (provided) => <div style={{ backgroundColor: provided.isDraggingOver ? 'blue' : 'white' }} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} data-order={task.order} className="tasks-item">
+      (provided) => <div
+        style={{ backgroundColor: provided.isDraggingOver ? 'blue' : 'white' }}
+        ref={provided.innerRef}
+        {...provided.draggableProps}
+        {...provided.dragHandleProps}
+        data-order={task.order}
+        className="tasks-item"
+      >
         <Popup
           trigger={<div className="tasks-item-label" style={styles(task.label)} />}
           content={checkImportance(task.label)}
         />
         <div className="tasks-item-main">
           <p className="show">{task.title}</p>
-          <form onSubmit={handleSubmit(task._id, task)} className="task-menu-form" action="">
-            <Input
-              placeholder="Nouveau nom"
-              size="mini"
-              value={state.value}
-              onChange={(e) => setstate({ ...state, value: e.target.value })}
-              action={
-                {
-                  content: state.value ? "Envoyer" : "Retour",
-                  color: state.value ? "blue" : "red",
-                  type: "submit"
-                }
-              }
-            />
-          </form>
           <Menu taskId={task._id} task={task} list={list} />
         </div>
         {
@@ -100,5 +75,11 @@ export default ({ tasks, listId, list }) => {
         }
       </div>
     }
-  </Draggable>);
+  </Draggable>));
+
+Tasks.propTypes = {
+  tasks: PropTypes.array.isRequired,
+  list: PropTypes.object.isRequired
 };
+
+export default Tasks;

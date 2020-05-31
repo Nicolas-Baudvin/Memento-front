@@ -2,10 +2,11 @@ import React from "react";
 import {
   Button, Popup
 } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
 
 import "./style.scss";
 
-export default ({ currentSocket }) => {
+const Owner = ({ currentSocket }) => {
 
   return (
     <div className="owner">
@@ -16,3 +17,9 @@ export default ({ currentSocket }) => {
     </div>
   );
 };
+
+Owner.propTypes = {
+  currentSocket: PropTypes.object.isRequired
+};
+
+export default Owner;

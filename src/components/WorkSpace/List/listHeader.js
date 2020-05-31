@@ -1,12 +1,17 @@
 import React, { useState } from "react";
 import { Input, Popup } from 'semantic-ui-react';
 import { useDispatch } from "react-redux";
+import PropTypes from 'prop-types';
+
+// Actions
+import { deleteList, updateList } from "../../../store/Lists/actions";
 
 // Component
 import { Button } from '../../../Utils/Components';
-import { deleteList } from "../../../store/Lists/actions";
 
-export default ({ showTitleInput, handleUpdateListName, list }) => {
+
+
+const ListHeader = ({ list }) => {
   const initialState = {};
 
   const [state, setstate] = useState(initialState);
@@ -15,6 +20,27 @@ export default ({ showTitleInput, handleUpdateListName, list }) => {
     if (list._id) {
       dispatch(deleteList({ listID: list._id, name: list.name }));
     }
+  };
+
+
+  const showTitleInput = (e) => {
+    const title = e.target;
+    title.classList.remove("show");
+    title.parentNode.lastChild.classList.add("show");
+    title.nextSibling.classList.remove("show");
+  };
+
+  const handleUpdateListName = () => (e) => {
+    e.preventDefault();
+    const value = e.target.previousSibling.value;
+    const input = e.target.parentNode;
+    const settings = e.target.parentNode.previousSibling;
+    const title = input.parentNode.firstChild;
+
+    input.classList.remove("show");
+    settings.classList.add("show");
+    title.classList.add("show");
+    if (value) dispatch(updateList({ newTitle: value, list }));
   };
 
   const handleChange = (listId) => (e) => {
@@ -39,3 +65,9 @@ export default ({ showTitleInput, handleUpdateListName, list }) => {
     </div>
   );
 };
+
+ListHeader.propTypes = {
+  list: PropTypes.object.isRequired
+};
+
+export default ListHeader;

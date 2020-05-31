@@ -1,10 +1,11 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import { styles } from '../../Tasks/index';
 
 // Components
 import Menu from './Menu';
 
-export default ({ tasks, listId }) => (
+const Tasks = ({ tasks, listId }) => (
   <div className="tasks">
     {
         tasks.map((task) => {
@@ -22,3 +23,10 @@ export default ({ tasks, listId }) => (
       }
   </div>
 );
+
+Tasks.propTypes = {
+  tasks: PropTypes.array.isRequired,
+  listId: PropTypes.string.isRequired
+};
+
+export default Tasks;

@@ -24,9 +24,7 @@ export default () => {
   };
   const [state, setstate] = useState(initialState);
 
-  const handleOpen = () => {
-    setstate({ ...state, isOpen: true });
-  };
+  const handleOpen = () => setstate({ ...state, isOpen: true });
 
   useEffect(() => {
     dispatch(disconnectFromChannel());
