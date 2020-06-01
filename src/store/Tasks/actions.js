@@ -30,6 +30,12 @@ export const DELETE_TASK = "action/DELETE_TASK";
 export const UPDATE_TASK_NAME = "action/UPDATE_TASK_NAME";
 export const UPDATE_TASK_ORDER = "action/UPDATE_TASK_ORDER";
 export const UPDATE_TASK_LABEL = "action/UPDATE_TASK_LABEL";
+export const TASKS_REORDERED_BY_GUEST = "TASKS_REORDERED_BY_GUEST";
+
+export const taskReorderedByFriend = (tasks) => ({
+  type: TASKS_REORDERED_BY_GUEST,
+  tasks
+});
 
 export const newTask = (taskData) => ({
   type: NEW_TASK,

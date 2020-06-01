@@ -35,9 +35,16 @@ const WorkSpace = ({ isInvited }) => {
   const { userID } = useSelector((globalState) => globalState.userData.datas);
   const { lists } = useSelector((GlobalState) => GlobalState.mylists);
   const { tasks } = useSelector((GlobalState) => GlobalState.mytasks);
+  const { fLists, fTasks } = useSelector((GlobalState) => GlobalState.sockets);
+  const { tab } = useSelector((GlobalState) => GlobalState.sockets.currentSocket);
   const { currentSocket } = useSelector((GlobalState) => GlobalState.sockets);
+  // Tab Owner
   const [sortedTasks, setSortedTasks] = useState([]);
   const [sortedLists, setSortedLists] = useState([]);
+  // Guests
+  const [sortedFriendTasks, setSortedFriendTasks] = useState([]);
+  const [sortedFriendLists, setSortedFriendLists] = useState([]);
+
   const search = useSearch();
   /**
    * @param link - pour invités seulement
@@ -54,8 +61,17 @@ const WorkSpace = ({ isInvited }) => {
     const {
       destination, source, draggableId, type
     } = result;
-    const sourceList = lists.filter((x) => x._id === source.droppableId)[0];
-    const sourceTask = sortedTasks.filter((x) => x._id === draggableId)[0];
+
+    const tasksToSort = isInvited ? sortedFriendTasks : sortedTasks;
+
+    const sourceList = !isInvited
+      ? lists.filter((x) => x._id === source.droppableId)[0]
+      : fLists.filter((x) => x._id === source.droppableId)[0];
+
+    const sourceTask = !isInvited
+      ? sortedTasks.filter((x) => x._id === draggableId)[0]
+      : fTasks.filter((x) => x._id === draggableId)[0];
+
     let newSortedTasks;
 
     if (!destination) return;
@@ -63,7 +79,8 @@ const WorkSpace = ({ isInvited }) => {
     if (destination.droppableId === source.droppableId && destination.index === source.index) return;
 
     if (type === "column") {
-      const newListArray = sortedLists.map((item) => {
+      const allLists = isInvited ? sortedFriendLists : sortedLists;
+      const newListArray = allLists.map((item) => {
         if (draggableId === item._id) {
           item.order = destination.index;
         }
@@ -77,14 +94,22 @@ const WorkSpace = ({ isInvited }) => {
         }
         return item;
       });
+      console.log(newListArray.length);
 
-      setSortedLists(newListArray);
-      dispatch(reorderLists(newListArray));
+      if (newListArray.length) {
+        if (isInvited) {
+          setSortedFriendLists(newListArray);
+        }
+        else {
+          setSortedLists(newListArray);
+        }
+        dispatch(reorderLists(newListArray));
+      }
     }
 
     if (type === "task") {
       if (sourceList._id === destination.droppableId) {
-        newSortedTasks = sortedTasks.map((item) => {
+        newSortedTasks = tasksToSort.map((item) => {
           if (item._id === sourceTask._id) {
             item.order = destination.index;
           }
@@ -99,11 +124,16 @@ const WorkSpace = ({ isInvited }) => {
           return item;
         });
 
-        setSortedTasks(newSortedTasks);
+        if (isInvited) {
+          setSortedFriendTasks(newSortedTasks);
+        }
+        else {
+          setSortedTasks(newSortedTasks);
+        }
         dispatch(updateOrder(newSortedTasks));
       }
       else {
-        newSortedTasks = sortedTasks.map((task) => {
+        newSortedTasks = tasksToSort.map((task) => {
           if (sourceTask._id === task._id) {
             task.order = destination.index;
             task.listId = destination.droppableId;
@@ -119,7 +149,12 @@ const WorkSpace = ({ isInvited }) => {
           return task;
         });
 
-        setSortedTasks(newSortedTasks);
+        if (isInvited) {
+          setSortedFriendTasks(newSortedTasks);
+        }
+        else {
+          setSortedTasks(newSortedTasks);
+        }
         dispatch(updateOrder(newSortedTasks));
       }
     }
@@ -141,9 +176,14 @@ const WorkSpace = ({ isInvited }) => {
   }, [currentSocket]);
 
   useEffect(() => {
+    // Tab Owner
     if (lists) setSortedLists(lists.sort((a, b) => a.order - b.order));
     if (tasks) setSortedTasks(tasks.sort((a, b) => a.order - b.order));
-  }, [tasks, lists]);
+
+    // Guests
+    if (fTasks) setSortedFriendTasks(fTasks.sort((a, b) => a.order - b.order));
+    if (fLists) setSortedFriendLists(fLists.sort((a, b) => a.order - b.order));
+  }, [tasks, lists, fLists, fTasks]);
 
   useEffect(() => {
     if (Object.keys(currentTab).length) {
@@ -163,9 +203,9 @@ const WorkSpace = ({ isInvited }) => {
         <div className="container">
           <div className="workspace-body">
             <BodyHeader currentTab={currentTab} currentSocket={currentSocket} userID={userID} isInvited={isInvited} />
-            {
-              !isInvited && <DragDropContext onDragEnd={onDragEnd}>
-                <Droppable type="column" droppableId="all-columns" direction="horizontal">
+            <DragDropContext onDragEnd={onDragEnd}>
+              {
+                !isInvited && <Droppable type="column" droppableId="all-columns" direction="horizontal">
                   {(provided) => (<div ref={provided.innerRef} {...provided.droppableProps} className="workspace-body-lists">
                     {
                       sortedLists && sortedLists.length > 0 && <List tasks={sortedTasks} currentTab={currentTab} lists={sortedLists} isInvited={isInvited} />
@@ -174,11 +214,18 @@ const WorkSpace = ({ isInvited }) => {
                   </div>
                   )}
                 </Droppable>
-              </DragDropContext>
-            }
-            {
-              isInvited && <InvitedList />
-            }
+              }
+              {
+                isInvited && <Droppable type="column" direction="horizontal" droppableId="all-columns">
+                  {
+                    (provided) => <div ref={provided.innerRef} {...provided.droppableProps} className="workspace-body-lists">
+                      <InvitedList fLists={sortedFriendLists} fTasks={sortedFriendTasks} tab={tab} />
+                      {provided.placeholder}
+                    </div>
+                  }
+                </Droppable>
+              }
+            </DragDropContext>
           </div>
           {
             currentSocket && <SideActionMenu guests={currentSocket.guests} isInvited={isInvited} />

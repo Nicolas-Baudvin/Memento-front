@@ -1,6 +1,6 @@
 import { decryptUserData } from '../../Utils/crypt';
 
-import { MY_LISTS, UPDATE_LIST, DELETE_LIST, NEW_LIST, CLEAN_LISTS } from "./actions";
+import { MY_LISTS, UPDATE_LIST, DELETE_LIST, NEW_LIST, CLEAN_LISTS, LISTS_FROM_FRIEND_REORDER } from "./actions";
 
 const initialState = {
   lists: localStorage.getItem("lists") ? decryptUserData(localStorage.getItem("lists")) : []
@@ -11,6 +11,12 @@ export default (state = initialState, action) => {
     case CLEAN_LISTS: {
       return {
         lists: []
+      };
+    }
+    case LISTS_FROM_FRIEND_REORDER: {
+      return {
+        ...state,
+        lists: action.lists
       };
     }
     case NEW_LIST: {

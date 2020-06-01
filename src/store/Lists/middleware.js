@@ -5,16 +5,28 @@ import errorHandler from '../../Utils/Functions/AxiosErrorHandler';
 
 // Actions
 import {
-  NEW_LIST, MY_LISTS, DELETE_LIST, UPDATE_LIST, CLEAN_LISTS, UPDATE_FRIEND_LISTS, REORDER_LISTS
+  NEW_LIST,
+  MY_LISTS,
+  DELETE_LIST,
+  UPDATE_LIST,
+  CLEAN_LISTS,
+  UPDATE_FRIEND_LISTS,
+  REORDER_LISTS,
+  LISTS_FROM_FRIEND_REORDER
 } from "./actions";
 import { sendLists } from "../Socket/actions";
 import { newAction } from "../ActionsOnWorkSpace/actions";
 
 export default (store) => (next) => (action) => {
   const state = store.getState();
-  switch (action.type)
-  {
+  switch (action.type) {
     case UPDATE_FRIEND_LISTS: {
+      next(action);
+      break;
+    }
+    case LISTS_FROM_FRIEND_REORDER: {
+      const cryptedLists = cryptUserData(action.lists);
+      localStorage.setItem('lists', cryptedLists);
       next(action);
       break;
     }
@@ -104,8 +116,7 @@ export default (store) => (next) => (action) => {
       })
         .then((res) => {
           const { lists } = res.data;
-          if (lists.length)
-          {
+          if (lists.length) {
             const cryptedLists = cryptUserData(lists);
             localStorage.setItem("lists", cryptedLists);
             action.lists = lists;

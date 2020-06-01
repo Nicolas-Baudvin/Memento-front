@@ -26,6 +26,8 @@ import { newFriendTab, updateTab } from '../Tabs/actions';
 import { logOut } from '../Registration/actions';
 import { storeActions } from '../ActionsOnWorkSpace/actions';
 import { newMessage } from '../Chat/actions';
+import { listsReorderedByFriend } from '../Lists/actions';
+import { taskReorderedByFriend } from '../Tasks/actions';
 
 let socket;
 
@@ -75,7 +77,14 @@ export default (store) => (next) => (action) => {
     }
     case SEND_LISTS: {
       const link = state.sockets.currentSocket.invitationLink;
-      socket.emit("send lists", [action.lists, link]);
+      const { lists } = action;
+      if (typeof lists !== 'string') {
+        const cryptedLists = cryptUserData(lists);
+        socket.emit("send lists", [cryptedLists, link]);
+      }
+      else {
+        socket.emit("send lists", [lists, link]);
+      }
       next(action);
       break;
     }
@@ -133,8 +142,14 @@ export default (store) => (next) => (action) => {
         });
 
         socket.on("send owner lists", (data) => {
-          const decryptedLists = decryptUserData(data.lists);
-          store.dispatch(storeFriendLists(decryptedLists));
+          console.log(data);
+          if (typeof data.lists === 'string') {
+            const decryptedLists = decryptUserData(data.lists);
+            store.dispatch(storeFriendLists(decryptedLists));
+          }
+          else {
+            store.dispatch(storeFriendLists(data.lists));
+          }
         });
 
         socket.on("send owner tasks", (data) => {
@@ -212,6 +227,22 @@ export default (store) => (next) => (action) => {
       });
 
       socket.on("send message", (messages) => store.dispatch(newMessage(messages)));
+
+      socket.on("send owner lists", (data) => {
+        console.log(data);
+        if (typeof data.lists === 'string') {
+          const decryptedLists = decryptUserData(data.lists);
+          store.dispatch(listsReorderedByFriend(decryptedLists));
+        }
+        else {
+          store.dispatch(listsReorderedByFriend(data.lists));
+        }
+      });
+
+      socket.on("send owner tasks", (data) => {
+        const decryptedTasks = decryptUserData(data.tasks);
+        store.dispatch(taskReorderedByFriend(decryptedTasks));
+      });
       break;
     }
     case UPDATE_CURRENT_SOCKET: {

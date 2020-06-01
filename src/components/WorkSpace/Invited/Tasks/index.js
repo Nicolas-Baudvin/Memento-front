@@ -1,33 +1,32 @@
 import React from "react";
 import PropTypes from 'prop-types';
+import { Draggable } from 'react-beautiful-dnd';
 import { styles } from '../../Tasks/index';
-import { Draggable, Droppable } from 'react-beautiful-dnd';
 
 // Components
 import Menu from './Menu';
 
 const Tasks = ({ tasks, listId }) => (
-  <div className="tasks">
+  tasks.sort((a, b) => a.order - b.order).map((task) => task.listId === listId && <Draggable key={task._id} draggableId={task._id} index={task.order}>
     {
-        tasks.map((task) => {
-          if (task.listId === listId) {
-            return (
-              <div key={task._id} data-order={task.order} className="tasks-item">
-                <div className="tasks-item-label" style={styles(task.label)} />
-                <div className="tasks-item-main">
-                  <p className="show">{task.title}</p>
-                  <Menu />
-                </div>
-                {
-                  task.assigned && <div className="tasks-item-assigned">Assignée à <span> {task.assigned} </span></div>
-                }
-              </div>
-            );
-          }
-          return false;
-        })
-      }
-  </div>
+      (provided) => <div
+        ref={provided.innerRef}
+        {...provided.draggableProps}
+        {...provided.dragHandleProps}
+        data-order={task.order}
+        className="tasks-item"
+      >
+        <div className="tasks-item-label" style={styles(task.label)} />
+        <div className="tasks-item-main">
+          <p className="show">{task.title}</p>
+          <Menu />
+        </div>
+        {
+          task.assigned && <div className="tasks-item-assigned">Assignée à <span> {task.assigned} </span></div>
+        }
+      </div>
+    }
+  </Draggable>)
 );
 
 Tasks.propTypes = {

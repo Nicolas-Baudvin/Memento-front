@@ -1,21 +1,17 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 
 // Context
 import SearchContext from '../../List/searchContext';
 
-import Tasks from '../Tasks';
+// Components
 import ListHeader from './listHeader';
+import TaskContainer from './TaskContainer';
 
-export default () => {
+export default ({ fLists, fTasks, tab }) => {
   const search = useContext(SearchContext);
-  const initialState = {
-    sortedTasks: []
-  };
-  const [sortedTasks, setSortedTasks] = useState(initialState);
-  const { fLists, fTasks } = useSelector((GlobalState) => GlobalState.sockets);
-  const { tab } = useSelector((GlobalState) => GlobalState.sockets.currentSocket);
+
+  const [sortedTasks, setSortedTasks] = useState([]);
 
   useEffect(() => {
     if (!search.value) return setSortedTasks(fTasks);
@@ -28,22 +24,20 @@ export default () => {
   }, [fTasks]);
 
   return (
-    <div className="workspace-body-lists">
-      {
-        fLists.length > 0 && fLists.map((list) => {
-          if (tab && tab._id === list.tabId) {
-            return (
-              <div key={list._id} data-order={list.order} className="list">
-                <ListHeader list={list} />
-                <div className="list-tasks">
-                  {
-                    fTasks.length > 0 && <Tasks tasks={sortedTasks} listId={list._id} />
-                  }
-                </div>
-              </div>);
-          }
-        })
-      }
-    </div>
+    fLists.length > 0 && fLists.sort((a, b) => a.order - b.order).map((list) => tab && tab._id === list.tabId
+      && <Draggable key={list._id} draggableId={list._id} index={list.order}>
+        {
+          (provided) => <div
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+            ref={provided.innerRef}
+            data-order={list.order}
+            className="list"
+          >
+            <ListHeader list={list} />
+            <TaskContainer list={list} fTasks={fTasks} sortedTasks={sortedTasks} />
+          </div>
+        }
+      </Draggable>)
   );
 };

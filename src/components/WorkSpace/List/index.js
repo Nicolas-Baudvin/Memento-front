@@ -48,16 +48,17 @@ const List = ({ isInvited, tasks }) => {
   }, [search.value]);
 
   return (
-    lists.sort((a, b) => a.order - b.order).map((list) => <Draggable key={list._id} draggableId={list._id} index={list.order}>
-      {(provided) => (
-        <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} data-order={list.order} className="list">
-          <ListHeader
-            list={list}
-          />
-          <TasksContainer state={state} list={list} />
-        </div>
-      )}
-    </Draggable>)
+    lists.sort((a, b) => a.order - b.order).map((list) => (
+      <Draggable key={list._id} draggableId={list._id} index={list.order}>
+        {(provided) => (
+          <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} data-order={list.order} className="list">
+            <ListHeader
+              list={list}
+            />
+            <TasksContainer state={state} list={list} />
+          </div>
+        )}
+      </Draggable>))
   );
 };
 
