@@ -8,7 +8,7 @@ import ListHeader from './listHeader';
 import TasksContainer from './TasksContainer';
 
 // Actions
-import { myTasks} from "../../../store/Tasks/actions";
+import { myTasks } from "../../../store/Tasks/actions";
 
 // Styles
 import './style.scss';
