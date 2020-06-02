@@ -15,6 +15,17 @@ export default ({ openThisTab }) => {
     });
   };
 
+  const handleClickOpenTab = (item) => (e) => {
+    const favClicked = favs.favTabs.filter((elem) => elem.tabId === item._id)[0];
+    console.log(favClicked);
+    if (favClicked.isInvited) {
+      window.location.href = `http://localhost:3000/join/${favClicked.tabId}/${favClicked.invitationLink}/`;
+    }
+    else {
+      openThisTab(favClicked.tabId);
+    }
+  };
+
   useEffect(() => {
     dispatch(myFavs());
   }, []);
@@ -34,8 +45,8 @@ export default ({ openThisTab }) => {
     <div className="workmenu-tabs">
       {
         favsTabs && favsTabs.map((item) => <div key={item._id} className="workmenu-tabs-item">
-          <img onClick={() => openThisTab(item._id)} className="workmenu-tabs-item-img" src={state[item._id]} alt="bg" />
-          <h2 onClick={() => openThisTab(item._id)} className="workmenu-tabs-item-title"> {item.name} </h2>
+          <img onClick={handleClickOpenTab(item)} className="workmenu-tabs-item-img" src={state[item._id]} alt="bg" />
+          <h2 onClick={handleClickOpenTab(item)} className="workmenu-tabs-item-title"> {item.name} </h2>
         </div>)
       }
     </div>

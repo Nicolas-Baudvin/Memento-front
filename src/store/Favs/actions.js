@@ -16,7 +16,7 @@ export const deleteFav = (tabId) => ({
   tabId
 });
 
-export const addFav = (tabId) => ({
+export const addFav = (tabId, isInvited) => ({
   type: ADD_TO_FAV,
-  tabId
+  tabData: { tabId, isInvited }
 });

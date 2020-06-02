@@ -13,7 +13,7 @@ export default (store) => (next) => (action) => {
         url: `${process.env.API_URL}favs/get-fav-tabs/`,
         data: {
           userID,
-          favsId: favs.favTabs
+          favsIds: favs.favTabs
         },
         headers: {
           Authorization: `Bearer ${token}`
@@ -27,15 +27,18 @@ export default (store) => (next) => (action) => {
       break;
     }
     case ADD_TO_FAV: {
-      const { tabId } = action;
+      const { tabId, isInvited } = action.tabData;
       const { userID, token } = state.userData.datas;
+      const { invitationLink } = store.getState().sockets.currentSocket;
 
       axios({
         method: "POST",
         url: `${process.env.API_URL}favs/new-fav/`,
         data: {
           tabId,
-          userID
+          userID,
+          isInvited,
+          invitationLink
         },
         headers: {
           Authorization: `Bearer ${token}`
