@@ -6,7 +6,7 @@ import { UPDATE_FRIEND_LISTS } from "../Lists/actions";
 const initialState = {
   socketsList: [],
   mySockets: [],
-  currentSocket: localStorage.getItem("socketTab") ? decryptUserData(localStorage.getItem("socketTab")) : '',
+  currentSocket: localStorage.getItem("socketTab") ? decryptUserData(localStorage.getItem("socketTab")) : {},
   guests: [],
   fLists: [],
   fTasks: [],
@@ -43,7 +43,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         socketsList: state.socketsList.filter((socket) => socket.owner.userID !== state.currentSocket.owner.userID),
-        currentSocket: '',
+        currentSocket: {},
       };
     }
     case GUEST_LEAVE: {
