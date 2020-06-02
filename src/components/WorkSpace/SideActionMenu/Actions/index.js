@@ -23,7 +23,7 @@ const Actions = ({ state, setstate, isInvited }) => {
     setstate({ ...state, menuIsOpen: !state.menuIsOpen });
   };
 
-  const handleClickAddToFav = () => dispatch(addFav(tabId));
+  const handleClickAddToFav = () => dispatch(addFav(tabId, isInvited));
 
   const handleClickDeleteFav = () => dispatch(deleteFav(tabId));
 
