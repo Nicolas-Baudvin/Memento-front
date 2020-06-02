@@ -17,7 +17,6 @@ export default ({ openThisTab }) => {
 
   const handleClickOpenTab = (item) => (e) => {
     const favClicked = favs.favTabs.filter((elem) => elem.tabId === item._id)[0];
-    console.log(favClicked);
     if (favClicked.isInvited) {
       window.location.href = `http://localhost:3000/join/${favClicked.tabId}/${favClicked.invitationLink}/`;
     }
