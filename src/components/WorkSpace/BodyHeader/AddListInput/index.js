@@ -28,7 +28,7 @@ const AddListInput = ({ currentTab }) => {
           value={state.addlist}
           onChange={(e) => setstate({ ...state, addlist: e.target.value })}
           action={{
-            color: 'blue', icon: 'add', content: 'Ajouter une liste', onClick: handleAddListbtn, className: "list-add"
+            color: 'blue', icon: 'add', content: 'Liste', onClick: handleAddListbtn, className: "list-add"
           }}
           actionPosition="left"
           className="workspace-body-header-input"

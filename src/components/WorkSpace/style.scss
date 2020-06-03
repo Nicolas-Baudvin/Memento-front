@@ -335,7 +335,7 @@
 
         .online {
             &::after {
-                content: '';
+                content: "";
                 width: 12px;
                 height: 12px;
                 border-radius: 50%;
@@ -348,7 +348,7 @@
 
         .offline {
             &::after {
-                content: '';
+                content: "";
                 width: 12px;
                 height: 12px;
                 border-radius: 50%;
@@ -450,5 +450,58 @@
 .yellow {
     i {
         color: yellow !important;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .workspace {
+        &-body {
+            &-invitation {
+                margin: 1em 0;
+            }
+
+            &-lists {
+                width: 100%;
+            }
+
+            &-header {
+                &-input {
+                    input {
+                        width: 150px;
+                    }
+                    button {
+                        font-size: .8em;
+                        width: 100px;
+                    }
+                }
+            }
+        }
+        &-menu {
+            margin: 1em 0;
+        }
+        &-body {
+            &-header {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    }
+    .container {
+        .menuOpen {
+            right: 0em !important;
+            transition: 0.5s;
+            height: 100%;
+            width: 100% !important;
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .sideActionMenu {
+            &-container {
+                right: 1em;
+                overflow-x: hidden;
+                width: 14%;
+            }
+        }
     }
 }
