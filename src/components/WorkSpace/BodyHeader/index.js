@@ -10,16 +10,14 @@ const BodyHeader = ({
   isInvited, userID, currentTab, currentSocket
 }) => (
   <div className="workspace-body-header">
-    {userID === currentTab.userID}
-    <Menu className="workspace-body-header-menuBtn" isInvited={isInvited} />
     {
         userID === currentTab.userID && currentSocket
         && <InvitationInput currentTab={currentTab} currentSocket={currentSocket} />
-      }
+    }
     {
         !isInvited && currentSocket
         && <AddListInput currentTab={currentTab} />
-      }
+    }
   </div>
 );
 

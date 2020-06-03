@@ -50,6 +50,8 @@ export default ({ handleOpen, isOpen, handleClose }) => {
       trigger={<Popup
         trigger={<Button size="tiny" onClick={handleOpen} icon="user" />}
         content="Mon compte"
+        closeOnDocumentClick
+        closeOnTriggerClick
       />}
       open={isOpen}
       onClose={handleClose}

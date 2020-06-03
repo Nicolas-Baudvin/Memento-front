@@ -441,19 +441,36 @@
     }
 }
 
-.menuOpen {
-    right: 2em;
-    transition: 0.5s;
-    height: 80%;
-}
-
 .yellow {
     i {
         color: yellow !important;
     }
 }
 
-@media screen and (max-width: 768px) {
+.container {
+    z-index: 1000;
+    .menuOpen {
+        right: 1em !important;
+        z-index: 1000;
+        transition: 0.5s;
+        height: 80%;
+        width: 450px !important;
+        z-index: 1000;
+        overflow-y: auto;
+    }
+
+    .sideActionMenu {
+        z-index: 1000;
+        &-container {
+            z-index: 1000;
+            right: 1em;
+            overflow-x: hidden;
+            width: 50px;
+        }
+    }
+}
+
+@media screen and (max-width: 767px) {
     .workspace {
         &-body {
             &-invitation {
@@ -465,12 +482,13 @@
             }
 
             &-header {
+                margin-top: 3em;
                 &-input {
                     input {
                         width: 150px;
                     }
                     button {
-                        font-size: .8em;
+                        font-size: 0.8em;
                         width: 100px;
                     }
                 }
@@ -487,11 +505,35 @@
         }
     }
     .container {
+        z-index: 1000;
         .menuOpen {
             right: 0em !important;
             transition: 0.5s;
             height: 100%;
+            z-index: 1000;
             width: 100% !important;
+            overflow-y: auto;
+        }
+
+        .sideActionMenu {
+            z-index: 1000;
+            &-container {
+                z-index: 1000;
+                right: 1em;
+                overflow-x: hidden;
+                width: 50px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1080px) and (min-width: 768px) {
+    .container {
+        .menuOpen {
+            right: 0em !important;
+            transition: 0.5s;
+            height: 100%;
+            width: 360px !important;
             z-index: 1000;
             overflow-y: auto;
         }
@@ -500,7 +542,79 @@
             &-container {
                 right: 1em;
                 overflow-x: hidden;
-                width: 14%;
+                width: 50px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1366px) and (min-width: 1080px) {
+    .workspace {
+        &-body {
+            &-invitation {
+                margin: 1em 0;
+            }
+
+            &-lists {
+                width: 100%;
+            }
+        }
+    }
+    .container {
+        z-index: 1000;
+        .menuOpen {
+            right: 0em !important;
+            z-index: 1000;
+            transition: 0.5s;
+            height: 100%;
+            width: 360px !important;
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .sideActionMenu {
+            z-index: 1000;
+            &-container {
+                z-index: 1000;
+                right: 1em;
+                overflow-x: hidden;
+                width: 50px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1920px) and (min-width: 1367px) {
+    .workspace {
+        &-body {
+            &-invitation {
+                margin: 1em 0;
+            }
+
+            &-lists {
+                width: 100%;
+            }
+        }
+    }
+    .container {
+        z-index: 1000;
+        .menuOpen {
+            right: 0em !important;
+            z-index: 1000;
+            transition: 0.5s;
+            height: 100%;
+            width: 360px !important;
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .sideActionMenu {
+            z-index: 1000;
+            &-container {
+                z-index: 1000;
+                right: 1em;
+                overflow-x: hidden;
+                width: 50px;
             }
         }
     }
