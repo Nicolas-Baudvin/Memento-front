@@ -23,7 +23,6 @@
     }
 
     &-link {
-
         text-align: left;
         cursor: pointer;
         width: 300px;
@@ -50,12 +49,10 @@
             text-align: center !important;
             justify-content: space-around !important;
         }
-
     }
 
     &-title {
-        font-family: 'Indie Flower',
-            cursive;
+        font-family: "Indie Flower", cursive;
         z-index: 100;
         width: max-content;
         text-align: center;
@@ -63,19 +60,18 @@
         text-transform: uppercase;
         font-weight: 700;
         align-items: center;
-        
+
         position: relative;
         display: flex;
 
         &-login {
             color: #bbb;
             font-size: 4em;
-            font-family: 'Indie Flower',
-            cursive;
+            font-family: "Indie Flower", cursive;
             cursor: pointer;
             width: 300px;
-            transition: .3s;
-            margin-right: .5em;
+            transition: 0.3s;
+            margin-right: 0.5em;
             text-align: center;
             margin-bottom: 0;
 
@@ -87,12 +83,11 @@
         &-signup {
             color: #bbb;
             font-size: 4em;
-            font-family: 'Indie Flower',
-            cursive;
+            font-family: "Indie Flower", cursive;
             cursor: pointer;
-            margin-left: .5em;
+            margin-left: 0.5em;
             width: 300px;
-            transition: .3s;
+            transition: 0.3s;
             text-align: center;
 
             &:hover {
@@ -107,7 +102,7 @@
             height: 5px;
             width: 300px;
             background-color: #549900;
-            transition: .5s;
+            transition: 0.5s;
         }
     }
 
@@ -115,10 +110,9 @@
         width: 80%;
         margin: 1em 0;
 
-
         .label {
-            font-size: .8em !important;
-            border-color: #00192D !important;
+            font-size: 0.8em !important;
+            border-color: #00192d !important;
             width: 70px !important;
             transform: rotate(-45deg);
             color: white !important;
@@ -149,5 +143,70 @@
 
 .right {
     left: 54%;
-    transition: .5s;
+    transition: 0.5s;
+}
+
+@media only screen and (max-width: 1920px) and (min-width: 1367px) {
+}
+
+@media only screen and (max-width: 1366px) and (min-width: 1081px) {
+    .form {
+        &-title {
+            font-size: 0.7em;
+            margin: 0 0 1em 0;
+            width: 100%;
+
+            .right {
+                left: 59%;
+                transition: 0.5s;
+            }
+
+            &-underline {
+                width: 210px;
+                left: 3.3em;
+            }
+        }
+
+        &-label {
+            font-size: 1.1em;
+        }
+
+        &-input {
+            input {
+                font-size: 1.2em;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 1080px) and (min-width: 767px) {
+    .form {
+        &-title {
+            font-size: 0.7em;
+            margin: 0 0 1em 0;
+
+            .right {
+                left: 56.5%;
+                transition: 0.5s;
+            }
+
+            &-underline {
+                width: 220px;
+                left: 3.5em;
+            }
+        }
+
+        &-label {
+            font-size: 1.1em;
+        }
+
+        &-input {
+            input {
+                font-size: 1.2em;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 767px) {
 }

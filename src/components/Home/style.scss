@@ -26,8 +26,7 @@
             left: 33%;
 
             h1 {
-                font-family: 'Indie Flower',
-                    cursive;
+                font-family: "Indie Flower", cursive;
                 text-transform: uppercase;
             }
 
@@ -35,8 +34,7 @@
                 position: relative;
                 top: 2em;
                 left: 2em;
-                font-family: 'Indie Flower',
-                    cursive;
+                font-family: "Indie Flower", cursive;
                 font-size: 1.5em;
             }
 
@@ -63,17 +61,137 @@
         }
 
         &-links {
-            font-family: 'Indie Flower', cursive;
+            font-family: "Indie Flower", cursive;
             text-transform: capitalize;
         }
     }
 }
 
+@media only screen and (max-width: 1920px) and (min-width: 1367px) {
 
-@media only screen and (max-width: 1920px) {}
+    .home {
+        &-left {
+            display: flex;
+            align-items: flex-end;
 
-@media only screen and (max-width: 1366px) {}
+            &-postit {
+                position: unset;
+                margin: 12em 0 0 18em;
+                align-self: center;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
 
-@media only screen and (max-width: 1080px) {}
+                p {
+                    left: 0;
+                }
 
-@media only screen and (max-width: 767px) {}
+                &-nav {
+                    position: unset;
+                    margin: 25em 0 0 0;
+                    &-list {
+                        &__item {
+                            font-size: 1.5em;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 1600px) and (min-width: 1600px) {
+    .home {
+        .home {
+        &-left {
+            &-postit {
+                margin: 12em 0 0 13.5em !important;
+            }
+        }
+    }
+    }
+}
+
+@media only screen and (max-width: 1680px) and (min-width: 1680px) {
+    .home {
+        .home {
+        &-left {
+            &-postit {
+                margin: 12em 0 0 12.5em !important;
+            }
+        }
+    }
+    }
+}
+
+
+@media only screen and (max-width: 1440px) and (min-width: 1440px) {
+    .home {
+        &-left {
+            &-postit {
+                margin: 12em 0 0 12em !important;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 1536px) and (min-width: 1536px) {
+    .home {
+        &-left {
+            &-postit {
+                margin: 12em 0 0 12.5em !important;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 1366px) and (min-width: 1080px) {
+    .home {
+
+        &-left {
+            width: 50%;
+            background-size: cover;
+            background-repeat: no-repeat;
+
+            &-postit {
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                left: 11.5em;
+                align-self: center;
+
+                &-nav {
+                    bottom: 3em;
+                }
+            }
+        }
+
+        &-right {
+            width: 50%;
+        }
+    }
+}
+
+@media only screen and (max-width: 1080px) and (min-width: 767px) {
+    .home {
+        flex-direction: column;
+
+        &-left {
+            width: 100%;
+            background-size: contain;
+            background-repeat: no-repeat;
+
+            &-postit {
+                position: unset;
+                min-height: 100%;
+            }
+        }
+
+        &-right {
+            width: 100%;
+        }
+    }
+}
+
+@media only screen and (max-width: 767px) {
+}

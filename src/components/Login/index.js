@@ -6,7 +6,6 @@ import { useDispatch } from "react-redux";
 import "./style.scss";
 
 // React Component
-import AltBtn from './altBtn';
 import Links from './links';
 import Header from './header';
 import EmailInput from './Inputs/email';
@@ -76,8 +75,6 @@ export default () => {
       }
 
       <Button type="submit" className="form-btn" content="Connexion" primary />
-
-      <AltBtn />
 
     </form>
   );
