@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Button } from 'semantic-ui-react';
 import "./style.scss";
 import { useDispatch } from "react-redux";
 
@@ -36,17 +35,9 @@ export default () => {
     <div className="workmenu">
       <Header handleOpen={handleOpen} />
       <main className="workmenu-body">
-        <div className="workmenu-body-menu">
-          <Button
-            onClick={() => setstate({ ...state, view: "Tabs" })}
-            basic
-            icon="table"
-            content="Vos tableaux"
-          />
-        </div>
-        {
-          state.view === "Tabs" && <MyTabs state={state} setstate={setstate} handleOpen={handleOpen} />
-        }
+
+        <MyTabs state={state} setstate={setstate} handleOpen={handleOpen} />
+
       </main>
     </div>
   );

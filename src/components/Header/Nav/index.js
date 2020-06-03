@@ -20,7 +20,7 @@ export default ({ state, setstate, tabs }) => {
 
   return (
     <nav className="workmenu-header-nav">
-      <Button onClick={() => history.push("/")} icon="home" />
+      <Button onClick={() => history.push("/")} icon="home" size="tiny" />
       <Popup
         content={state.content}
         inverted
@@ -28,10 +28,10 @@ export default ({ state, setstate, tabs }) => {
         onClose={() => setstate({ ...state, open: false })}
         onOpen={handleHelpBtn}
         open={state.open}
-        trigger={<Button icon="help circle" />}
+        trigger={<Button icon="help circle" size="tiny" />}
       />
 
-      <Button onClick={() => history.push("/vos-tableaux/")} icon="table" />
+      <Button onClick={() => history.push("/vos-tableaux/")} icon="table" size="tiny" />
     </nav>
   );
 };

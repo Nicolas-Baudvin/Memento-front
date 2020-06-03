@@ -48,7 +48,7 @@ export default ({ handleOpen, isOpen, handleClose }) => {
   return (
     <Modal
       trigger={<Popup
-        trigger={<Button onClick={handleOpen} icon="user" />}
+        trigger={<Button size="tiny" onClick={handleOpen} icon="user" />}
         content="Mon compte"
       />}
       open={isOpen}

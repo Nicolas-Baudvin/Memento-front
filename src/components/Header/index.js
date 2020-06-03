@@ -59,8 +59,8 @@ export default () => {
       <Nav tabs={tabs} state={state} setstate={setstate} />
       <Title state={state} />
       <nav>
-        <Button onClick={() => history.push("/contact/")} icon="phone" />
-        <Button onClick={() => history.push("/mentions-legales/")} icon="legal" />
+        <Button onClick={() => history.push("/contact/")} icon="phone" size="tiny" />
+        <Button onClick={() => history.push("/mentions-legales/")} icon="legal" size="tiny" />
         {
           datas && <Settings
             isOpen={state.isOpen}
@@ -68,7 +68,7 @@ export default () => {
             handleOpen={handleOpen}
           />
         }
-        <Button onClick={handleClickDisconnect} icon="power off" />
+        <Button onClick={handleClickDisconnect} icon="power off" size="tiny" />
       </nav>
     </header>
   );
