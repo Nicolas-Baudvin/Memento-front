@@ -59,6 +59,12 @@ const Actions = ({ state, setstate, isInvited }) => {
                 content="Supprimer le tableau"
               />
             }
+            {
+              !isInvited && <Popup
+                trigger={<Button onClick={handleClickChangeView("rights")} icon="checkmark box" size="huge" />}
+                content="Gérer les droits"
+              />
+            }
             <Popup
               trigger={
                 <Button

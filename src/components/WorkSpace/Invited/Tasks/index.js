@@ -6,8 +6,8 @@ import { styles } from '../../Tasks/index';
 // Components
 import Menu from './Menu';
 
-const Tasks = ({ tasks, listId }) => (
-  tasks.sort((a, b) => a.order - b.order).map((task) => task.listId === listId && <Draggable key={task._id} draggableId={task._id} index={task.order}>
+const Tasks = ({ tasks, isOp, list }) => (
+  tasks.sort((a, b) => a.order - b.order).map((task) => task.listId === list._id && <Draggable key={task._id} draggableId={task._id} index={task.order}>
     {
       (provided) => <div
         ref={provided.innerRef}
@@ -19,7 +19,7 @@ const Tasks = ({ tasks, listId }) => (
         <div className="tasks-item-label" style={styles(task.label)} />
         <div className="tasks-item-main">
           <p className="show">{task.title}</p>
-          <Menu />
+          <Menu isOp={isOp} task={task} list={list} />
         </div>
         {
           task.assigned && <div className="tasks-item-assigned">Assignée à <span> {task.assigned} </span></div>

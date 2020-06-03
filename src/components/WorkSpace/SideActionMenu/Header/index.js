@@ -1,6 +1,7 @@
 import React from 'react';
 import { Divider, Popup } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
+import cx from 'classnames';
 
 
 import Search from './Search';
@@ -29,7 +30,17 @@ const Header = ({ state, currentSocket }) => Object.keys(currentSocket).length !
       currentSocket.guests.map((guest) => (
         <div key={guest.userData.userID} className="sideActionMenu-guests__item">
           <Popup
-            trigger={<div className="sideActionMenu-guests__item--title">{guest.userData.username.substring(0, 1)}</div>}
+            trigger={<div className={cx("sideActionMenu-guests__item--title", { online: guest.isOnline, offline: !guest.isOnline })}>{guest.userData.username.substring(0, 1)}</div>}
+            content={guest.userData.username}
+          />
+        </div>
+      ))
+    }
+    {
+      currentSocket.operators.map((guest) => (
+        <div key={guest.userData.userID} className="sideActionMenu-guests__item">
+          <Popup
+            trigger={<div className={cx("sideActionMenu-guests__item--title", { online: guest.isOnline, offline: !guest.isOnline })}>{guest.userData.username.substring(0, 1)}</div>}
             content={guest.userData.username}
           />
         </div>

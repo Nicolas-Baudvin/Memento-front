@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Draggable, Droppable } from 'react-beautiful-dnd';
+import { Draggable } from 'react-beautiful-dnd';
+import { useSelector } from "react-redux";
 
 // Context
 import SearchContext from '../../List/searchContext';
@@ -8,10 +9,13 @@ import SearchContext from '../../List/searchContext';
 import ListHeader from './listHeader';
 import TaskContainer from './TaskContainer';
 
+
 export default ({ fLists, fTasks, tab }) => {
   const search = useContext(SearchContext);
-
+  const { currentSocket } = useSelector((GlobalState) => GlobalState.sockets);
+  const { username } = useSelector((GlobalState) => GlobalState.userData.datas);
   const [sortedTasks, setSortedTasks] = useState([]);
+  const [isOp, setOp] = useState(false);
 
   useEffect(() => {
     if (!search.value) return setSortedTasks(fTasks);
@@ -20,8 +24,17 @@ export default ({ fLists, fTasks, tab }) => {
   }, [search.value]);
 
   useEffect(() => {
-    setSortedTasks(fTasks);
-  }, [fTasks]);
+    if (fTasks && fTasks.length) setSortedTasks(fTasks);
+
+    if (Object.keys(currentSocket).length) {
+      if (currentSocket.operators.filter((user) => user.userData.username === username).length > 0) {
+        setOp(true);
+      }
+      else {
+        setOp(false);
+      }
+    }
+  }, [fTasks, currentSocket]);
 
   return (
     fLists.length > 0 && fLists.sort((a, b) => a.order - b.order).map((list) => tab && tab._id === list.tabId
@@ -35,7 +48,7 @@ export default ({ fLists, fTasks, tab }) => {
             className="list"
           >
             <ListHeader list={list} />
-            <TaskContainer list={list} fTasks={fTasks} sortedTasks={sortedTasks} />
+            <TaskContainer list={list} fTasks={fTasks} sortedTasks={sortedTasks} isOp={isOp} />
           </div>
         }
       </Draggable>)

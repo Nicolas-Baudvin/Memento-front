@@ -18,7 +18,8 @@ import {
   STORE_FRIEND_TASKS,
   SEND_ACTIONS,
   SEND_TAB,
-  SEND_MESSAGE
+  SEND_MESSAGE,
+  CHANGE_USER_ROLE
 } from './actions';
 import { successMessage, failMessage } from '../Popup/actions';
 import { cryptUserData, decryptUserData } from '../../Utils/crypt';
@@ -34,6 +35,11 @@ let socket;
 export default (store) => (next) => (action) => {
   const state = store.getState();
   switch (action.type) {
+    case CHANGE_USER_ROLE: {
+      const link = state.sockets.currentSocket.invitationLink;
+      socket.emit("change user role", { userData: action.guest.userData, link, isThisAPromotion: action.isThisAPromotion });
+      break;
+    }
     case SEND_TAB: {
       const link = state.sockets.currentSocket.invitationLink;
       const cryptedTab = cryptUserData(action.data);
@@ -123,7 +129,6 @@ export default (store) => (next) => (action) => {
         socket.emit("join tab", { link, friendTabId, userData: { username, email, userID } });
 
         socket.on("fail_identify", (err) => {
-          console.log(err);
           store.dispatch(failMessage("Votre session a expiré. Veuillez vous reconnecter"));
           store.dispatch(logOut());
         });
@@ -137,12 +142,9 @@ export default (store) => (next) => (action) => {
           next(action);
         });
 
-        socket.on("join error", (message) => {
-          store.dispatch(failMessage(message.errors));
-        });
+        socket.on("join error", (message) => store.dispatch(failMessage(message.errors)));
 
         socket.on("send owner lists", (data) => {
-          console.log(data);
           if (typeof data.lists === 'string') {
             const decryptedLists = decryptUserData(data.lists);
             store.dispatch(storeFriendLists(decryptedLists));
@@ -171,10 +173,11 @@ export default (store) => (next) => (action) => {
         });
 
         socket.on("send message", (messages) => store.dispatch(newMessage(messages)));
+
+        socket.on("change user role", (socketUpdated) => store.dispatch(updateCurrentSocket(socketUpdated)));
       });
 
       socket.on("user leave", (data) => {
-        store.dispatch(guestLeave(data.socketId));
         if (data.currentSocket) store.dispatch(updateCurrentSocket(data.currentSocket));
       });
 
@@ -198,7 +201,6 @@ export default (store) => (next) => (action) => {
       });
 
       socket.on("fail_identify", (err) => {
-        console.log(err);
         store.dispatch(failMessage("Votre session a expiré. Veuillez vous reconnecter"));
         store.dispatch(logOut());
       });
@@ -229,7 +231,6 @@ export default (store) => (next) => (action) => {
       socket.on("send message", (messages) => store.dispatch(newMessage(messages)));
 
       socket.on("send owner lists", (data) => {
-        console.log(data);
         if (typeof data.lists === 'string') {
           const decryptedLists = decryptUserData(data.lists);
           store.dispatch(listsReorderedByFriend(decryptedLists));
@@ -243,6 +244,8 @@ export default (store) => (next) => (action) => {
         const decryptedTasks = decryptUserData(data.tasks);
         store.dispatch(taskReorderedByFriend(decryptedTasks));
       });
+
+      socket.on("change user role", (socketUpdated) => store.dispatch(updateCurrentSocket(socketUpdated)));
       break;
     }
     case UPDATE_CURRENT_SOCKET: {

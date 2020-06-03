@@ -14,6 +14,13 @@ export const STORE_FRIEND_TASKS = "action/STORE_FRIEND_TASKS";
 export const SEND_ACTIONS = "action/SEND_ACTIONS";
 export const SEND_TAB = "action/SEND_TAB";
 export const SEND_MESSAGE = "action/SEND_MESSAGE";
+export const CHANGE_USER_ROLE = "CHANGE_USER_ROLE";
+
+export const changeCurrentRole = (guest, isThisAPromotion) => ({
+  type: CHANGE_USER_ROLE,
+  guest,
+  isThisAPromotion
+});
 
 export const sendMessage = (message) => ({
   type: SEND_MESSAGE,

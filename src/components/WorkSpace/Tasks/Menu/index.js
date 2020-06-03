@@ -70,9 +70,10 @@ const Menu = ({ task, list }) => {
               </Dropdown.Item>
             }
             {
-              currentSocket && currentSocket.guests.map((guest) => <Dropdown.Item key={guest.userData.username} onClick={handleClickTaskAssign(guest.userData.username, false)}>
-                {guest.userData.username}
-              </Dropdown.Item>)
+              currentSocket && currentSocket.guests.map((guest) => (
+                <Dropdown.Item key={guest.userData.username} onClick={handleClickTaskAssign(guest.userData.username, false)}>
+                  {guest.userData.username}
+                </Dropdown.Item>))
             }
           </Dropdown.Menu>
         </Dropdown.Item>
