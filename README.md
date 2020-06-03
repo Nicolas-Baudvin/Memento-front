@@ -56,7 +56,7 @@ Le site sera en ligne une fois les dernières features sorties (voir [Kanban](#c
     ```
     Une page internet devrait s'ouvrir directement sur le projet. Si ce n'est pas le cas, ouvrez votre navigateur et rentrez dans la barre d'addresse "localhost:3000"
 
-    Il vous faut ensuite un compte MongoDB Atlas pour pouvoir faire fonctionner le back correctement. En effet, sans base de données, vous remarquerez que l'inscription ne fonctionnera pas ¯\_(ツ)_/¯
+    Il vous faut ensuite un compte MongoDB Atlas pour pouvoir faire fonctionner le back correctement. En effet, sans base de données, vous remarquerez que l'inscription ne fonctionnera pas ¯\\_(ツ)_/¯
 
     Je vous laisse suivre la très pratique documentation MongoDB sur [leur site](https://www.mongodb.com/cloud/atlas)
 
