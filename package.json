@@ -86,7 +86,9 @@
     "build:dev": "NODE_ENV=development webpack",
     "build:dev:win": "set NODE_ENV=development && webpack",
     "build:prod": "NODE_ENV=production webpack --mode production",
-    "build:prod:win": "set NODE_ENV=production && webpack --mode production"
+    "build:prod:win": "set NODE_ENV=production && webpack --mode production",
+    "heroku-prebuild": "npm install --dev",
+    "heroku-postbuild": "npm run build:prod"
   },
   "bin": {
     "react-modele": "bin/run.js"
