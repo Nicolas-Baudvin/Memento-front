@@ -14,10 +14,11 @@ const host = 'localhost';
 const port = 3000;
 
 const devMode = process.env.NODE_ENV !== 'production';
-
-const env = DotenvPlugin.config({ path: '.env' }).parsed;
 let envKeys;
-if (env) {
+let env;
+
+if (devMode) {
+  env = DotenvPlugin.config({ path: '.env' }).parsed;
   envKeys = Object.keys(env).reduce((prev, next) => {
     prev[`process.env.${next}`] = JSON.stringify(env[next]);
     return prev;
@@ -144,6 +145,6 @@ module.exports = {
       filename: '[name].css',
       chunkFilename: '[id].css',
     }),
-    new Webpack.DefinePlugin(envKeys),
+    devMode ? new Webpack.DefinePlugin(envKeys) : false,
   ],
 };
