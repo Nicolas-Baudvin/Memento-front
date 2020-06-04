@@ -145,6 +145,6 @@ module.exports = {
       filename: '[name].css',
       chunkFilename: '[id].css',
     }),
-    devMode ? new Webpack.DefinePlugin(envKeys) : false,
+    devMode ? new Webpack.DefinePlugin(envKeys) : {},
   ],
 };
