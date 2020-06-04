@@ -16,10 +16,13 @@ const port = 3000;
 const devMode = process.env.NODE_ENV !== 'production';
 
 const env = DotenvPlugin.config({ path: '.env' }).parsed;
-const envKeys = Object.keys(env).reduce((prev, next) => {
-  prev[`process.env.${next}`] = JSON.stringify(env[next]);
-  return prev;
-}, {});
+let envKeys;
+if (env) {
+  envKeys = Object.keys(env).reduce((prev, next) => {
+    prev[`process.env.${next}`] = JSON.stringify(env[next]);
+    return prev;
+  }, {});
+}
 
 // Config de Webpack
 module.exports = {
