@@ -24,7 +24,7 @@ if (devMode) {
     return prev;
   }, {});
 }
-
+ 
 // Config de Webpack
 module.exports = {
   // Passe le build par dèfaut en déeveloppement
