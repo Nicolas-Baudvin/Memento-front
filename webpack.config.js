@@ -144,7 +144,6 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: '[name].css',
       chunkFilename: '[id].css',
-    }),
-    devMode ? new Webpack.DefinePlugin(envKeys) : {},
+    })
   ],
 };
