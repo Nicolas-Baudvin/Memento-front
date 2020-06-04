@@ -1,14 +1,6 @@
 {
-  "root": "src/index.html",
-  "headers": {
-    "/": {
-      "Cache-Control": "no-store, no-cache"
-    },
-    "/assets/**": {
-      "Cache-Control": "public, max-age=512000"
-    },
-    "/assets/webfonts/*": {
-      "Access-Control-Allow-Origin": "*"
-    }
+  "root": "src/",
+  "routes": {
+    "/**": "index.html"
   }
 }
