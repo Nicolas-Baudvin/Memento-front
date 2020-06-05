@@ -36,10 +36,11 @@ Le site sera en ligne une fois les dernières features sorties (voir [Kanban](#c
     | Discussion instantanée dans chaque tableau                       | ✔️               |
     | Invitation d'amis à rejoindre son tableau                        | ✔️               |
     | Cryptage des données envoyées entre membres                      | ✔️               |
-    | Système de droits                                                | en cours        |
+    | Système de droits                                                | ✔️        |
     | Site Responsive                                                  | en cours        |
     | Vrai page d'accueil                                              | en cours (v2 ?) |
     | Connexion avec facebook ou Google                                | en cours (v2 ?) |
+    |Changement d'email, oublie de mot de passe| en cours                                 |
 
  4. **Comment faire tourner le projet chez vous**
 
