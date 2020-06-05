@@ -15,7 +15,6 @@ const port = 3000;
 
 const devMode = process.env.NODE_ENV !== 'production';
 
-
 const env = DotenvPlugin.config({ path: '.env' }).parsed;
 const envKeys = Object.keys(env).reduce((prev, next) => {
   prev[`process.env.${next}`] = JSON.stringify(env[next]);
@@ -132,7 +131,11 @@ module.exports = {
     historyApiFallback: true,
     host: host,
     port: port,
-    contentBase: '.'
+    contentBase: '.',
+    public: 'mymemento.fr',
+    allowedHosts: [
+      '.amazonaws.com'
+    ]
   },
   plugins: [
     // Permet de prendre le index.html de src comme base pour le fichier de dist/
