@@ -80,7 +80,7 @@
   },
   "scripts": {
     "test": "jest --env=jsdom --no-cache",
-    "start": "./node_modules/webpack/bin/webpack.js",
+    "start": "webpack-dev-server",
     "clean": "rm -rf dist",
     "clean:all": "rm -rf dist node_modules",
     "build:dev": "NODE_ENV=development webpack",

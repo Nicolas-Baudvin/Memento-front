@@ -35,7 +35,6 @@ export default (store) => (next) => (action) => {
         }
       })
         .then((res) => {
-          console.log(res);
           if (res.data.tasks) store.dispatch(sendTasks(res.data.tasks.sort((a, b) => a.order - b.order)));
           next(action);
         })
@@ -47,8 +46,6 @@ export default (store) => (next) => (action) => {
       const { isSelfAssign } = action;
       const { _id: tabId } = store.getState().mytabs.currentTab;
       const { userID, token, username } = state.userData.datas;
-
-      console.log(action);
       axios({
         method: "POST",
         url: `${process.env.API_URL}task/assign-task/`,
@@ -63,7 +60,6 @@ export default (store) => (next) => (action) => {
         }
       })
         .then((res) => {
-          console.log(res.data.tasks);
           const tasks = res.data.tasks;
           action.tasks = tasks;
           store.dispatch(sendTasks(tasks));
@@ -130,7 +126,6 @@ export default (store) => (next) => (action) => {
         }
       })
         .then((res) => {
-          console.log(res.data);
           const { tasks } = res.data;
           store.dispatch(sendTasks(tasks));
           action.tasks = tasks;
@@ -165,7 +160,6 @@ export default (store) => (next) => (action) => {
         }
       })
         .then((res) => {
-          console.log(res.data);
           const { tasks } = res.data;
           action.tasks = tasks;
           store.dispatch(sendTasks(tasks));
