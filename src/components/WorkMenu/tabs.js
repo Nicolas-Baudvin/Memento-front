@@ -14,7 +14,8 @@ export default ({ openThisTab }) => {
   const { tabs } = useSelector((GlobalState) => GlobalState.mytabs);
   const dispatch = useDispatch();
   const initialState = {
-    open: false
+    open: false,
+    pic: []
   };
 
   const [state, setstate] = useState(initialState);
@@ -46,7 +47,13 @@ export default ({ openThisTab }) => {
               size="small"
               content="Toutes les listes et tâches liées à ce tableau seront définitivement perdus. Êtes vous sûr de vouloir continuer ?"
             />
-            <img onClick={() => openThisTab(tab._id, tab.name)} className="workmenu-tabs-item-img" src={tab.imgPath} alt="Fond de votre tableau" />
+            <img
+              onClick={() => openThisTab(tab._id, tab.name)}
+              className="workmenu-tabs-item-img"
+              src={tab.imgPath}
+              alt="Fond de votre tableau"
+
+            />
           </div>
         ))
       }

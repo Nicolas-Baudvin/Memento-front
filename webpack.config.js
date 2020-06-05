@@ -88,6 +88,7 @@ module.exports = {
       // CSS / SASS / SCSS
       {
         test: /\.(sa|sc|c)ss$/,
+        sideEffects: true,
         use: [
           // style-loader ou fichier
           devMode ? 'style-loader' :
@@ -113,6 +114,7 @@ module.exports = {
             loader: 'file-loader',
             options: {
               outputPath: 'assets/',
+              name: '[name].[ext]'
             },
           },
         ],
