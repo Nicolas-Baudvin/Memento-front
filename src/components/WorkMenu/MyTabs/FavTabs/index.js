@@ -18,7 +18,7 @@ export default ({ openThisTab }) => {
   const handleClickOpenTab = (item) => (e) => {
     const favClicked = favs.favTabs.filter((elem) => elem.tabId === item._id)[0];
     if (favClicked.isInvited) {
-      window.location.href = `http://localhost:3000/join/${favClicked.tabId}/${favClicked.invitationLink}/`;
+      window.location.href = `https://mymemento.fr/join/${favClicked.tabId}/${favClicked.invitationLink}/`;
     }
     else {
       openThisTab(favClicked.tabId);

@@ -26,6 +26,7 @@
         text-align: left;
         cursor: pointer;
         width: 300px;
+        color: #1e70bf;
 
         &:hover {
             text-decoration: underline;
@@ -66,7 +67,7 @@
 
         &-login {
             color: #bbb;
-            font-size: 4em;
+            font-size: 4em !important;
             font-family: "Indie Flower", cursive;
             cursor: pointer;
             width: 300px;
@@ -82,7 +83,7 @@
 
         &-signup {
             color: #bbb;
-            font-size: 4em;
+            font-size: 4em !important;
             font-family: "Indie Flower", cursive;
             cursor: pointer;
             margin-left: 0.5em;
