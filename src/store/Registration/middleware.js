@@ -35,7 +35,6 @@ export default (store) => (next) => (action) => {
         data: action.userData
       })
         .then((res) => {
-          console.log(res);
           store.dispatch(successMessage(res.data.message));
 
           res.data.message = undefined;
@@ -57,7 +56,6 @@ export default (store) => (next) => (action) => {
         data: action.userData
       })
         .then((res) => {
-          console.log(res);
           store.dispatch(successMessage(res.data.message));
           next(action);
         })
@@ -70,7 +68,6 @@ export default (store) => (next) => (action) => {
     case UPDATE_USERNAME: {
       const { username } = action;
       const { token, userID } = state.userData.datas;
-      console.log(username, process.env.UPDATE_USERNAME_API, state.userData.datas);
       axios({
         method: 'POST',
         url: `${process.env.UPDATE_USERNAME_API}`,
@@ -83,7 +80,6 @@ export default (store) => (next) => (action) => {
         }
       })
         .then((res) => {
-          console.log(res);
           const { userData, message } = res.data;
           const datas = userData;
 
@@ -118,14 +114,12 @@ export default (store) => (next) => (action) => {
         }
       })
         .then((res) => {
-          console.log(res);
 
           store.dispatch(successMessage(res.data.message));
 
           next(action);
         })
         .catch((err) => {
-          console.log(err);
           errorHandler(err, store.dispatch);
         });
 
@@ -146,13 +140,11 @@ export default (store) => (next) => (action) => {
         }
       })
         .then((res) => {
-          console.log(res);
           store.dispatch(successMessage(res.data.message));
 
           next(action);
         })
         .catch((err) => {
-          console.log(err);
           errorHandler(err, store.dispatch);
         });
 
@@ -168,12 +160,10 @@ export default (store) => (next) => (action) => {
         }
       })
         .then((res) => {
-          console.log(res);
           store.dispatch(successMessage(res.data.message));
           next(action);
         })
         .catch((err) => {
-          console.log(err);
           errorHandler(err, store.dispatch);
         });
 
@@ -193,14 +183,12 @@ export default (store) => (next) => (action) => {
         }
       })
         .then((res) => {
-          console.log(res);
 
           store.dispatch(successMessage(res.data.message));
           store.dispatch(logOut());
           next(action);
         })
         .catch((err) => {
-          console.log(err);
           errorHandler(err, store.dispatch);
         });
       break;
