@@ -30,7 +30,7 @@ const InvitationInput = ({ currentSocket, currentTab }) => {
           content: 'Copier',
           onClick: copyToClipBoard
         }}
-        defaultValue={`http://localhost:3000/join/${currentTab._id}/${currentSocket.invitationLink}/`}
+        defaultValue={`https://mymemento.fr/join/${currentTab._id}/${currentSocket.invitationLink}/`}
       />}
     />
   )

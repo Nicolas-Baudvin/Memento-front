@@ -107,7 +107,8 @@
                 font-family: 'Indie Flower',
                     cursive;
                 text-transform: uppercase;
-                font-weight: 700 !important;
+                font-weight: 700;
+                font-size: 2em;
             }
 
             &-logo {
@@ -248,4 +249,22 @@
             }
         }
     }
+}
+h1 {
+    font-size: 2em !important;
+    font-weight: 700 !important;
+}
+
+h2 {
+    font-size: 1.5em !important;
+    font-weight: bold !important;
+}
+
+h3 {
+    font-size: 1.3em !important;
+    font-weight: bold !important;
+}
+
+div, p, h1, h2, h3, h4, time {
+    line-height: 1.4em !important;
 }

@@ -2,6 +2,7 @@ import { failMessage } from "../../store/Popup/actions";
 import { logOut } from "../../store/Registration/actions";
 
 const errorHandler = (err, dispatch) => {
+  console.log(err);
   if (!err.response) {
     return dispatch(failMessage("Une erreur est survenue sur le serveur. Réessayez ou contacter un administrateur"));
   }
