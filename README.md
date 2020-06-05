@@ -3,6 +3,8 @@
 Memento est une application web dont le but est de pouvoir créer des listes de tâches et de les trier comme bon vous semble.
 Vous pouvez y inviter vos amis et ainsi partager en temps réel votre tableau de listes.
 
+EDIT: Le projet est désormais [en ligne](https://mymemento.fr)
+
  1. **But du projet**
 
 J'ai créer ce projet dans le but de monter en compétences sur les technologies citées ci-dessous.
