@@ -14,13 +14,17 @@ const host = 'localhost';
 const port = 3000;
 
 const devMode = process.env.NODE_ENV !== 'production';
+let envKeys;
+let env;
 
-const env = DotenvPlugin.config({ path: '.env' }).parsed;
-const envKeys = Object.keys(env).reduce((prev, next) => {
-  prev[`process.env.${next}`] = JSON.stringify(env[next]);
-  return prev;
-}, {});
-
+if (devMode) {
+  env = DotenvPlugin.config({ path: '.env' }).parsed;
+  envKeys = Object.keys(env).reduce((prev, next) => {
+    prev[`process.env.${next}`] = JSON.stringify(env[next]);
+    return prev;
+  }, {});
+}
+ 
 // Config de Webpack
 module.exports = {
   // Passe le build par dèfaut en déeveloppement
@@ -142,7 +146,6 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: '[name].css',
       chunkFilename: '[id].css',
-    }),
-    new Webpack.DefinePlugin(envKeys),
+    })
   ],
 };

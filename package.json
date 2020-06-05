@@ -80,15 +80,13 @@
   },
   "scripts": {
     "test": "jest --env=jsdom --no-cache",
-    "start": "webpack-dev-server",
+    "start": "./node_modules/webpack/bin/webpack.js",
     "clean": "rm -rf dist",
     "clean:all": "rm -rf dist node_modules",
     "build:dev": "NODE_ENV=development webpack",
     "build:dev:win": "set NODE_ENV=development && webpack",
     "build:prod": "NODE_ENV=production webpack --mode production",
-    "build:prod:win": "set NODE_ENV=production && webpack --mode production",
-    "heroku-prebuild": "npm install --dev",
-    "heroku-postbuild": "npm run build:prod"
+    "build:prod:win": "set NODE_ENV=production && webpack --mode production"
   },
   "bin": {
     "react-modele": "bin/run.js"
@@ -119,3 +117,4 @@
     "url-loader": "^4.0.0"
   }
 }
+
