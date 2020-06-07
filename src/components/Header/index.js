@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button } from 'semantic-ui-react';
+import { Button, Popup } from 'semantic-ui-react';
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 
@@ -15,7 +15,6 @@ import Title from './Title';
 import Settings from './Settings';
 
 export default () => {
-  const history = useHistory();
   const dispatch = useDispatch();
   const { tabs } = useSelector((GlobalState) => GlobalState.mytabs);
   const { datas } = useSelector((GlobalState) => GlobalState.userData);
@@ -59,8 +58,6 @@ export default () => {
       <Nav tabs={tabs} state={state} setstate={setstate} />
       <Title state={state} />
       <nav>
-        <Button onClick={() => history.push("/contact/")} icon="phone" size="tiny" />
-        <Button onClick={() => history.push("/mentions-legales/")} icon="legal" size="tiny" />
         {
           datas && <Settings
             isOpen={state.isOpen}
@@ -68,7 +65,11 @@ export default () => {
             handleOpen={handleOpen}
           />
         }
-        <Button onClick={handleClickDisconnect} icon="power off" size="tiny" />
+        <Popup
+          trigger={<Button onClick={handleClickDisconnect} icon="power off" size="huge" />}
+          content="Déconnexion"
+          position="bottom right"
+        />
       </nav>
     </header>
   );
