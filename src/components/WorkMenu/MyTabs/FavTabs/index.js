@@ -32,7 +32,6 @@ export default ({ openThisTab }) => {
   useEffect(() => {
     if (favsTabs) getPic();
     if (favs && !favsTabs) {
-      console.log(favs);
       dispatch(myFavstabs());
     }
   }, [favsTabs, favs]);
