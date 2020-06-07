@@ -9,7 +9,6 @@ import { newTab } from "../../../store/Tabs/actions";
 // Components
 import Tabs from '../tabs';
 import Modal from "../modal";
-import VisitedTabs from './VisitedTabs';
 import FavTabs from './FavTabs';
 
 export default ({
@@ -68,7 +67,6 @@ export default ({
         tabs.length === 0 && <p>Vous n'avez pas encore créé de Tableau !</p>
       }
       <Tabs openThisTab={openThisTab} />
-      <VisitedTabs />
       <FavTabs openThisTab={openThisTab} />
     </div>
   );
