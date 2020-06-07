@@ -3,10 +3,12 @@
 Memento est une application web dont le but est de pouvoir créer des listes de tâches et de les trier comme bon vous semble.
 Vous pouvez y inviter vos amis et ainsi partager en temps réel votre tableau de listes.
 
+EDIT: Le projet est désormais [en ligne](https://mymemento.fr) Il peut subsister quelques soucis de styles. Le responsive du site est en cours de dev ainsi que la fonction d'oubli de mot de passe, & de changement d'email.
+Le temps d'attente lors de la connexion / inscription peut prendre quelques secondes. Serveur d'hébergement gratuit ¯\\_(ツ)_/¯
+
  1. **But du projet**
 
 J'ai créer ce projet dans le but de monter en compétences sur les technologies citées ci-dessous.
-Le site sera en ligne une fois les dernières features sorties (voir [Kanban](#checklist))
 
  2. **Technologies utilisées**
 
@@ -34,10 +36,12 @@ Le site sera en ligne une fois les dernières features sorties (voir [Kanban](#c
     | Discussion instantanée dans chaque tableau                       | ✔️               |
     | Invitation d'amis à rejoindre son tableau                        | ✔️               |
     | Cryptage des données envoyées entre membres                      | ✔️               |
-    | Système de droits                                                | en cours        |
+    | Système de droits                                                | ✔️        |
     | Site Responsive                                                  | en cours        |
     | Vrai page d'accueil                                              | en cours (v2 ?) |
     | Connexion avec facebook ou Google                                | en cours (v2 ?) |
+    |Changement d'email, oublie de mot de passe                        | en cours         |
+    |Tests                                                             | en cours         |
 
  4. **Comment faire tourner le projet chez vous**
 
