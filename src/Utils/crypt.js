@@ -17,3 +17,13 @@ export const decryptUserData = (dataToDecrypt) => {
 export const cryptUserData = (dataToEncrypt) => {
   return CryptoJS.AES.encrypt(JSON.stringify(dataToEncrypt), process.env.SECRET_CRYPTO_KEY).toString();
 };
+
+
+export const cryptStringData = (string) => (
+  CryptoJS.AES.encrypt(string, process.env.SECRET_CRYPTO_KEY)
+);
+
+
+export const decryptStringData = (cryptedString) => (
+  JSON.parse(CryptoJS.AES.decrypt(cryptedString, process.env.SECRET_CRYPTO_KEY).toString(CryptoJS.enc.Utf8))
+);
