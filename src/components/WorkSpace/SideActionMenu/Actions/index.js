@@ -13,7 +13,7 @@ const Actions = ({ state, setstate, isInvited }) => {
   const { _id: tabId } = useSelector((GlobalState) => GlobalState.mytabs.currentTab);
   const { favs } = useSelector((GlobalState) => GlobalState.myfavs);
 
-  const isFav = () => (favs ? favs.favTabs.includes(tabId) : false);
+  const isFav = () => (favs ? favs.favTabs.filter((fav) => fav.tabId === tabId).length > 0 : false);
 
   const handleClickChangeView = (viewName) => (e) => {
     setstate({ ...state, view: viewName });
@@ -34,9 +34,7 @@ const Actions = ({ state, setstate, isInvited }) => {
   return (
     <>
       <nav className="sideActionMenu-nav">
-        <div onClick={handleClickOpenMenu} className={cx("sideActionMenu-nav-open", { open: state.menuIsOpen })}>
-          <div />
-        </div>
+        <Button size="huge" className="first" icon="bars" onClick={handleClickOpenMenu} />
         {
           state.menuIsOpen && <>
             {
@@ -53,12 +51,6 @@ const Actions = ({ state, setstate, isInvited }) => {
               trigger={<Button onClick={handleClickChangeView('tabInfo')} size="huge" icon="table" color="linkedin" />}
               content="À propos de ce tableau"
             />
-            {
-              !isInvited && <Popup
-                trigger={<Button icon="trash alternate" size="huge" color="red" />}
-                content="Supprimer le tableau"
-              />
-            }
             {
               !isInvited && <Popup
                 trigger={<Button onClick={handleClickChangeView("rights")} icon="checkmark box" size="huge" />}

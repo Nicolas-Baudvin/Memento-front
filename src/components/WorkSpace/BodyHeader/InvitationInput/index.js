@@ -25,8 +25,6 @@ const InvitationInput = ({ currentSocket, currentTab }) => {
         className="workspace-body-invitation"
         action={{
           color: 'blue',
-          labelPosition: 'right',
-          icon: 'copy',
           content: 'Copier',
           onClick: copyToClipBoard
         }}

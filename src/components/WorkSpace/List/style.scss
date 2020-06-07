@@ -52,7 +52,6 @@
 
         .show {
             display: flex !important;
-            font-size: 14px;
         }
 
         &-title {
@@ -61,10 +60,15 @@
             cursor: pointer;
             margin: 0;
             text-align: center;
+            word-break: break-all;
         }
 
         &-input {
             display: none !important;
         }
     }
+}
+
+.list-header-title {
+    font-size: 1.5em !important;
 }
