@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Input, Button, Icon } from 'semantic-ui-react';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
@@ -24,7 +24,7 @@ export default () => {
   const backToLogin = () => history.push("/");
 
   const requestServerToChangePass = async () => {
-    const realToken = token.split('&').join('.');
+    const realToken = token.split('&').join('.'); // Problème avec React Router en laissant les points dans le token
     try {
       const result = await axios({
         method: 'post',
@@ -40,6 +40,9 @@ export default () => {
 
       if (result.data.message) {
         dispatch(successMessage(result.data.message));
+        setPass('');
+        setPassConf('');
+        history.push("/");
       }
     }
     catch (err) {
@@ -57,6 +60,10 @@ export default () => {
     }
     return dispatch(failMessage("Les mots de passe doivent être identiques"));
   };
+
+  useEffect(() => {
+    if (!token) history.push("/");
+  }, []);
 
   return (
     <div className="recoverypass">
