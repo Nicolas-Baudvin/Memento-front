@@ -35,7 +35,7 @@ export default (state = initialState, action) => {
         ...state,
         socketsList: [],
         mySockets: [],
-        currentSocket: '',
+        currentSocket: {},
         guests: []
       };
     }
