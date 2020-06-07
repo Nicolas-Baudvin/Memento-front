@@ -34,7 +34,7 @@ const withReduxDevTools = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 // Création du store de l'application, avec son state privé.
 const reactModelStore = createStore(
   reducer,
-  withReduxDevTools(middlewares)
+  process.env.NODE_ENV === "development" ? withReduxDevTools(middlewares) : middlewares
 );
 
 export default reactModelStore;
