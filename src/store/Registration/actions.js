@@ -22,8 +22,9 @@ export const updatePassword = (payload) => ({
   payload
 });
 
-export const forgotPassword = () => ({
-  type: UPDATE_PASSWORD,
+export const forgotPassword = (email) => ({
+  type: FORGOT_PASSWORD,
+  email
 });
 
 export const deleteAccount = () => ({

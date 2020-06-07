@@ -155,11 +155,11 @@ export default (store) => (next) => (action) => {
         method: 'post',
         url: `${process.env.FORGOT_PASSWORD_API}`,
         data: {
-          ...action.payload,
-          userID: state.userData.datas.userID
+          email: action.email
         }
       })
         .then((res) => {
+          console.log(res);
           store.dispatch(successMessage(res.data.message));
           next(action);
         })
