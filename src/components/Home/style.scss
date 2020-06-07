@@ -1,197 +1,63 @@
 .home {
+    padding: 3em;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
 
-    &-right {
-        width: 50%;
+    &-title {
+        font-family: "Indie Flower", cursive;
+        color: rgb(2, 126, 197);
+        text-transform: uppercase;
+        font-size: 3em !important;
     }
-
-    &-left {
-        position: relative;
-        background-image: url("../../../assets/todo.jpg");
-        background-size: cover;
-        background-position: center;
-        width: 50%;
-
-        &-title {
-            text-transform: uppercase;
-            color: white;
-            text-align: center;
-        }
-
-        &-postit {
-            position: absolute;
-            height: 380px;
-            top: 40%;
-            left: 33%;
-
-            h1 {
-                font-family: "Indie Flower", cursive;
-                text-transform: uppercase;
-            }
-
-            p {
-                position: relative;
-                top: 2em;
-                left: 2em;
-                font-family: "Indie Flower", cursive;
-                font-size: 1.5em;
-            }
-
-            &-nav {
-                position: absolute;
-                bottom: 0;
-                left: 0;
-
-                &-list {
-                    display: flex;
-
-                    &__item {
-                        margin: 0 1em;
-                        width: max-content;
-                        cursor: pointer;
-                        font-size: 1.2em;
-
-                        &:hover {
-                            text-decoration: underline;
-                        }
-                    }
-                }
-            }
-        }
-
-        &-links {
-            font-family: "Indie Flower", cursive;
-            text-transform: capitalize;
-        }
+    &-registration {
+        border-radius: 15px;
+        width: 1000px;
+        margin: 1em auto;
+        height: max-content;
+        padding-bottom: 5em;
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
     }
 }
 
 @media only screen and (max-width: 1920px) and (min-width: 1367px) {
-
-    .home {
-        &-left {
-            display: flex;
-            align-items: flex-end;
-
-            &-postit {
-                position: unset;
-                margin: 12em 0 0 18em;
-                align-self: center;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-
-                p {
-                    left: 0;
-                }
-
-                &-nav {
-                    position: unset;
-                    margin: 25em 0 0 0;
-                    &-list {
-                        &__item {
-                            font-size: 1.5em;
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-@media only screen and (max-width: 1600px) and (min-width: 1600px) {
-    .home {
-        .home {
-        &-left {
-            &-postit {
-                margin: 12em 0 0 13.5em !important;
-            }
-        }
-    }
-    }
-}
-
-@media only screen and (max-width: 1680px) and (min-width: 1680px) {
-    .home {
-        .home {
-        &-left {
-            &-postit {
-                margin: 12em 0 0 12.5em !important;
-            }
-        }
-    }
-    }
-}
-
-
-@media only screen and (max-width: 1440px) and (min-width: 1440px) {
-    .home {
-        &-left {
-            &-postit {
-                margin: 12em 0 0 12em !important;
-            }
-        }
-    }
-}
-
-@media only screen and (max-width: 1536px) and (min-width: 1536px) {
-    .home {
-        &-left {
-            &-postit {
-                margin: 12em 0 0 12.5em !important;
-            }
-        }
-    }
 }
 
 @media only screen and (max-width: 1366px) and (min-width: 1080px) {
-    .home {
-
-        &-left {
-            width: 50%;
-            background-size: cover;
-            background-repeat: no-repeat;
-
-            &-postit {
-                position: absolute;
-                bottom: 0;
-                width: 100%;
-                left: 11.5em;
-                align-self: center;
-
-                &-nav {
-                    bottom: 3em;
-                }
-            }
-        }
-
-        &-right {
-            width: 50%;
-        }
-    }
 }
 
 @media only screen and (max-width: 1080px) and (min-width: 767px) {
     .home {
-        flex-direction: column;
-
-        &-left {
-            width: 100%;
-            background-size: contain;
-            background-repeat: no-repeat;
-
-            &-postit {
-                position: unset;
-                min-height: 100%;
-            }
+        padding: 0.5em;
+        min-height: 100%;
+        &-title {
+            font-family: "Indie Flower", cursive;
+            color: rgb(2, 126, 197);
+            text-transform: uppercase;
         }
-
-        &-right {
+        &-registration {
             width: 100%;
+            height: 100%;
+            box-shadow: unset;
         }
     }
 }
 
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 766px) {
+    .home {
+        padding: 0.5em;
+        min-height: 100%;
+
+        &-title {
+            font-family: "Indie Flower", cursive;
+            color: rgb(2, 126, 197);
+            text-transform: uppercase;
+            font-size: 2em !important;
+        }
+        &-registration {
+            width: 100%;
+            height: 100%;
+            box-shadow: unset;
+        }
+    }
 }
