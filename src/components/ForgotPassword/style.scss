@@ -1,0 +1,18 @@
+.forgotPass {
+    margin: 2em auto;
+    display: flex;
+    flex-direction: column;
+
+    &-form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &-back {
+        cursor: pointer;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
