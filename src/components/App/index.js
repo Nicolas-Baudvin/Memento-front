@@ -10,13 +10,12 @@ import { useSelector } from 'react-redux';
  */
 // Composants React
 import Home from '../Home';
-import About from '../About';
-import Contact from '../Contact';
 import Popup from '../Popup';
 import NotFound from '../NotFound';
 import WorkMenu from '../WorkMenu';
 import WorkSpace from '../WorkSpace';
-// Données
+import ForgotPassword from '../ForgotPassword';
+import NewPassword from '../NewPassword';
 // Styles et assets
 import './app.scss';
 import 'semantic-ui-css/semantic.min.css';
@@ -36,12 +35,6 @@ const App = () => {
             isConnected ? <Redirect from="/" to="/vos-tableaux/" /> : <Home />
           }
         </Route>
-        <Route exact path="/a-propos/">
-          <About />
-        </Route>
-        <Route exact path="/contact/">
-          <Contact />
-        </Route>
         <Route exact path="/vos-tableaux/">
           {
             !isConnected ? <Redirect from="/vos-tableaux/" to="/" /> : <WorkMenu />
@@ -56,6 +49,12 @@ const App = () => {
           {
             !isConnected ? <Redirect from="/join/:friendTabId/:link/" to="/" /> : <WorkSpace isInvited />
           }
+        </Route>
+        <Route exact path="/oublie-mot-de-passe/">
+          <ForgotPassword />
+        </Route>
+        <Route exact path="/nouveau-mot-de-passe/:token">
+          <NewPassword />
         </Route>
         <Route path="*">
           <NotFound />
