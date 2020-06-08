@@ -35,3 +35,5 @@
 - Erreur 503 sur la récupération des favoris sur le menu des tableaux.
 - Les favoris du menu des tableaux ne se suppriment pas sans refresh manuel
 - Erreur page blanche dans l'espace de travail
+- Liens d'invitation invalide (nécessite un refresh manuel)
+- Tooltip animé dans le header.
