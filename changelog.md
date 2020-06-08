@@ -1,5 +1,18 @@
 # Changelogs
 
+## V1.1.2
+
+### **Bugs Fix**
+
+- Erreur 503 sur le menu des tableaux à cause d'un timeout serveur
+- Correction orthographique
+- Le liens d'invitation était corrompu et nécessitait un refresh manuel
+- Les favoris ne se mettaient pas correctement à jour dans le menu des tableaux
+- Les toolstips de l'entête étaient anormalement animés, ce qui retardait l'information.
+- Listes fantômes quand on navigue entre plusieurs tableaux
+- Tables fantômes quand on switch de compte
+- Timeout serveur lors d'une mise à jour du pseudo si le pseudo est déjà utilisé.
+
 ## V1.1.1
 
 ### **Bugs Fix**
