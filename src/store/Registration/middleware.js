@@ -157,7 +157,6 @@ export default (store) => (next) => (action) => {
         }
       })
         .then((res) => {
-          console.log(res);
           store.dispatch(successMessage(res.data.message));
           next(action);
         })

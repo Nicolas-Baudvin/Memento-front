@@ -48,7 +48,6 @@ export default (store) => (next) => (action) => {
         }
       })
         .then((res) => {
-          console.log(res);
           if (res.data.lists) store.dispatch(sendLists(res.data.lists.sort((a, b) => a.order - b.order)));
           next(action);
         })
@@ -80,7 +79,6 @@ export default (store) => (next) => (action) => {
         }
       })
         .then((res) => {
-          console.log(res);
           const { lists } = res.data;
           const cryptedLists = cryptUserData(lists);
 
@@ -179,7 +177,6 @@ export default (store) => (next) => (action) => {
       })
         .then((res) => {
           const { lists } = res.data;
-          console.log("update", lists);
           action.lists = lists;
           const cryptedLists = cryptUserData(lists);
           localStorage.setItem("lists", cryptedLists);

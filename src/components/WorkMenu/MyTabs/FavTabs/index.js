@@ -30,11 +30,14 @@ export default ({ openThisTab }) => {
   }, []);
 
   useEffect(() => {
-    if (favsTabs) getPic();
-    if (favs && !favsTabs) {
+    if (favs) {
       dispatch(myFavstabs());
     }
-  }, [favsTabs, favs]);
+  }, [favs]);
+
+  useEffect(() => {
+    if (favsTabs) getPic();
+  }, [favsTabs]);
 
   return <>
     <h2 className="workmenu-body-tabs-title black">
