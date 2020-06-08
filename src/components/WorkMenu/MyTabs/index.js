@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 
 // Actions
 import { failMessage } from '../../../store/Popup/actions';
-import { newTab } from "../../../store/Tabs/actions";
+import { newTab, newCurrentTab } from "../../../store/Tabs/actions";
 
 // Components
 import Tabs from '../tabs';
@@ -33,6 +33,7 @@ export default ({
   });
 
   const openThisTab = (tabId, name) => {
+    dispatch(newCurrentTab(tabId));
     if (tabId) history.push(`/vos-tableaux/${name}/${tabId}`);
   };
 
