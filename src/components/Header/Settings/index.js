@@ -51,7 +51,7 @@ export default ({ handleOpen, isOpen, handleClose }) => {
         trigger={<Button size="huge" onClick={handleOpen} icon="user" />}
         content="Mon compte"
         closeOnDocumentClick
-        position="bottom right"
+        position="left center"
         closeOnTriggerClick
       />}
       open={isOpen}

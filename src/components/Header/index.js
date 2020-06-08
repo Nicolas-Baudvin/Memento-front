@@ -68,7 +68,7 @@ export default () => {
         <Popup
           trigger={<Button onClick={handleClickDisconnect} icon="power off" size="huge" />}
           content="Déconnexion"
-          position="bottom right"
+          position="left center"
         />
       </nav>
     </header>
