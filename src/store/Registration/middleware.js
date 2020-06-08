@@ -114,9 +114,7 @@ export default (store) => (next) => (action) => {
         }
       })
         .then((res) => {
-
           store.dispatch(successMessage(res.data.message));
-
           next(action);
         })
         .catch((err) => {

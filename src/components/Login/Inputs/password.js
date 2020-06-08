@@ -8,9 +8,10 @@ export default ({ setstate, state }) => {
       <Input
         value={state.password}
         onChange={(e) => setstate({ ...state, password: e.target.value })}
-        type="password" name="password"
+        type="password"
+        name="password"
         className="form-input"
-        placeholder="Ne le dis à personne"
+        placeholder="Votre mot de passe"
         icon="key"
       />
     </>

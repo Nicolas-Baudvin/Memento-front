@@ -16,6 +16,7 @@ import WorkMenu from '../WorkMenu';
 import WorkSpace from '../WorkSpace';
 import ForgotPassword from '../ForgotPassword';
 import NewPassword from '../NewPassword';
+import EmailChange from '../EmailChange';
 // Styles et assets
 import './app.scss';
 import 'semantic-ui-css/semantic.min.css';
@@ -55,6 +56,9 @@ const App = () => {
         </Route>
         <Route exact path="/nouveau-mot-de-passe/:token">
           <NewPassword />
+        </Route>
+        <Route exact path="/confirmation-mail-changement/:emails">
+          <EmailChange />
         </Route>
         <Route path="*">
           <NotFound />

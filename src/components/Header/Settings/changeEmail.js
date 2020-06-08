@@ -12,7 +12,7 @@ export default ({ state, setstate }) => {
       <Input
         type="email"
         icon="at"
-        placeholder="On ressort le vieux une dernière fois ..."
+        placeholder="Votre email actuel"
         className="settings-body-data-input"
         value={state.oldEmail}
         onChange={(e) => setstate({ ...state, oldEmail: e.target.value })}
@@ -22,7 +22,7 @@ export default ({ state, setstate }) => {
       <Input
         type="email"
         icon="at"
-        placeholder="On ressort le vieux une dernière fois ..."
+        placeholder="Votre nouvel email"
         className="settings-body-data-input"
         value={state.newEmail}
         onChange={(e) => setstate({ ...state, newEmail: e.target.value })}
@@ -35,6 +35,8 @@ export default ({ state, setstate }) => {
         color="green"
         icon="checkmark"
       />
+
+      <p>Un email de confirmation sera envoyé sur votre email actuel</p>
     </div>
 );
 };

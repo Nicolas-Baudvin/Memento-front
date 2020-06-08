@@ -11,7 +11,7 @@ export default ({ setstate, state }) => {
         className="form-input"
         type="password"
         name="confirmPass"
-        placeholder="On a dis secret !"
+        placeholder="Confirmez votre mot de passe"
         icon="key"
       />
     </>

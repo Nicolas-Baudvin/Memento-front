@@ -8,7 +8,7 @@ export default ({ state, setstate, handleSubmitChangePass }) => {
       <Input
         type="password"
         icon="key"
-        placeholder="On ressort le vieux une dernière fois ..."
+        placeholder="Mot de passe actuel"
         className="settings-body-data-input"
         value={state.oldPass}
         onChange={(e) => setstate({ ...state, oldPass: e.target.value })}
@@ -17,7 +17,7 @@ export default ({ state, setstate, handleSubmitChangePass }) => {
       <Input
         type="password"
         icon="lock"
-        placeholder="Place aux jeunes !"
+        placeholder="6 caractères min"
         className="settings-body-data-input"
         value={state.newPass}
         onChange={(e) => setstate({ ...state, newPass: e.target.value })}
@@ -27,7 +27,7 @@ export default ({ state, setstate, handleSubmitChangePass }) => {
       <Input
         type="password"
         icon="lock"
-        placeholder="Hmm.. Tu es sûr ?"
+        placeholder="Confirmez"
         className="settings-body-data-input"
         value={state.newPassConf}
         onChange={(e) => setstate({ ...state, newPassConf: e.target.value })}
