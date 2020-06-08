@@ -43,7 +43,7 @@ J'ai créer ce projet dans le but de monter en compétences sur les technologies
 
  4. **ChangeLog**
 
-    
+    [Trouvable ici](https://github.com/Nicolas-Baudvin/Memento-front/blob/master/changelog.md)
 
  5. **Liens supplémentaires**
 
