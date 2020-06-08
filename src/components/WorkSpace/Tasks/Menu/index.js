@@ -65,12 +65,12 @@ const Menu = ({ task, list }) => {
 
           <Dropdown.Menu>
             {
-              currentSocket && currentSocket.guests.length === 0 && <Dropdown.Item>
+              Object.keys(currentSocket).length > 0 && currentSocket.guests.length === 0 && <Dropdown.Item>
                 Aucun invité
               </Dropdown.Item>
             }
             {
-              currentSocket && currentSocket.guests.map((guest) => (
+              Object.keys(currentSocket).length && currentSocket.guests.map((guest) => (
                 <Dropdown.Item key={guest.userData.username} onClick={handleClickTaskAssign(guest.userData.username, false)}>
                   {guest.userData.username}
                 </Dropdown.Item>))
