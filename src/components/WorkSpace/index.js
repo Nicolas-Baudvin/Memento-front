@@ -161,9 +161,6 @@ const WorkSpace = ({ isInvited }) => {
   };
 
   useEffect(() => {
-    if (!isInvited) {
-      dispatch(newCurrentTab(id));
-    }
     if (isInvited) {
       dispatch(connectToTab({ link, friendTabId }));
     }
@@ -207,7 +204,7 @@ const WorkSpace = ({ isInvited }) => {
             }
             <DragDropContext onDragEnd={onDragEnd}>
               {
-                !isInvited && <Droppable type="column" droppableId="all-columns" direction="horizontal">
+                !isInvited && Object.keys(currentTab).length > 0 && <Droppable type="column" droppableId="all-columns" direction="horizontal">
                   {(provided) => (<div ref={provided.innerRef} {...provided.droppableProps} className="workspace-body-lists">
                     {
                       sortedLists && sortedLists.length > 0 && <List tasks={sortedTasks} currentTab={currentTab} lists={sortedLists} isInvited={isInvited} />
