@@ -1,5 +1,11 @@
 # Changelogs
 
+## V1.1.1
+
+### **Bugs Fix**
+
+- Erreur critique sur la page de l'espace de travail
+
 ## V1.1.0
 
 ### **Bugs Fix**
@@ -27,3 +33,5 @@
 ### **Bugs Connus**
 
 - Erreur 503 sur la récupération des favoris sur le menu des tableaux.
+- Les favoris du menu des tableaux ne se suppriment pas sans refresh manuel
+- Erreur page blanche dans l'espace de travail
