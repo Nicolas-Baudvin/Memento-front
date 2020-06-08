@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from 'prop-types';
 
 // Components
-import Menu from '../Menu';
 import InvitationInput from './InvitationInput';
 import AddListInput from './AddListInput';
 

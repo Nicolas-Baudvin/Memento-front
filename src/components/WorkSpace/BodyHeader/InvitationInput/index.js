@@ -3,12 +3,10 @@ import { Popup, Input } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
 const InvitationInput = ({ currentSocket, currentTab }) => {
-
   const copyToClipBoard = () => {
     const copy = document.querySelector('.workspace-body-invitation').firstChild;
     navigator.permissions.query({ name: "clipboard-write" }).then((result) => {
-      if (result.state === "granted" || result.state === "prompt")
-      {
+      if (result.state === "granted" || result.state === "prompt") {
         copy.select();
         copy.setSelectionRange(0, 99999);
 
@@ -31,7 +29,7 @@ const InvitationInput = ({ currentSocket, currentTab }) => {
         defaultValue={`https://mymemento.fr/join/${currentTab._id}/${currentSocket.invitationLink}/`}
       />}
     />
-  )
+  );
 };
 
 InvitationInput.propTypes = {

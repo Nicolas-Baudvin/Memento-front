@@ -202,7 +202,9 @@ const WorkSpace = ({ isInvited }) => {
         <Header />
         <div className="container">
           <div className="workspace-body">
-            <BodyHeader currentTab={currentTab} currentSocket={currentSocket} userID={userID} isInvited={isInvited} />
+            {
+              Object.keys(currentSocket).length > 0 && <BodyHeader currentTab={currentTab} currentSocket={currentSocket} userID={userID} isInvited={isInvited} />
+            }
             <DragDropContext onDragEnd={onDragEnd}>
               {
                 !isInvited && <Droppable type="column" droppableId="all-columns" direction="horizontal">
