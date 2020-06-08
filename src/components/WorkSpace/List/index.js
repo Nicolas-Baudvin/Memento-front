@@ -16,12 +16,10 @@ import './style.scss';
 // Context
 import SearchContext from './searchContext';
 
-const List = ({ isInvited, tasks }) => {
+const List = ({ isInvited, tasks, lists, currentTab }) => {
   const search = useContext(SearchContext);
-
-  const { lists } = useSelector((GlobalState) => GlobalState.mylists);
   const dispatch = useDispatch();
-
+  console.log(lists);
   const initialState = {
     sortedTasks: tasks,
   };
@@ -48,7 +46,7 @@ const List = ({ isInvited, tasks }) => {
   }, [search.value]);
 
   return (
-    lists.sort((a, b) => a.order - b.order).map((list) => (
+    lists.length > 0 && lists.sort((a, b) => a.order - b.order).map((list) => currentTab._id === list.tabId && (
       <Draggable key={list._id} draggableId={list._id} index={list.order}>
         {(provided) => (
           <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} data-order={list.order} className="list">
