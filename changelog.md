@@ -20,6 +20,10 @@
 
 ### **Nouvelles Fonctionnalités**
 
-- Oublie de mot de passe.
+- Oubli de mot de passe.
 - Changement d'email.
 - Site Responsive
+
+### **Bugs Connus**
+
+- Erreur 503 sur la récupération des favoris sur le menu des tableaux.
