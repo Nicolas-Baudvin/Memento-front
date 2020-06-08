@@ -9,7 +9,7 @@ import lastActions from './ActionsOnWorkSpace/reducer';
 import myfavs from './Favs/reducer';
 import chat from './Chat/reducer';
 
-export default combineReducers({
+const appReducer = combineReducers({
   userData,
   popup,
   mytabs,
@@ -20,3 +20,13 @@ export default combineReducers({
   myfavs,
   chat
 });
+
+const rootReducer = (state, action) => {
+
+  if (action.type === "LOGOUT") {
+    state = {};
+  }
+  return appReducer(state, action);
+};
+
+export default rootReducer;
