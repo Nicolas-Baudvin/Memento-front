@@ -1,6 +1,6 @@
 # Changelogs
 
-## V1.1.2
+## V1.1.2 non déployé
 
 ### **Bugs Fix**
 
