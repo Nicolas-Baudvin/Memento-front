@@ -1,6 +1,6 @@
 # Changelogs
 
-## V1.1.2 non déployé
+## V1.2.0 non déployée
 
 ### **Bugs Fix**
 
@@ -12,6 +12,15 @@
 - Listes fantômes quand on navigue entre plusieurs tableaux
 - Tables fantômes quand on switch de compte
 - Timeout serveur lors d'une mise à jour du pseudo si le pseudo est déjà utilisé.
+- Lors de la confirmation de la suppression de tab, il était affiché "Cancel" au lieu de "Annuler"
+- Les mots long sont désormais coupés dans le chat
+- En modifiant le nom des tâches, on ne pouvait excéder 25 caractères
+- Il suffit désormais du survoler le bouton d'aide pour voir apparaître le tooltip
+- Lors d'un glissé déposé d'une tâche ou d'une liste, il était possible sous certaines conditions que cette action s'annulait.
+
+### **Nouvelles Fonctionnalités**
+
+- Page de chargement avant d'accéder au workspace
 
 ## V1.1.1
 
