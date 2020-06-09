@@ -49,7 +49,10 @@ const ListHeader = ({ list }) => {
 
   return (
     <div className="list-header">
-      <h2 onClick={showTitleInput} className="list-header-title show"> {list.name} </h2>
+      <Popup
+        trigger={<h2 onClick={showTitleInput} className="list-header-title show"> {list.name} </h2>}
+        content="Cliquez pour modifier le nom"
+      />
       <Popup
         trigger={
           <Button className="list-header-settingsBtn show" onClick={() => deleteItem(list)} icon="delete" color="#ff0000" />
