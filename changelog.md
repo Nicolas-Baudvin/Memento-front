@@ -1,5 +1,18 @@
 # Changelogs
 
+## V1.3.0 mise à jour non déployée ❌
+
+### **Nouvelles Fonctionnalités**
+
+- Page changelogs
+- Un pieds de page contenant un liens vers les changelogs et les informations de contact.
+
+### **Corrections UI**
+
+- Suppression de l'icone du formulaire d'ajout de liste pour un texte plus conçis.
+- Un tooltip indique désormais plus clairement qu'une intéraction est possible sur le titre d'une liste.
+- Ajout d'une icone de chargement sur les boutons pour les processus un peu long (envoie d'email)
+
 ## V1.2.0 mise à jour déployée ✔️
 
 ### **Bugs Fix**
