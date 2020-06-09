@@ -17,6 +17,8 @@ import WorkSpace from '../WorkSpace';
 import ForgotPassword from '../ForgotPassword';
 import NewPassword from '../NewPassword';
 import EmailChange from '../EmailChange';
+import Footer from '../Footer';
+import LastNews from '../LastNews';
 // Styles et assets
 import './app.scss';
 import 'semantic-ui-css/semantic.min.css';
@@ -60,10 +62,14 @@ const App = () => {
         <Route exact path="/confirmation-mail-changement/:emails">
           <EmailChange />
         </Route>
+        <Route exact path="/nouveautes/">
+          <LastNews />
+        </Route>
         <Route path="*">
           <NotFound />
         </Route>
       </Switch>
+      <Footer />
       <Popup isVisible={isVisible} message={message} isSuccess={isSuccess} />
     </Router>
   );
