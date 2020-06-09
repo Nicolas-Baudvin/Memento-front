@@ -23,7 +23,7 @@ export default ({ state, setstate, tabs }) => {
       <Popup
         content={state.content}
         inverted
-        on="click"
+        on="hover"
         onClose={() => setstate({ ...state, open: false })}
         onOpen={handleHelpBtn}
         open={state.open}
