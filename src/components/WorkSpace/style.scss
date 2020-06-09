@@ -167,10 +167,14 @@
                 display: flex;
                 flex-direction: column;
                 margin: 1em 0;
+                max-width: 100%;
+                word-break: break-all;
 
                 &--from {
                     font-size: 0.8em;
                     font-style: italic;
+                    max-width: 100%;
+                    word-break: break-all;
 
                     span {
                         font-weight: bold;
@@ -186,6 +190,8 @@
                     line-height: 1.1em;
                     font-size: 1.1em;
                     font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+                    max-width: 100%;
+                    word-break: break-all;
                 }
             }
         }
@@ -579,7 +585,7 @@
     background-color: rgba(18, 131, 206, 1);
     width: 38px;
     height: 38px;
-    padding-top: .1em;
+    padding-top: 0.1em;
     color: white;
     text-align: center;
     display: flex;

@@ -33,14 +33,11 @@ const About = ({ currentTab, isInvited }) => {
   const [state, setstate] = useState(initialState);
 
   const getBg = async () => {
-    try
-    {
+    try {
       const img = await loadPic(currentTab.imgPath);
       setstate({ ...state, pic: img });
     }
-    catch (e)
-    {
-      console.log(e);
+    catch (e) {
       setstate({ ...state, pic: false });
     }
   };
@@ -52,10 +49,8 @@ const About = ({ currentTab, isInvited }) => {
   };
 
   const handleClickChoosePic = (imgPath) => (e) => {
-    console.log(imgPath);
     const newArray = picsPath.map((picture) => {
-      if (picture.path === imgPath)
-      {
+      if (picture.path === imgPath) {
         picture.isSelected = true;
         return picture;
       }

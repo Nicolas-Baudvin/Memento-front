@@ -19,7 +19,6 @@ import SearchContext from './searchContext';
 const List = ({ isInvited, tasks, lists, currentTab }) => {
   const search = useContext(SearchContext);
   const dispatch = useDispatch();
-  console.log(lists);
   const initialState = {
     sortedTasks: tasks,
   };

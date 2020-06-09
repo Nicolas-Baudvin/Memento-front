@@ -58,7 +58,6 @@ export default ({ isInvited, currentTab, }) => {
         }
         return item;
       });
-      console.log(newListArray.length);
 
       if (newListArray.length) {
         if (isInvited) {
