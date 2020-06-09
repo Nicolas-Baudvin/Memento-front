@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -8,15 +8,12 @@ import "./style.scss";
 
 // Components
 import Header from "../Header";
-import BodyHeader from './BodyHeader';
 import SideActionMenu from './SideActionMenu';
 import WorkspaceBody from './WorkspaceBody';
+import LoadPage from "./LoadPage";
 
 // Hooks
 import useSearch from '../../hooks/useSearch';
-
-// Invited components
-import DragDropContext from './DragDropContext';
 
 // Actions
 import { newSocketTab, connectToTab } from "../../store/Socket/actions";
@@ -32,6 +29,7 @@ const WorkSpace = ({ isInvited }) => {
   const { userID } = useSelector((globalState) => globalState.userData.datas);
   const { lists } = useSelector((GlobalState) => GlobalState.mylists);
   const { currentSocket } = useSelector((GlobalState) => GlobalState.sockets);
+  const [active, setActive] = useState(true);
 
 
   const search = useSearch();
@@ -45,6 +43,14 @@ const WorkSpace = ({ isInvited }) => {
     link,
     friendTabId
   } = useParams();
+
+  useEffect(() => {
+    if (
+      Object.keys(currentSocket).length > 0
+      && Object.keys(currentTab).length > 0
+      && lists
+    ) setActive(false);
+  }, [currentTab, currentSocket, lists]);
 
   useEffect(() => {
     if (isInvited) {
@@ -70,7 +76,7 @@ const WorkSpace = ({ isInvited }) => {
   }, [currentTab]);
 
   return (
-    <SearchContext.Provider value={search}>
+    active ? <LoadPage active={active} /> : <SearchContext.Provider value={search}>
       <div data-tabid={id} className="workspace" style={{ backgroundImage: `url(../../../${currentTab && currentTab.imgPath})` }}>
         <Header />
         <div className="container">
