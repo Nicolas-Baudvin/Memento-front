@@ -46,6 +46,8 @@ export default ({ openThisTab }) => {
               onConfirm={() => handleConfirm()}
               size="small"
               content="Toutes les listes et tâches liées à ce tableau seront définitivement perdus. Êtes vous sûr de vouloir continuer ?"
+              closeIcon
+              cancelButton="Annuler"
             />
             <img
               onClick={() => openThisTab(tab._id, tab.name)}
