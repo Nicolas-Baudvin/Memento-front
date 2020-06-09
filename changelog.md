@@ -4,14 +4,16 @@
 
 ### **Nouvelles Fonctionnalités**
 
-- Page changelogs
-- Un pieds de page contenant un liens vers les changelogs et les informations de contact.
+- Page changelogs. Refonte design prévu
+- Un pieds de page contenant un lien vers les changelogs et les informations de contact. Apport de contenu prévu dans le footer.
 
 ### **Corrections UI**
 
 - Suppression de l'icone du formulaire d'ajout de liste pour un texte plus conçis.
 - Un tooltip indique désormais plus clairement qu'une intéraction est possible sur le titre d'une liste.
 - Ajout d'une icone de chargement sur les boutons pour les processus un peu long (envoie d'email)
+- Certains formulaires de mot de passe affichaient ces derniers en clair.
+- Certains messages d'erreur n'apportaient pas beaucoup d'aide...
 
 ## V1.2.0 mise à jour déployée ✔️
 
