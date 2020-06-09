@@ -4,13 +4,13 @@ import { useDispatch } from "react-redux";
 
 // Actions
 import { myTabs } from "../../store/Tabs/actions";
-
+import { cleanLists } from "../../store/Lists/actions";
+import { disconnectFromChannel } from "../../store/Socket/actions";
 
 // Components
 import Header from '../Header';
 import MyTabs from './MyTabs';
-import { cleanLists } from "../../store/Lists/actions";
-import { disconnectFromChannel } from "../../store/Socket/actions";
+import Footer from '../Footer';
 
 export default () => {
   const dispatch = useDispatch();
@@ -32,13 +32,14 @@ export default () => {
   }, []);
 
   return (
-    <div className="workmenu">
-      <Header handleOpen={handleOpen} />
-      <main className="workmenu-body">
-
-        <MyTabs state={state} setstate={setstate} handleOpen={handleOpen} />
-
-      </main>
-    </div>
+    <>
+      <div className="workmenu">
+        <Header handleOpen={handleOpen} />
+        <main className="workmenu-body">
+          <MyTabs state={state} setstate={setstate} handleOpen={handleOpen} />
+        </main>
+      </div>
+      <Footer />
+    </>
   );
 };

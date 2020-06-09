@@ -16,8 +16,7 @@ export default () => {
 
   const getNewsPic = async (img) => {
     const pic = await loadPic(img.path);
-    switch (img.name)
-    {
+    switch (img.name) {
       case "News": {
         setNewsPic(pic);
         break;
@@ -39,7 +38,6 @@ export default () => {
       getNewsPic(item);
     });
   }, []);
-
   return (
     <footer className="footer">
       <div className="footer-block">
@@ -51,7 +49,7 @@ export default () => {
       <div className="footer-block">
         <Popup
           trigger={<a href="mailto:support@mymemento.fr"><img src={mailPic} alt="support@mymemento.fr" /></a>}
-          content="Un bug ? Contactez nous !"
+          content="Contactez nous !"
         />
       </div>
     </footer>

@@ -34,7 +34,7 @@ export default ({
 
   const openThisTab = (tabId, name) => {
     dispatch(newCurrentTab(tabId));
-    if (tabId) history.push(`/vos-tableaux/${name}/${tabId}`);
+    if (tabId) history.push(`/vos-tableaux/${name}/${tabId}/`);
   };
 
   const handleSubmitNewTab = () => {

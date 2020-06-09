@@ -17,7 +17,6 @@ import WorkSpace from '../WorkSpace';
 import ForgotPassword from '../ForgotPassword';
 import NewPassword from '../NewPassword';
 import EmailChange from '../EmailChange';
-import Footer from '../Footer';
 import LastNews from '../LastNews';
 // Styles et assets
 import './app.scss';
@@ -43,7 +42,7 @@ const App = () => {
             !isConnected ? <Redirect from="/vos-tableaux/" to="/" /> : <WorkMenu />
           }
         </Route>
-        <Route exact path="/vos-tableaux/:name/:id([a-f\d]{24})">
+        <Route exact path="/vos-tableaux/:name/:id([a-f\d]{24})/">
           {
             !isConnected ? <Redirect from="/vos-tableaux/:id" to="/" /> : <WorkSpace isInvited={false} />
           }
@@ -69,7 +68,6 @@ const App = () => {
           <NotFound />
         </Route>
       </Switch>
-      <Footer />
       <Popup isVisible={isVisible} message={message} isSuccess={isSuccess} />
     </Router>
   );
