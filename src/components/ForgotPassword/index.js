@@ -1,14 +1,18 @@
-import React, { useState } from 'react';
-import { Input, Icon } from 'semantic-ui-react';
+import React, { useState, useEffect } from 'react';
+import { Input, Icon, Button } from 'semantic-ui-react';
 import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import './style.scss';
 import { forgotPassword } from '../../store/Registration/actions';
+import { failMessage } from '../../store/Popup/actions';
 
 export default () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const { message } = useSelector((globalState) => globalState.popup);
 
   const backToLogin = () => history.push("/");
 
@@ -16,9 +20,17 @@ export default () => {
 
   const handleSubmitForgotPassword = (e) => {
     e.preventDefault();
+    setLoading(true);
     if (email) dispatch(forgotPassword(email));
+    else dispatch(failMessage("Le mail est invalide"));
     console.log(email);
   };
+
+  useEffect(() => {
+    if (message) {
+      setLoading(false);
+    }
+  }, [message]);
 
   return (
     <div className="forgotPass">
@@ -30,7 +42,10 @@ export default () => {
       <p>Ce lien est personnel. Ne le partagez surtout pas !</p>
       <p>Pensez à vérifier vos spams.</p>
       <form onSubmit={handleSubmitForgotPassword} className="forgotPass-form">
-        <Input onChange={handleChange} type="email" icon="at" iconPosition="left" placeholder="exemple@exemple.com" action={{ content: "Envoyer" }} />
+        <Input label="Votre email" onChange={handleChange} type="email" icon="at" placeholder="exemple@exemple.com" />
+        <div className="forgotPass-submit">
+          <Button loading={loading} content="Envoyer" icon="send" primary />
+        </div>
       </form>
     </div>
   );
