@@ -490,7 +490,7 @@
 
         .sideActionMenu {
             &-container {
-                right: 1em;
+                right: 0;
                 overflow-x: hidden;
                 width: 50px;
             }
@@ -525,7 +525,7 @@
             z-index: 1000;
             &-container {
                 z-index: 1000;
-                right: 1em;
+                right: 0;
                 overflow-x: hidden;
                 width: 50px;
             }
@@ -566,7 +566,7 @@
             z-index: 1000;
             &-container {
                 z-index: 1000;
-                right: 1em;
+                right: 0;
                 overflow-x: hidden;
                 width: 50px;
             }
