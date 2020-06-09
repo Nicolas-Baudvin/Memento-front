@@ -50,6 +50,9 @@ export default ({ openThisTab }) => {
           <h2 onClick={handleClickOpenTab(item)} className="workmenu-tabs-item-title"> {item.name} </h2>
         </div>)
       }
+      { 
+        !favsTabs && <p>Vous n'avez pour le moment aucun tableau dans vos favoris</p>
+      }
     </div>
   </>;
 };
