@@ -1,6 +1,6 @@
 # Changelogs
 
-## V1.2.0 non déployée
+## V1.2.0 mise à jour déployée ✔️
 
 ### **Bugs Fix**
 
@@ -22,13 +22,13 @@
 
 - Page de chargement avant d'accéder au workspace
 
-## V1.1.1
+## V1.1.1 mise à jour déployée ✔️
 
 ### **Bugs Fix**
 
 - Erreur critique sur la page de l'espace de travail
 
-## V1.1.0
+## V1.1.0 mise à jour déployée ✔️
 
 ### **Bugs Fix**
 
