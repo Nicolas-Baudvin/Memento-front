@@ -2,7 +2,6 @@ import { failMessage } from "../../store/Popup/actions";
 import { logOut } from "../../store/Registration/actions";
 
 const errorHandler = (err, dispatch) => {
-  console.log(err.response);
   if (!err.response) {
     return dispatch(failMessage("Erreur Interne. Réessayez ou contactez un administrateur."));
   }
