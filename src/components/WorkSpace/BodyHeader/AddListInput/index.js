@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 
 // Actions
 import { newList } from "../../../../store/Lists/actions";
+import { failMessage } from "../../../../store/Popup/actions";
 
 const AddListInput = ({ currentTab }) => {
   const dispatch = useDispatch();
@@ -17,6 +18,7 @@ const AddListInput = ({ currentTab }) => {
 
   const handleAddListbtn = () => {
     if (state.addlist && state.addlist.length < 30) dispatch(newList({ name: state.addlist, tabId: currentTab._id }));
+    else dispatch(failMessage("Le titre d'une liste doit contenir entre 1 et 30 caractères"));
   };
 
   return (
@@ -28,9 +30,8 @@ const AddListInput = ({ currentTab }) => {
           value={state.addlist}
           onChange={(e) => setstate({ ...state, addlist: e.target.value })}
           action={{
-            color: 'blue', icon: 'add', content: 'Liste', onClick: handleAddListbtn, className: "list-add"
+            color: 'blue', content: 'Ajouter liste', onClick: handleAddListbtn
           }}
-          actionPosition="left"
           className="workspace-body-header-input"
           placeholder="Nom de votre liste"
         />

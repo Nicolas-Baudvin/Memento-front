@@ -17,7 +17,7 @@ const InvitationInput = ({ currentSocket, currentTab }) => {
 
   return (
     <Popup
-      content="C'est le liens qui te permettra d'inviter tes amis !"
+      content="C'est le lien qui te permettra d'inviter tes amis !"
       className="workspace-body-header-popup"
       trigger={<Input
         className="workspace-body-invitation"
