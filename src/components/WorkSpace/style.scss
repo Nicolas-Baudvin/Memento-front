@@ -23,12 +23,13 @@
         }
 
         &-header {
-            width: 100%;
+            width: max-content;
             display: flex;
             align-items: center;
 
             &-input {
                 margin-left: 2em !important;
+                position: unset !important
             }
 
             &-menuBtn {
