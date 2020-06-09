@@ -70,9 +70,9 @@ export default () => {
       <a onClick={backToLogin}><Icon name="arrow left" />Retour page de connexion</a>
       <h1>Nouveau mot de passe</h1>
       <form className="recoverypass-form" onSubmit={handleSubmit}>
-        <Input onChange={handleChangePass} placeholder="6 caractères minimum" />
+        <Input type="password" onChange={handleChangePass} placeholder="6 caractères minimum" />
 
-        <Input onChange={handleChangePassConf} placeholder="6 caractères minimum" />
+        <Input type="password" onChange={handleChangePassConf} placeholder="6 caractères minimum" />
 
         <Button content="Envoyer" icon="send" primary />
       </form>
