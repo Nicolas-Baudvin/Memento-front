@@ -4,8 +4,6 @@ import {
 } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
-import "./style.scss";
-
 const Owner = ({ currentSocket }) => {
 
   return (
