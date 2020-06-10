@@ -2,10 +2,9 @@
     a {
         position: absolute;
         align-self: flex-start;
-        padding: 2em;
         font-size: 2em;
         color: #4183c4;
-
+        
         &:hover {
             text-decoration: underline;
         }
@@ -13,24 +12,24 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-
+    
     li {
         list-style-type: disc !important;
     }
-
+    
     &-details {
         background-color: #fff;
         padding: 6em;
-        margin-top: 2em;
+        margin-top: 6em;
     }
 }
 
 @media only screen and (max-width: 767px) {
     .changelogs {
-        padding: .7em;
+        padding: 1em;
 
         &-details {
-            padding: .7em;
+            padding: 1em;
         }
     }
 
