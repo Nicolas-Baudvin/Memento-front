@@ -61,3 +61,14 @@
         transition: 1s;
     }
 }
+
+
+@media only screen and (max-width: 767px) {
+    .popupWindow {
+        &-text {
+            p {
+                font-size: 1em;
+            }
+        }
+    }
+}
