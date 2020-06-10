@@ -1,10 +1,8 @@
 import React from "react";
 import { Input } from 'semantic-ui-react';
 
-export default ({ setstate, state }) => {
-  return (
-    <>
-      <label htmlFor="username" className="form-label"> Pseudonyme </label>
+export default ({ setstate, state }) => (
+    <label htmlFor="username" className="form-label"> Pseudonyme
       <Input
         value={state.username}
         onChange={(e) => setstate({ ...state, username: e.target.value })}
@@ -14,6 +12,5 @@ export default ({ setstate, state }) => {
         placeholder="Votre Pseudonyme"
         icon="user"
       />
-    </>
-  );
-};
+    </label>
+);
