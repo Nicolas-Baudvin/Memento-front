@@ -67,7 +67,7 @@
         display: flex;
 
         &-login {
-            color: #bbb;
+            color: #1f1f1f;
             font-size: 4em;
             font-family: "Indie Flower", cursive;
             cursor: pointer;
@@ -78,12 +78,12 @@
             margin-bottom: 0;
 
             &:hover {
-                color: #549900;
+                color: #107ac0;
             }
         }
 
         &-signup {
-            color: #bbb;
+             color: #1f1f1f;
             font-size: 4em;
             font-family: "Indie Flower", cursive;
             cursor: pointer;
@@ -93,7 +93,7 @@
             text-align: center;
 
             &:hover {
-                color: #549900;
+                color: #107ac0;
             }
         }
 
@@ -103,7 +103,7 @@
             left: 0;
             height: 5px;
             width: 300px;
-            background-color: #549900;
+            background-color: #107ac0;
             transition: 0.5s;
         }
     }
@@ -140,7 +140,7 @@
 }
 
 .active-title {
-    color: #549900;
+    color: #107ac0;
 }
 
 .right {
