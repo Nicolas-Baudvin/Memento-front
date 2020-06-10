@@ -16,7 +16,7 @@ export default () => {
   return (
     <>
       <section className="legals">
-        <a onClick={backToHome} href=""><Icon name="arrow left" />Retour page d'accueil</a>
+        <a onClick={backToHome}><Icon name="arrow left" />Retour page d'accueil</a>
         <h1>Mentions légales</h1>
         <h2>Propriétaire</h2>
         <p>

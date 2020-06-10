@@ -17,7 +17,7 @@ export default () => {
   return (
     <>
       <div className="changelogs">
-        <a onClick={handleClickBackToHome} href=""> <Icon name="arrow left" /> Retour à l'accueil</a>
+        <a onClick={handleClickBackToHome}> <Icon name="arrow left" /> Retour à l'accueil</a>
         <ReactMarkDown source={ChangeLogs} className="changelogs-details" escapeHtml={false} />
       </div>
       <Footer />
