@@ -213,6 +213,10 @@
     .form {
         height: 100%;
 
+        &-input {
+            width: 100%;
+        }
+
         &-title {
             &-login {
                 font-size: 2em;
