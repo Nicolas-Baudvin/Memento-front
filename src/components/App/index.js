@@ -18,6 +18,8 @@ import ForgotPassword from '../ForgotPassword';
 import NewPassword from '../NewPassword';
 import EmailChange from '../EmailChange';
 import LastNews from '../LastNews';
+import LegalsMentions from '../LegalsMentions';
+
 // Styles et assets
 import './app.scss';
 import 'semantic-ui-css/semantic.min.css';
@@ -63,6 +65,9 @@ const App = () => {
         </Route>
         <Route exact path="/nouveautes/">
           <LastNews />
+        </Route>
+        <Route exact path="/mentions-legales/">
+          <LegalsMentions />
         </Route>
         <Route path="*">
           <NotFound />
