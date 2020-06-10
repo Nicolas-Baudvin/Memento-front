@@ -218,10 +218,11 @@
 @media screen and (max-width: 768px) {
     .workmenu {
         &-header {
-            padding: 1em 0;
+            padding: .5em 0;
             &-title {
                 h1 {
                     font-size: 1.3em;
+                    margin: 0;
                 }
                 img {
                     display: none;
