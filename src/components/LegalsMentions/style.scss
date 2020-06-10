@@ -1,0 +1,20 @@
+.legals {
+  max-width: 600px;
+  margin: 2em auto;
+
+  a {
+    position: absolute;
+    top: 1em;
+    left: 1em;
+    font-size: 2em;
+    color: #4183c4;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  p {
+    font-size: 1.2em;
+  }
+}
