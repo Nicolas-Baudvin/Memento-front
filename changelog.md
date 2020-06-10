@@ -1,6 +1,6 @@
 # Changelogs
 
-## V1.3.0 mise à jour non déployée ❌
+## V1.3.0 mise à jour non déployée ✔️
 
 ### **Nouvelles Fonctionnalités**
 
