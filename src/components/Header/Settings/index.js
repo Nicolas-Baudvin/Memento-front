@@ -16,7 +16,7 @@ import EditPassword from './changePassword';
 import EditEmail from './changeEmail';
 import DeleteAccount from './deleteAccount';
 
-export default ({ handleOpen, isOpen, handleClose }) => {
+export default ({ handleOpen, isOpen, handleClose, resizeIcon }) => {
   const dispatch = useDispatch();
   const { datas } = useSelector(((GlobalState) => GlobalState.userData));
   const initialState = {
@@ -48,7 +48,7 @@ export default ({ handleOpen, isOpen, handleClose }) => {
   return (
     <Modal
       trigger={<Popup
-        trigger={<Button size="huge" onClick={handleOpen} icon="user" />}
+        trigger={<Button size={resizeIcon()} onClick={handleOpen} icon="user" />}
         content="Mon compte"
         closeOnDocumentClick
         position="left center"

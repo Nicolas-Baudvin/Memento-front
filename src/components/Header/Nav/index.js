@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Popup } from 'semantic-ui-react';
 import { useHistory, useLocation } from "react-router-dom";
 
-export default ({ state, setstate, tabs }) => {
+export default ({ state, setstate, tabs, resizeIcon }) => {
   const history = useHistory();
   const { pathname } = useLocation();
 
@@ -27,10 +27,10 @@ export default ({ state, setstate, tabs }) => {
         onClose={() => setstate({ ...state, open: false })}
         onOpen={handleHelpBtn}
         open={state.open}
-        trigger={<Button icon="help circle" size="huge" />}
+        trigger={<Button icon="help circle" size={resizeIcon()} />}
       />
       <Popup
-        trigger={<Button onClick={() => history.push("/vos-tableaux/")} icon="table" size="huge" />}
+        trigger={<Button onClick={() => history.push("/vos-tableaux/")} icon="table" size={resizeIcon()} />}
         content="Vos tableaux"
       />
     </nav>

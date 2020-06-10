@@ -20,6 +20,13 @@ export default () => {
   const { datas } = useSelector((GlobalState) => GlobalState.userData);
   const { pathname } = useLocation();
 
+  const resizeIcon = () => {
+    if (window.screen.width <= 766) {
+      return "tiny";
+    }
+    return "huge";
+  };
+
   const initialState = {
     show: false,
     open: false,
@@ -55,7 +62,7 @@ export default () => {
 
   return (
     <header className="workmenu-header" style={pathname === "/vos-tableaux/" || pathname === "/vos-tableaux" ? { backgroundColor: "#2D94CF" } : {}}>
-      <Nav tabs={tabs} state={state} setstate={setstate} />
+      <Nav resizeIcon={resizeIcon} tabs={tabs} state={state} setstate={setstate} />
       <Title state={state} />
       <nav>
         {
@@ -63,10 +70,11 @@ export default () => {
             isOpen={state.isOpen}
             handleClose={handleClose}
             handleOpen={handleOpen}
+            resizeIcon={resizeIcon}
           />
         }
         <Popup
-          trigger={<Button onClick={handleClickDisconnect} icon="power off" size="huge" />}
+          trigger={<Button onClick={handleClickDisconnect} icon="power off" size={resizeIcon()} />}
           content="Déconnexion"
           position="left center"
         />
