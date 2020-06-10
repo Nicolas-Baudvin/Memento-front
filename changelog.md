@@ -15,7 +15,7 @@
 
 - Lors d'un glissé déposé des tâches, leurs déplacements pouvaient être désynchronisés
 
-## V1.3.0 mise à jour déployée ✔️
+## V1.3.0 mise à jour déployée le 10/06/2020 à 13h30 ✔️
 
 ### **Nouvelles Fonctionnalités**
 
@@ -32,7 +32,7 @@
 - Certains messages d'erreur n'apportaient pas beaucoup d'aide...
 - Un effet visuel montre qu'il est possible d'intérargir avec les listes et les tâches
 
-## V1.2.0 mise à jour déployée ✔️
+## V1.2.0 mise à jour déployée le 09/06/2020 vers 15h ✔️
 
 ### **Bugs Fix**
 
@@ -54,13 +54,13 @@
 
 - Page de chargement avant d'accéder au workspace
 
-## V1.1.1 mise à jour déployée ✔️
+## V1.1.1 mise à jour déployée le 08/06/2020 vers 15h10 ✔️
 
 ### **Bugs Fix**
 
 - Erreur critique sur la page de l'espace de travail
 
-## V1.1.0 mise à jour déployée ✔️
+## V1.1.0 mise à jour déployée le 08/06/2020 vers 15h ✔️
 
 ### **Bugs Fix**
 
