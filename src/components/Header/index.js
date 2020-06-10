@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button, Popup } from 'semantic-ui-react';
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 // Utils
 import loadPic from '../../Utils/loadPic';
@@ -20,12 +20,7 @@ export default () => {
   const { datas } = useSelector((GlobalState) => GlobalState.userData);
   const { pathname } = useLocation();
 
-  const resizeIcon = () => {
-    if (window.screen.width <= 766) {
-      return "tiny";
-    }
-    return "huge";
-  };
+  const resizeIcon = () => (window.screen.width <= 767 ? "tiny" : "huge");
 
   const initialState = {
     show: false,
@@ -48,13 +43,9 @@ export default () => {
 
   const handleClickDisconnect = () => dispatch(logOut());
 
-  const handleClose = () => {
-    setstate({ ...state, isOpen: false });
-  };
+  const handleClose = () => setstate({ ...state, isOpen: false });
 
-  const handleOpen = () => {
-    setstate({ ...state, isOpen: true });
-  };
+  const handleOpen = () => setstate({ ...state, isOpen: true });
 
   useEffect(() => {
     getLogo("/assets/logo.png");
