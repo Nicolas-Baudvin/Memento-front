@@ -1,5 +1,18 @@
 # Changelogs
 
+## V1.3.3 mise à jour déployée le 10/06/2020 à 21h34 ✔️
+
+### **Correctifs UI/UX**
+
+- Amélioration du constraste sur la page de connexion
+
+### **Améliorations diverses**
+
+- Améliorations des performances
+- Compression des images & conversion en .webp
+- SEO (meta tags)
+- Suppression de fichiers inutiles
+
 ## V1.3.2 mise à jour déployée le 10/06/2020 à 14h35 ✔️
 
 ### **Correctifs UI/UX**
