@@ -6,12 +6,14 @@ import loadPic from '../../Utils/loadPic';
 
 const links = [
   { name: "News", path: "/assets/news.webp" },
-  { name: "Contact", path: "/assets/mail.png" }
+  { name: "Contact", path: "/assets/mail.png" },
+  { name: "Légales", path: "/assets/legal.webp" }
 ];
 
 export default () => {
   const [newsPic, setNewsPic] = useState();
   const [mailPic, setMailPic] = useState();
+  const [legPic, setLegPic] = useState();
   const history = useHistory();
 
   const getNewsPic = async (img) => {
@@ -25,11 +27,17 @@ export default () => {
         setMailPic(pic);
         break;
       }
+      case "Légales": {
+        setLegPic(pic);
+        break;
+      }
       default: {
         break;
       }
     }
   };
+
+  const GoToLegalsMentions = () => history.push("/mentions-legales/");
 
   const handleClickNewsPic = () => history.push("/nouveautes/");
 
@@ -49,7 +57,13 @@ export default () => {
       <div className="footer-block">
         <Popup
           trigger={<a href="mailto:support@mymemento.fr"><img src={mailPic} alt="support@mymemento.fr" /></a>}
-          content="Contactez nous !"
+          content="Contactez moi !"
+        />
+      </div>
+      <div className="footer-block">
+        <Popup
+          trigger={<img onClick={GoToLegalsMentions} src={legPic} alt="mentions légales" />}
+          content="Mentions légales"
         />
       </div>
     </footer>
