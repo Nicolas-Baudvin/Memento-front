@@ -1,6 +1,6 @@
 # Changelogs
 
-## V1.3.1 mise à jour déployée ✔️
+## V1.3.1 mise à jour déployée le 10/06/2020 à 13h34 ✔️
 
 ### **Bugs Fix**
 
