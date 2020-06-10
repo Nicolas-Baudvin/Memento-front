@@ -16,6 +16,13 @@
         box-shadow: 0 2px 2px 0px rgba(0, 0, 0, .4);
         background-color: #fff;
         padding: .5em;
+        transition: .3s;
+
+        &:hover {
+            box-shadow: 0 0 15px rgba(0, 0, 0, .4);
+            transform: translate(0, -2px);
+            transition: .3s;
+        }
 
         &-assigned {
             font-size: .8em;

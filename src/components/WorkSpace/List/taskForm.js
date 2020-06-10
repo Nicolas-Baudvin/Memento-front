@@ -19,7 +19,7 @@ const TaskForm = ({ list }) => {
   return (
     <form onSubmit={addTaskToList(list._id, list)} className="list-tasks-input">
       <TextArea placeholder="Votre tâche ..." />
-      <Button content="Nouvelle tâche" primary icon="add" />
+      <Button content="Ajouter la tâche" primary icon="add" />
     </form>
   );
 };
