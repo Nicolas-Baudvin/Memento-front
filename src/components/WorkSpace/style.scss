@@ -17,11 +17,6 @@
         padding: 1em;
         min-height: 90vh;
 
-        .ui.labeled.icon.button,
-        .ui.labeled.icon.buttons .button {
-            position: unset;
-        }
-
         &-header {
             width: max-content;
             display: flex;
@@ -34,15 +29,6 @@
 
             &-menuBtn {
                 margin-right: 2em !important;
-            }
-
-            &-members {
-                display: flex;
-                position: absolute;
-                top: 1em;
-                right: 1em;
-                width: 20rem;
-                justify-content: space-between;
             }
         }
 
