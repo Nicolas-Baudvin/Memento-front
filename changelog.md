@@ -1,5 +1,14 @@
 # Changelogs
 
+## V1.3.2 mise à jour déployée le 10/06/2020 à 14h35 ✔️
+
+### **Correctifs UI/UX**
+
+- Le sous titre sur la page de connexion pouvait être coupé en deux sur certains écrans de smartphone.
+- Les icones de l'entête sont désormais plus petites sur les plus petits écrans.
+- Le bouton de fermeture était mal placé sur certains écrans dans la modale "Mon Compte"
+- Le lien de retour était mal placé sur certains écrans sur la page Mentions Légales
+
 ## V1.3.1 mise à jour déployée le 10/06/2020 à 13h34 ✔️
 
 ### **Bugs Fix**
