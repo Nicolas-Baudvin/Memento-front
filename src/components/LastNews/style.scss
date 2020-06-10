@@ -1,6 +1,6 @@
 .changelogs {
-    padding: 1em;
     a {
+        position: absolute;
         align-self: flex-start;
         padding: 2em;
         font-size: 1.5em;
@@ -11,5 +11,10 @@
 
     li {
         list-style-type: disc !important;
+    }
+
+    &-details {
+        background-color: #fff;
+        padding: 6em;
     }
 }

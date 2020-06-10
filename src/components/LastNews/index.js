@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom';
 
 // Md file
 import ChangeLogs from '../../../changelog.md';
+import Footer from '../Footer';
 // Styles
 import './style.scss';
 
@@ -14,9 +15,12 @@ export default () => {
   const handleClickBackToHome = () => history.push("/");
 
   return (
-    <div className="changelogs">
-      <a onClick={handleClickBackToHome} href=""> <Icon name="arrow left" /> Retour à l'accueil</a>
-      <ReactMarkDown source={ChangeLogs} escapeHtml={false} />
-    </div>
+    <>
+      <div className="changelogs">
+        <a onClick={handleClickBackToHome} href=""> <Icon name="arrow left" /> Retour à l'accueil</a>
+        <ReactMarkDown source={ChangeLogs} className="changelogs-details" escapeHtml={false} />
+      </div>
+      <Footer />
+    </>
   );
 };
