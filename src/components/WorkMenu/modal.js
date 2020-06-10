@@ -9,13 +9,13 @@ export default ({
   handleOpen, handleClose, state, handleChangeTabName, handleClickImg, handleSubmitNewTab
 }) => {
   const imgPath = [
-    "/assets/tab-bg1.jpg",
-    "/assets/tab-bg2.jpg",
-    "/assets/tab-bg3.jpg",
-    "/assets/tab-bg4.jpg",
-    "/assets/tab-bg5.jpg",
-    "/assets/tab-bg6.jpg",
-    "/assets/tab-bg7.jpg",
+    "/assets/tab-bg1.webp",
+    "/assets/tab-bg2.webp",
+    "/assets/tab-bg3.webp",
+    "/assets/tab-bg4.webp",
+    "/assets/tab-bg5.webp",
+    "/assets/tab-bg6.webp",
+    "/assets/tab-bg7.webp",
   ];
   return (
     <Modal
