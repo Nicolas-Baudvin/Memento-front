@@ -1,5 +1,11 @@
 # Changelogs
 
+## V1.3.1 mise à jour déployée ✔️
+
+### **Bugs Fix**
+
+- Lors d'un glissé déposé des tâches, leurs déplacements pouvaient être désynchronisés
+
 ## V1.3.0 mise à jour déployée ✔️
 
 ### **Nouvelles Fonctionnalités**
