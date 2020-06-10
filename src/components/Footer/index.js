@@ -5,9 +5,9 @@ import { useHistory } from 'react-router-dom';
 import loadPic from '../../Utils/loadPic';
 
 const links = [
-  { name: "News", path: "/assets/news.webp" },
-  { name: "Contact", path: "/assets/mail.png" },
-  { name: "Légales", path: "/assets/legal.webp" }
+  { name: "News", path: "/assets/news.jpg" },
+  { name: "Contact", path: "/assets/mail.jpg" },
+  { name: "Légales", path: "/assets/legal.jpg" }
 ];
 
 export default () => {
