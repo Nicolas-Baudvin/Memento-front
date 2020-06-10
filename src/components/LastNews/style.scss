@@ -3,7 +3,12 @@
         position: absolute;
         align-self: flex-start;
         padding: 2em;
-        font-size: 1.5em;
+        font-size: 2em;
+        color: #4183c4;
+
+        &:hover {
+            text-decoration: underline;
+        }
     }
     display: flex;
     flex-direction: column;
@@ -16,5 +21,6 @@
     &-details {
         background-color: #fff;
         padding: 6em;
+        margin-top: 2em;
     }
 }
