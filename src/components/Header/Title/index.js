@@ -10,7 +10,7 @@ export default ({ state }) => {
         state.logo && <img className="workmenu-header-title-logo" src={state.logo} alt="logo" />
       }
 
-      <h1>Memento</h1>
+      <h1>My Memento</h1>
     </div>
 );
 };
