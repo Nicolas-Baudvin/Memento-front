@@ -6,7 +6,7 @@ import Registration from "../Login";
 import Footer from '../Footer';
 
 
-export default () => (
+export default ({ isConnected }) => (
   <>
     <main className="home">
       <h1 className="home-title">Bienvenue sur <strong>My Memento</strong></h1>
