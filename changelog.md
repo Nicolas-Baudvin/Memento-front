@@ -1,5 +1,26 @@
 # Changelogs
 
+## V1.4.0 mise à jour non déployée ❌
+ **tips** : Ceci est la dernière mise à jour majeure avant la 2.0.
+
+## **Bugs Fix**
+
+- Plusieurs corrections mineures
+
+### **Correctifs UX**
+
+- Page de chargement avant l'affichage du menu des tableaux
+- Ajout d'une icône de chargement sur le bouton de la page de Connexion lors d'une inscription ou connexion
+- Amélioration globale de l'accessibilité
+- Correction orthographique
+
+### **Améliorations diverses**
+
+- Amélioration du SEO
+- Grosse amélioration des performances :
+  - Compression gzip côté serveur de tous les fichiers
+  - Mise en cache des assets
+
 ## V1.3.3 mise à jour déployée le 10/06/2020 à 21h34 ✔️
 
 ### **Correctifs UI/UX**
