@@ -10,7 +10,7 @@ import "./style.scss";
 import Header from "../Header";
 import SideActionMenu from './SideActionMenu';
 import WorkspaceBody from './WorkspaceBody';
-import LoadPage from "./LoadPage";
+import LoadPage from "../LoadPage";
 
 // Hooks
 import useSearch from '../../hooks/useSearch';
@@ -76,7 +76,7 @@ const WorkSpace = ({ isInvited }) => {
   }, [currentTab]);
 
   return (
-    active ? <LoadPage active={active} /> : <SearchContext.Provider value={search}>
+    active ? <LoadPage title="Chargement de votre espace de travail en cours..." active={active} /> : <SearchContext.Provider value={search}>
       <div data-tabid={id} className="workspace" style={{ backgroundImage: `url(../../../${currentTab && currentTab.imgPath})` }}>
         <Header />
         <div className="container">
