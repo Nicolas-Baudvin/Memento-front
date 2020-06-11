@@ -45,7 +45,7 @@ export default ({ openThisTab }) => {
               onCancel={handleCancel}
               onConfirm={() => handleConfirm()}
               size="small"
-              content="Toutes les listes et tâches liées à ce tableau seront définitivement perdus. Êtes vous sûr de vouloir continuer ?"
+              content="Toutes les listes et tâches liées à ce tableau seront définitivement perdues. Êtes vous sûr de vouloir continuer ?"
               closeIcon
               cancelButton="Annuler"
             />

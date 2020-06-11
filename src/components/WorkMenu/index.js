@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./style.scss";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // Actions
 import { myTabs } from "../../store/Tabs/actions";
@@ -11,6 +11,7 @@ import { disconnectFromChannel } from "../../store/Socket/actions";
 import Header from '../Header';
 import MyTabs from './MyTabs';
 import Footer from '../Footer';
+import LoadPage from '../LoadPage';
 
 export default () => {
   const dispatch = useDispatch();
@@ -21,8 +22,10 @@ export default () => {
     imgSelected: false,
     imgPath: false
   };
+  const { tabs } = useSelector((GlobalState) => GlobalState.mytabs);
   const [state, setstate] = useState(initialState);
 
+  console.log(tabs);
   const handleOpen = () => setstate({ ...state, isOpen: true });
 
   useEffect(() => {
@@ -32,11 +35,11 @@ export default () => {
   }, []);
 
   return (
-    <>
+    tabs.length === 0 ? <LoadPage active title="Chargement de vos tableaux en cours..." /> : <>
       <div className="workmenu">
         <Header handleOpen={handleOpen} />
         <main className="workmenu-body">
-          <MyTabs state={state} setstate={setstate} handleOpen={handleOpen} />
+          <MyTabs tabs={tabs} state={state} setstate={setstate} handleOpen={handleOpen} />
         </main>
       </div>
       <Footer />

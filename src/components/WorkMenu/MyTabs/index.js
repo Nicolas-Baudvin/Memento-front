@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 // Actions
@@ -13,10 +13,10 @@ import FavTabs from './FavTabs';
 
 export default ({
   setstate,
-  state
+  state,
+  tabs
 }) => {
   const refBtn = React.createRef();
-  const { tabs } = useSelector((GlobalState) => GlobalState.mytabs);
   const history = useHistory();
   const dispatch = useDispatch();
 
