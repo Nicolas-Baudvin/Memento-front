@@ -1,6 +1,7 @@
 # Changelogs
 
 ## V1.4.0 mise à jour non déployée ❌
+
  **tips** : Ceci est la dernière mise à jour majeure avant la 2.0.
 
 ## **Bugs Fix**
@@ -17,6 +18,7 @@
 ### **Améliorations diverses**
 
 - Amélioration du SEO
+- Améliorations de la sécurité
 - Grosse amélioration des performances :
   - Compression gzip côté serveur de tous les fichiers
   - Mise en cache des assets
