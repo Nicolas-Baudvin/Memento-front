@@ -17,6 +17,12 @@
         padding: 1em;
         min-height: 90vh;
 
+        &-title {
+            font-family: "Indie-Flower", cursive;
+            color: white;
+            text-align: center;
+        }
+
         &-header {
             width: max-content;
             display: flex;
@@ -24,7 +30,7 @@
 
             &-input {
                 margin-left: 2em !important;
-                position: unset !important
+                position: unset !important;
             }
 
             &-menuBtn {
@@ -538,6 +544,10 @@
         &-body {
             &-invitation {
                 margin: 1em 0;
+            }
+
+            &-title {
+                font-size: 1em !important;
             }
 
             &-lists {

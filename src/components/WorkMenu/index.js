@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./style.scss";
 import { useDispatch, useSelector } from "react-redux";
+import { Helmet } from 'react-helmet';
 
 // Actions
 import { myTabs } from "../../store/Tabs/actions";
@@ -36,6 +37,10 @@ export default () => {
 
   return (
     tabs.length === 0 ? <LoadPage active title="Chargement de vos tableaux en cours..." /> : <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Memento - Vos Tableaux</title>
+      </Helmet>
       <div className="workmenu">
         <Header handleOpen={handleOpen} />
         <main className="workmenu-body">

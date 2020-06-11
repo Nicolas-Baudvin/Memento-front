@@ -19,7 +19,7 @@ export default ({
   ];
   return (
     <Modal
-      trigger={<Button onClick={handleOpen} icon="add" content="Créer un tableau" />}
+      trigger={<Button onClick={handleOpen} content="Créer un tableau" />}
       open={state.isOpen}
       onClose={handleClose}
       basic

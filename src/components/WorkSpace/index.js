@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { Helmet } from 'react-helmet';
 
 
 import "./style.scss";
@@ -77,6 +78,10 @@ const WorkSpace = ({ isInvited }) => {
 
   return (
     active ? <LoadPage title="Chargement de votre espace de travail en cours..." active={active} /> : <SearchContext.Provider value={search}>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Memento - Votre Espace de travail</title>
+      </Helmet>
       <div data-tabid={id} className="workspace" style={{ backgroundImage: `url(../../../${currentTab && currentTab.imgPath})` }}>
         <Header />
         <div className="container">
