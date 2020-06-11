@@ -1,7 +1,7 @@
 // Dependances
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from 'semantic-ui-react';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import "./style.scss";
 
@@ -19,6 +19,7 @@ import { failMessage } from "../../store/Popup/actions";
 
 export default () => {
   const dispatch = useDispatch();
+  const { message } = useSelector((GlobalState) => GlobalState.popup);
   const initialState = {
     currentView: "Login",
     email: '',
@@ -28,6 +29,7 @@ export default () => {
   };
 
   const [state, setstate] = useState(initialState);
+  const [loading, setLoading] = useState(false);
 
   const hanldeSubmitForm = (e) => {
     e.preventDefault();
@@ -38,6 +40,7 @@ export default () => {
     if (currentView === "Login") {
       if (email && password) {
         dispatch(submitLoginForm({ email, password }));
+        setLoading(true);
       }
       else {
         dispatch(failMessage("Tous les champs sont obligatoires"));
@@ -48,12 +51,19 @@ export default () => {
         dispatch(submitSignupForm({
           email, password, confPass, username
         }));
+        setLoading(true);
       }
       else {
         dispatch(failMessage("Tous les champs sont obligatoires"));
       }
     }
   };
+
+  useEffect(() => {
+    if (message.length) {
+      setLoading(false);
+    }
+  }, [message]);
 
   return (
     <form onSubmit={hanldeSubmitForm} className="form">
@@ -74,7 +84,7 @@ export default () => {
         state.currentView === "Login" && <Links setstate={setstate} state={state} />
       }
 
-      <Button type="submit" className="form-btn" content="Connexion" primary />
+      <Button loading={loading} type="submit" className="form-btn" content="Connexion" primary />
 
     </form>
   );
