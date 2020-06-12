@@ -6,6 +6,19 @@ export const NEW_CURRENT_FRIEND_TAB = "action-NEW_CURRENT_FRIEND_TAB";
 export const UPDATE_TAB_NAME = "action/UPDATE_TAB_NAME";
 export const UPDATE_TAB_PIC = "action/UPDATE_TAB_PIC";
 export const UPDATE_TAB = "action/UPDATE_TAB";
+export const NEW_PUBLIC_CURRENT_TAB = "NEW_PUBLIC_CURRENT_TAB";
+export const CHANGE_TAB_STATUS = "CHANGE_TAB_STATUS";
+
+export const changeTabStatus = (isPublic, tabId) => ({
+  type: CHANGE_TAB_STATUS,
+  isPublic,
+  tabId
+});
+
+export const newPublicCurrentTab = (data) => ({
+  type: NEW_PUBLIC_CURRENT_TAB,
+  data
+});
 
 export const updateTab = (tab) => ({
   type: UPDATE_TAB,

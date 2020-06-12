@@ -7,7 +7,7 @@ import errorHandler from '../../Utils/Functions/AxiosErrorHandler';
 
 // actions
 import {
-  NEW_TAB, MY_TABS, DELETE_TAB, NEW_CURRENT_TAB, NEW_CURRENT_FRIEND_TAB, UPDATE_TAB_PIC, UPDATE_TAB_NAME, UPDATE_TAB
+  NEW_TAB, MY_TABS, DELETE_TAB, NEW_CURRENT_TAB, NEW_CURRENT_FRIEND_TAB, UPDATE_TAB_PIC, UPDATE_TAB_NAME, UPDATE_TAB, NEW_PUBLIC_CURRENT_TAB, MAKE_TAB_PUBLIC, CHANGE_TAB_STATUS
 } from './actions';
 import { successMessage, failMessage } from '../Popup/actions';
 import { sendTab } from '../Socket/actions';
@@ -20,6 +20,55 @@ export default (store) => (next) => (action) => {
       const cryptedTab = cryptUserData(action.tab);
       localStorage.setItem('currentTab', cryptedTab);
       next(action);
+      break;
+    }
+    case CHANGE_TAB_STATUS: {
+      const { isPublic, tabId } = action;
+      const { token } = state.userData.datas;
+      axios({
+        method: "post",
+        url: `${process.env.API_URL}tab/change-status/`,
+        data: {
+          isPublic,
+          tabId
+        },
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+        .then((res) => {
+          console.log(res);
+          const cryptedTab = cryptUserData(res.data.tab);
+          localStorage.setItem("currentTab", cryptedTab);
+          action.tab = res.data.tab;
+          next(action);
+        })
+        .catch((err) => errorHandler(err, store.dispatch));
+      break;
+    }
+    case NEW_PUBLIC_CURRENT_TAB: {
+      const { id: tabId, history } = action.data;
+
+      axios({
+        method: "post",
+        url: `${process.env.API_URL}tab/public-tab/`,
+        data: {
+          tabId,
+          isPublic: true
+        }
+      })
+        .then((res) => {
+          const tab = res.data.tab;
+          if (res.data.lists.length) {
+            tab.lists = res.data.lists;
+          }
+          if (res.data.tasks.length) {
+            tab.tasks = res.data.tasks;
+          }
+          action.tab = tab;
+          next(action);
+        })
+        .catch((err) => errorHandler(err, store.dispatch, history));
       break;
     }
     case UPDATE_TAB_PIC: {
