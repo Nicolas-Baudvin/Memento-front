@@ -16,10 +16,10 @@ export default () => (
       <title>Memento - Page de connexion</title>
       <link rel="canonical" href="https://www.mymemento.fr/" />
     </Helmet>
-    <main className="home">
-      <h1 className="home-title">Bienvenue sur <strong>My Memento</strong></h1>
-      <h3 className="home-subtitle">Votre gestionnaire de listes de tâches !</h3>
-      <div className="home-registration">
+    <main className="homepage">
+      <h1 className="homepage-title">Bienvenue sur <strong>My Memento</strong></h1>
+      <h3 className="homepage-subtitle">Votre gestionnaire de listes de tâches !</h3>
+      <div className="homepage-registration">
         <Registration />
       </div>
     </main>
