@@ -1,8 +1,12 @@
 # Changelogs
 
-## V1.4.0 mise à jour non déployée ❌
+## V1.4.0 mise à jour déployée ✔️
 
- **tips** : Ceci est la dernière mise à jour majeure avant la 2.0.
+ **tips** : Ceci est la dernière mise à jour majeure avant la 2.0. Les bugs fixs continueront à être déployés
+
+## **Nouvelles Fonctionnalités**
+
+- Possibilité de rendre son tableau publique et d'y inviter n'importe qui. Les invités n'ont aucun droit sur votre tableau.
 
 ## **Bugs Fix**
 
