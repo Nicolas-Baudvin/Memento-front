@@ -38,6 +38,7 @@ J'ai créer ce projet dans le but de monter en compétences sur les technologies
     | Système de droits                                                | ✔️             |
     | Site Responsive                                                  | ✔️             |
     | Changement d'email, oublie de mot de passe                       | ✔️             |
+    |Rendre son tableau Publique| ✔️|
     | Tests                                                            | en cours        |
 
  4. **ChangeLog**
