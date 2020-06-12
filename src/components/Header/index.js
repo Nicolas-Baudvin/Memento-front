@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button, Popup } from 'semantic-ui-react';
 import { useSelector, useDispatch } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 
 // Utils
 import loadPic from '../../Utils/loadPic';
@@ -14,7 +14,8 @@ import Nav from './Nav';
 import Title from './Title';
 import Settings from './Settings';
 
-export default () => {
+export default ({ isPublic }) => {
+  const history = useHistory();
   const dispatch = useDispatch();
   const { tabs } = useSelector((GlobalState) => GlobalState.mytabs);
   const { datas } = useSelector((GlobalState) => GlobalState.userData);
@@ -53,22 +54,31 @@ export default () => {
 
   return (
     <header className="workmenu-header" style={pathname === "/vos-tableaux/" || pathname === "/vos-tableaux" ? { backgroundColor: "#2D94CF" } : {}}>
-      <Nav resizeIcon={resizeIcon} tabs={tabs} state={state} setstate={setstate} />
+      <Nav isPublic={isPublic} resizeIcon={resizeIcon} tabs={tabs} state={state} setstate={setstate} />
       <Title state={state} />
       <nav>
         {
-          datas && <Settings
+          datas && !isPublic && <Settings
             isOpen={state.isOpen}
             handleClose={handleClose}
             handleOpen={handleOpen}
             resizeIcon={resizeIcon}
           />
         }
-        <Popup
-          trigger={<Button onClick={handleClickDisconnect} icon="power off" size={resizeIcon()} />}
-          content="Déconnexion"
-          position="left center"
-        />
+        {
+          isPublic && !datas && <Popup
+            trigger={<Button onClick={() => history.push("/")} icon="home" size={resizeIcon()} />}
+            content="Accueil"
+            position="left center"
+          />
+        }
+        {
+          datas && <Popup
+            trigger={<Button onClick={handleClickDisconnect} icon="power off" size={resizeIcon()} />}
+            content="Déconnexion"
+            position="left center"
+          />
+        }
       </nav>
     </header>
   );

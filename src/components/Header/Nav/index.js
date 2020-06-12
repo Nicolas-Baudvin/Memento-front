@@ -2,11 +2,16 @@ import React from "react";
 import { Button, Popup } from 'semantic-ui-react';
 import { useHistory, useLocation } from "react-router-dom";
 
-export default ({ state, setstate, tabs, resizeIcon }) => {
+export default ({
+  state, setstate, tabs, resizeIcon, isPublic
+}) => {
   const history = useHistory();
   const { pathname } = useLocation();
 
   const handleHelpBtn = () => {
+    if (isPublic) {
+      return setstate({ ...state, content: "Bienvenue sur MyMemento ! Vous êtes sur un tableau public. Vous n'avez donc que très peu d'intéractions possibles. Connectez vous pour accéder aux autres fonctionnalités"})
+    }
     if (pathname === "/vos-tableaux/") {
       if (!tabs.length) {
         return setstate({ ...state, content: "Pour commencer, Cliquez sur créer un tableau, puis donnez lui le nom et l'image de fond que vous souhaitez. Ne vous en faites pas, vous pourrez les changer ensuite !", open: true });
@@ -29,10 +34,12 @@ export default ({ state, setstate, tabs, resizeIcon }) => {
         open={state.open}
         trigger={<Button icon="help circle" size={resizeIcon()} />}
       />
-      <Popup
-        trigger={<Button onClick={() => history.push("/vos-tableaux/")} icon="table" size={resizeIcon()} />}
-        content="Vos tableaux"
-      />
+      {
+        !isPublic && <Popup
+          trigger={<Button onClick={() => history.push("/vos-tableaux/")} icon="table" size={resizeIcon()} />}
+          content="Vos tableaux"
+        />
+      }
     </nav>
   );
 };
