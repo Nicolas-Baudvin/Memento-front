@@ -9,6 +9,8 @@ import lastActions from './ActionsOnWorkSpace/reducer';
 import myfavs from './Favs/reducer';
 import chat from './Chat/reducer';
 
+import { LOGOUT } from "./Registration/actions";
+
 const appReducer = combineReducers({
   userData,
   popup,
@@ -23,7 +25,7 @@ const appReducer = combineReducers({
 
 const rootReducer = (state, action) => {
 
-  if (action.type === "LOGOUT") {
+  if (action.type === LOGOUT) {
     state = {};
   }
   return appReducer(state, action);
