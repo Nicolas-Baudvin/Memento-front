@@ -50,9 +50,9 @@ export const checkImportance = (color) => {
   }
 };
 
-const Tasks = ({ tasks, list }) => (
+const Tasks = ({ tasks, list, isPublic }) => (
   tasks.sort((a, b) => a.order - b.order).map((task) => task.listId === list._id
-  && <Draggable index={task.order} key={task._id} draggableId={task._id}>
+  && <Draggable isDragDisabled={isPublic} index={task.order} key={task._id} draggableId={task._id}>
     {
       (provided) => <div
         style={{ backgroundColor: provided.isDraggingOver ? 'blue' : 'white' }}
@@ -68,7 +68,9 @@ const Tasks = ({ tasks, list }) => (
         />
         <div className="tasks-item-main">
           <p className="show">{task.title}</p>
-          <Menu taskId={task._id} task={task} list={list} />
+          {
+            !isPublic && <Menu taskId={task._id} task={task} list={list} />
+          }
         </div>
         {
           task.assigned && <div className="tasks-item-assigned">Assignée à <span> {task.assigned} </span></div>

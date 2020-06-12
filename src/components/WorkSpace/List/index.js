@@ -16,7 +16,7 @@ import './style.scss';
 // Context
 import SearchContext from './searchContext';
 
-const List = ({ isInvited, tasks, lists, currentTab }) => {
+const List = ({ isInvited, tasks, lists, currentTab, isPublic }) => {
   const search = useContext(SearchContext);
   const dispatch = useDispatch();
   const initialState = {
@@ -46,13 +46,13 @@ const List = ({ isInvited, tasks, lists, currentTab }) => {
 
   return (
     lists.length > 0 && lists.sort((a, b) => a.order - b.order).map((list) => currentTab._id === list.tabId && (
-      <Draggable key={list._id} draggableId={list._id} index={list.order}>
+      <Draggable isDragDisabled={isPublic} key={list._id} draggableId={list._id} index={list.order}>
         {(provided) => (
           <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} data-order={list.order} className="list">
             <ListHeader
               list={list}
             />
-            <TasksContainer state={state} list={list} />
+            <TasksContainer isPublic={isPublic} state={state} list={list} />
           </div>
         )}
       </Draggable>))

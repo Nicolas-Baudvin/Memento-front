@@ -8,7 +8,7 @@ import List from "../List";
 import { reorderLists } from '../../../store/Lists/actions';
 import { updateOrder } from '../../../store/Tasks/actions';
 
-export default ({ isInvited, currentTab, }) => {
+export default ({ isInvited, currentTab, isPublic }) => {
   const dispatch = useDispatch();
   const { tab } = useSelector((GlobalState) => GlobalState.sockets.currentSocket);
   const { lists } = useSelector((GlobalState) => GlobalState.mylists);
@@ -133,13 +133,23 @@ export default ({ isInvited, currentTab, }) => {
     if (fLists) setSortedFriendLists(fLists.sort((a, b) => a.order - b.order));
   }, [tasks, lists, fLists, fTasks]);
 
+  useEffect(() => {
+    if (isPublic && Object.keys(currentTab).length) {
+      console.log(currentTab);
+      if (currentTab.lists && currentTab.tasks) {
+        setSortedLists(currentTab.lists.sort((a, b) => a.order - b.order));
+        setSortedTasks(currentTab.tasks.sort((a, b) => a.order - b.order));
+      }
+    }
+  }, [currentTab]);
+
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       {
-        !isInvited && Object.keys(currentTab).length > 0 && <Droppable type="column" droppableId="all-columns" direction="horizontal">
+        !isInvited && Object.keys(currentTab).length > 0 && <Droppable isDropDisabled={isPublic} type="column" droppableId="all-columns" direction="horizontal">
           {(provided) => (<div ref={provided.innerRef} {...provided.droppableProps} className="workspace-body-lists">
             {
-              sortedLists && sortedLists.length > 0 && <List tasks={sortedTasks} currentTab={currentTab} lists={sortedLists} isInvited={isInvited} />
+              sortedLists && sortedLists.length > 0 && <List isPublic={isPublic} tasks={sortedTasks} currentTab={currentTab} lists={sortedLists} isInvited={isInvited} />
             }
             {provided.placeholder}
           </div>

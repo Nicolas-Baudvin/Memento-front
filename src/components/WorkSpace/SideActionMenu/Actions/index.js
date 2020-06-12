@@ -6,14 +6,15 @@ import PropTypes from 'prop-types';
 
 // Actions
 import { addFav, deleteFav, myFavs } from "../../../../store/Favs/actions";
+import { makeMyTabPublic, makeMyTabPrivate, changeTabStatus } from '../../../../store/Tabs/actions';
 
 
 const Actions = ({ state, setstate, isInvited }) => {
   const dispatch = useDispatch();
-  const { _id: tabId } = useSelector((GlobalState) => GlobalState.mytabs.currentTab);
+  const { currentTab } = useSelector((GlobalState) => GlobalState.mytabs);
   const { favs } = useSelector((GlobalState) => GlobalState.myfavs);
 
-  const isFav = () => (favs ? favs.favTabs.filter((fav) => fav.tabId === tabId).length > 0 : false);
+  const isFav = () => (favs ? favs.favTabs.filter((fav) => fav.tabId === currentTab._id).length > 0 : false);
 
   const handleClickChangeView = (viewName) => (e) => {
     setstate({ ...state, view: viewName });
@@ -23,13 +24,13 @@ const Actions = ({ state, setstate, isInvited }) => {
     setstate({ ...state, menuIsOpen: !state.menuIsOpen });
   };
 
-  const handleClickAddToFav = () => dispatch(addFav(tabId, isInvited));
+  const handleClickAddToFav = () => dispatch(addFav(currentTab._id, isInvited));
 
-  const handleClickDeleteFav = () => dispatch(deleteFav(tabId));
+  const handleClickDeleteFav = () => dispatch(deleteFav(currentTab._id));
 
-  useEffect(() => {
-    dispatch(myFavs());
-  }, []);
+  const makeTabPublic = () => dispatch(changeTabStatus(!currentTab.isPublic, currentTab._id));
+
+  useEffect(() => dispatch(myFavs()), []);
 
   return (
     <>
@@ -55,6 +56,12 @@ const Actions = ({ state, setstate, isInvited }) => {
               !isInvited && <Popup
                 trigger={<Button onClick={handleClickChangeView("rights")} icon="checkmark box" size="huge" />}
                 content="Gérer les droits"
+              />
+            }
+            {
+              !isInvited && <Popup
+                trigger={<Button onClick={makeTabPublic} size="huge" icon="world" color={currentTab.isPublic && "yellow"} />}
+                content={!currentTab.isPublic ? "Rendre le tableau publique" : "Rendre le tableau privé"}
               />
             }
             <Popup
