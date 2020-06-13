@@ -1,37 +1,17 @@
 /* eslint-disable no-undef */
 import { expect } from 'chai';
 import React from 'react';
-import { shallow, mount } from 'enzyme';
-import sinon from 'sinon';
-import { Provider } from 'react-redux';
-import configureStore from 'redux-mock-store';
+import { shallow } from 'enzyme';
 
 import 'babel-polyfill';
 
 // Component
 import WorkSpace from '../components/WorkSpace';
-import BodyHeader from '../components/WorkSpace/BodyHeader';
-import Header from '../components/Header';
 import List from '../components/WorkSpace/List';
-
-// actions
-import { NEW_LIST, MY_LISTS } from '../store/Lists/actions';
-import { NEW_CURRENT_TAB } from '../store/Tabs/actions';
-import { NEW_SOCKET_TAB } from '../store/Socket/actions';
-
-// middlewares
-import tabsMw from '../store/Tabs/middleware';
-import userMw from '../store/Registration/middleware';
-import popupMw from '../store/Popup/middleware';
-import socketMw from '../store/Socket/middleware';
-import listMw from '../store/Lists/middleware';
-import taskMw from '../store/Tasks/middleware';
-import actionMw from '../store/ActionsOnWorkSpace/middleware';
-import favMw from '../store/Favs/middleware';
-import chatMw from '../store/Chat/middleware';
-
-// reducer
-import reducer from '../store/reducer';
+import InvitationInput from '../components/WorkSpace/BodyHeader/InvitationInput';
+import AddList from '../components/WorkSpace/BodyHeader/AddListInput';
+import LoadPage from '../components/LoadPage';
+import SearchContext from '../components/WorkSpace/List/searchContext';
 
 // import reducer from '../store/reducer';
 
@@ -66,34 +46,56 @@ jest.mock('react-redux', () => ({
   useSelector: () => jest.fn()
 }));
 
-const middlewares = [tabsMw, userMw, popupMw, socketMw, listMw, taskMw, actionMw, favMw, chatMw];
-const mockStore = configureStore(middlewares);
-
-const initialState = {};
-const store = mockStore(reducer);
 
 describe('<WorkSpace />', () => {
   describe('<WorkSpace /> Owner', () => {
     const invited = false;
     describe('<Workspace /> Tabs Testing', () => {
-      const wrapper = shallow(<WorkSpace isInvited={invited} />);
-
       it('should renders without crash', () => {
-        expect(wrapper.contains(<Header />)).to.deep.equal(true);
-        expect(wrapper.contains(<BodyHeader isInvited={invited} />)).to.deep.equal(true);
+        const wrapper = shallow(<WorkSpace
+          isPublic={false}
+          userID="mongoID"
+          currentTab={{ userID: "mongoID", _id: "tabId" }}
+          currentSocket={{ socketId: 'socketId', invitationLink: 'link' }}
+          lists={[{ _id: "1", name: "Ma liste 1", tabId: "1" }, { _id: "2", name: "Ma liste 2", tabId: "2" }]}
+          isInvited={invited}
+        />);
+
+        expect(wrapper.contains(<LoadPage active />)).to.deep.equal(true);
       });
       it("should have an invitation link", () => {
-        const childWrapper = shallow(<BodyHeader
+        const wrapper = shallow(<InvitationInput
           userID="mongoID"
           currentTab={{ userID: "mongoID", _id: "tabId" }}
           currentSocket={{ socketId: 'socketId', invitationLink: 'link' }}
           isInvited={invited}
         />);
-        const input = childWrapper.find('.workspace-body-header-popup').first();
-        expect(input.props().trigger.props.defaultValue).to.deep.equals('http://localhost:3000/join/tabId/link/');
+
+        const input = wrapper.find('.workspace-body-header-popup').first();
+        expect(input.props().trigger.props.value).to.deep.equals('https://mymemento.fr/join/tabId/link/');
       });
       it("should add a list to tab", () => {
-        
+        const contextValue = { search: '' };
+        jest.spyOn(SearchContext, 'useAppContext')
+          .mockImplementation(() => contextValue);
+        const wrapper = shallow(<AddList currentTab={{ userID: "mongoID", _id: "tabId" }} />);
+        const listWrapper = shallow(
+          <List
+            lists={[{ _id: "1", name: "Ma liste 1", tabId: "1" }, { _id: "2", name: "Ma liste 2", tabId: "2" }]}
+            tasks={[]}
+            currentTab={{ userID: "mongoID", _id: "tabId" }}
+            isPublic={false}
+            isInvited={invited}
+          />
+        );
+
+        const input = wrapper.find('.workspace-body-header-input').first();
+        const submit = wrapper.find('.workspace-body-header-input-submit').first();
+
+        input.simulate('change', { target: { value: "Ma liste 3" } });
+
+        submit.simulate('click');
+        console.log(listWrapper.debug());
       });
     });
   });
