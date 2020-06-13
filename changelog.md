@@ -1,6 +1,6 @@
 # Changelogs
 
-## V1.4.0 mise à jour déployée ✔️
+## V1.4.0 mise à jour déployée le 12/06/2020 à 15h40 ✔️
 
  **tips** : Ceci est la dernière mise à jour majeure avant la 2.0. Les bugs fixs continueront à être déployés
 
