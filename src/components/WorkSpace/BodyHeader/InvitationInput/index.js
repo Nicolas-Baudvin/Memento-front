@@ -13,7 +13,7 @@ const InvitationInput = ({ currentSocket, currentTab, copyToClipBoard }) => (
         content: 'Copier',
         onClick: copyToClipBoard
       }}
-      defaultValue={`https://mymemento.fr/join/${currentTab._id}/${currentSocket.invitationLink}/`}
+      value={`https://mymemento.fr/join/${currentTab._id}/${currentSocket.invitationLink}/`}
     />}
   />
 );

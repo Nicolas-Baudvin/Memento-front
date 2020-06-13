@@ -35,7 +35,10 @@ const App = () => {
     <Router as="div" id="app">
       <Switch>
         <Route exact path="/public/:name/:id([a-f\d]{24})/">
-          <WorkSpace isPublic isInvited={false} />
+          <WorkSpace
+            isPublic
+            isInvited={false}
+          />
         </Route>
         <Route exact path="/">
           {
@@ -49,12 +52,20 @@ const App = () => {
         </Route>
         <Route exact path="/vos-tableaux/:name/:id([a-f\d]{24})/">
           {
-            !isConnected ? <Redirect from="/vos-tableaux/:id" to="/" /> : <WorkSpace isPublic={false} isInvited={false} />
+            !isConnected ? <Redirect from="/vos-tableaux/:id" to="/" />
+              : <WorkSpace
+                isPublic={false}
+                isInvited={false}
+              />
           }
         </Route>
         <Route exact path="/join/:friendTabId/:link/">
           {
-            !isConnected ? <Redirect from="/join/:friendTabId/:link/" to="/" /> : <WorkSpace isPublic={false} isInvited />
+            !isConnected ? <Redirect from="/join/:friendTabId/:link/" to="/" />
+              : <WorkSpace
+                isPublic={false}
+                isInvited
+              />
           }
         </Route>
         <Route exact path="/oublie-mot-de-passe/">

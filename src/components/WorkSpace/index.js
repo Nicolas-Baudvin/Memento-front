@@ -18,7 +18,7 @@ import useSearch from '../../hooks/useSearch';
 
 // Actions
 import { newSocketTab, connectToTab } from "../../store/Socket/actions";
-import { myLists, publicList } from "../../store/Lists/actions";
+import { myLists } from "../../store/Lists/actions";
 
 // Context
 import SearchContext from "./List/searchContext";
