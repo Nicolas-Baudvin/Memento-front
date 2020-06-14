@@ -1,44 +1,43 @@
 import React from "react";
-import { Button, Popup } from 'semantic-ui-react';
-import { useHistory, useLocation } from "react-router-dom";
+import { Button, makeStyles } from '@material-ui/core';
+import { useHistory } from "react-router-dom";
+
+// Icons
+import TableChartIcon from '@material-ui/icons/TableChart';
+import HomeIcon from '@material-ui/icons/Home';
+
+// Components
+import Menu from './Menu';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    color: "#fff"
+  }
+}));
 
 export default ({
-  state, setstate, tabs, resizeIcon, isPublic
+  isPublic
 }) => {
   const history = useHistory();
-  const { pathname } = useLocation();
-
-  const handleHelpBtn = () => {
-    if (isPublic) {
-      return setstate({ ...state, content: "Bienvenue sur MyMemento ! Vous êtes sur un tableau public. Vous n'avez donc que très peu d'intéractions possibles. Connectez vous pour accéder aux autres fonctionnalités"})
-    }
-    if (pathname === "/vos-tableaux/") {
-      if (!tabs.length) {
-        return setstate({ ...state, content: "Pour commencer, Cliquez sur créer un tableau, puis donnez lui le nom et l'image de fond que vous souhaitez. Ne vous en faites pas, vous pourrez les changer ensuite !", open: true });
-      }
-      return setstate({ ...state, content: "Vous avez créé votre tableau ? Parfait ! Maintenant cliquez dessus pour accéder à votre espace de travail !", open: true });
-    }
-    if (pathname === `/vos-tableaux/${pathname.substring(14)}`) {
-      return setstate({ ...state, content: "Bienvenue dans votre espace de travail ! C'est ici que vous allez pouvoir créer vos listes, vos tâches et inviter vos amis. Pour commencer cliquez sur 'ajouter une liste' en haut de la page et écrivez ensuite le nom que vous voulez lui donner", open: true });
-    }
-  };
+  const classes = useStyles();
 
   return (
     <nav className="workmenu-header-nav">
-      <Popup
-        content={state.content}
-        inverted
-        on="hover"
-        onClose={() => setstate({ ...state, open: false })}
-        onOpen={handleHelpBtn}
-        open={state.open}
-        trigger={<Button icon="help circle" size={resizeIcon()} />}
-      />
       {
-        !isPublic && <Popup
-          trigger={<Button onClick={() => history.push("/vos-tableaux/")} icon="table" size={resizeIcon()} />}
-          content="Vos tableaux"
-        />
+        window.screen.width < 767 && <Menu />
+      }
+      {
+        window.screen.width > 767 && <>
+          <Button className={classes.root} variant="text" startIcon={<HomeIcon />} onClick={() => history.push("/")} icon="home">
+            Accueil
+          </Button>
+
+          {
+            !isPublic && <Button className={classes.root} variant="text" onClick={() => history.push("/vos-tableaux/")} startIcon={<TableChartIcon />}>
+              Tableaux
+            </Button>
+          }
+        </>
       }
     </nav>
   );

@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import {
-  Modal, Header, Icon, Button, Popup
+  Modal, Header, Icon, Popup
 } from 'semantic-ui-react';
+import { Button, makeStyles } from '@material-ui/core';
 import { useSelector, useDispatch } from "react-redux";
+import PersonIcon from '@material-ui/icons/Person';
 import { settingsNav } from '../../../Utils/navs';
 import { updatePassword } from "../../../store/Registration/actions";
 import { failMessage } from "../../../store/Popup/actions";
+
+// Icons
 
 // Styles
 import "./style.scss";
@@ -16,7 +20,16 @@ import EditPassword from './changePassword';
 import EditEmail from './changeEmail';
 import DeleteAccount from './deleteAccount';
 
-export default ({ handleOpen, isOpen, handleClose, resizeIcon }) => {
+const useStyles = makeStyles((theme) => ({
+  root: {
+    color: "#fff"
+  }
+}));
+
+export default ({
+  handleOpen, isOpen, handleClose, resizeIcon
+}) => {
+  const classes = useStyles();
   const dispatch = useDispatch();
   const { datas } = useSelector(((GlobalState) => GlobalState.userData));
   const initialState = {
@@ -47,13 +60,11 @@ export default ({ handleOpen, isOpen, handleClose, resizeIcon }) => {
   };
   return (
     <Modal
-      trigger={<Popup
-        trigger={<Button size={resizeIcon()} onClick={handleOpen} icon="user" />}
-        content="Mon compte"
-        closeOnDocumentClick
-        position="left center"
-        closeOnTriggerClick
-      />}
+      trigger={
+        <Button className={classes.root} variant="text" color="initial" size={resizeIcon()} onClick={handleOpen} startIcon={<PersonIcon />}>
+          Mon compte
+        </Button>
+      }
       open={isOpen}
       onClose={handleClose}
       basic
@@ -98,11 +109,6 @@ export default ({ handleOpen, isOpen, handleClose, resizeIcon }) => {
 
 
       </Modal.Content>
-      <Modal.Actions>
-        <Button color="red" onClick={handleClose} inverted>
-          <Icon name="close" /> Fermer
-        </Button>
-      </Modal.Actions>
     </Modal>
   );
 };
