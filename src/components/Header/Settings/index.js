@@ -21,13 +21,15 @@ import EditEmail from './changeEmail';
 import DeleteAccount from './deleteAccount';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    color: "#fff"
+  button: {
+    margin: '0 1em',
+    color: '#fff',
+    fontSize: '1.3em'
   }
 }));
 
 export default ({
-  handleOpen, isOpen, handleClose, resizeIcon
+  handleOpen, isOpen, handleClose
 }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -61,7 +63,7 @@ export default ({
   return (
     <Modal
       trigger={
-        <Button className={classes.root} variant="text" color="initial" size={resizeIcon()} onClick={handleOpen} startIcon={<PersonIcon />}>
+        <Button className={classes.button} variant="text" onClick={handleOpen} startIcon={<PersonIcon />}>
           Mon compte
         </Button>
       }
