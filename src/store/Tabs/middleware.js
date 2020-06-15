@@ -193,13 +193,12 @@ export default (store) => (next) => (action) => {
       break;
     }
     case NEW_TAB: {
-      const { token, username, userID } = state.userData.datas;
-      const { name, imgPath } = action.tabData;
+      const token = state.userData.datas.token;
       const data = {
-        owner: username,
-        userID,
-        name,
-        imgPath
+        userID: state.userData.datas.userID,
+        name: action.tabData.tabName,
+        imgPath: action.tabData.imgPath,
+        owner: state.userData.datas.username
       };
       axios({
         method: "POST",
@@ -236,10 +235,6 @@ export default (store) => (next) => (action) => {
             const cryptedTabs = cryptUserData(res.data.tabs);
             localStorage.setItem("tabs", cryptedTabs);
             action.tabs = res.data.tabs;
-            next(action);
-          }
-          else {
-            action.tabs = [];
             next(action);
           }
         })
