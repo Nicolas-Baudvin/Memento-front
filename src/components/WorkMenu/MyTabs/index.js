@@ -32,7 +32,7 @@ export default ({
     imgPath: path
   });
 
-  const openThisTab = (tabId, name) => {
+  const openThisTab = (tabId, name) => () => {
     dispatch(newCurrentTab(tabId));
     if (tabId) history.push(`/vos-tableaux/${name}/${tabId}/`);
   };

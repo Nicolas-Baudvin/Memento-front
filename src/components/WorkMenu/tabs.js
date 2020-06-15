@@ -1,18 +1,40 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Confirm, Icon } from 'semantic-ui-react';
+import { useSelector } from "react-redux";
+import { Card, CardHeader, CardMedia, makeStyles, Avatar } from '@material-ui/core';
 
-// Styles
+// components
+import Confirm from './Confirm';
+
+// Styles & Icons
 import "./style.scss";
 
-// actions
-import { failMessage } from "../../store/Popup/actions";
-import { deleteTab } from "../../store/Tabs/actions";
+const useStyles = makeStyles((theme) => ({
+  image: {
+    width: '250px',
+    height: '200px'
+  },
+  actions: {
+    display: 'flex',
+    justifyContent: 'space-around'
+  },
+  avatar: {
+    backgroundColor: '#6e00c8',
+  },
+  root: {
+    cursor: 'pointer',
+    '&:hover': {
+      boxShadow: '0 0 0 5px rgba(42, 191, 236, 0.5)'
+    }
+  },
+  header: {
+    cursor: 'unset'
+  }
+}));
 
 export default ({ openThisTab }) => {
+  const classes = useStyles();
   const { tabs } = useSelector((GlobalState) => GlobalState.mytabs);
-  const dispatch = useDispatch();
   const initialState = {
     open: false,
     pic: []
@@ -20,43 +42,32 @@ export default ({ openThisTab }) => {
 
   const [state, setstate] = useState(initialState);
 
-  const handleCancel = () => setstate({ ...state, open: false });
-
-  const handleConfirm = () => {
-    const tabId = state.tabId;
-    setstate({ ...state, open: false });
-
-    if (!tabId) {
-      return dispatch(failMessage("Erreur : Cette table n'existe pas."));
-    }
-    return dispatch(deleteTab(tabId));
-  };
+  const handleClick = () => setstate({ ...state, open: !state.open });
 
   return (
     <div className="workmenu-tabs">
       {
         tabs.map((tab) => (
-          <div key={tab._id} className="workmenu-tabs-item">
-            <h2 onClick={() => openThisTab(tab._id)} className="workmenu-tabs-item-title"> {tab.name} </h2>
-            <div onClick={() => setstate({ ...state, open: true, tabId: tab._id })} className="workmenu-tabs-item-delete"><Icon name="delete" color="red" /></div>
-            <Confirm
-              header="Vous êtes sur le point de supprimer un tableau"
-              open={state.open}
-              onCancel={handleCancel}
-              onConfirm={() => handleConfirm()}
-              size="small"
-              content="Toutes les listes et tâches liées à ce tableau seront définitivement perdues. Êtes vous sûr de vouloir continuer ?"
-              closeIcon
-              cancelButton="Annuler"
+          <Card className={classes.root} key={tab._id}>
+            <CardHeader
+              title={tab.name}
+              avatar={
+                <Avatar className={classes.avatar}>
+                  {tab.owner.substring(0, 1)}
+                </Avatar>
+              }
+              action={
+                <Confirm tab={tab} state={state} setstate={setstate} handleClose={handleClick} handleOpen={handleClick} />
+              }
+              className={classes.header}
             />
-            <img
-              onClick={() => openThisTab(tab._id, tab.name)}
-              className="workmenu-tabs-item-img"
-              src={tab.imgPath}
-              alt="Fond de votre tableau"
-
+            <CardMedia
+              onClick={openThisTab(tab._id, tab.name)}
+              className={classes.image}
+              image={tab.imgPath}
+              title={tab.name}
             />
-          </div>
+          </Card>
         ))
       }
     </div>
