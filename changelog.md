@@ -1,5 +1,11 @@
 # Changelogs
 
+## V1.4.1 mise à jour déployée le 15/06/2020 à 12h05
+
+## **bugs fix**
+
+- Chargement infini sur les tableaux
+
 ## V1.4.0 mise à jour déployée le 12/06/2020 à 15h40 ✔️
 
  **tips** : Ceci est la dernière mise à jour majeure avant la 2.0. Les bugs fixs continueront à être déployés
