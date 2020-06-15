@@ -120,6 +120,10 @@ export default (store) => (next) => (action) => {
             action.lists = lists;
             next(action);
           }
+          else {
+            action.lists = [];
+            next(action);
+          }
         })
         .catch((err) => errorHandler(err, store.dispatch));
       break;
