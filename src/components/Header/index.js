@@ -40,7 +40,7 @@ export default ({ isPublic }) => {
   }, []);
 
   return (
-    <header className="workmenu-header" style={pathname === "/vos-tableaux/" || pathname === "/vos-tableaux" ? { backgroundColor: "#2D94CF" } : {}}>
+    <header className="workmenu-header" style={pathname === "/vos-tableaux/" || pathname === "/vos-tableaux" ? { backgroundColor: "#6E00C8" } : {}}>
       <Title state={state} />
       <Nav state={state} setstate={setstate} isPublic={isPublic} />
     </header>

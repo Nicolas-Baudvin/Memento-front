@@ -22,7 +22,6 @@ import LegalsMentions from '../LegalsMentions';
 
 // Styles et assets
 import './app.scss';
-import 'semantic-ui-css/semantic.min.css';
 
 /**
  * Code

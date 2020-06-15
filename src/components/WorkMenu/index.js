@@ -12,7 +12,6 @@ import { disconnectFromChannel } from "../../store/Socket/actions";
 import Header from '../Header';
 import MyTabs from './MyTabs';
 import Footer from '../Footer';
-import LoadPage from '../LoadPage';
 
 export default () => {
   const dispatch = useDispatch();
@@ -21,12 +20,12 @@ export default () => {
     isOpen: false,
     tabName: '',
     imgSelected: false,
-    imgPath: false
+    imgPath: false,
+    tabNameError: ''
   };
   const { tabs } = useSelector((GlobalState) => GlobalState.mytabs);
   const [state, setstate] = useState(initialState);
 
-  console.log(tabs);
   const handleOpen = () => setstate({ ...state, isOpen: true });
 
   useEffect(() => {

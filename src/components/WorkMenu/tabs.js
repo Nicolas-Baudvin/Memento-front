@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { Card, CardHeader, CardMedia, makeStyles, Avatar } from '@material-ui/core';
+import { Card, CardHeader, CardMedia, makeStyles, Avatar, Tooltip } from '@material-ui/core';
 
 // components
 import Confirm from './Confirm';
@@ -12,7 +12,8 @@ import "./style.scss";
 const useStyles = makeStyles((theme) => ({
   image: {
     width: '250px',
-    height: '200px'
+    height: '200px',
+    cursor: 'pointer',
   },
   actions: {
     display: 'flex',
@@ -22,9 +23,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#6e00c8',
   },
   root: {
-    cursor: 'pointer',
+    margin: '0 1em',
     '&:hover': {
-      boxShadow: '0 0 0 5px rgba(42, 191, 236, 0.5)'
+      boxShadow: '0 0 15px rgba(0, 0, 0, 0.5)'
     }
   },
   header: {
@@ -56,17 +57,19 @@ export default ({ openThisTab }) => {
                   {tab.owner.substring(0, 1)}
                 </Avatar>
               }
+              subheader={tab.owner}
               action={
                 <Confirm tab={tab} state={state} setstate={setstate} handleClose={handleClick} handleOpen={handleClick} />
               }
               className={classes.header}
             />
-            <CardMedia
-              onClick={openThisTab(tab._id, tab.name)}
-              className={classes.image}
-              image={tab.imgPath}
-              title={tab.name}
-            />
+            <Tooltip title="Cliquez pour accéder à votre tableau">
+              <CardMedia
+                onClick={openThisTab(tab._id, tab.name)}
+                className={classes.image}
+                image={tab.imgPath}
+              />
+            </Tooltip>
           </Card>
         ))
       }
