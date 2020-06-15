@@ -36,7 +36,7 @@ export default () => {
   }, []);
 
   return (
-    tabs.length === 0 ? <LoadPage active title="Chargement de vos tableaux en cours..." /> : <>
+    <>
       <Helmet>
         <meta charSet="utf-8" />
         <title>Memento - Vos Tableaux</title>
