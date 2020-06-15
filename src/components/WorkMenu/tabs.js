@@ -59,7 +59,14 @@ export default ({ openThisTab }) => {
               }
               subheader={tab.owner}
               action={
-                <Confirm tab={tab} state={state} setstate={setstate} handleClose={handleClick} handleOpen={handleClick} />
+                <Confirm
+                  message="Vous êtes sur le point de supprimer le tableau et toutes les ressources qui y sont liées. En êtes vous sûr ?"
+                  tab={tab}
+                  state={state}
+                  setstate={setstate}
+                  handleClose={handleClick}
+                  handleOpen={handleClick}
+                />
               }
               className={classes.header}
             />

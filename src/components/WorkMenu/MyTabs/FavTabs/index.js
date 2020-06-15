@@ -1,9 +1,39 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Card, CardHeader, CardMedia, makeStyles, Avatar, Tooltip } from '@material-ui/core';
+
+// Actions
 import { myFavs, myFavstabs } from '../../../../store/Favs/actions';
+
+// Utils
 import loadPic from '../../../../Utils/loadPic';
 
+const useStyles = makeStyles((theme) => ({
+  image: {
+    width: '250px',
+    height: '200px',
+    cursor: 'pointer',
+  },
+  actions: {
+    display: 'flex',
+    justifyContent: 'space-around'
+  },
+  avatar: {
+    backgroundColor: '#6e00c8',
+  },
+  root: {
+    margin: '0 1em',
+    '&:hover': {
+      boxShadow: '0 0 15px rgba(0, 0, 0, 0.5)'
+    }
+  },
+  header: {
+    cursor: 'unset'
+  }
+}));
+
 export default ({ openThisTab }) => {
+  const classes = useStyles();
   const dispatch = useDispatch();
   const [state, setstate] = useState({});
   const { favs, favsTabs } = useSelector((GlobalState) => GlobalState.myfavs);
@@ -45,12 +75,27 @@ export default ({ openThisTab }) => {
     </h2>
     <div className="workmenu-tabs">
       {
-        favsTabs && favsTabs.map((item) => <div key={item._id} className="workmenu-tabs-item">
-          <img onClick={handleClickOpenTab(item)} className="workmenu-tabs-item-img" src={state[item._id]} alt="bg" />
-          <h2 onClick={handleClickOpenTab(item)} className="workmenu-tabs-item-title"> {item.name} </h2>
-        </div>)
+        favsTabs && favsTabs.map((tab) => <Card className={classes.root} key={tab._id}>
+          <CardHeader
+            title={tab.name}
+            avatar={
+              <Avatar className={classes.avatar}>
+                {tab.owner.substring(0, 1)}
+              </Avatar>
+            }
+            subheader={tab.owner}
+            className={classes.header}
+          />
+          <Tooltip title="Cliquez pour accéder à votre tableau">
+            <CardMedia
+              onClick={handleClickOpenTab(tab)}
+              className={classes.image}
+              image={tab.imgPath}
+            />
+          </Tooltip>
+        </Card>)
       }
-      { 
+      {
         !favsTabs && <p>Vous n'avez pour le moment aucun tableau dans vos favoris</p>
       }
     </div>

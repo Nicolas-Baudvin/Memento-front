@@ -13,7 +13,7 @@ import { useDispatch } from 'react-redux';
 import { failMessage } from "../../../store/Popup/actions";
 import { deleteTab } from "../../../store/Tabs/actions";
 
-export default ({ state, setstate, handleClose, handleOpen, tab }) => {
+export default ({ state, setstate, handleClose, handleOpen, tab, message }) => {
   const dispatch = useDispatch();
   const handleConfirm = () => {
     setstate({ ...state, open: false });
@@ -40,7 +40,7 @@ export default ({ state, setstate, handleClose, handleOpen, tab }) => {
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Vous êtes sur le point de supprimer le tableau et toutes les ressources qui y sont liées. En êtes vous sûr ?
+            {message}
           </DialogContentText>
         </DialogContent>
         <DialogActions>

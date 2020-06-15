@@ -1,15 +1,37 @@
 import React, { useEffect } from "react";
-import { Popup, Button } from "semantic-ui-react";
+import { IconButton, Tooltip, makeStyles } from "@material-ui/core";
 import cx from 'classnames';
 import { useDispatch, useSelector } from "react-redux";
 import PropTypes from 'prop-types';
 
+// Icons
+import MenuIcon from '@material-ui/icons/Menu';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import SmsIcon from '@material-ui/icons/Sms';
+import TableChartIcon from '@material-ui/icons/TableChart';
+import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
+import StarIcon from '@material-ui/icons/Star';
+import PublicIcon from '@material-ui/icons/Public';
+
 // Actions
 import { addFav, deleteFav, myFavs } from "../../../../store/Favs/actions";
-import { makeMyTabPublic, makeMyTabPrivate, changeTabStatus } from '../../../../store/Tabs/actions';
+import { changeTabStatus } from '../../../../store/Tabs/actions';
+
+const useStyles = makeStyles((theme) => ({
+  button: {
+    backgroundColor: 'rgba(0,0,0,0)',
+    color: '#fff',
+    transition: '.2s ease-in-out',
+    '&:hover': {
+      backgroundColor: 'rgba(0,0,0,0.3)'
+    }
+  },
+  icons: {}
+}));
 
 
 const Actions = ({ state, setstate, isInvited }) => {
+  const classes = useStyles();
   const dispatch = useDispatch();
   const { currentTab } = useSelector((GlobalState) => GlobalState.mytabs);
   const { favs } = useSelector((GlobalState) => GlobalState.myfavs);
@@ -35,46 +57,56 @@ const Actions = ({ state, setstate, isInvited }) => {
   return (
     <>
       <nav className="sideActionMenu-nav">
-        <Button size="huge" className="first" icon="bars" onClick={handleClickOpenMenu} />
+        <Tooltip title="Ouvrir/Fermer le menu">
+          <IconButton className={classes.button} onClick={handleClickOpenMenu}>
+            <MenuIcon fontSize="large" className={classes.icon} />
+          </IconButton>
+        </Tooltip>
         {
           state.menuIsOpen && <>
             {
-              state.view !== "last-actions" && <Popup
-                trigger={<Button onClick={handleClickChangeView('last-actions')} className="sideActionMenu-nav-btn" size="huge" icon="arrow alternate circle left" />}
-                content="Retour au menu principal"
-              />
+              state.view !== "last-actions"
+              && <Tooltip title="Retour menu principal">
+                <IconButton onClick={handleClickChangeView('last-actions')} className={classes.button}>
+                  <ArrowBackIcon fontSize="large" className={classes.icon} />
+                </IconButton>
+              </Tooltip>
             }
-            <Popup
-              trigger={<Button onClick={handleClickChangeView('chat')} size="huge" icon="wechat" color="vk" />}
-              content="Accéder au chat"
-            />
-            <Popup
-              trigger={<Button onClick={handleClickChangeView('tabInfo')} size="huge" icon="table" color="linkedin" />}
-              content="À propos de ce tableau"
-            />
+            <Tooltip title="Discussion instantanée">
+              <IconButton onClick={handleClickChangeView('chat')} className={classes.button}>
+                <SmsIcon fontSize="large" className={classes.icon} />
+              </IconButton>
+            </Tooltip>
+
+            <Tooltip title="Informations du tableau">
+              <IconButton onClick={handleClickChangeView('tabInfo')} className={classes.button}>
+                <TableChartIcon fontSize="large" />
+              </IconButton>
+            </Tooltip>
             {
-              !isInvited && <Popup
-                trigger={<Button onClick={handleClickChangeView("rights")} icon="checkmark box" size="huge" />}
-                content="Gérer les droits"
-              />
+              !isInvited
+              && <Tooltip title="Droits des invités">
+                <IconButton onClick={handleClickChangeView("rights")} className={classes.button}>
+                  <SupervisorAccountIcon fontSize="large" />
+                </IconButton>
+              </Tooltip>
             }
             {
-              !isInvited && <Popup
-                trigger={<Button onClick={makeTabPublic} size="huge" icon="world" color={currentTab.isPublic && "yellow"} />}
-                content={!currentTab.isPublic ? "Rendre le tableau publique" : "Rendre le tableau privé"}
-              />
+              !isInvited
+              && <Tooltip title="Rendre le tableau publique">
+                <IconButton onClick={makeTabPublic} className={classes.button}>
+                  <PublicIcon fontSize="large" />
+                </IconButton>
+              </Tooltip>
             }
-            <Popup
-              trigger={
-                <Button
-                  icon="star"
-                  size="huge"
-                  onClick={() => (isFav() ? handleClickDeleteFav() : handleClickAddToFav())}
-                  className={cx("", { yellow: isFav() })}
-                />
-              }
-              content={isFav() ? "Supprimer des favoris" : "Ajouter aux favoris"}
-            />
+            <Tooltip title={isFav() ? "Supprimer des favoris" : "Ajouter au favoris"}>
+              <IconButton
+                onClick={() => (isFav() ? handleClickDeleteFav() : handleClickAddToFav())}
+                className={classes.button}
+              >
+                <StarIcon fontSize="large" />
+              </IconButton>
+            </Tooltip>
           </>
         }
       </nav>
