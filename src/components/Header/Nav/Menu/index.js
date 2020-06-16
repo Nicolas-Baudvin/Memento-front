@@ -12,7 +12,10 @@ import { logOut } from '../../../../store/Registration/actions';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    color: "#fff"
+    color: '#fff',
+    '&:hover': {
+      backgroundColor: 'rgba(76,0,138,0.3)'
+    }
   },
   closeMenu: {
     color: '#F44336'
