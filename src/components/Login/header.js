@@ -1,29 +1,58 @@
 import React from "react";
 import cx from 'classnames';
+import { Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+
+// Styles & assets
 import "./style.scss";
 import HeaderPic from '../../../assets/login.webp';
 
-export default ({ state, setstate }) => (
-  <>
-    <img className="form-img" src={HeaderPic} alt="connexion" />
+const useStyles = makeStyles((theme) => ({
+  root: {
+    ...theme.typography.button,
+    padding: theme.spacing(1),
+    fontWeight: 'normal',
+    fontSize: window.screen.width < 767 ? "1.5em" : "2em",
+    cursor: 'pointer',
+    color: 'white',
+    transition: 'all ease-in-out .3s',
+    '&:hover': {
+      color: '#dddddd',
+      textDecoration: 'underline'
+    }
+  },
+  active: {
+    transform: 'scale(1.2)',
+    fontWeight: 'bold',
+    textDecoration: 'underline'
+  }
+}));
 
-    <div className="form-title">
-      <div className={cx("form-title-underline", { right: state.currentView === "Signup" })} />
+export default ({ state, setstate }) => {
+  const classes = useStyles();
+  return (
+    <>
+      <div className="form-title">
+        <Typography
+          color="initial"
+          variant="h2"
+          onClick={() => setstate({ ...state, currentView: "Login" })}
+          className={cx(`"form-title-clickable" ${classes.root} ${state.currentView === "Login" ? classes.active : ''}`, { "active-title": state.currentView === "Login" })}
+        >
+          Connexion
+        </Typography>
 
-      <h2
-        onClick={() => setstate({ ...state, currentView: "Login" })}
-        className={cx("form-title-clickable", { "active-title": state.currentView === "Login" })}
-      >
-        Connexion
-      </h2>
+        <Typography
+          color="initial"
+          variant="h2"
+          onClick={() => setstate({ ...state, currentView: "Signup" })}
+          className={cx(`"form-title-clickable" ${classes.root} ${state.currentView === "Signup" ? classes.active : ''}`, { "active-title": state.currentView === "Signup" })}
+        >
+          Inscription
+        </Typography>
 
-      <h2
-        onClick={() => setstate({ ...state, currentView: "Signup" })}
-        className={cx("form-title-clickable", { "active-title": state.currentView === "Signup" })}
-      >
-        Inscription
-      </h2>
-
-    </div>
-  </>
-);
+      </div>
+      <img className="form-img" src={HeaderPic} alt="connexion" />
+    </>
+  );
+};

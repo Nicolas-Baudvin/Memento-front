@@ -1,21 +1,36 @@
 import React, { useContext } from 'react';
-import { Input } from 'semantic-ui-react';
+import { TextField, InputAdornment, makeStyles } from '@material-ui/core';
 import PropTypes from 'prop-types';
+import SearchIcon from '@material-ui/icons/Search';
 import searchContext from '../../../List/searchContext';
 
+const useStyles = makeStyles((theme) => ({
+  input: {
+    margin: '1em'
+  }
+}));
 
 const Search = ({ state }) => {
+  const classes = useStyles();
   const search = useContext(searchContext);
 
   const handleSearchChange = (e) => {
     search.setCurrentSearch(e.target.value);
   };
 
-  return <Input
-    loading={state.isLoading}
+  return <TextField
+    label="Rechercher une carte"
     onChange={handleSearchChange}
-    icon="search"
-    placeholder="Chercher une carte"
+    variant="outlined"
+    size="small"
+    className={classes.input}
+    InputProps={{
+      endAdornment: (
+        <InputAdornment>
+          <SearchIcon />
+        </InputAdornment>
+      )
+    }}
   />;
 };
 

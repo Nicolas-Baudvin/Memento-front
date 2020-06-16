@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Input, Button, Icon } from 'semantic-ui-react';
+import { TextField, Button } from '@material-ui/core';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
@@ -67,14 +67,16 @@ export default () => {
 
   return (
     <div className="recoverypass">
-      <a onClick={backToLogin}><Icon name="arrow left" />Retour page de connexion</a>
+      <a onClick={backToLogin}>Retour page de connexion</a>
       <h1>Nouveau mot de passe</h1>
       <form className="recoverypass-form" onSubmit={handleSubmit}>
-        <Input type="password" onChange={handleChangePass} placeholder="6 caractères minimum" />
+        <TextField value={pass} type="password" onChange={handleChangePass} placeholder="6 caractères minimum" />
 
-        <Input type="password" onChange={handleChangePassConf} placeholder="6 caractères minimum" />
+        <TextField value={passConf} type="password" onChange={handleChangePassConf} placeholder="6 caractères minimum" />
 
-        <Button content="Envoyer" icon="send" primary />
+        <Button variant="contained" color="primary">
+          Envoyer
+        </Button>
       </form>
     </div>
   );

@@ -5,40 +5,46 @@
     flex-direction: column;
     width: 100%;
     background-color: #fff;
-    padding: 2em;
     align-items: center;
     border-radius: 15px;
-    transition: .4s;
+
+    .login {
+        height: 200px;
+    }
+
+    .signup {
+        height: 378px;
+    }
+
+    &-group {
+        display: flex;
+        flex-direction: column;
+        width: 70%;
+        transition: 0.4s all ease-in-out;
+        overflow: hidden;
+    }
 
     &-img {
-        width: 200px;
-        height: 150px;
+        width: 130px;
+        height: 80px;
         object-fit: cover;
         object-position: center;
     }
 
     &-btn {
         font-size: 1.8em !important;
-        letter-spacing: .3em;
+        letter-spacing: 0.5em;
         width: 300px;
         margin: 1em 0 0 0 !important;
         text-transform: uppercase !important;
-        font-weight: bold !important;
-        font-family: 'Indie Flower', cursive !important;
+        font-weight: 300 !important;
         text-align: center !important;
     }
 
-    &-link {
-        text-align: left;
-        cursor: pointer;
-        width: 300px;
-        color: #1e70bf;
-        font-size: 1.2em;
-        margin: .5em 0;
-
-        &:hover {
-            text-decoration: underline;
-        }
+    &-links {
+        display: flex;
+        flex-direction: column;
+        margin-top: 1em;
     }
 
     &-label {
@@ -50,89 +56,17 @@
     }
 
     &-title {
-        font-family: "Indie Flower", cursive;
         z-index: 100;
         width: max-content;
-        text-align: center;
-        margin: 0 0 1em 0;
-        text-transform: uppercase;
-        font-weight: 700;
         align-items: center;
         position: relative;
         display: flex;
-
-        &-clickable {
-            color: #1f1f1f;
-            font-size: 3.5em;
-            font-family: "Indie Flower", cursive;
-            cursor: pointer;
-            width: 300px;
-            transition: 0.3s;
-            text-align: center;
-            margin-bottom: 0;
-            
-            &:hover {
-                color: #107ac0;
-            }
-            
-            &:first-child {
-                margin-right: 1em;
-            }
-            
-            &:last-child {
-                margin-left: 1em;
-            }
-        }
-
-        &-underline {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            height: 5px;
-            width: 300px;
-            background-color: #107ac0;
-            transition: 0.5s;
-        }
-    }
-
-    &-input {
+        justify-content: space-around;
+        background-color: #6E00C8;
         width: 100%;
-        margin: 1em 0;
-
-        .label {
-            font-size: 0.8em !important;
-            border-color: #00192d !important;
-            width: 70px !important;
-            transform: rotate(-45deg);
-            color: white !important;
-
-            &::after {
-                transform: rotate(45deg);
-                top: -4px !important;
-                left: 2px !important;
-            }
-        }
-
-        input {
-            font-size: 1.5em;
-        }
+        border-radius: 15px 15px 0 0;
+        padding: 2em 0;
     }
-
-    p {
-        color: #222 !important;
-        z-index: 10;
-        font-size: 1.1em;
-        margin: 2em 0;
-    }
-}
-
-.active-title {
-    color: #107ac0;
-}
-
-.right {
-    left: 54.5%;
-    transition: 0.5s;
 }
 
 @media only screen and (max-width: 1920px) and (min-width: 1367px) {
@@ -209,7 +143,6 @@
         }
 
         &-title {
-
             .right {
                 left: 56.5%;
                 transition: 0.5s;

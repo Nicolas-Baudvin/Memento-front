@@ -74,7 +74,7 @@ export default (store) => (next) => (action) => {
       break;
     }
     case STORE_FRIEND_LISTS: {
-      if (typeof action.lists.cryptedData === "string") {
+      if (typeof action.lists?.cryptedData === "string") {
         const decryptedLists = decryptUserData(action.lists.cryptedData);
         action.lists = decryptedLists;
       }

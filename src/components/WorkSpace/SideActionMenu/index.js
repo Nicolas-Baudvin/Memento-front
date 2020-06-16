@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Divider } from 'semantic-ui-react';
+import { Divider, makeStyles } from '@material-ui/core';
 import { useSelector, useDispatch } from "react-redux";
 import cx from 'classnames';
 import PropTypes from 'prop-types';
@@ -15,9 +15,15 @@ import Rights from './Rights';
 // Actions
 import { tabAction } from "../../../store/ActionsOnWorkSpace/actions";
 
-// Context
+const useStyles = makeStyles(() => ({
+  divider: {
+    margin: '1em 0'
+  }
+}));
+
 
 const SideActionMenu = ({ isInvited }) => {
+  const classes = useStyles();
   const { actions } = useSelector((GlobalState) => GlobalState.lastActions);
   const initialState = {
     view: 'last-actions',
@@ -42,7 +48,7 @@ const SideActionMenu = ({ isInvited }) => {
           currentSocket={currentSocket}
           state={state}
         />
-        <Divider />
+        <Divider className={classes.divider} variant="middle" />
         {
           state.view === "last-actions" && <LastActions actions={actions} currentTab={currentTab} />
         }

@@ -35,7 +35,7 @@
     }
 
     &-header {
-        background-color: rgb(26, 169, 252);
+        background-color: #6E00C8;
         border-top-right-radius: 15px;
         border-top-left-radius: 15px;
         display: flex;
@@ -43,30 +43,14 @@
         justify-content: space-between;
         padding: 1em;
         height: max-content;
-        box-shadow: 0 4px 2px 0px rgba(0, 0, 0, .4);
+        box-shadow: 0 3px 2px 0px rgba(110, 0, 200, .2);
         z-index: 10;
 
-        &-settingsBtn {
-            display: none;
-            cursor: pointer;
-            color: white !important;
-        }
-
-        .show {
-            display: flex !important;
-        }
-
         &-title {
-            display: none;
             color: white;
-            cursor: pointer;
             margin: 0;
             text-align: center;
             word-break: break-word;
-        }
-
-        &-input {
-            display: none !important;
         }
     }
 

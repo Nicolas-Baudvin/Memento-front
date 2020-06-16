@@ -19,7 +19,7 @@ export default ({
             addTaskToList={addTaskToList}
             list={list}
           />
-        }
+      }
     </div>}
   </Droppable>
 );

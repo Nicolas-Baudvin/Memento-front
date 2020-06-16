@@ -1,7 +1,8 @@
 // Dependances
 import React, { useState, useEffect } from "react";
-import { Button } from 'semantic-ui-react';
+import { Button } from '@material-ui/core';
 import { useDispatch, useSelector } from "react-redux";
+import cx from 'classnames';
 
 import "./style.scss";
 
@@ -25,7 +26,11 @@ export default () => {
     email: '',
     password: '',
     confPass: '',
-    username: ''
+    username: '',
+    emailError: '',
+    passError: '',
+    confPassError: '',
+    usernameError: ''
   };
 
   const [state, setstate] = useState(initialState);
@@ -69,23 +74,27 @@ export default () => {
     <form onSubmit={hanldeSubmitForm} className="form">
 
       <Header state={state} setstate={setstate} />
+      <div className={cx("form-group", { login: state.currentView === "Login", signup: state.currentView === "Signup" })}>
 
-      <EmailInput state={state} setstate={setstate} />
-      <PasswordInput state={state} setstate={setstate} />
+        <EmailInput state={state} setstate={setstate} />
+        <PasswordInput state={state} setstate={setstate} />
 
-      {
-        state.currentView === "Signup" && <>
-          <UsernameInput state={state} setstate={setstate} />
-          <ConfPassInput state={state} setstate={setstate} />
-        </>
-      }
-
-      {
-        state.currentView === "Login" && <Links setstate={setstate} state={state} />
-      }
-
-      <Button loading={loading} type="submit" className="form-btn" content="Connexion" primary />
-
+        {
+          state.currentView === "Signup" && <>
+            <UsernameInput state={state} setstate={setstate} />
+            <ConfPassInput state={state} setstate={setstate} />
+          </>
+        }
+      </div>
+      <Button variant="contained" color="primary" type="submit" className="form-btn">
+        {
+          !loading ? state.currentView === "Login" ? "Connexion" : "Inscription" : "En cours..."
+        }
+        {
+          loading && <img src="/assets/spinner43px.svg" alt="Chargement..." />
+        }
+      </Button>
+      <Links setstate={setstate} state={state} />
     </form>
   );
 };

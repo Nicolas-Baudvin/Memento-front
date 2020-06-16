@@ -10,7 +10,8 @@ const BodyHeader = ({
   isInvited, userID, currentTab, currentSocket
 }) => {
   const copyToClipBoard = (e) => {
-    const copy = e.target.previousSibling;
+    e.preventDefault();
+    const copy = e.target.querySelector("input");
     navigator.permissions.query({ name: "clipboard-write" }).then((result) => {
       if (result.state === "granted" || result.state === "prompt") {
         copy.select();
