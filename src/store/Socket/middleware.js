@@ -121,7 +121,7 @@ export default (store) => (next) => (action) => {
     case CONNECT_TO_FRIEND_TAB: {
       const { link, friendTabId } = action.payload;
       const { email, username, userID } = state.userData.datas;
-      socket = socketIo.connect("http://localhost:5000/");
+      socket = socketIo.connect("https://fierce-mountain-08890.herokuapp.com/");
 
       socket.emit("identify", { token: state.userData.datas.token, userID: state.userData.datas.userID });
 
@@ -190,7 +190,7 @@ export default (store) => (next) => (action) => {
     case NEW_SOCKET_TAB: {
       const { id, name } = action.payload;
       const { token, userID, username } = state.userData.datas;
-      socket = socketIo.connect("http://localhost:5000/");
+      socket = socketIo.connect("https://fierce-mountain-08890.herokuapp.com/");
 
       socket.emit("identify", { token, userID });
 
