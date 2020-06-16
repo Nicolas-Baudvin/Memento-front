@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import { Card, CardHeader, CardMedia, makeStyles, Avatar, Tooltip } from '@material-ui/core';
+import { Card, CardHeader, CardMedia, makeStyles, Avatar, Tooltip, IconButton } from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 // components
 import Confirm from './Confirm';
@@ -33,9 +33,8 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default ({ openThisTab }) => {
+export default ({ openThisTab, tabs }) => {
   const classes = useStyles();
-  const { tabs } = useSelector((GlobalState) => GlobalState.mytabs);
   const initialState = {
     open: false,
     pic: []
@@ -43,7 +42,7 @@ export default ({ openThisTab }) => {
 
   const [state, setstate] = useState(initialState);
 
-  const handleClick = () => setstate({ ...state, open: !state.open });
+  const handleClick = (tab) => () => setstate({ ...state, open: !state.open, selectedTab: tab });
 
   return (
     <div className="workmenu-tabs">
@@ -59,14 +58,20 @@ export default ({ openThisTab }) => {
               }
               subheader={tab.owner}
               action={
-                <Confirm
-                  message="Vous êtes sur le point de supprimer le tableau et toutes les ressources qui y sont liées. En êtes vous sûr ?"
-                  tab={tab}
-                  state={state}
-                  setstate={setstate}
-                  handleClose={handleClick}
-                  handleOpen={handleClick}
-                />
+                <>
+                  <Tooltip title="Supprimer le tableau">
+                    <IconButton onClick={handleClick(tab)}>
+                      <DeleteIcon color="error" />
+                    </IconButton>
+                  </Tooltip>
+                  <Confirm
+                    message="Vous êtes sur le point de supprimer le tableau et toutes les ressources qui y sont liées. En êtes vous sûr ?"
+                    state={state}
+                    setstate={setstate}
+                    handleClose={handleClick}
+                    handleOpen={handleClick}
+                  />
+                </>
               }
               className={classes.header}
             />
