@@ -1,6 +1,6 @@
 # Changelogs
 
-## V2.0.0 mise à jour non déployée
+## V2.0.0 mise à jour déployée
 
 ### **Nouveautés**
 
