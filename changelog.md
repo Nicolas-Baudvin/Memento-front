@@ -1,5 +1,16 @@
 # Changelogs
 
+## V2.0.0 mise à jour non déployée
+
+### **Nouveautés**
+
+- Refonte totale de l'interface du site.
+
+### **Améliorations diverses**
+
+- Gains en performances
+- Amélioration de l'UI/UX
+
 ## V1.4.0 mise à jour déployée le 12/06/2020 à 15h40 ✔️
 
  **tips** : Ceci est la dernière mise à jour majeure avant la 2.0. Les bugs fixs continueront à être déployés
