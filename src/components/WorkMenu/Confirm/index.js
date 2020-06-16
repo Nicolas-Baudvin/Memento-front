@@ -13,25 +13,20 @@ import { useDispatch } from 'react-redux';
 import { failMessage } from "../../../store/Popup/actions";
 import { deleteTab } from "../../../store/Tabs/actions";
 
-export default ({ state, setstate, handleClose, handleOpen, tab, message }) => {
+export default ({ state, setstate, handleClose, message }) => {
   const dispatch = useDispatch();
   const handleConfirm = () => {
+    console.log(state.selectedTab);
     setstate({ ...state, open: false });
-
-    if (!tab._id) {
-      return dispatch(failMessage("Erreur : Cette table n'existe pas. Actualisez la pages"));
+    if (!state.selectedTab) {
+      return dispatch(failMessage("Erreur : Cette table n'existe pas. Actualisez la page"));
     }
-    return dispatch(deleteTab(tab._id));
+    return dispatch(deleteTab(state.selectedTab._id));
   };
-
   return (
     <div>
-      <Tooltip title="Supprimer le tableau">
-        <IconButton onClick={handleOpen}>
-          <DeleteIcon color="error" />
-        </IconButton>
-      </Tooltip>
       <Dialog
+        keepMounted
         open={state.open}
         onClose={handleClose}
       >

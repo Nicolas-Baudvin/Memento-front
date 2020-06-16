@@ -42,7 +42,7 @@ export default ({
       {
         tabs.length === 0 && <p className="workmenu-body-tabs-alert">Vous n'avez pas encore créé de Tableau !</p>
       }
-      <Tabs openThisTab={openThisTab} />
+      <Tabs tabs={tabs} openThisTab={openThisTab} />
       <FavTabs openThisTab={openThisTab} />
     </div>
   );
