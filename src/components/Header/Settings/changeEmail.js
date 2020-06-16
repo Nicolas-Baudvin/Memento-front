@@ -1,17 +1,38 @@
 import React, { useEffect, useState } from "react";
-import { Button, Input } from 'semantic-ui-react';
+import { Button, TextField, makeStyles, Typography } from '@material-ui/core';
 import { useDispatch, useSelector } from "react-redux";
 import { updateEmail } from "../../../store/Registration/actions";
 
+const useStyles = makeStyles((theme) => ({
+  input: {
+    margin: '1em .5em'
+  },
+  submit: {
+    margin: '1em'
+  },
+  title: {
+    textAlign: 'center'
+  }
+}));
+
 export default ({ state, setstate }) => {
+  const classes = useStyles();
   const dispatch = useDispatch();
   const { message } = useSelector((globalState) => globalState.popup);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   const handleSubmit = () => {
-    setLoading(true);
-    if (state.newEmail !== state.oldEmail) {
+    if (state.newEmail !== state.oldEmail && state.newEmail) {
+      setLoading(true);
+      setError(false);
       dispatch(updateEmail({ newEmail: state.newEmail, oldEmail: state.oldEmail }));
+    }
+    else if (!state.newEmail) {
+      setError("L'email doit être valide");
+    }
+    else {
+      setError("Les emails doivent être différents");
     }
   };
 
@@ -23,36 +44,40 @@ export default ({ state, setstate }) => {
 
   return (
     <div className="settings-body-data">
-      <label className="settings-body-data-label" htmlFor="oldpass">Votre ancien email</label>
-      <Input
+      <TextField
+        label="Votre email actuel"
         type="email"
-        icon="at"
-        placeholder="Votre email actuel"
-        className="settings-body-data-input"
+        className={classes.input}
         value={state.oldEmail}
-        onChange={(e) => setstate({ ...state, oldEmail: e.target.value })}
+        variant="outlined"
       />
 
-      <label className="settings-body-data-label" htmlFor="oldpass">Votre nouvel email</label>
-      <Input
+      <TextField
+        label="Votre nouvel email"
         type="email"
-        icon="at"
-        placeholder="Votre nouvel email"
-        className="settings-body-data-input"
+        className={classes.input}
         value={state.newEmail}
         onChange={(e) => setstate({ ...state, newEmail: e.target.value })}
+        variant="outlined"
+        error={Boolean(error)}
+        helperText={error || ' '}
       />
 
       <Button
         onClick={handleSubmit}
-        className="settings-body-data-submit"
-        content="Confirmer"
-        color="green"
-        icon="checkmark"
-        loading={loading}
-      />
+        color="primary"
+        variant="contained"
+        className={classes.submit}
+      >
+        {
+          !loading ? "Confirmer" : "Envoie en cours..."
+        }
+        {
+          loading && <img src="/assets/spinner43px.svg" alt="Chargement..." />
+        }
+      </Button>
 
-      <p>Un email de confirmation sera envoyé sur votre email actuel</p>
+      <Typography component="p" className={classes.title}>Un email de confirmation sera envoyé sur votre email actuel</Typography>
     </div>
-);
+  );
 };

@@ -31,7 +31,8 @@ const Tasks = ({ tasks, isOp, list }) => (
 
 Tasks.propTypes = {
   tasks: PropTypes.array.isRequired,
-  listId: PropTypes.string.isRequired
+  list: PropTypes.object.isRequired,
+  isOp: PropTypes.bool.isRequired
 };
 
 export default Tasks;

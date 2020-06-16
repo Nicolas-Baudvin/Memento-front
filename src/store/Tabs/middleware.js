@@ -197,7 +197,8 @@ export default (store) => (next) => (action) => {
       const data = {
         userID: state.userData.datas.userID,
         name: action.tabData.tabName,
-        imgPath: action.tabData.imgPath
+        imgPath: action.tabData.imgPath,
+        owner: state.userData.datas.username
       };
       axios({
         method: "POST",

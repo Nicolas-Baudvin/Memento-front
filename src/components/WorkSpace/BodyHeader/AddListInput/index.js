@@ -1,43 +1,71 @@
 import React, { useState } from 'react';
-import { Popup, Input } from 'semantic-ui-react';
+import { Tooltip, Paper, Button, makeStyles, InputBase, Divider } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
+
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 
 // Actions
 import { newList } from "../../../../store/Lists/actions";
 import { failMessage } from "../../../../store/Popup/actions";
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    padding: '2px 4px',
+    display: 'flex',
+    alignItems: 'center',
+    width: 400,
+    margin: '0 1em'
+  },
+  input: {
+    marginLeft: theme.spacing(1),
+    flex: 1,
+  },
+  iconButton: {
+    padding: 10,
+  },
+  divider: {
+    height: 28,
+    margin: 4,
+  },
+  button: {
+    backgroundColor: '#6E00C8',
+    color: '#fff',
+    '&:hover': {
+      backgroundColor: '#5800A0',
+    }
+  }
+}));
+
 const AddListInput = ({ currentTab }) => {
+  const classes = useStyles();
   const dispatch = useDispatch();
 
-  const initialState = {
-    addlist: ''
-  };
+  const [addlist, setAddlist] = useState('');
 
-  const [state, setstate] = useState(initialState);
-
-  const handleAddListbtn = () => {
-    if (state.addlist && state.addlist.length < 30) dispatch(newList({ name: state.addlist, tabId: currentTab._id }));
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (addlist && addlist.length < 30) dispatch(newList({ name: addlist, tabId: currentTab._id }));
     else dispatch(failMessage("Le titre d'une liste doit contenir entre 1 et 30 caractères"));
   };
 
-  return (
-    <Popup
-      content="C'est ici que tu vas créer ta liste. Appuie sur le bouton de gauche pour valider ton choix !"
-      className="workspace-body-header-popup"
-      trigger={
-        <Input
-          value={state.addlist}
-          onChange={(e) => setstate({ ...state, addlist: e.target.value })}
-          action={{
-            color: 'blue', content: 'Ajouter liste', onClick: handleAddListbtn, className: "workspace-body-header-input-submit"
-          }}
-          className="workspace-body-header-input"
-          placeholder="Nom de votre liste"
-        />
-      }
+  return (<Paper component="form" className={classes.root} onSubmit={handleSubmit}>
+    <Tooltip title="Ce formulaire te permet d'ajouter une liste. Le nom doit comporter entre 1 et 30 caractères">
+      <HelpOutlineIcon />
+    </Tooltip>
+    <Divider className={classes.divider} orientation="vertical" />
+    <InputBase
+      value={addlist}
+      onChange={(e) => setAddlist(e.target.value)}
+      className={classes.input}
+      placeholder="Nom de votre liste"
     />
-  )
+    <Divider className={classes.divider} orientation="vertical" />
+    <Button className={classes.button} size="large" type="submit" color="primary" variant="contained">
+      Ajouter liste
+    </Button>
+  </Paper>
+  );
 };
 
 AddListInput.propTypes = {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './style.scss';
-import { Popup } from 'semantic-ui-react';
+import { Tooltip } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import loadPic from '../../Utils/loadPic';
 
@@ -18,7 +18,8 @@ export default () => {
 
   const getNewsPic = async (img) => {
     const pic = await loadPic(img.path);
-    switch (img.name) {
+    switch (img.name)
+    {
       case "News": {
         setNewsPic(pic);
         break;
@@ -49,22 +50,19 @@ export default () => {
   return (
     <footer className="footer">
       <div className="footer-block">
-        <Popup
-          trigger={<img onClick={handleClickNewsPic} src={newsPic} alt="changelogs" />}
-          content="Les dernières nouveautés"
-        />
+        <Tooltip placement="top" title="Les dernières mises à jours">
+          <img onClick={handleClickNewsPic} src={newsPic} alt="changelogs" />
+        </Tooltip>
       </div>
       <div className="footer-block">
-        <Popup
-          trigger={<a href="mailto:support@mymemento.fr"><img src={mailPic} alt="support@mymemento.fr" /></a>}
-          content="Contactez moi !"
-        />
+        <Tooltip placement="top" title="Contactez moi">
+          <a href="mailto:support@mymemento.fr"><img src={mailPic} alt="support@mymemento.fr" /></a>
+        </Tooltip>
       </div>
       <div className="footer-block">
-        <Popup
-          trigger={<img onClick={GoToLegalsMentions} src={legPic} alt="mentions légales" />}
-          content="Mentions légales"
-        />
+        <Tooltip placement="top" title="Mentions légales">
+          <img onClick={GoToLegalsMentions} src={legPic} alt="mentions légales" />
+        </Tooltip>
       </div>
     </footer>
   );

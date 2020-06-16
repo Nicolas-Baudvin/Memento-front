@@ -61,7 +61,7 @@ export default (store) => (next) => (action) => {
       break;
     }
     case NEW_LIST: {
-      const order = state.mylists.lists.length;
+      const order = store.getState().mylists.lists.length;
       const { name, tabId } = action.listData;
       const { token, userID, username } = state.userData.datas;
 
@@ -118,6 +118,10 @@ export default (store) => (next) => (action) => {
             const cryptedLists = cryptUserData(lists);
             localStorage.setItem("lists", cryptedLists);
             action.lists = lists;
+            next(action);
+          }
+          else {
+            action.lists = [];
             next(action);
           }
         })

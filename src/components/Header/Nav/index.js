@@ -1,45 +1,115 @@
-import React from "react";
-import { Button, Popup } from 'semantic-ui-react';
-import { useHistory, useLocation } from "react-router-dom";
+import React, { useState } from "react";
+import { Button, makeStyles } from '@material-ui/core';
+import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+import cx from 'classnames';
+
+// Icons
+import TableChartIcon from '@material-ui/icons/TableChart';
+import HomeIcon from '@material-ui/icons/Home';
+import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
+import PersonIcon from '@material-ui/icons/Person';
+
+// Actions
+import { logOut } from "../../../store/Registration/actions";
+
+// Components
+import Menu from './Menu';
+import Settings from '../Settings';
+
+const useStyles = makeStyles((theme) => ({
+  button: {
+    margin: '0 1em',
+    color: '#fff',
+    fontSize: '1.3em',
+    '&:hover': {
+      backgroundColor: 'rgba(76,0,138,0.3)'
+    }
+  },
+  selectedTitle: {
+    backgroundColor: 'rgba(0,0,0,.04)'
+  }
+}));
 
 export default ({
-  state, setstate, tabs, resizeIcon, isPublic
+  isPublic,
+  state,
+  setstate
 }) => {
+  const { datas } = useSelector((GlobalState) => GlobalState.userData);
   const history = useHistory();
-  const { pathname } = useLocation();
+  const classes = useStyles();
+  const dispatch = useDispatch();
 
-  const handleHelpBtn = () => {
-    if (isPublic) {
-      return setstate({ ...state, content: "Bienvenue sur MyMemento ! Vous êtes sur un tableau public. Vous n'avez donc que très peu d'intéractions possibles. Connectez vous pour accéder aux autres fonctionnalités"})
-    }
-    if (pathname === "/vos-tableaux/") {
-      if (!tabs.length) {
-        return setstate({ ...state, content: "Pour commencer, Cliquez sur créer un tableau, puis donnez lui le nom et l'image de fond que vous souhaitez. Ne vous en faites pas, vous pourrez les changer ensuite !", open: true });
-      }
-      return setstate({ ...state, content: "Vous avez créé votre tableau ? Parfait ! Maintenant cliquez dessus pour accéder à votre espace de travail !", open: true });
-    }
-    if (pathname === `/vos-tableaux/${pathname.substring(14)}`) {
-      return setstate({ ...state, content: "Bienvenue dans votre espace de travail ! C'est ici que vous allez pouvoir créer vos listes, vos tâches et inviter vos amis. Pour commencer cliquez sur 'ajouter une liste' en haut de la page et écrivez ensuite le nom que vous voulez lui donner", open: true });
-    }
+  const [selectedTitle, setSelectedTitle] = useState();
+
+  const handleClickDisconnect = () => dispatch(logOut());
+
+  const handleClose = () => setstate({ ...state, isOpen: false });
+
+  const handleOpen = () => setstate({ ...state, isOpen: true });
+
+  const handleClickLogin = () => {
+    setSelectedTitle("Signin");
+    history.push("/");
+  };
+
+  const handleClickHome = () => {
+    setSelectedTitle("Home");
+    history.push("/");
+  };
+
+  const handleClickTab = () => {
+    setSelectedTitle("Tabs");
+    history.push("/vos-tableaux/");
   };
 
   return (
-    <nav className="workmenu-header-nav">
-      <Popup
-        content={state.content}
-        inverted
-        on="hover"
-        onClose={() => setstate({ ...state, open: false })}
-        onOpen={handleHelpBtn}
-        open={state.open}
-        trigger={<Button icon="help circle" size={resizeIcon()} />}
-      />
+    <>
       {
-        !isPublic && <Popup
-          trigger={<Button onClick={() => history.push("/vos-tableaux/")} icon="table" size={resizeIcon()} />}
-          content="Vos tableaux"
-        />
+        window.screen.width < 767 && <Menu />
       }
-    </nav>
+      {
+        window.screen.width > 767 && <nav className="workmenu-header-nav">
+
+          <Button
+            className={cx(classes.button, selectedTitle === "Home" ? classes.selectedTitle : '')}
+            variant="text"
+            startIcon={<HomeIcon />}
+            onClick={handleClickHome}
+          >
+            Accueil
+          </Button>
+          {
+            datas && !isPublic && <Settings
+              isOpen={state.isOpen}
+              handleClose={handleClose}
+              handleOpen={handleOpen}
+            />
+          }
+          {
+            !datas && <Button onClick={handleClickLogin} className={cx(classes.button, selectedTitle === "Signin" ? classes.selectedTitle : '')} variant="text" startIcon={<PersonIcon />}>
+              Connexion/Inscription
+            </Button>
+          }
+          {
+            !isPublic && <Button
+              className={cx(classes.button, selectedTitle === "Tabs" ? classes.selectedTitle : '')}
+              variant="text"
+              onClick={handleClickTab}
+              startIcon={<TableChartIcon />}
+            >
+              Tableaux
+            </Button>
+          }
+          {
+            datas && <Button className={classes.button} variant="text" startIcon={<PowerSettingsNewIcon />} onClick={handleClickDisconnect}>
+              Déconnexion
+            </Button>
+          }
+
+        </nav>
+      }
+    </>
   );
 };

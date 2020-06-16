@@ -4,73 +4,12 @@
     width: 100%;
     min-height: 100vh;
 
-    &-svg {
-        position: absolute;
-        left: -10em;
-        bottom: 6em;
-        z-index: -1;
-        width: 90%;
-        height: 90%;
-    }
-
     &-tabs {
         display: flex;
         flex-wrap: wrap;
         align-self: flex-start;
         overflow: auto;
-
-        &-item {
-            position: relative;
-            width: 200px;
-            height: 200px;
-            margin: 1em;
-            transition: .3s;
-            box-shadow: 0 0 10px rgba(0, 0, 0, .5);
-            cursor: pointer;
-
-            &-delete {
-                position: absolute;
-                top: .3em;
-                right: .3em;
-                z-index: 100;
-                font-size: 1.5em;
-                font-weight: bold;
-                transition: .3s;
-
-                &:hover {
-                    text-shadow: 0 0 5px rgba(0, 0, 0, .5);
-                    transform: scale(1.1);
-                    transition: .3s;
-                }
-            }
-
-            &:hover {
-                box-shadow: 0 0 0 5px rgba(42, 191, 236, .5);
-                transition: .3s
-            }
-
-            &-title {
-                font-family: 'Indie Flower', cursive;
-                position: absolute;
-                bottom: 0;
-                z-index: 100;
-                color: white;
-                width: 100%;
-                padding: .5em;
-                text-align: center;
-                background-color: rgba(20, 20, 20, 0.2);
-                backdrop-filter: blur(4px);
-                margin: 0;
-            }
-
-            &-img {
-                width: 200px;
-                height: 200px;
-                position: absolute;
-                object-fit: cover;
-                object-position: center;
-            }
-        }
+        padding: 1em;
     }
 
     &-header {
@@ -100,6 +39,7 @@
             cursor: pointer;
             display: flex;
             align-items: center;
+            margin: 0 0 1em 0;
 
             h1 {
                 margin: .7em 0 0 0;
@@ -169,6 +109,11 @@
             width: 100%;
             margin-left: 3em;
 
+            &-alert {
+                text-align: left;
+                align-self: flex-start;
+            }
+
             &-title {
                 align-self: flex-start;
                 width: 400px;
@@ -197,7 +142,41 @@
         &__item {
             margin: 1em;
             cursor: pointer;
+            box-shadow: 0 2px 4px  rgba(0, 0, 0, 1);
+            height: 100px;
+            transition: .3s ease-in-out;
+
+            &:hover {
+                box-shadow: 0 2px 15px rgba(0, 0, 0, 1);
+            }
         }
+    }
+
+    &-header {
+        background-color: #6E00C8;
+        width: 100%;
+        padding: 1em;
+        border-radius: 5px 5px 0 0;
+    }
+
+    &-error {
+        color: red
+    }
+
+    &-content {
+        width: 100%;
+        background-color: #fff;
+        padding: 1em;
+    }
+
+    &-actions {
+        width: 100%;
+        background-color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1em;
+        border-radius: 0 0 5px 5px;
     }
 
     &-img {
@@ -215,30 +194,43 @@
 }
 
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
     .workmenu {
         &-header {
             padding: .5em 0;
+            justify-content: space-between;
+
             &-title {
                 h1 {
                     font-size: 1.3em;
-                    margin: 0;
+                    margin: 0 1em 0 0;
                 }
+
                 img {
                     display: none;
                 }
             }
         }
+
         &-tabs {
             margin: 0 auto;
+            max-width: 310px;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            align-self: center;
         }
+
         &-body {
             display: flex;
             flex-direction: column;
             align-items: center;
+            width: 100%;
+
             &-tabs {
                 margin-left: 0;
                 align-items: center;
+                width: 100%;
+
                 &-title {
                     margin-left: 1em;
                     display: flex;
@@ -251,6 +243,7 @@
         }
     }
 }
+
 h1 {
     font-size: 2em !important;
     font-weight: 700 !important;
@@ -266,6 +259,12 @@ h3 {
     font-weight: bold !important;
 }
 
-div, p, h1, h2, h3, h4, time {
+div,
+p,
+h1,
+h2,
+h3,
+h4,
+time {
     line-height: 1.4em !important;
 }

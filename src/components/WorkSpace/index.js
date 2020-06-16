@@ -55,7 +55,6 @@ const WorkSpace = ({ isInvited, isPublic }) => {
     if (
       Object.keys(currentSocket).length > 0
       && Object.keys(currentTab).length > 0
-      && lists
     ) setActive(false);
   }, [currentTab, currentSocket, lists]);
 
@@ -69,7 +68,7 @@ const WorkSpace = ({ isInvited, isPublic }) => {
   }, []);
 
   useEffect(() => {
-    if (currentSocket && currentTab && !isInvited && !lists.length && !isPublic) {
+    if (currentSocket && currentTab && !isInvited && lists && !lists.length && !isPublic) {
       dispatch(myLists(currentTab._id));
     }
   }, [currentSocket]);

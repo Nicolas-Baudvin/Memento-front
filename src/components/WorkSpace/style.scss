@@ -118,8 +118,6 @@
         width: 100%;
 
         textarea {
-            width: 100%;
-            margin: 1em 0;
             resize: vertical;
         }
 
@@ -133,11 +131,14 @@
         &-messages {
             overflow-y: auto;
             width: 100%;
+            min-height: 100px;
             display: flex;
             flex-direction: column;
             background-color: #fff;
             padding: 0.7em;
             border-radius: 5px;
+            max-height: 300px;
+            box-shadow: 0 2px  rgba(0,0,0,.3);
 
             .right {
                 align-self: flex-end;
@@ -247,7 +248,7 @@
 
     &-container {
         width: 20%;
-        height: 61px;
+        height: 68px;
         display: flex;
         position: absolute;
         right: -17.8%;
@@ -258,7 +259,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        background-color: #1e8ae2;
+        background-color: #6E00C8;
         margin-top: 1em;
         border-radius: 3px 0 0 3px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
@@ -289,52 +290,6 @@
     &-guests {
         display: flex;
         flex-wrap: wrap;
-
-        .online {
-            &::after {
-                content: "";
-                width: 12px;
-                height: 12px;
-                border-radius: 50%;
-                position: absolute;
-                bottom: 0.1rem;
-                right: 0.1rem;
-                background-color: greenyellow;
-            }
-        }
-
-        .offline {
-            &::after {
-                content: "";
-                width: 12px;
-                height: 12px;
-                border-radius: 50%;
-                position: absolute;
-                bottom: 0.1rem;
-                right: 0.1rem;
-                background-color: rgb(216, 35, 35);
-            }
-        }
-
-        &__item {
-            position: relative;
-
-            &--title {
-                border-radius: 50%;
-                background-color: rgb(30, 164, 226);
-                width: 38px;
-                height: 38px;
-                padding-top: 0.65em;
-                color: white;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                cursor: pointer;
-                margin: 0 0.2em;
-                text-transform: uppercase;
-                font-weight: bold;
-            }
-        }
     }
 
     &-owner {
@@ -401,7 +356,6 @@
         height: 80%;
         width: 450px !important;
         z-index: 1000;
-        overflow-y: auto;
     }
 
     .sideActionMenu {
@@ -409,8 +363,7 @@
         &-container {
             z-index: 1000;
             right: 0;
-            overflow-x: hidden;
-            width: 50px;
+            width: 55px;
         }
     }
 }

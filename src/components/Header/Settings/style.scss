@@ -27,7 +27,7 @@
                 }
 
                 &:hover {
-                    background-color: rgba(255, 255, 255, 0.3);
+                    background-color: rgba(0, 0, 0, 0.3);
                     transition: 0.1s;
                 }
             }
@@ -39,6 +39,7 @@
         flex-direction: column;
         width: 70%;
         height: 262px;
+        overflow-y: auto;
 
         &-data {
             display: flex;
@@ -47,12 +48,6 @@
             &-label {
                 margin: 0.5em 0;
                 font-size: 1.2em;
-            }
-
-            &-submit {
-                width: 150px;
-                margin-top: 2em !important;
-                align-self: center !important;
             }
 
             &-btn {

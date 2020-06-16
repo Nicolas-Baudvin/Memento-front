@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import cx from 'classnames';
-import { Button, Input, Divider } from 'semantic-ui-react';
+import { Button, TextField, Divider, makeStyles } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -9,7 +9,18 @@ import loadPic from '../../../../Utils/loadPic';
 import { updateTabPic, updateTabName } from '../../../../store/Tabs/actions';
 import { failMessage } from '../../../../store/Popup/actions';
 
+const useStyles = makeStyles(() => ({
+  input: {
+    margin: '1em 0',
+  },
+  button: {
+    margin: '1em 0',
+    backgroundColor: '#6E00C8'
+  }
+}));
+
 const About = ({ currentTab, isInvited }) => {
+  const classes = useStyles();
   const dispatch = useDispatch();
   const picsPath = [
     { path: "/assets/tab-bg1.webp", isSelected: false, key: 1 },
@@ -82,10 +93,12 @@ const About = ({ currentTab, isInvited }) => {
       {
         !isInvited && <>
           <form className="sideActionMenu-about-form" onSubmit={handleSubmitNewName} action="">
-            <Input value={state.nameValue} onChange={(e) => setstate({ ...state, nameValue: e.target.value })} placeholder="Nouveau nom du tableau" />
-            <Button icon="edit" primary content="Changer le nom du tableau" />
+            <TextField className={classes.input} value={state.nameValue} onChange={(e) => setstate({ ...state, nameValue: e.target.value })} placeholder="Nouveau nom du tableau" />
+            <Button className={classes.button} variant="contained" type="submit" color="primary">
+              Changer le nom
+            </Button>
           </form>
-          <Divider />
+          <Divider variant="middle" />
           <div className="sideActionMenu-about-pics">
             {
               state.pics.map((picture) => <div key={picture.key} onClick={handleClickChoosePic(picture.path)} className="sideActionMenu-about-pics__item">
@@ -93,7 +106,9 @@ const About = ({ currentTab, isInvited }) => {
               </div>)
             }
           </div>
-          <Button onClick={handleClickNewPic} icon="picture" primary content="Changer l'image du tableau" />
+          <Button className={classes.button} variant="contained" onClick={handleClickNewPic} color="primary">
+            Changer l'image du tableau
+          </Button>
         </>
       }
     </div>
