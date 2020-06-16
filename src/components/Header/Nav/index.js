@@ -21,10 +21,13 @@ const useStyles = makeStyles((theme) => ({
   button: {
     margin: '0 1em',
     color: '#fff',
-    fontSize: '1.3em'
+    fontSize: '1.3em',
+    '&:hover': {
+      backgroundColor: 'rgba(76,0,138,0.3)'
+    }
   },
   selectedTitle: {
-    backgroundColor: 'rgba(0,0,0,0.04)'
+    backgroundColor: 'rgba(0,0,0,.04)'
   }
 }));
 

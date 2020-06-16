@@ -61,7 +61,7 @@ export default (store) => (next) => (action) => {
       break;
     }
     case NEW_LIST: {
-      const order = state.mylists.lists.length;
+      const order = store.getState().mylists.lists.length;
       const { name, tabId } = action.listData;
       const { token, userID, username } = state.userData.datas;
 

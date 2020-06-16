@@ -26,7 +26,14 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: 'rgba(0,0,0,0.3)'
     }
   },
-  icons: {}
+  basicButton: {
+    '&:hover': {
+      color: '#FCFF50'
+    }
+  },
+  favStar: {
+    color: '#FCFF50'
+  }
 }));
 
 
@@ -59,7 +66,7 @@ const Actions = ({ state, setstate, isInvited }) => {
       <nav className="sideActionMenu-nav">
         <Tooltip title="Ouvrir/Fermer le menu">
           <IconButton className={classes.button} onClick={handleClickOpenMenu}>
-            <MenuIcon fontSize="large" className={classes.icon} />
+            <MenuIcon fontSize="large" />
           </IconButton>
         </Tooltip>
         {
@@ -94,7 +101,7 @@ const Actions = ({ state, setstate, isInvited }) => {
             {
               !isInvited
               && <Tooltip title="Rendre le tableau publique">
-                <IconButton onClick={makeTabPublic} className={classes.button}>
+                <IconButton onClick={makeTabPublic} className={cx(classes.button, classes.basicButton, { [classes.favStar]: currentTab.isPublic })}>
                   <PublicIcon fontSize="large" />
                 </IconButton>
               </Tooltip>
@@ -102,7 +109,7 @@ const Actions = ({ state, setstate, isInvited }) => {
             <Tooltip title={isFav() ? "Supprimer des favoris" : "Ajouter au favoris"}>
               <IconButton
                 onClick={() => (isFav() ? handleClickDeleteFav() : handleClickAddToFav())}
-                className={classes.button}
+                className={cx(classes.button, classes.basicButton, { [classes.favStar]: isFav() })}
               >
                 <StarIcon fontSize="large" />
               </IconButton>

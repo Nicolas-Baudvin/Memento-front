@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import './style.scss';
-import { Loader, Icon } from 'semantic-ui-react';
 import { useParams, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
@@ -54,10 +53,12 @@ export default () => {
 
   return (
     <div className="emailConfirm">
-      <a onClick={backToHome}><Icon name="arrow left" />Retour accueil</a>
-      <Loader active={isLoading} inline="centered" />
+      <a onClick={backToHome}>Retour accueil</a>
       {
-        !isLoading && <p>Votre email a bien été modifié. Un email récapitulatif vous a été envoyé</p>
+        isLoading && <img src="/assets/spinner43px.svg" alt="chargement..." />
+      }
+      {
+        !isLoading && <p>Votre email a bien été modifié.</p>
       }
     </div>
   );

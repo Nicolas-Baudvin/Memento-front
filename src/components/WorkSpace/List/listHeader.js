@@ -1,45 +1,53 @@
 import React, { useState } from "react";
-import { Input, Popup } from 'semantic-ui-react';
+import { TextField, Tooltip, IconButton, Menu, MenuItem, Paper, makeStyles, Divider } from '@material-ui/core';
 import { useDispatch } from "react-redux";
 import PropTypes from 'prop-types';
+
+// Icons
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import SendIcon from '@material-ui/icons/Send';
 
 // Actions
 import { deleteList, updateList } from "../../../store/Lists/actions";
 
-// Component
-import { Button } from '../../../Utils/Components';
-
-
+const useStyles = makeStyles(() => ({
+  button: {
+    color: '#fff',
+    backgroundColor: '#6E00C8',
+    '&:hover': {
+      backgroundColor: '#6100B1',
+    }
+  },
+  paper: {
+    padding: '.4em',
+    display: 'flex',
+    flexDirection: 'row'
+  },
+  delete: {
+    color: '#ff0000'
+  }
+}));
 
 const ListHeader = ({ list }) => {
+  const classes = useStyles();
   const initialState = {};
 
   const [state, setstate] = useState(initialState);
   const dispatch = useDispatch();
-  const deleteItem = () => {
-    if (list._id) {
-      dispatch(deleteList({ listID: list._id, name: list.name }));
-    }
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
   };
 
-
-  const showTitleInput = (e) => {
-    const title = e.target;
-    title.classList.remove("show");
-    title.parentNode.lastChild.classList.add("show");
-    title.nextSibling.classList.remove("show");
+  const handleClose = () => {
+    setAnchorEl(null);
   };
 
-  const handleUpdateListName = () => (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const value = e.target.previousSibling.value;
-    const input = e.target.parentNode;
-    const settings = e.target.parentNode.previousSibling;
-    const title = input.parentNode.firstChild;
-
-    input.classList.remove("show");
-    settings.classList.add("show");
-    title.classList.add("show");
+    const value = state[list._id];
     if (value) dispatch(updateList({ newTitle: value, list }));
   };
 
@@ -47,24 +55,44 @@ const ListHeader = ({ list }) => {
     setstate({ ...state, [listId]: e.target.value });
   };
 
+  const deleteItem = () => {
+    if (list._id) {
+      dispatch(deleteList({ listID: list._id, name: list.name }));
+    }
+    handleClose();
+  };
+
   return (
     <div className="list-header">
-      <Popup
-        trigger={<h2 onClick={showTitleInput} className="list-header-title show"> {list.name} </h2>}
-        content="Cliquez pour modifier le nom"
-      />
-      <Popup
-        trigger={
-          <Button className="list-header-settingsBtn show" onClick={() => deleteItem(list)} icon="delete" color="#ff0000" />
-        }
-        content="Supprimer"
-      />
-      <Input
-        className="list-header-input"
-        placeholder="Nom de la liste"
-        onChange={handleChange(list._id)}
-        action={{ content: state[list._id] ? 'Envoyer' : 'Retour', color: state[list._id] ? 'blue' : 'red', onClick: handleUpdateListName(list) }}
-      />
+      <h2 className="list-header-title show"> {list.name} </h2>
+      <Tooltip title="Paramètres de la liste...">
+        <IconButton className={classes.button} onClick={handleClick}>
+          <MoreVertIcon />
+        </IconButton>
+      </Tooltip>
+      <Menu
+        id="simple-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+      >
+        <MenuItem onKeyDown={(e) => e.stopPropagation()}>
+          <Paper className={classes.paper} component="form" onSubmit={handleSubmit}>
+            <TextField
+              label="Changer le nom"
+              onChange={handleChange(list._id)}
+            />
+            <Divider orientation="vertical" />
+            <Tooltip title="Envoyer">
+              <IconButton className={classes.button} color="primary" type="submit">
+                <SendIcon />
+              </IconButton>
+            </Tooltip>
+          </Paper>
+        </MenuItem>
+        <MenuItem onKeyDown={(e) => e.stopPropagation()} className={classes.delete} onClick={deleteItem}>Supprimer la liste</MenuItem>
+      </Menu>
     </div>
   );
 };
