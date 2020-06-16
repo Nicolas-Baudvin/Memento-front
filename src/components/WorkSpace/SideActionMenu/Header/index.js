@@ -91,19 +91,27 @@ const Header = ({ state, currentSocket }) => {
       {
         currentSocket.operators.map((guest) => (
           <div key={guest.userData.userID} className="sideActionMenu-guests__item">
-            <Avatar className={useStyles().avatar}>
-              {
-                guest.isOnline && <StyledBadge
+            {
+              guest.isOnline ? <Tooltip title={guest.userData.username}>
+                <StyledBadge
                   overlap="circle"
                   anchorOrigin={{
                     vertical: 'bottom',
                     horizontal: 'right'
                   }}
                   variant="dot"
-                />
-              }
-              {guest.userData.username.substring(0, 1)}
-            </Avatar>
+                >
+                  <Avatar className={classes.avatar}>
+                    {guest.userData.username.substring(0, 1)}
+                  </Avatar>
+                </StyledBadge>
+              </Tooltip>
+                : <Tooltip title={guest.userData.username}>
+                  <Avatar className={classes.avatar}>
+                    {guest.userData.username.substring(0, 1)}
+                  </Avatar>
+                </Tooltip>
+            }
           </div>
         ))
       }

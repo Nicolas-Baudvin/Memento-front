@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Draggable } from 'react-beautiful-dnd';
 import PropTypes from 'prop-types';
 

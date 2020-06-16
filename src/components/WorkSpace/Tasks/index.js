@@ -2,9 +2,9 @@ import React from "react";
 import PropTypes from 'prop-types';
 
 import "./style.scss";
+import { Tooltip } from "@material-ui/core";
 
 // components
-import { Popup } from "semantic-ui-react";
 import { Draggable } from "react-beautiful-dnd";
 import Menu from './Menu';
 
@@ -45,39 +45,39 @@ export const checkImportance = (color) => {
       return "Importance Moyenne";
     }
     default: {
-      return "";
+      return "Aucun label défini";
     }
   }
 };
 
 const Tasks = ({ tasks, list, isPublic }) => (
   tasks.sort((a, b) => a.order - b.order).map((task) => task.listId === list._id
-  && <Draggable isDragDisabled={isPublic} index={task.order} key={task._id} draggableId={task._id}>
-    {
-      (provided) => <div
-        style={{ backgroundColor: provided.isDraggingOver ? 'blue' : 'white' }}
-        ref={provided.innerRef}
-        {...provided.draggableProps}
-        {...provided.dragHandleProps}
-        data-order={task.order}
-        className="tasks-item"
-      >
-        <Popup
-          trigger={<div className="tasks-item-label" style={styles(task.label)} />}
-          content={checkImportance(task.label)}
-        />
-        <div className="tasks-item-main">
-          <p className="show">{task.title}</p>
+    && <Draggable isDragDisabled={isPublic} index={task.order} key={task._id} draggableId={task._id}>
+      {
+        (provided) => <div
+          style={{ backgroundColor: provided.isDraggingOver ? 'blue' : 'white' }}
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+          data-order={task.order}
+          className="tasks-item"
+        >
+          <Tooltip title={`${checkImportance(task.label)}`}>
+            <div className="tasks-item-label" style={styles(task.label)} />
+          </Tooltip>
+
+          <div className="tasks-item-main">
+            <p className="show">{task.title}</p>
+            {
+              !isPublic && <Menu taskId={task._id} task={task} list={list} />
+            }
+          </div>
           {
-            !isPublic && <Menu taskId={task._id} task={task} list={list} />
+            task.assigned && <div className="tasks-item-assigned">Assignée à <span> {task.assigned} </span></div>
           }
         </div>
-        {
-          task.assigned && <div className="tasks-item-assigned">Assignée à <span> {task.assigned} </span></div>
-        }
-      </div>
-    }
-  </Draggable>));
+      }
+    </Draggable>));
 
 Tasks.propTypes = {
   tasks: PropTypes.array.isRequired,

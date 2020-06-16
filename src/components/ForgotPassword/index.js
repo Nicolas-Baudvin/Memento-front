@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Input, Icon, Button } from 'semantic-ui-react';
+import { TextField, Button } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import './style.scss';
@@ -35,16 +35,21 @@ export default () => {
   return (
     <div className="forgotPass">
       <div className="forgotPass-header">
-        <a onClick={backToLogin} className="forgotPass-back"><Icon name="arrow left" /> Retour page connexion</a>
+        <a onClick={backToLogin} className="forgotPass-back"> Retour page connexion</a>
       </div>
       <h2>Mot de passe oublié</h2>
       <p>Nous vous enverrons un lien par mail pour récupérer votre mot de passe. Ce dernier expire au bout d'une heure.</p>
       <p>Ce lien est personnel. Ne le partagez surtout pas !</p>
       <p>Pensez à vérifier vos spams.</p>
       <form onSubmit={handleSubmitForgotPassword} className="forgotPass-form">
-        <Input label="Votre email" onChange={handleChange} type="email" icon="at" placeholder="exemple@exemple.com" />
+        <TextField label="Votre email" onChange={handleChange} type="email" />
         <div className="forgotPass-submit">
-          <Button loading={loading} content="Envoyer" icon="send" primary />
+          <Button variant="contained" type="submit" color="primary">
+            {
+              loading && <img src="/assets/spinner43px.svg" alt="chargement" />
+            }
+            Envoyer
+          </Button>
         </div>
       </form>
     </div>

@@ -1,6 +1,5 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { Icon } from 'semantic-ui-react';
 
 // Components
 import Footer from '../Footer';
@@ -16,7 +15,7 @@ export default () => {
   return (
     <>
       <section className="legals">
-        <a onClick={backToHome}><Icon name="arrow left" />Retour page d'accueil</a>
+        <a onClick={backToHome}>Retour page d'accueil</a>
         <h1>Mentions légales</h1>
         <h2>Propriétaire</h2>
         <p>
