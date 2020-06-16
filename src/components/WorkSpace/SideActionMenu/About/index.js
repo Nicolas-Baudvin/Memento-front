@@ -12,13 +12,13 @@ import { failMessage } from '../../../../store/Popup/actions';
 const About = ({ currentTab, isInvited }) => {
   const dispatch = useDispatch();
   const picsPath = [
-    { path: "/assets/tab-bg1.jpg", isSelected: false, key: 1 },
-    { path: "/assets/tab-bg2.jpg", isSelected: false, key: 2 },
-    { path: "/assets/tab-bg3.jpg", isSelected: false, key: 3 },
-    { path: "/assets/tab-bg4.jpg", isSelected: false, key: 4 },
-    { path: "/assets/tab-bg5.jpg", isSelected: false, key: 5 },
-    { path: "/assets/tab-bg6.jpg", isSelected: false, key: 6 },
-    { path: "/assets/tab-bg7.jpg", isSelected: false, key: 7 },
+    { path: "/assets/tab-bg1.webp", isSelected: false, key: 1 },
+    { path: "/assets/tab-bg2.webp", isSelected: false, key: 2 },
+    { path: "/assets/tab-bg3.webp", isSelected: false, key: 3 },
+    { path: "/assets/tab-bg4.webp", isSelected: false, key: 4 },
+    { path: "/assets/tab-bg5.webp", isSelected: false, key: 5 },
+    { path: "/assets/tab-bg6.webp", isSelected: false, key: 6 },
+    { path: "/assets/tab-bg7.webp", isSelected: false, key: 7 },
   ];
 
   const initialState = {
