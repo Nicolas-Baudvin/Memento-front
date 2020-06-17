@@ -47,7 +47,6 @@ export default ({ openThisTab }) => {
 
   const handleClickOpenTab = (item) => (e) => {
     const favClicked = favs.favTabs.filter((elem) => elem.tabId === item._id)[0];
-    console.log(item, favClicked);
     if (favClicked.isInvited) {
       window.location.href = `https://mymemento.fr/join/${favClicked.tabId}/${favClicked.invitationLink}/`;
     }
@@ -55,7 +54,6 @@ export default ({ openThisTab }) => {
       openThisTab(item._id, item.name)();
     }
   };
-
   useEffect(() => {
     dispatch(myFavs());
   }, []);
@@ -76,7 +74,7 @@ export default ({ openThisTab }) => {
     </h2>
     <div className="workmenu-tabs">
       {
-        favsTabs && favsTabs.map((tab) => <Card className={classes.root} key={tab._id}>
+        favsTabs && favsTabs.map((tab) => tab !== null && <Card className={classes.root} key={tab._id}>
           <CardHeader
             title={tab.name}
             avatar={

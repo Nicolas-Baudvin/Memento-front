@@ -48,7 +48,6 @@ export default ({
   const handleClose = () => setstate({ ...state, isOpen: false });
 
   const handleOpen = () => setstate({ ...state, isOpen: true });
-  console.log(state);
   const handleClickLogin = () => {
     setSelectedTitle("Signin");
     history.push("/");
