@@ -48,7 +48,7 @@ export default ({
   const handleClose = () => setstate({ ...state, isOpen: false });
 
   const handleOpen = () => setstate({ ...state, isOpen: true });
-
+  console.log(state);
   const handleClickLogin = () => {
     setSelectedTitle("Signin");
     history.push("/");
@@ -67,7 +67,7 @@ export default ({
   return (
     <>
       {
-        window.screen.width < 767 && <Menu />
+        window.screen.width < 767 && <Menu handleOpen={handleOpen} handleCloseModal={handleClose} state={state} />
       }
       {
         window.screen.width > 767 && <nav className="workmenu-header-nav">

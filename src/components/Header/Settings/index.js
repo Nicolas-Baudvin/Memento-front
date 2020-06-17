@@ -30,11 +30,12 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
     width: 'max-content',
-    height: 'max-content',
+    height: '400px',
     margin: '5em auto',
     boxShadow: theme.shadows[5],
     zIndex: '1000',
-    borderRadius: '5px 5px 5px 5px'
+    overflowY: 'auto',
+    borderRadius: '5px 5px 5px 5px',
   },
   buttonModale: {
     margin: '1em',
@@ -80,52 +81,56 @@ export default ({
     <div className="modal-header">
       <Typography className={classes.title}>Paramètres utilisateurs</Typography>
     </div>
-    <div className="modal-content">
-      <div className="settings">
+    <div className="modal-body">
+      <div className="modal-content">
+        <div className="settings">
 
-        <nav className="settings-menu">
-          <ul className="settings-menu-list">
+          <nav className="settings-menu">
+            <ul className="settings-menu-list">
+              {
+                settingsNav.map((item) => <li
+                  onClick={(e) => setstate({ ...state, currentMenu: e.target.innerText })}
+                  className="settings-menu-list__item"
+                  key={item.key}
+                >
+                  {item.title}
+                </li>)
+              }
+
+            </ul>
+          </nav>
+          <div className="settings-body">
+            <Typography className={classes.dynamicTitle}>{state.currentMenu}</Typography>
             {
-              settingsNav.map((item) => <li
-                onClick={(e) => setstate({ ...state, currentMenu: e.target.innerText })}
-                className="settings-menu-list__item"
-                key={item.key}
-              >
-                {item.title}
-              </li>)
+              state.currentMenu === "Mon Compte" && <EditUsername state={state} setstate={setstate} />
             }
-
-          </ul>
-        </nav>
-        <div className="settings-body">
-          <Typography className={classes.dynamicTitle}>{state.currentMenu}</Typography>
-          {
-            state.currentMenu === "Mon Compte" && <EditUsername state={state} setstate={setstate} />
-          }
-          {
-            state.currentMenu === "Changer de mot de passe" && <EditPassword state={state} setstate={setstate} />
-          }
-          {
-            state.currentMenu === "Changer d'email" && <EditEmail state={state} setstate={setstate} />
-          }
-          {
-            state.currentMenu === "Supprimer mon compte" && <DeleteAccount state={state} setstate={setstate} closeConfirm={closeConfirm} />
-          }
+            {
+              state.currentMenu === "Changer de mot de passe" && <EditPassword state={state} setstate={setstate} />
+            }
+            {
+              state.currentMenu === "Changer d'email" && <EditEmail state={state} setstate={setstate} />
+            }
+            {
+              state.currentMenu === "Supprimer mon compte" && <DeleteAccount state={state} setstate={setstate} closeConfirm={closeConfirm} />
+            }
+          </div>
         </div>
       </div>
-    </div>
-    <div className="modal-actions">
-      <Button color="secondary" variant="contained" onClick={handleClose}>
-        Fermer
+      <div className="modal-actions">
+        <Button color="secondary" variant="contained" onClick={handleClose}>
+          Fermer
       </Button>
+      </div>
     </div>
   </>
   );
   return (
     <>
-      <Button className={classes.button} variant="text" onClick={handleOpen} startIcon={<PersonIcon />}>
-        Mon compte
-      </Button>
+      {
+        window.screen.width > 767 && <Button className={classes.button} variant="text" onClick={handleOpen} startIcon={<PersonIcon />}>
+          Mon compte
+        </Button>
+      }
       <Modal
         open={isOpen}
         onClose={handleClose}

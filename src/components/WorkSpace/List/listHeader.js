@@ -28,7 +28,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const ListHeader = ({ list }) => {
+const ListHeader = ({ list, isPublic }) => {
   const classes = useStyles();
   const initialState = {};
 
@@ -65,34 +65,39 @@ const ListHeader = ({ list }) => {
   return (
     <div className="list-header">
       <h2 className="list-header-title show"> {list.name} </h2>
-      <Tooltip title="Paramètres de la liste...">
-        <IconButton className={classes.button} onClick={handleClick}>
-          <MoreVertIcon />
-        </IconButton>
-      </Tooltip>
-      <Menu
-        id="simple-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
-        <MenuItem onKeyDown={(e) => e.stopPropagation()}>
-          <Paper className={classes.paper} component="form" onSubmit={handleSubmit}>
-            <TextField
-              label="Changer le nom"
-              onChange={handleChange(list._id)}
-            />
-            <Divider orientation="vertical" />
-            <Tooltip title="Envoyer">
-              <IconButton className={classes.button} color="primary" type="submit">
-                <SendIcon />
-              </IconButton>
-            </Tooltip>
-          </Paper>
-        </MenuItem>
-        <MenuItem onKeyDown={(e) => e.stopPropagation()} className={classes.delete} onClick={deleteItem}>Supprimer la liste</MenuItem>
-      </Menu>
+      {
+        !isPublic
+        && <>
+          <Tooltip title="Paramètres de la liste...">
+            <IconButton className={classes.button} onClick={handleClick}>
+              <MoreVertIcon />
+            </IconButton>
+          </Tooltip>
+          <Menu
+            id="simple-menu"
+            anchorEl={anchorEl}
+            keepMounted
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+          >
+            <MenuItem onKeyDown={(e) => e.stopPropagation()}>
+              <Paper className={classes.paper} component="form" onSubmit={handleSubmit}>
+                <TextField
+                  label="Changer le nom"
+                  onChange={handleChange(list._id)}
+                />
+                <Divider orientation="vertical" />
+                <Tooltip title="Envoyer">
+                  <IconButton className={classes.button} color="primary" type="submit">
+                    <SendIcon />
+                  </IconButton>
+                </Tooltip>
+              </Paper>
+            </MenuItem>
+            <MenuItem onKeyDown={(e) => e.stopPropagation()} className={classes.delete} onClick={deleteItem}>Supprimer la liste</MenuItem>
+          </Menu>
+        </>
+      }
     </div>
   );
 };

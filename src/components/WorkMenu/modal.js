@@ -22,7 +22,10 @@ const useStyles = makeStyles((theme) => ({
     margin: '5em auto',
     boxShadow: theme.shadows[5],
     zIndex: '1000',
-    borderRadius: '5px 5px 5px 5px'
+    borderRadius: '5px 5px 5px 5px',
+    [theme.breakpoints.down('sm')]: {
+      width: '100%'
+    },
   },
   button: {
     margin: '1em',

@@ -15,7 +15,7 @@
         flex-direction: column;
         width: 100%;
         padding: 1em;
-        min-height: 90vh;
+        min-height: 80vh;
 
         &-title {
             font-family: "Indie-Flower", cursive;
@@ -324,7 +324,7 @@
                 font-weight: bold;
             }
             p {
-                word-break: break-all;
+                word-break: break-word;
             }
             time {
                 font-style: italic;
@@ -381,6 +381,7 @@
 
             &-header {
                 margin-top: 3em;
+                align-self: center;
                 &-input {
                     input {
                         width: 150px;

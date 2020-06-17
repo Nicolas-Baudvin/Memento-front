@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Menu, MenuItem, makeStyles } from '@material-ui/core';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 // Icons
@@ -8,6 +8,9 @@ import MenuIcon from '@material-ui/icons/Menu';
 
 // Actions
 import { logOut } from '../../../../store/Registration/actions';
+
+// Components
+import Settings from '../../Settings';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -22,11 +25,12 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default () => {
+export default ({ handleOpen, state, handleCloseModal }) => {
   const history = useHistory();
   const [anchor, setAnchor] = useState(null);
   const classes = useStyles();
   const dispatch = useDispatch();
+  const { datas } = useSelector((globalstate) => globalstate.userData);
 
   const handleClick = (e) => setAnchor(e.currentTarget);
 
@@ -49,11 +53,6 @@ export default () => {
     history.push("/vos-tableaux/");
   };
 
-  const handleClickMyAccount = () => {
-    setAnchor(null);
-    history.push("/mon-compte/");
-  };
-
   return (
     <div>
       <Button onClick={handleClick} className={classes.root} startIcon={<MenuIcon />} />
@@ -66,10 +65,19 @@ export default () => {
       >
         <MenuItem onClick={handleClickHome}>Accueil</MenuItem>
         <MenuItem onClick={handleClickTab}>Tableaux</MenuItem>
-        <MenuItem onClick={handleClickMyAccount}>Mon compte</MenuItem>
+        {
+          datas && <MenuItem onClick={handleOpen}>Mon compte</MenuItem>
+        }
         <MenuItem onClick={handleClickLogOut}>Déconnexion</MenuItem>
         <MenuItem onClick={handleClose} className={classes.closeMenu}>Fermer</MenuItem>
       </Menu>
+      {
+        datas && <Settings
+          isOpen={state.isOpen}
+          handleClose={handleCloseModal}
+          handleOpen={handleOpen}
+        />
+      }
     </div>
   );
 };

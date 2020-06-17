@@ -137,7 +137,8 @@
 .modal {
     &-list {
         display: flex;
-        flex-wrap: wrap;
+        overflow-x: auto;
+        max-width: 300px;
 
         &__item {
             margin: 1em;
@@ -150,6 +151,13 @@
                 box-shadow: 0 2px 15px rgba(0, 0, 0, 1);
             }
         }
+    }
+
+    &-body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
     }
 
     &-header {
@@ -195,6 +203,12 @@
 
 
 @media screen and (max-width: 767px) {
+    .modal {
+        &-body {
+            overflow-y: 'auto';
+            max-height: 400px;
+        }
+    }
     .workmenu {
         &-header {
             padding: .5em 0;
@@ -203,11 +217,9 @@
             &-title {
                 h1 {
                     font-size: 1.3em;
-                    margin: 0 1em 0 0;
                 }
 
                 img {
-                    display: none;
                 }
             }
         }

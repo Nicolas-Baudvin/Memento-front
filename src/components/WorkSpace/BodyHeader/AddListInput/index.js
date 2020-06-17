@@ -15,11 +15,17 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     width: 400,
-    margin: '0 1em'
+    margin: '0 1em',
+    [theme.breakpoints.down('sm')]: {
+      width: '250px',
+      margin: '1em 0',
+      alignSelf: 'center'
+    },
   },
   input: {
     marginLeft: theme.spacing(1),
     flex: 1,
+    margin: '0 0 .5em 0'
   },
   iconButton: {
     padding: 10,
@@ -33,7 +39,10 @@ const useStyles = makeStyles((theme) => ({
     color: '#fff',
     '&:hover': {
       backgroundColor: '#5800A0',
-    }
+    },
+    [theme.breakpoints.down('sm')]: {
+      width: '90px',
+    },
   }
 }));
 
@@ -56,13 +65,14 @@ const AddListInput = ({ currentTab }) => {
     <Divider className={classes.divider} orientation="vertical" />
     <InputBase
       value={addlist}
+      label="Nom de liste"
       onChange={(e) => setAddlist(e.target.value)}
       className={classes.input}
       placeholder="Nom de votre liste"
     />
     <Divider className={classes.divider} orientation="vertical" />
     <Button className={classes.button} size="large" type="submit" color="primary" variant="contained">
-      Ajouter liste
+      Ajouter
     </Button>
   </Paper>
   );
