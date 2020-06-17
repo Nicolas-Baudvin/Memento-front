@@ -137,7 +137,8 @@
 .modal {
     &-list {
         display: flex;
-        flex-wrap: wrap;
+        overflow-x: auto;
+        max-width: 300px;
 
         &__item {
             margin: 1em;

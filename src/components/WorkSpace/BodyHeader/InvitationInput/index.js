@@ -12,7 +12,12 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     width: 400,
-    margin: '0 1em'
+    margin: '0 1em',
+    [theme.breakpoints.down('sm')]: {
+      width: '250px',
+      margin: '1em 0',
+      alignSelf: 'center'
+    },
   },
   input: {
     marginLeft: theme.spacing(1),
@@ -30,7 +35,10 @@ const useStyles = makeStyles((theme) => ({
     color: '#fff',
     '&:hover': {
       backgroundColor: '#5800A0',
-    }
+    },
+    [theme.breakpoints.down('sm')]: {
+      width: '90px',
+    },
   }
 }));
 
