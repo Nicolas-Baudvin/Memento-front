@@ -1,12 +1,17 @@
 # Changelogs
 
-## V1.4.1 mise à jour déployée le 15/06/2020 à 12h05
+## V2.4.2 mise à jour déployée le 17/06/2020 à 12h00
 
 ## **bugs fix**
 
-- Chargement infini sur les tableaux
+- Suppression des tableaux défaillantes suite à la refonte
+- Page mon compte est désormais accessible correctement sur petits écrans
 
-## V2.0.0 mise à jour déployée
+## ** Améliorations diverses**
+
+- Adaptation visuelle du site sur tous les écrans.
+
+## V2.0.0 mise à jour déployée le 16/06/2020 à 16h00
 
 ### **Nouveautés**
 
@@ -16,6 +21,12 @@
 
 - Gains en performances
 - Amélioration de l'UI/UX
+
+## V1.4.1 mise à jour déployée le 15/06/2020 à 12h05
+
+## **bugs fix**
+
+- Chargement infini sur les tableaux
 
 ## V1.4.0 mise à jour déployée le 12/06/2020 à 15h40 ✔️
 
