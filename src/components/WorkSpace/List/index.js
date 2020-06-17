@@ -51,6 +51,7 @@ const List = ({ isInvited, tasks, lists, currentTab, isPublic }) => {
           <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} data-order={list.order} className="list">
             <ListHeader
               list={list}
+              isPublic={isPublic}
             />
             <TasksContainer isPublic={isPublic} state={state} list={list} />
           </div>
