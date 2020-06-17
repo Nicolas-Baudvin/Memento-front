@@ -119,7 +119,7 @@ export default ({
       <div className="modal-actions">
         <Button color="secondary" variant="contained" onClick={handleClose}>
           Fermer
-      </Button>
+        </Button>
       </div>
     </div>
   </>
@@ -127,7 +127,7 @@ export default ({
   return (
     <>
       {
-        window.screen.width > 767 && <Button className={classes.button} variant="text" onClick={handleOpen} startIcon={<PersonIcon />}>
+        window.screen.width > 967 && <Button className={classes.button} variant="text" onClick={handleOpen} startIcon={<PersonIcon />}>
           Mon compte
         </Button>
       }

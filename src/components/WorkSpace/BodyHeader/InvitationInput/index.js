@@ -11,11 +11,15 @@ const useStyles = makeStyles((theme) => ({
     padding: '2px 4px',
     display: 'flex',
     alignItems: 'center',
-    width: 400,
+    width: '400px',
     margin: '0 1em',
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('md')]: {
       width: '250px',
-      margin: '1em 0',
+      margin: '1em',
+      alignSelf: 'center'
+    },
+    [theme.breakpoints.down('lg')]: {
+      margin: '1em',
       alignSelf: 'center'
     },
   },
@@ -36,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       backgroundColor: '#5800A0',
     },
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('md')]: {
       width: '90px',
     },
   }

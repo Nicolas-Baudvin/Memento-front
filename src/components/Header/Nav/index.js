@@ -66,10 +66,10 @@ export default ({
   return (
     <>
       {
-        window.screen.width < 767 && <Menu handleOpen={handleOpen} handleCloseModal={handleClose} state={state} />
+        window.screen.width < 967 && <Menu handleOpen={handleOpen} handleCloseModal={handleClose} state={state} />
       }
       {
-        window.screen.width > 767 && <nav className="workmenu-header-nav">
+        window.screen.width > 967 && <nav className="workmenu-header-nav">
 
           <Button
             className={cx(classes.button, selectedTitle === "Home" ? classes.selectedTitle : '')}
