@@ -153,6 +153,13 @@
         }
     }
 
+    &-body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
     &-header {
         background-color: #6E00C8;
         width: 100%;
@@ -196,6 +203,12 @@
 
 
 @media screen and (max-width: 767px) {
+    .modal {
+        &-body {
+            overflow-y: 'auto';
+            max-height: 400px;
+        }
+    }
     .workmenu {
         &-header {
             padding: .5em 0;
@@ -204,11 +217,9 @@
             &-title {
                 h1 {
                     font-size: 1.3em;
-                    margin: 0 1em 0 0;
                 }
 
                 img {
-                    display: none;
                 }
             }
         }
