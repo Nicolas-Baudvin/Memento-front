@@ -1,6 +1,6 @@
 # Changelogs
 
-## V2.4.2 mise à jour déployée le 17/06/2020 à 12h00
+## V2.0.1 mise à jour déployée le 17/06/2020 à 12h00
 
 ## **bugs fix**
 
