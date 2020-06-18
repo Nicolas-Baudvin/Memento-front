@@ -11,7 +11,7 @@ ADD . /app/
 WORKDIR /app
 RUN npm install --production && npm run build:prod
 
-EXPOSE 2900
+EXPOSE 80
 VOLUME /app/dist
 
 CMD npm run start
