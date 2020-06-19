@@ -53,7 +53,7 @@ export default ({
   const handleOpen = () => setstate({ ...state, isOpen: true });
   const handleClickLogin = () => {
     setSelectedTitle("Signin");
-    history.push("/");
+    history.push("/connexion/");
   };
 
   const handleClickHome = () => {

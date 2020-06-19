@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
  * Imports locaux
  */
 // Composants React
-import Home from '../Home';
+import RegistrationPage from '../RegistrationPage';
 import Popup from '../Popup';
 import NotFound from '../NotFound';
 import WorkMenu from '../WorkMenu';
@@ -19,6 +19,7 @@ import NewPassword from '../NewPassword';
 import EmailChange from '../EmailChange';
 import LastNews from '../LastNews';
 import LegalsMentions from '../LegalsMentions';
+import HomePage from '../HomePage';
 
 // Styles et assets
 import './app.scss';
@@ -33,25 +34,28 @@ const App = () => {
   return (
     <Router as="div" id="app">
       <Switch>
+        <Route exact path="/">
+          <HomePage />
+        </Route>
         <Route exact path="/public/:name/:id([a-f\d]{24})/">
           <WorkSpace
             isPublic
             isInvited={false}
           />
         </Route>
-        <Route exact path="/">
+        <Route exact path="/connexion/">
           {
-            isConnected ? <Redirect from="/" to="/vos-tableaux/" /> : <Home />
+            isConnected ? <Redirect from="/connexion/" to="/vos-tableaux/" /> : <RegistrationPage />
           }
         </Route>
         <Route exact path="/vos-tableaux/">
           {
-            !isConnected ? <Redirect from="/vos-tableaux/" to="/" /> : <WorkMenu />
+            !isConnected ? <Redirect from="/vos-tableaux/" to="/connexion/" /> : <WorkMenu />
           }
         </Route>
         <Route exact path="/vos-tableaux/:name/:id([a-f\d]{24})/">
           {
-            !isConnected ? <Redirect from="/vos-tableaux/:id" to="/" />
+            !isConnected ? <Redirect from="/vos-tableaux/:id" to="/connexion/" />
               : <WorkSpace
                 isPublic={false}
                 isInvited={false}
@@ -60,7 +64,7 @@ const App = () => {
         </Route>
         <Route exact path="/join/:friendTabId/:link/">
           {
-            !isConnected ? <Redirect from="/join/:friendTabId/:link/" to="/" />
+            !isConnected ? <Redirect from="/join/:friendTabId/:link/" to="/connexion/" />
               : <WorkSpace
                 isPublic={false}
                 isInvited
