@@ -15,9 +15,13 @@ import Settings from '../../Settings';
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    display: 'none',
     color: '#fff',
     '&:hover': {
       backgroundColor: 'rgba(76,0,138,0.3)'
+    },
+    [theme.breakpoints.down("sm")]: {
+      display: 'inline'
     }
   },
   closeMenu: {
@@ -71,13 +75,6 @@ export default ({ handleOpen, state, handleCloseModal }) => {
         <MenuItem onClick={handleClickLogOut}>Déconnexion</MenuItem>
         <MenuItem onClick={handleClose} className={classes.closeMenu}>Fermer</MenuItem>
       </Menu>
-      {
-        datas && <Settings
-          isOpen={state.isOpen}
-          handleClose={handleCloseModal}
-          handleOpen={handleOpen}
-        />
-      }
     </div>
   );
 };

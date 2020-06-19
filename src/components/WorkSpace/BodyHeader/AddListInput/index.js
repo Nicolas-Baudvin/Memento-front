@@ -60,6 +60,7 @@ const AddListInput = ({ currentTab }) => {
     e.preventDefault();
     if (addlist && addlist.length < 30) dispatch(newList({ name: addlist, tabId: currentTab._id }));
     else dispatch(failMessage("Le titre d'une liste doit contenir entre 1 et 30 caractères"));
+    setAddlist('');
   };
 
   return (<Paper component="form" className={classes.root} onSubmit={handleSubmit}>

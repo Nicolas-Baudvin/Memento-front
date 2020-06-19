@@ -1,70 +1,70 @@
 .popupWindow {
     position: fixed;
-    bottom: 0;
+    bottom: 5em;
+    left: 5em;
     display: none;
-    height: 10%;
-    width: 100%;
+    width: 300px;
     z-index: 1001;
-    animation: popin .5s ease-in-out;
+    animation: popin .2s ease-in-out;
     animation-iteration-count: 1;
     -webkit-animation-fill-mode: forwards;
     animation-fill-mode: forwards;
+    border-radius: 5px;
+    box-shadow: 0 2px 15px rgba(0,0,0,.5);
 
-    &-icon {
-        height: 100%;
-        width: 10%;
+    &-header {
+        width: 100%;
         background: #FF503D;
-        opacity: .9;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 1.5em;
+        padding: .5em;
         color: white;
+        border-radius: 5px 5px 0 0;
+        font-size: 1.5em;
+        font-weight: bold;
     }
 
     &-text {
-        width: 90%;
-        background: #FF5656;
-        opacity: .8;
+        width: 100%;
+        background: #fff;
         display: flex;
         flex-direction: column;
         align-items: center;
+        border-radius: 0 0 5px 5px;
 
         p {
             width: 100%;
-            font-size: 2.5em;
-            color: white;
+            font-size: 1.2em;
+            color: black;
             text-align: center;
             margin: .7em auto !important;
+            word-break: break-word;
         }
     }
 }
 
-.text-success {
-    background: rgb(21, 109, 13);
-}
-
-.icon-success {
+.header-success {
     background: rgb(17, 88, 11);
 }
 
 .popupWindow-visible {
     display: flex;
+    flex-direction: column;
 }
 
 @keyframes popin {
     from {
-        bottom: -10%;
+        opacity: 0;
     }
     to {
-        bottom: 0;
-        transition: 1s;
+        opacity: 1
     }
 }
 
 
 @media only screen and (max-width: 767px) {
     .popupWindow {
+        bottom: 1em;
+        left: 50%;
+        transform: translate(-50%, 0);
         &-text {
             p {
                 font-size: 1em;

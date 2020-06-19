@@ -10,7 +10,6 @@ import {
   DELETE_LIST,
   UPDATE_LIST,
   CLEAN_LISTS,
-  UPDATE_FRIEND_LISTS,
   REORDER_LISTS,
   LISTS_FROM_FRIEND_REORDER
 } from "./actions";
@@ -20,10 +19,6 @@ import { newAction } from "../ActionsOnWorkSpace/actions";
 export default (store) => (next) => (action) => {
   const state = store.getState();
   switch (action.type) {
-    case UPDATE_FRIEND_LISTS: {
-      next(action);
-      break;
-    }
     case LISTS_FROM_FRIEND_REORDER: {
       const cryptedLists = cryptUserData(action.lists);
       localStorage.setItem('lists', cryptedLists);
@@ -36,7 +31,7 @@ export default (store) => (next) => (action) => {
       const { _id: tabId } = store.getState().mytabs.currentTab;
 
       Axios({
-        method: "POST",
+        method: "PATCH",
         url: `${process.env.API_URL}list/update-order/`,
         data: {
           userID,
@@ -134,7 +129,7 @@ export default (store) => (next) => (action) => {
 
       Axios({
         url: process.env.DELETE_LIST_URL,
-        method: 'POST',
+        method: 'DELETE',
         data: {
           listID,
           userID: state.userData.datas.userID,
@@ -168,7 +163,7 @@ export default (store) => (next) => (action) => {
       const { token, userID, username } = state.userData.datas;
 
       Axios({
-        method: 'POST',
+        method: 'PATCH',
         url: `${process.env.API_URL}list/update/`,
         data: {
           listData,

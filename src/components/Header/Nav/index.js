@@ -24,7 +24,10 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '1.3em',
     '&:hover': {
       backgroundColor: 'rgba(76,0,138,0.3)'
-    }
+    },
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
+    },
   },
   selectedTitle: {
     backgroundColor: 'rgba(0,0,0,.04)'
@@ -65,50 +68,47 @@ export default ({
 
   return (
     <>
-      {
-        window.screen.width < 967 && <Menu handleOpen={handleOpen} handleCloseModal={handleClose} state={state} />
-      }
-      {
-        window.screen.width > 967 && <nav className="workmenu-header-nav">
+      <Menu handleOpen={handleOpen} handleCloseModal={handleClose} state={state} />
 
-          <Button
-            className={cx(classes.button, selectedTitle === "Home" ? classes.selectedTitle : '')}
+      <nav className="workmenu-header-nav">
+
+        <Button
+          className={cx(classes.button, selectedTitle === "Home" ? classes.selectedTitle : '')}
+          variant="text"
+          startIcon={<HomeIcon />}
+          onClick={handleClickHome}
+        >
+          Accueil
+        </Button>
+        {
+          datas && !isPublic && <Settings
+            isOpen={state.isOpen}
+            handleClose={handleClose}
+            handleOpen={handleOpen}
+          />
+        }
+        {
+          !datas && <Button onClick={handleClickLogin} className={cx(classes.button, selectedTitle === "Signin" ? classes.selectedTitle : '')} variant="text" startIcon={<PersonIcon />}>
+            Connexion/Inscription
+            </Button>
+        }
+        {
+          !isPublic && <Button
+            className={cx(classes.button, selectedTitle === "Tabs" ? classes.selectedTitle : '')}
             variant="text"
-            startIcon={<HomeIcon />}
-            onClick={handleClickHome}
+            onClick={handleClickTab}
+            startIcon={<TableChartIcon />}
           >
-            Accueil
-          </Button>
-          {
-            datas && !isPublic && <Settings
-              isOpen={state.isOpen}
-              handleClose={handleClose}
-              handleOpen={handleOpen}
-            />
-          }
-          {
-            !datas && <Button onClick={handleClickLogin} className={cx(classes.button, selectedTitle === "Signin" ? classes.selectedTitle : '')} variant="text" startIcon={<PersonIcon />}>
-              Connexion/Inscription
+            Tableaux
             </Button>
-          }
-          {
-            !isPublic && <Button
-              className={cx(classes.button, selectedTitle === "Tabs" ? classes.selectedTitle : '')}
-              variant="text"
-              onClick={handleClickTab}
-              startIcon={<TableChartIcon />}
-            >
-              Tableaux
+        }
+        {
+          datas && <Button className={classes.button} variant="text" startIcon={<PowerSettingsNewIcon />} onClick={handleClickDisconnect}>
+            Déconnexion
             </Button>
-          }
-          {
-            datas && <Button className={classes.button} variant="text" startIcon={<PowerSettingsNewIcon />} onClick={handleClickDisconnect}>
-              Déconnexion
-            </Button>
-          }
+        }
 
-        </nav>
-      }
+      </nav>
     </>
   );
 };

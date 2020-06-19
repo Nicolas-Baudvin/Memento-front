@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#6e00c8',
   },
   root: {
-    margin: '0 1em',
+    margin: '1em',
     '&:hover': {
       boxShadow: '0 0 15px rgba(0, 0, 0, 0.5)'
     }

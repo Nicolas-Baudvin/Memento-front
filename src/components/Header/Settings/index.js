@@ -22,7 +22,10 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '1.3em',
     '&:hover': {
       backgroundColor: 'rgba(76,0,138,0.3)'
-    }
+    },
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
+    },
   },
   paper: {
     backgroundColor: '#fff',
@@ -126,11 +129,11 @@ export default ({
   );
   return (
     <>
-      {
-        window.screen.width > 967 && <Button className={classes.button} variant="text" onClick={handleOpen} startIcon={<PersonIcon />}>
-          Mon compte
+
+      <Button className={classes.button} variant="text" onClick={handleOpen} startIcon={<PersonIcon />}>
+        Mon compte
         </Button>
-      }
+
       <Modal
         open={isOpen}
         onClose={handleClose}

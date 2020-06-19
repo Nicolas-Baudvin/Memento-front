@@ -1,6 +1,20 @@
 # Changelogs
 
-## V2.0.1 mise à jour déployée le 17/06/2020 à 12h00
+## V2.1.0 mise à jour déployée le 19/06/2020 à 15h ✔️
+
+### **Nouveautés**
+
+- Refonte du Popup de succès/échec
+
+### ** Améliorations diverses **
+
+- Adaptation visuelle du site sur tous les écrans améliorée
+- Amélirations mineures sur le serveur
+- Corrections mineures du styles
+- Affiche le nom de la tâche dans le formulaire d'édition de tâche
+- Vide le formulaire d'ajout de liste après soumission de celui-ci
+
+## V2.0.1 mise à jour déployée le 17/06/2020 à 12h00 ✔️
 
 ## **bugs fix**
 
@@ -9,9 +23,9 @@
 
 ## ** Améliorations diverses**
 
-- Adaptation visuelle du site sur tous les écrans.
+- Adaptation visuelle du site sur tous les écrans améliorée.
 
-## V2.0.0 mise à jour déployée le 16/06/2020 à 16h00
+## V2.0.0 mise à jour déployée le 16/06/2020 à 16h00 ✔️
 
 ### **Nouveautés**
 
@@ -22,7 +36,7 @@
 - Gains en performances
 - Amélioration de l'UI/UX
 
-## V1.4.1 mise à jour déployée le 15/06/2020 à 12h05
+## V1.4.1 mise à jour déployée le 15/06/2020 à 12h05 ✔️
 
 ## **bugs fix**
 

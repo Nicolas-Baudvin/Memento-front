@@ -201,6 +201,16 @@
     color: black !important;
 }
 
+@media screen and (max-width: 967px) {
+    .workmenu {
+        &-header {
+            &-nav {
+                display: none;
+            }
+        }
+    }
+}
+
 
 @media screen and (max-width: 767px) {
     .modal {
@@ -244,7 +254,6 @@
                 width: 100%;
 
                 &-title {
-                    margin-left: 1em;
                     display: flex;
                     align-items: center;
                     flex-direction: column;
