@@ -31,14 +31,16 @@ export default ({
 
   return (
     <div className="workmenu-body-tabs">
-      <h2 className="workmenu-body-tabs-title">
-        Mes Tableaux
+      <div className="workmenu-body-tabs-header">
+        <h2 className="workmenu-body-tabs-title">
+          Mes Tableaux
+        </h2>
         <Modal
           handleClickImg={handleClickImg}
           state={state}
           setstate={setstate}
         />
-      </h2>
+      </div>
       {
         tabs.length === 0 && <p className="workmenu-body-tabs-alert">Vous n'avez pas encore créé de Tableau !</p>
       }
