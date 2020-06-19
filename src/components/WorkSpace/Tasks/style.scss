@@ -4,6 +4,8 @@
     align-self: center;
     width: 100%;
     min-height: 10px;
+    overflow-y: auto;
+    max-height: 450px;
     
     &-item {
         position: relative;
