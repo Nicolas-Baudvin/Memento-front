@@ -23,7 +23,7 @@ export default (store) => (next) => (action) => {
       const { _id: tabId } = store.getState().mytabs.currentTab;
 
       axios({
-        method: 'POST',
+        method: 'PATCH',
         url: `${process.env.API_URL}task/update-order`,
         data: {
           userID,
@@ -47,7 +47,7 @@ export default (store) => (next) => (action) => {
       const { _id: tabId } = store.getState().mytabs.currentTab;
       const { userID, token, username } = state.userData.datas;
       axios({
-        method: "POST",
+        method: "PUT",
         url: `${process.env.API_URL}task/assign-task/`,
         data: {
           tabId,
@@ -113,7 +113,7 @@ export default (store) => (next) => (action) => {
       const { token, userID, username } = state.userData.datas;
 
       axios({
-        method: 'POST',
+        method: 'PATCH',
         url: `${process.env.API_URL}task/update-name/`,
         data: {
           userID,
@@ -147,7 +147,7 @@ export default (store) => (next) => (action) => {
       const tabId = store.getState().mytabs.currentTab._id;
 
       axios({
-        method: 'POST',
+        method: 'PATCH',
         url: `${process.env.API_URL}task/update-label/`,
         data: {
           label,
@@ -203,7 +203,7 @@ export default (store) => (next) => (action) => {
       const tabId = store.getState().mytabs.currentTab._id;
 
       axios({
-        method: 'POST',
+        method: 'DELETE',
         url: `${process.env.API_URL}task/delete/`,
         data: {
           taskId,

@@ -69,7 +69,7 @@ export default (store) => (next) => (action) => {
       const { username } = action;
       const { token, userID } = state.userData.datas;
       axios({
-        method: 'POST',
+        method: 'PATCH',
         url: `${process.env.UPDATE_USERNAME_API}`,
         data: {
           userID,
@@ -103,7 +103,7 @@ export default (store) => (next) => (action) => {
       const { token } = state.userData.datas;
 
       axios({
-        method: 'post',
+        method: 'PATCH',
         url: `${process.env.UPDATE_EMAIL_API}`,
         data: {
           ...action.payload,
@@ -127,7 +127,7 @@ export default (store) => (next) => (action) => {
       const token = state.userData.datas.token;
 
       axios({
-        method: 'POST',
+        method: 'PATCH',
         url: `${process.env.UPDATE_PASSWORD_API}`,
         data: {
           ...action.payload,
@@ -170,7 +170,7 @@ export default (store) => (next) => (action) => {
       const { userID, token } = state.userData.datas;
 
       axios({
-        method: 'post',
+        method: 'DELETE',
         url: `${process.env.API_URL}auth/delete/`,
         data: {
           userID

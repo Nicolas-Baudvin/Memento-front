@@ -26,7 +26,7 @@ export default (store) => (next) => (action) => {
       const { isPublic, tabId } = action;
       const { token } = state.userData.datas;
       axios({
-        method: "post",
+        method: "PATCH",
         url: `${process.env.API_URL}tab/change-status/`,
         data: {
           isPublic,
@@ -76,7 +76,7 @@ export default (store) => (next) => (action) => {
       const { token, userID, username } = state.userData.datas;
 
       axios({
-        method: "POST",
+        method: "PATCH",
         url: `${process.env.API_URL}tab/update-pic/`,
         data: {
           userID,
@@ -110,7 +110,7 @@ export default (store) => (next) => (action) => {
       const { token, userID, username } = state.userData.datas;
 
       axios({
-        method: "POST",
+        method: "PATCH",
         url: `${process.env.API_URL}tab/update-name/`,
         data: {
           userID,
@@ -173,7 +173,7 @@ export default (store) => (next) => (action) => {
         userID: state.userData.datas.userID
       };
       axios({
-        method: 'POST',
+        method: 'DELETE',
         url: `${process.env.DELETE_TAB_URL}`,
         data,
         headers: {
