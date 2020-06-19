@@ -56,9 +56,9 @@ const TaskMenu = ({ task, list }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { currentSocket } = useSelector((GlobalState) => GlobalState.sockets);
-
+  const initialState = { [task._id]: task.title };
   const [anchorEl, setAnchorEl] = useState(null);
-  const [state, setstate] = useState({});
+  const [state, setstate] = useState(initialState);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -140,7 +140,13 @@ const TaskMenu = ({ task, list }) => {
         <MenuItem onKeyDown={(e) => e.stopPropagation()} className={classes.delete} onClick={handleClickDelete}>Supprimer la tâche</MenuItem>
         <MenuItem onKeyDown={(e) => e.stopPropagation()}>
           <Paper className={classes.paper} onSubmit={handleSubmit} component="form">
-            <TextField value={state[task._id] || ''} focused onChange={(e) => setstate({ ...state, [task._id]: e.target.value })} label="Changer le nom" />
+            <TextField
+              multiline
+              value={state[task._id] || ''}
+              focused
+              onChange={(e) => setstate({ ...state, [task._id]: e.target.value })}
+              label="Changer le nom"
+            />
             <Button className={classes.submit} type="submit" variant="contained">
               Changer
             </Button>
