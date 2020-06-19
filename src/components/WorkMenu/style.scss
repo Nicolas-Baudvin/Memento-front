@@ -20,21 +20,6 @@
         background-color: rgba(0, 0, 0, .2);
         align-items: center;
 
-        .ui.button {
-            color: white !important;
-            background-color: rgba(42, 191, 236, 0.5);
-            transition: .3s;
-
-            &:hover {
-                background-color: rgba(37, 168, 207, .5);
-                transition: .3s;
-            }
-
-            &:focus {
-                background-color: rgba(37, 168, 207, .5);
-            }
-        }
-
         &-title {
             cursor: pointer;
             display: flex;
@@ -62,19 +47,6 @@
                 }
             }
         }
-
-        &-nav {
-            .ui.icon.button {
-                color: white !important;
-                background-color: rgba(42, 191, 236, 0.5);
-                transition: .3s;
-
-                &:hover {
-                    background-color: rgba(37, 168, 207, .5);
-                    transition: .3s;
-                }
-            }
-        }
     }
 
     &-body {
@@ -82,22 +54,9 @@
         margin: 3em auto;
         display: flex;
 
-        .white {
-            color: white !important;
-        }
-
         &-menu {
             display: flex;
             flex-direction: column;
-
-            .ui.basic.button {
-                color: black !important;
-                width: 150px;
-                display: flex;
-                justify-content: left;
-                text-transform: capitalize;
-                margin: .3em 0;
-            }
         }
 
         &-tabs {
@@ -114,20 +73,16 @@
                 align-self: flex-start;
             }
 
+            &-header {
+                display: flex;
+                align-self: flex-start;
+            }
+
             &-title {
                 align-self: flex-start;
-                width: 400px;
                 display: flex;
+                margin: 0 3em 0 0;
                 justify-content: space-between;
-
-                .ui.button {
-                    background-color: rgba(42, 191, 236, 1) !important;
-                    color: white !important;
-
-                    &:hover {
-                        background-color: rgba(8, 160, 206, 1) !important;
-                    }
-                }
             }
         }
     }
@@ -208,6 +163,19 @@
                 display: none;
             }
         }
+
+        &-body {
+            &-tabs {
+                &-header {
+                    flex-direction: column;
+                    align-self: center;
+                }
+
+                &-title {
+                    margin: 1em 0;
+                }
+            }
+        }
     }
 }
 
@@ -227,9 +195,6 @@
             &-title {
                 h1 {
                     font-size: 1.3em;
-                }
-
-                img {
                 }
             }
         }
@@ -266,8 +231,8 @@
 }
 
 h1 {
-    font-size: 2em !important;
-    font-weight: 700 !important;
+    font-size: 2em;
+    font-weight: 700;
 }
 
 h2 {
@@ -276,8 +241,8 @@ h2 {
 }
 
 h3 {
-    font-size: 1.3em !important;
-    font-weight: bold !important;
+    font-size: 1.3em;
+    font-weight: bold;
 }
 
 div,
@@ -287,5 +252,5 @@ h2,
 h3,
 h4,
 time {
-    line-height: 1.4em !important;
+    line-height: 1.4em;
 }
