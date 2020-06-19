@@ -27,7 +27,7 @@ export default () => {
     const realToken = token.split('&').join('.'); // Problème avec React Router en laissant les points dans le token
     try {
       const result = await axios({
-        method: 'post',
+        method: 'PATCH',
         url: `${process.env.API_URL}auth/new-password/`,
         data: {
           pass,

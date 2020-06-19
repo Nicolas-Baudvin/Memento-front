@@ -16,7 +16,7 @@ export default () => {
     try {
       const request = await axios({
         url: `${process.env.API_URL}auth/new-email/`,
-        method: 'post',
+        method: 'PATCH',
         data: {
           emails,
           userID
