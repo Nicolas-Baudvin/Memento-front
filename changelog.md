@@ -1,5 +1,19 @@
 # Changelogs
 
+## V2.2.0 en développement
+
+### **Nouveautés**
+
+- Page d'accueil
+
+### **Bugs fixs**
+
+- La page pouvait être plus large que prévu sur les grandes résolutions à cause du menu d'actions sur l'espace de travail
+
+### **Améliorations diverses**
+
+- Gains en performances.
+
 ## V2.1.0 mise à jour déployée le 19/06/2020 à 15h ✔️
 
 ### **Nouveautés**
