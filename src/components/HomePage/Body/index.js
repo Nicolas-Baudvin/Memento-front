@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, makeStyles } from '@material-ui/core';
 
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles(() => ({
   button: {
@@ -21,13 +22,14 @@ const useStyles = makeStyles(() => ({
 
 export default () => {
   const classes = useStyles();
+  const history = useHistory();
   return (
     <div className="homePage-body">
       <div className="homePage-body-block">
         <div className="homePage-body-block-title">
           <h1><strong>Soyez Agile !</strong></h1>
           <h2><strong>My Memento</strong> vous aide dans votre organisation quotidienne ou professionnelle.</h2>
-          <Button endIcon={<ArrowForwardIcon className={classes.icon} />} className={classes.button} variant="contained">
+          <Button onClick={() => history.push("/connexion/")} endIcon={<ArrowForwardIcon className={classes.icon} />} className={classes.button} variant="contained">
             C'est Parti !
           </Button>
         </div>

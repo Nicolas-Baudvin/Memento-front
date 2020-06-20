@@ -17,10 +17,10 @@ export default ({ classes, datas }) => {
   return <div className="homePage-header-buttons">
     {
       !datas && <>
-        <Button className={classes.outlined} variant="outlined">
+        <Button onClick={() => history.push("/connexion/")} className={classes.outlined} variant="outlined">
           Connexion
         </Button>
-        <Button className={classes.contained} variant="contained" endIcon={<ArrowForwardIcon fontSize="large" />}>
+        <Button onClick={() => history.push("/connexion/")} className={classes.contained} variant="contained" endIcon={<ArrowForwardIcon fontSize="large" />}>
           Essayer Gratuitement
         </Button>
       </>
