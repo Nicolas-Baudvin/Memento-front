@@ -79,7 +79,7 @@ export default ({ openThisTab, tabs }) => {
               <CardMedia
                 onClick={openThisTab(tab._id, tab.name)}
                 className={classes.image}
-                image={tab.imgPath}
+                image={tab.resizedImgPath}
               />
             </Tooltip>
           </Card>

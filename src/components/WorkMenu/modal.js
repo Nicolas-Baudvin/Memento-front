@@ -72,7 +72,7 @@ export default ({
     }
     handleClose();
     setstate({ ...state, tabNameError: '', error: '' });
-    return dispatch(newTab({ imgPath, tabName }));
+    return dispatch(newTab({ imgPath, tabName, num: imgSelected }));
   };
 
   const body = (<>

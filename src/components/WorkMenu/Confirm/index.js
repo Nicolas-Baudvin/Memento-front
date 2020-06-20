@@ -16,7 +16,6 @@ import { deleteTab } from "../../../store/Tabs/actions";
 export default ({ state, setstate, handleClose, message }) => {
   const dispatch = useDispatch();
   const handleConfirm = () => {
-    console.log(state.selectedTab);
     setstate({ ...state, open: false });
     if (!state.selectedTab) {
       return dispatch(failMessage("Erreur : Cette table n'existe pas. Actualisez la page"));
