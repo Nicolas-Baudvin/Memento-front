@@ -4,22 +4,21 @@ import { useSelector } from "react-redux";
 
 import "./style.scss";
 
+import Header from '../HomePage/Header';
+
 export default () => {
 
   const history = useHistory();
   const { isConnected } = useSelector((GlobalState) => GlobalState.userData);
 
-  return (
+  return (<>
+    <Header />
     <div className="notFound">
       <h1>404 Page Introuvable</h1>
-      <h2>La page que vous avez demandé n'existe pas.</h2>
+      <h2>La page que vous avez demandée n'existe pas.</h2>
       Retourner à ...
       <nav>
         <ul>
-          <li>
-            <a onClick={() => history.push("/mentions-legales/")}>mentions légales</a>
-          </li>
-
           <li>
             <a onClick={() => history.push("/")}>Page d'accueil</a>
           </li>
@@ -32,5 +31,6 @@ export default () => {
         </ul>
       </nav>
     </div>
+  </>
   );
 };

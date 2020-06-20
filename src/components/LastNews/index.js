@@ -1,25 +1,18 @@
 import React from 'react';
 import ReactMarkDown from 'react-markdown';
-import { useHistory } from 'react-router-dom';
 
 // Md file
 import ChangeLogs from '../../../changelog.md';
-import Footer from '../Footer';
 // Styles
 import './style.scss';
 
-export default () => {
-  const history = useHistory();
+import Header from '../HomePage/Header';
 
-  const handleClickBackToHome = () => history.push("/");
-
-  return (
-    <>
-      <div className="changelogs">
-        <a onClick={handleClickBackToHome}> Retour à l'accueil</a>
-        <ReactMarkDown source={ChangeLogs} className="changelogs-details" escapeHtml={false} />
-      </div>
-      <Footer />
-    </>
-  );
-};
+export default () => (
+  <>
+    <Header />
+    <div className="changelogs">
+      <ReactMarkDown source={ChangeLogs} className="changelogs-details" escapeHtml={false} />
+    </div>
+  </>
+);
