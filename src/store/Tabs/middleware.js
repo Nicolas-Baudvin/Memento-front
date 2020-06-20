@@ -12,6 +12,7 @@ import {
 import { successMessage, failMessage } from '../Popup/actions';
 import { sendTab } from '../Socket/actions';
 import { newAction } from '../ActionsOnWorkSpace/actions';
+import GetResizedPic from '../../Utils/Functions/GetResizedPic';
 
 export default (store) => (next) => (action) => {
   const state = store.getState();
@@ -198,6 +199,7 @@ export default (store) => (next) => (action) => {
         userID: state.userData.datas.userID,
         name: action.tabData.tabName,
         imgPath: action.tabData.imgPath,
+        resizedImgPath: GetResizedPic(action.tabData.num),
         owner: state.userData.datas.username
       };
       axios({
