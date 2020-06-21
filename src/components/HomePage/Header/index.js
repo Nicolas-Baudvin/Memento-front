@@ -7,6 +7,7 @@ import Title from './Title';
 import Nav from './Nav';
 import Buttons from './Buttons';
 import Menu from './Menu';
+import { useLocation } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -89,13 +90,15 @@ const useStyles = makeStyles((theme) => ({
 export default () => {
   const classes = useStyles();
   const { datas } = useSelector((state) => state.userData);
-
+  const { pathname } = useLocation();
   return (
-    <div className="homePage-header">
+    <header className="homePage-header">
       <Title />
       <Nav classes={classes} />
-      <Buttons classes={classes} datas={datas} />
-      <Menu classes={classes} datas={datas} />
-    </div>
+      {
+        pathname !== "/connexion/" && <Buttons classes={classes} datas={datas} />
+      }
+      <Menu pathname={pathname} classes={classes} datas={datas} />
+    </header>
   );
 };

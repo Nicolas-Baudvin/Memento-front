@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { logOut } from '../../../../store/Registration/actions';
 
-export default ({ classes, datas }) => {
+export default ({ classes, datas, pathname }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const history = useHistory();
   const dispatch = useDispatch();
@@ -45,7 +45,7 @@ export default ({ classes, datas }) => {
           datas && <MenuItem onClick={() => dispatch(logOut())}>Déconnexion</MenuItem>
         }
         {
-          !datas && <MenuItem onClick={() => history.push("/connexion/")}>Connexion</MenuItem>
+          !datas && pathname !== "/connexion/" && <MenuItem onClick={() => history.push("/connexion/")}>Connexion</MenuItem>
         }
         <MenuItem className={classes.close} onClick={handleClose}>Fermer</MenuItem>
       </Menu>
