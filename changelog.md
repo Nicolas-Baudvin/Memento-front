@@ -1,6 +1,6 @@
 # Changelogs
 
-## V2.2.0 en développement
+## V2.2.0 mise à jour déployée le 19/06/2020 à 16h30
 
 ### **Nouveautés**
 
@@ -13,6 +13,7 @@
 ### **Améliorations diverses**
 
 - Gains en performances.
+- Quelques petites amélirations de l'UI et UX du côté du menu des tâches et des listes 
 
 ## V2.1.0 mise à jour déployée le 19/06/2020 à 15h ✔️
 
