@@ -92,12 +92,14 @@ const TaskMenu = ({ task, list }) => {
       listName: list.name,
       order: task.order
     }));
+    handleClose();
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(updateTaskName({ title: state[task._id], taskId: task._id, oldTitle: task.title }));
     setstate({ ...state, [task._id]: '' });
+    handleClose();
   };
 
   return (
