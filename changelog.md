@@ -1,10 +1,11 @@
 # Changelogs
 
-## V2.2.0 mise à jour déployée le 19/06/2020 à 16h30
+## V2.2.0 mise à jour déployée le 19/06/2020 à 16h30 ✔️
 
 ### **Nouveautés**
 
 - Page d'accueil
+- Ajout d'un entête sur les pages de connexion, nouveautés, mentions légales.
 
 ### **Bugs fixs**
 
