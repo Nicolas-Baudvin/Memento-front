@@ -4,7 +4,7 @@ import { Button, makeStyles } from '@material-ui/core';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { useHistory } from 'react-router-dom';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   button: {
     margin: '1em 0',
     backgroundColor: '#6E00C8',
@@ -13,10 +13,19 @@ const useStyles = makeStyles(() => ({
     fontWeight: '300',
     '&:hover': {
       backgroundColor: 'rgba(120, 0, 200, 1)'
-    }
+    },
+    [theme.breakpoints.down('xl')]: {
+      fontSize: '2em'
+    },
+    [theme.breakpoints.down('lg')]: {
+      fontSize: '1.5em'
+    },
+    [theme.breakpoints.down('sm')]: {
+      alignSelf: 'center'
+    },
   },
   icon: {
-    fontSize: '2em'
+    fontSize: '2rem'
   }
 }));
 

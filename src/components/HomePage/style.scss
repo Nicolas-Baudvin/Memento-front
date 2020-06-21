@@ -29,6 +29,8 @@
                 bottom: 15%;
                 z-index: 1000;
                 width: 700px;
+                object-fit: cover;
+                object-position: center;
             }
 
             &-title {
@@ -47,7 +49,6 @@
                     font-weight: 300;
                     font-size: 2em;
                 }
-
             }
         }
     }
@@ -66,7 +67,7 @@
                 font-size: 1.3em;
                 font-weight: 500;
                 span {
-                    color: #6E00C8;
+                    color: #6e00c8;
                 }
             }
         }
@@ -83,9 +84,131 @@
             }
 
             h1 {
-                font-family: 'Indie Flower', cursive;
+                font-family: "Indie Flower", cursive;
                 font-size: 2.5em;
                 color: #000;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 1920px) and (min-width: 1515px) {
+    .homePage {
+        &-body {
+            &-block {
+                &-title {
+                    top: 40%;
+                    h1 {
+                        font-size: 7em;
+                    }
+                    h2 {
+                        font-size: 1.5em;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 1514px) and (min-width: 1355px) {
+    .homePage {
+        &-body {
+            &-block {
+                &-title {
+                    top: 40%;
+                    h1 {
+                        font-size: 6em;
+                    }
+                    h2 {
+                        font-size: 1.5em;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 1355px) and (min-width: 960px) {
+    .homePage {
+        &-body {
+            &-block {
+                img {
+                    width: 500px;
+                    bottom: 20%;
+                }
+
+                &-title {
+                    top: 40%;
+                    h1 {
+                        font-size: 4em;
+                    }
+                    h2 {
+                        font-size: 1.5em;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 960px) {
+    .homePage {
+        &-body {
+            flex-direction: column;
+
+            &-block {
+                width: 100%;
+                align-self: center;
+                img {
+                    width: 400px;
+                    top: 0;
+                }
+
+                &-title {
+                    top: 20%;
+                    left: 50%;
+                    transform: translate(-50%, 0);
+                    width: 100%;
+                    padding: 1em;
+                    display: flex;
+                    flex-direction: column;
+
+                    h1 {
+                        font-size: 2em;
+                    }
+                    h2 {
+                        font-size: 1.5em;
+                    }
+                }
+
+                &:first-child {
+                    height: max-content;
+                    min-height: 32rem;
+                }
+
+                &:last-child {
+                    min-height: 356px;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .homePage {
+        &-body {
+            &-block {
+                img {
+                    width: 300px;
+                }
+            }
+        }
+
+        &-header {
+            &-title {
+                h1 {
+                    font-size: 2em;
+                }
             }
         }
     }

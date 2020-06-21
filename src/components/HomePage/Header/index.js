@@ -6,15 +6,25 @@ import { useSelector } from 'react-redux';
 import Title from './Title';
 import Nav from './Nav';
 import Buttons from './Buttons';
+import Menu from './Menu';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   button: {
     color: "#6E00C8",
     fontSize: '1.5em',
     margin: '0 1em',
     '&:hover': {
       backgroundColor: 'rgba(120, 0, 200, 0.1)'
-    }
+    },
+    [theme.breakpoints.down('lg')]: {
+      fontSize: '1em'
+    },
+    [theme.breakpoints.down('md')]: {
+      fontSize: '.7em'
+    },
+    [theme.breakpoints.down('sm')]: {
+      display: 'none'
+    },
   },
   outlined: {
     margin: '0 .5em',
@@ -28,7 +38,16 @@ const useStyles = makeStyles(() => ({
       backgroundColor: 'rgba(120, 0, 200, .05)',
       borderColor: 'rgba(120, 0, 200)',
       boxShadow: '0 2px 2px rgba(0,0,0,.2)'
-    }
+    },
+    [theme.breakpoints.down('lg')]: {
+      fontSize: '1.5em'
+    },
+    [theme.breakpoints.down('md')]: {
+      fontSize: '.8em'
+    },
+    [theme.breakpoints.down('sm')]: {
+      display: 'none'
+    },
   },
   contained: {
     backgroundColor: '#6E00C8',
@@ -40,7 +59,30 @@ const useStyles = makeStyles(() => ({
     textTransform: 'capitalize',
     '&:hover': {
       backgroundColor: 'rgba(120, 0, 200)'
+    },
+    [theme.breakpoints.down('lg')]: {
+      fontSize: '1.5em'
+    },
+    [theme.breakpoints.down('md')]: {
+      fontSize: '.8em'
+    },
+    [theme.breakpoints.down('sm')]: {
+      display: 'none'
+    },
+  },
+  menu: {
+    display: 'none',
+    color: '#6E00C8',
+    fontSize: '1.5em',
+    [theme.breakpoints.down('sm')]: {
+      display: 'inline'
     }
+  },
+  close: {
+    color: '#ff0000'
+  },
+  menuIcon: {
+    fontSize: '3rem'
   }
 }));
 
@@ -53,6 +95,7 @@ export default () => {
       <Title />
       <Nav classes={classes} />
       <Buttons classes={classes} datas={datas} />
+      <Menu classes={classes} datas={datas} />
     </div>
   );
 };
