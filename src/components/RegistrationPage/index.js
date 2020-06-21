@@ -7,6 +7,7 @@ import "./style.scss";
 // Components
 import Registration from "../Login";
 import Footer from '../Footer';
+import Header from '../HomePage/Header';
 
 
 export default () => (
@@ -16,6 +17,7 @@ export default () => (
       <title>Memento - Page de connexion</title>
       <link rel="canonical" href="https://www.mymemento.fr/" />
     </Helmet>
+    <Header />
     <main className="homepage">
       <h1 className="homepage-title">Bienvenue sur <strong>My Memento</strong></h1>
       <h3 className="homepage-subtitle">Votre gestionnaire de listes de tâches !</h3>
