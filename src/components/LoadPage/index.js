@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
 export default ({ active, title }) => {
   const classes = useStyles();
   return (<div className="loadPage">
-    <Backdrop className={classes.backdrop} open={active}>
+    <Backdrop title="Chargement..." className={classes.backdrop} open={active}>
       <CircularProgress color="inherit" />
     </Backdrop>
   </div>);
