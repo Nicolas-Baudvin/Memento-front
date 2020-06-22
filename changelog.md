@@ -1,5 +1,12 @@
 # Changelogs
 
+## V2.2.1 en développement
+
+### **Améliorations diverses**
+
+- Message de succès lors du changement de status privé/publique/favoris du tableau
+- Effets de survol sur les tableaux dans le menu d'actions, onglet à propos,  de l'espace de travail
+
 ## V2.2.0 mise à jour déployée le 19/06/2020 à 16h30 ✔️
 
 ### **Nouveautés**
@@ -14,7 +21,7 @@
 ### **Améliorations diverses**
 
 - Gains en performances.
-- Quelques petites amélirations de l'UI et UX du côté du menu des tâches et des listes 
+- Quelques petites améliorations de l'UI et UX du côté du menu des tâches et des listes 
 
 ## V2.1.0 mise à jour déployée le 19/06/2020 à 15h ✔️
 
