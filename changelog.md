@@ -6,6 +6,7 @@
 
 - Message de succès lors du changement de status privé/publique/favoris du tableau
 - Effets de survol sur les tableaux dans le menu d'actions, onglet à propos,  de l'espace de travail
+- Retour de la page de chargement sur le menu des tableaux
 
 ## V2.2.0 mise à jour déployée le 19/06/2020 à 16h30 ✔️
 
