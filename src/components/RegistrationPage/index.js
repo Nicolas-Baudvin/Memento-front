@@ -6,7 +6,6 @@ import "./style.scss";
 
 // Components
 import Registration from "../Login";
-import Footer from '../Footer';
 import Header from '../HomePage/Header';
 
 
@@ -25,6 +24,5 @@ export default () => (
         <Registration />
       </div>
     </main>
-    <Footer />
   </>
 );
