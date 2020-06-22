@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { NEW_ACTION, TAB_ACTIONS } from './actions';
-import { failMessage } from "../Popup/actions";
 import { sendActions } from '../Socket/actions';
+import errorHandler from '../../Utils/Functions/AxiosErrorHandler';
 
 export default (store) => (next) => (action) => {
   switch (action.type) {
@@ -30,10 +30,7 @@ export default (store) => (next) => (action) => {
           store.dispatch(sendActions(res.data.actions));
           next(action);
         })
-        .catch((err) => {
-          console.log(err);
-          if (err) store.dispatch(failMessage("Certains éléments de la page n'ont pas pu être chargés. Vous pouvez la rafraichir et si la problème persiste, contactez un administrateur."));
-        });
+        .catch((err) => errorHandler(err, store.dispatch));
       break;
     }
     case TAB_ACTIONS: {
@@ -54,10 +51,7 @@ export default (store) => (next) => (action) => {
           store.dispatch(sendActions(res.data.actions));
           next(action);
         })
-        .catch((err) => {
-          console.log(err);
-          if (err) store.dispatch(failMessage("Certains éléments de la page n'ont pas pu être chargés. Vous pouvez la rafraichir et si la problème persiste, contactez un administrateur."));
-        });
+        .catch((err) => errorHandler(err, store.dispatch));
       break;
     }
     default: {
