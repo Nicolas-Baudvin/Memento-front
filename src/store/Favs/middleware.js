@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { ADD_TO_FAV, DELETE_FAV, MY_FAVS, MY_FAVS_TABS } from './actions';
 import errorHandler from '../../Utils/Functions/AxiosErrorHandler';
+import { successMessage } from '../Popup/actions';
 
 export default (store) => (next) => (action) => {
   const state = store.getState();
@@ -46,6 +47,7 @@ export default (store) => (next) => (action) => {
       })
         .then((res) => {
           action.favs = res.data.favs;
+          store.dispatch(successMessage("Ce tableau est désormais dans vos favoris."))
           next(action);
         })
         .catch((err) => errorHandler(err, store.dispatch));
@@ -68,6 +70,7 @@ export default (store) => (next) => (action) => {
       })
         .then((res) => {
           action.favs = res.data.favs;
+          store.dispatch(successMessage("Ce tableau ne fait plus parti de vos favoris."));
           next(action);
         })
         .catch((err) => errorHandler(err, store.dispatch));

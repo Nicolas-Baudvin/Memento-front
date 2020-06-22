@@ -7,7 +7,16 @@ import errorHandler from '../../Utils/Functions/AxiosErrorHandler';
 
 // actions
 import {
-  NEW_TAB, MY_TABS, DELETE_TAB, NEW_CURRENT_TAB, NEW_CURRENT_FRIEND_TAB, UPDATE_TAB_PIC, UPDATE_TAB_NAME, UPDATE_TAB, NEW_PUBLIC_CURRENT_TAB, MAKE_TAB_PUBLIC, CHANGE_TAB_STATUS
+  NEW_TAB,
+  MY_TABS,
+  DELETE_TAB,
+  NEW_CURRENT_TAB,
+  NEW_CURRENT_FRIEND_TAB,
+  UPDATE_TAB_PIC,
+  UPDATE_TAB_NAME,
+  UPDATE_TAB,
+  NEW_PUBLIC_CURRENT_TAB,
+  CHANGE_TAB_STATUS
 } from './actions';
 import { successMessage, failMessage } from '../Popup/actions';
 import { sendTab } from '../Socket/actions';
@@ -38,10 +47,16 @@ export default (store) => (next) => (action) => {
         }
       })
         .then((res) => {
-          console.log(res);
-          const cryptedTab = cryptUserData(res.data.tab);
+          const { tab } = res.data;
+          const cryptedTab = cryptUserData(tab);
           localStorage.setItem("currentTab", cryptedTab);
-          action.tab = res.data.tab;
+          action.tab = tab;
+          if (tab.isPublic) {
+            store.dispatch(successMessage("Votre tableau est désormais accessible publiquement. Le lien est sur votre espace de travail."));
+          }
+          else {
+            store.dispatch(successMessage("Votre tableau est désormais accessible uniquement sur invitation."));
+          }
           next(action);
         })
         .catch((err) => errorHandler(err, store.dispatch));
