@@ -12,6 +12,7 @@ import { disconnectFromChannel } from "../../store/Socket/actions";
 import Header from '../Header';
 import MyTabs from './MyTabs';
 import Footer from '../Footer';
+import LoadPage from '../LoadPage';
 
 export default () => {
   const dispatch = useDispatch();
@@ -25,6 +26,7 @@ export default () => {
   };
   const { tabs } = useSelector((GlobalState) => GlobalState.mytabs);
   const [state, setstate] = useState(initialState);
+  const [isLoading, setLoading] = useState(true);
 
   const handleOpen = () => setstate({ ...state, isOpen: true });
 
@@ -34,13 +36,21 @@ export default () => {
     dispatch(myTabs());
   }, []);
 
+  const onLoad = () => {
+    setLoading(false);
+  };
+
   return (
     <>
       <Helmet>
         <meta charSet="utf-8" />
         <title>Memento - Vos Tableaux</title>
       </Helmet>
-      <div className="workmenu">
+
+      <div onLoad={onLoad} className="workmenu">
+        {
+          isLoading && <LoadPage active={isLoading} />
+        }
         <Header handleOpen={handleOpen} />
         <main className="workmenu-body">
           <MyTabs tabs={tabs} state={state} setstate={setstate} handleOpen={handleOpen} />
