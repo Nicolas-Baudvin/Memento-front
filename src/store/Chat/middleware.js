@@ -13,7 +13,6 @@ export default (store) => (next) => (action) => {
     case FIND_MESSAGES: {
       const { token, userID } = state.userData.datas;
       const { _id: tabId } = state.mytabs.currentTab;
-      console.log("chargement des messages ...")
       axios.post(
         `${process.env.API_URL}chat/find/`,
         {
@@ -27,7 +26,6 @@ export default (store) => (next) => (action) => {
         }
       )
         .then((res) => {
-          console.log(res);
           const { messages } = res.data;
           action.messages = messages;
           next(action);
