@@ -1,9 +1,7 @@
 import socketIo from 'socket.io-client';
 import {
   NEW_SOCKET_TAB,
-  DELETE_SOCKET_TAB,
   CONNECT_TO_FRIEND_TAB,
-  guestLeave,
   updateCurrentSocket,
   UPDATE_CURRENT_SOCKET,
   LEAVE_ROOM,
@@ -254,10 +252,6 @@ export default (store) => (next) => (action) => {
 
       localStorage.setItem("socketTab", cryptedNewSocket);
 
-      next(action);
-      break;
-    }
-    case DELETE_SOCKET_TAB: {
       next(action);
       break;
     }
