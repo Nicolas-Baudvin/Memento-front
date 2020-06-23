@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { TextField, Button } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import './style.scss';
 import { forgotPassword } from '../../store/Registration/actions';
 import { failMessage } from '../../store/Popup/actions';
+
+import './style.scss';
 
 export default () => {
   const history = useHistory();
@@ -23,7 +24,6 @@ export default () => {
     setLoading(true);
     if (email) dispatch(forgotPassword(email));
     else dispatch(failMessage("Le mail est invalide"));
-    console.log(email);
   };
 
   useEffect(() => {
