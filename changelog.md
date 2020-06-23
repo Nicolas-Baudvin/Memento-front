@@ -1,12 +1,13 @@
 # Changelogs
 
-## V2.2.1 en développement
+## V2.2.1 mise à jour déployée le 23/06/2020
 
 ### **Améliorations diverses**
 
-- Message de succès lors du changement de status privé/publique/favoris du tableau
-- Effets de survol sur les tableaux dans le menu d'actions, onglet à propos,  de l'espace de travail
+- Message de succès lors du changement de status privé/public/favoris du tableau
+- Effets de survol sur les tableaux dans le menu d'actions, onglet à propos, de l'espace de travail
 - Retour de la page de chargement sur le menu des tableaux
+- Clean logs & code mort
 
 ## V2.2.0 mise à jour déployée le 19/06/2020 à 16h30 ✔️
 
