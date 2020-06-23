@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default ({ active, title }) => {
+export default ({ active }) => {
   const classes = useStyles();
   return (<div className="loadPage">
     <Backdrop title="Chargement..." className={classes.backdrop} open={active}>
