@@ -9,10 +9,6 @@ import MenuIcon from '@material-ui/icons/Menu';
 // Actions
 import { logOut } from '../../../../store/Registration/actions';
 
-// Components
-import Settings from '../../Settings';
-
-
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'none',
@@ -29,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default ({ handleOpen, state, handleCloseModal }) => {
+export default ({ handleOpen }) => {
   const history = useHistory();
   const [anchor, setAnchor] = useState(null);
   const classes = useStyles();
