@@ -33,8 +33,6 @@ export default ({ isPublic }) => {
     }
   };
 
-
-
   useEffect(() => {
     getLogo("/assets/logo.png");
   }, []);
