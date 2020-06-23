@@ -1,7 +1,6 @@
 /**
  * Import
  */
-@import "src/styles/vars";
 
 html {
     min-height: 100vh;
@@ -9,10 +8,6 @@ html {
 }
 
 body {
-    // background-image: url("../../../assets/bg.jpg") !important;
-    // background-position: center !important;
-    // background-attachment: fixed !important;
-    // background-size: cover !important;
     min-height: 100vh;
     font-family: 'Roboto',
         sans-serif;
@@ -22,10 +17,4 @@ body {
 #root {
     display: flex;
     flex-direction: column;
-}
-
-.dimmed.dimmable>.ui.animating.dimmer,
-.dimmed.dimmable>.ui.visible.dimmer,
-.ui.active.dimmer {
-    backdrop-filter: blur(4px);
 }
