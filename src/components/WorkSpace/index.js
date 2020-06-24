@@ -104,7 +104,8 @@ const WorkSpace = ({ isInvited, isPublic }) => {
 };
 
 WorkSpace.propTypes = {
-  isInvited: PropTypes.bool.isRequired
+  isInvited: PropTypes.bool.isRequired,
+  isPublic: PropTypes.bool.isRequired
 };
 
 export default WorkSpace;

@@ -1,13 +1,13 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core';
 import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 
 // Components
 import Title from './Title';
 import Nav from './Nav';
 import Buttons from './Buttons';
 import Menu from './Menu';
-import { useLocation } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   button: {

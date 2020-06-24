@@ -1,8 +1,6 @@
 import React from 'react';
 import ReactMarkDown from 'react-markdown';
 
-// Md file
-import ChangeLogs from '../../../changelog.md';
 // Styles
 import './style.scss';
 
@@ -12,7 +10,7 @@ export default () => (
   <>
     <Header />
     <div className="changelogs">
-      <ReactMarkDown source={ChangeLogs} className="changelogs-details" escapeHtml={false} />
+      <ReactMarkDown source="/assets/changelog.md" className="changelogs-details" escapeHtml={false} />
     </div>
   </>
 );

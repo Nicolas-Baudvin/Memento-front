@@ -5,7 +5,6 @@ import { makeStyles } from '@material-ui/core/styles';
 
 // Styles & assets
 import "./style.scss";
-import HeaderPic from '../../../assets/login.webp';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -52,7 +51,7 @@ export default ({ state, setstate }) => {
         </Typography>
 
       </div>
-      <img className="form-img" src={HeaderPic} alt="connexion" />
+      <img className="form-img" src="/assets/login.webp" alt="connexion" />
     </>
   );
 };
