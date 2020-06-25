@@ -47,6 +47,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default ({ currentTab, copyToClipBoard }) => {
   const classes = useStyles();
+  const inputValue = `https://www.mymemento.fr/public/${currentTab.name}/${currentTab._id}`;
   return (<Paper className={classes.root} onSubmit={copyToClipBoard} component="form">
     <Tooltip title="Ce lien te permet d'inviter tout le monde sur ton tableau. Contrairement aux invités privés, ils n'auront aucun droit.">
       <HelpOutlineIcon />
@@ -55,7 +56,7 @@ export default ({ currentTab, copyToClipBoard }) => {
     <InputBase
       className={classes.input}
       action={{ content: "Copier", color: "blue", onClick: copyToClipBoard }}
-      value={`https://www.mymemento.fr/public/${currentTab.name}/${currentTab._id}`}
+      value={inputValue.split(' ').join('%20')}
     />
     <Divider className={classes.divider} orientation="vertical" />
     <Button className={classes.button} type="submit" size="large" variant="contained">

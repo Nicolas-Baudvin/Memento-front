@@ -48,6 +48,8 @@ const useStyles = makeStyles((theme) => ({
 
 const InvitationInput = ({ currentSocket, currentTab, copyToClipBoard }) => {
   const classes = useStyles();
+  const inputValue = `https://mymemento.fr/join/${currentTab._id}/${currentSocket.invitationLink}/`;
+
   return (
     <Paper component="form" onSubmit={copyToClipBoard} className={classes.root}>
       <Tooltip title="Ce lien te permet d'inviter tes amis sur ton tableau">
@@ -56,7 +58,7 @@ const InvitationInput = ({ currentSocket, currentTab, copyToClipBoard }) => {
       <Divider className={classes.divider} orientation="vertical" />
       <InputBase
         className={classes.input}
-        value={`https://mymemento.fr/join/${currentTab._id}/${currentSocket.invitationLink}/`}
+        value={inputValue}
       />
       <Divider className={classes.divider} orientation="vertical" />
       <Button type="submit" className={classes.button} size="large" variant="contained">
