@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, TextField, makeStyles, Typography } from '@material-ui/core';
 import { useDispatch, useSelector } from "react-redux";
-import { updateEmail } from "../../../store/Registration/actions";
+import { updateEmail } from "../../../../store/Registration/actions";
 
 const useStyles = makeStyles((theme) => ({
   input: {

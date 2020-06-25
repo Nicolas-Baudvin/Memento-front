@@ -1,19 +1,21 @@
 import React, { useState } from "react";
-import { Button, makeStyles, Modal, Typography } from '@material-ui/core';
-import { useSelector, useDispatch } from "react-redux";
+import {
+  Button,
+  makeStyles,
+  Modal,
+  Typography
+} from '@material-ui/core';
+import { useSelector } from "react-redux";
 import PersonIcon from '@material-ui/icons/Person';
-import { settingsNav } from '../../../Utils/navs';
 
-// Icons
+// Utils
+import { settingsNav } from '../../../Utils/navs';
 
 // Styles
 import "./style.scss";
 
-// Components
-import EditUsername from './changeUsername';
-import EditPassword from './changePassword';
-import EditEmail from './changeEmail';
-import DeleteAccount from './deleteAccount';
+// Components/
+import Content from './Content';
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -85,40 +87,13 @@ export default ({
       <Typography className={classes.title}>Paramètres utilisateurs</Typography>
     </div>
     <div className="modal-body">
-      <div className="modal-content">
-        <div className="settings">
-
-          <nav className="settings-menu">
-            <ul className="settings-menu-list">
-              {
-                settingsNav.map((item) => <li
-                  onClick={(e) => setstate({ ...state, currentMenu: e.target.innerText })}
-                  className="settings-menu-list__item"
-                  key={item.key}
-                >
-                  {item.title}
-                </li>)
-              }
-
-            </ul>
-          </nav>
-          <div className="settings-body">
-            <Typography className={classes.dynamicTitle}>{state.currentMenu}</Typography>
-            {
-              state.currentMenu === "Mon Compte" && <EditUsername state={state} setstate={setstate} />
-            }
-            {
-              state.currentMenu === "Changer de mot de passe" && <EditPassword state={state} setstate={setstate} />
-            }
-            {
-              state.currentMenu === "Changer d'email" && <EditEmail state={state} setstate={setstate} />
-            }
-            {
-              state.currentMenu === "Supprimer mon compte" && <DeleteAccount state={state} setstate={setstate} closeConfirm={closeConfirm} />
-            }
-          </div>
-        </div>
-      </div>
+      <Content
+        state={state}
+        setstate={setstate}
+        settingsNav={settingsNav}
+        closeConfirm={closeConfirm}
+        classes={classes}
+      />
       <div className="modal-actions">
         <Button color="secondary" variant="contained" onClick={handleClose}>
           Fermer
@@ -127,12 +102,13 @@ export default ({
     </div>
   </>
   );
+
   return (
     <>
 
       <Button className={classes.button} variant="text" onClick={handleOpen} startIcon={<PersonIcon />}>
         Mon compte
-        </Button>
+      </Button>
 
       <Modal
         open={isOpen}

@@ -3,7 +3,7 @@ import { Button, TextField, makeStyles } from '@material-ui/core';
 import { useDispatch } from "react-redux";
 
 // Actions
-import { updatePassword } from "../../../store/Registration/actions";
+import { updatePassword } from "../../../../store/Registration/actions";
 
 const useStyles = makeStyles((theme) => ({
   input: {
