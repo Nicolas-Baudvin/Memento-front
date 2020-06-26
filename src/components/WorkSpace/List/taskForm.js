@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { TextField, Button, makeStyles } from '@material-ui/core';
 import PropTypes from 'prop-types';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { newTask } from "../../../store/Tasks/actions";
 
@@ -11,7 +11,7 @@ const useStyles = makeStyles(() => ({
     resize: 'vertical',
   },
   button: {
-    backgroundColor: '#6E00C8',
+    backgroundColor: (props) => props.color || "#6e00c8",
     color: '#fff',
     '&:hover': {
       backgroundColor: '#6100B1'
@@ -20,7 +20,8 @@ const useStyles = makeStyles(() => ({
 }));
 
 const TaskForm = ({ list }) => {
-  const classes = useStyles();
+  const { mytheme } = useSelector((GlobalState) => GlobalState.userData.datas);
+  const classes = useStyles({ color: mytheme });
   const dispatch = useDispatch();
   const [state, setstate] = useState({});
 

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import {
   TextField, Tooltip, IconButton, Menu, MenuItem, Paper, makeStyles, Divider, Button
 } from '@material-ui/core';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import PropTypes from 'prop-types';
 
 // Icons
@@ -47,7 +47,7 @@ const useStyles = makeStyles(() => ({
 const ListHeader = ({ list, isPublic }) => {
   const classes = useStyles();
   const initialState = {};
-
+  const { mytheme } = useSelector((GlobalState) => GlobalState.userData.datas);
   const [state, setstate] = useState(initialState);
   const dispatch = useDispatch();
 
@@ -79,13 +79,17 @@ const ListHeader = ({ list, isPublic }) => {
   };
 
   return (
-    <div className="list-header">
+    <div style={{ backgroundColor: mytheme || "#6e00c8" }} className="list-header">
       <h2 className="list-header-title show"> {list.name} </h2>
       {
         !isPublic
         && <>
           <Tooltip title="Paramètres de la liste...">
-            <IconButton className={classes.button} onClick={handleClick}>
+            <IconButton
+              style={{ backgroundColor: mytheme || "#6e00c8" }}
+              className={classes.button}
+              onClick={handleClick}
+            >
               <MoreVertIcon />
             </IconButton>
           </Tooltip>

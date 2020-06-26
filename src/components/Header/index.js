@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 // Utils
 import loadPic from '../../Utils/loadPic';
@@ -12,6 +13,8 @@ import Title from './Title';
 
 export default ({ isPublic }) => {
   const { pathname } = useLocation();
+  const { mytheme } = useSelector((GlobalState) => GlobalState.userData.datas);
+  console.log(mytheme);
 
   const initialState = {
     show: false,
@@ -37,7 +40,7 @@ export default ({ isPublic }) => {
   }, []);
 
   return (
-    <header className="workmenu-header" style={pathname === "/vos-tableaux/" || pathname === "/vos-tableaux" ? { backgroundColor: "#6E00C8" } : {}}>
+    <header className="workmenu-header" style={pathname === "/vos-tableaux/" || pathname === "/vos-tableaux" ? { backgroundColor: mytheme || "#6E00C8" } : {}}>
       <Title state={state} />
       <Nav state={state} setstate={setstate} isPublic={isPublic} />
     </header>

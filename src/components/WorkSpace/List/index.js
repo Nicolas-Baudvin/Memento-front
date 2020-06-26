@@ -48,7 +48,13 @@ const List = ({ isInvited, tasks, lists, currentTab, isPublic }) => {
     lists.length > 0 && lists.sort((a, b) => a.order - b.order).map((list) => currentTab._id === list.tabId && (
       <Draggable isDragDisabled={isPublic} key={list._id} draggableId={list._id} index={list.order}>
         {(provided) => (
-          <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} data-order={list.order} className="list">
+          <div
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+            ref={provided.innerRef}
+            data-order={list.order}
+            className="list"
+          >
             <ListHeader
               list={list}
               isPublic={isPublic}

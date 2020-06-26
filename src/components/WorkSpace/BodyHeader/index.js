@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types';
+import { useSelector } from "react-redux";
 
 // Components
 import InvitationInput from './InvitationInput';
@@ -9,6 +10,8 @@ import PublicLink from './PublicLink';
 const BodyHeader = ({
   isInvited, userID, currentTab, currentSocket
 }) => {
+  const { mytheme } = useSelector((GlobalState) => GlobalState.userData.datas);
+
   const copyToClipBoard = (e) => {
     e.preventDefault();
     const copy = e.target.querySelector("input");
@@ -25,14 +28,14 @@ const BodyHeader = ({
     <div className="workspace-body-header">
       {
         userID === currentTab.userID && currentSocket
-        && <InvitationInput copyToClipBoard={copyToClipBoard} currentTab={currentTab} currentSocket={currentSocket} />
+        && <InvitationInput mytheme={mytheme} copyToClipBoard={copyToClipBoard} currentTab={currentTab} currentSocket={currentSocket} />
       }
       {
         !isInvited && currentSocket
-        && <AddListInput currentTab={currentTab} />
+        && <AddListInput mytheme={mytheme} currentTab={currentTab} />
       }
       {
-        !isInvited && currentTab.isPublic && <PublicLink copyToClipBoard={copyToClipBoard} currentTab={currentTab} />
+        !isInvited && currentTab.isPublic && <PublicLink mytheme={mytheme} copyToClipBoard={copyToClipBoard} currentTab={currentTab} />
       }
     </div>
   );

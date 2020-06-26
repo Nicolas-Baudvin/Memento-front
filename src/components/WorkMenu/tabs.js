@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { Card, CardHeader, CardMedia, makeStyles, Avatar, Tooltip, IconButton } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
+import { useSelector } from "react-redux";
 
 // components
 import Confirm from './Confirm';
@@ -39,6 +40,7 @@ export default ({ openThisTab, tabs }) => {
     open: false,
     pic: []
   };
+  const { mytheme } = useSelector((GlobalState) => GlobalState.userData.datas);
 
   const [state, setstate] = useState(initialState);
 
@@ -52,7 +54,7 @@ export default ({ openThisTab, tabs }) => {
             <CardHeader
               title={tab.name}
               avatar={
-                <Avatar className={classes.avatar}>
+                <Avatar style={{ backgroundColor: mytheme || "#6e00c8" }} className={classes.avatar}>
                   {tab.owner.substring(0, 1)}
                 </Avatar>
               }

@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     margin: 4,
   },
   button: {
-    backgroundColor: '#6E00C8',
+    backgroundColor: (props) => props.color || "#6e00c8",
     color: '#fff',
     '&:hover': {
       backgroundColor: '#5800A0',
@@ -46,8 +46,8 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const InvitationInput = ({ currentSocket, currentTab, copyToClipBoard }) => {
-  const classes = useStyles();
+const InvitationInput = ({ currentSocket, currentTab, copyToClipBoard, mytheme }) => {
+  const classes = useStyles({ color: mytheme });
   const inputValue = `https://mymemento.fr/join/${currentTab._id}/${currentSocket.invitationLink}/`;
 
   return (

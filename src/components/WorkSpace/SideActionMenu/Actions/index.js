@@ -42,6 +42,8 @@ const Actions = ({ state, setstate, isInvited }) => {
   const dispatch = useDispatch();
   const { currentTab } = useSelector((GlobalState) => GlobalState.mytabs);
   const { favs } = useSelector((GlobalState) => GlobalState.myfavs);
+  const { mytheme } = useSelector(((GlobalState) => GlobalState.userData.datas));
+
 
   const isFav = () => (favs ? favs.favTabs.filter((fav) => fav.tabId === currentTab._id).length > 0 : false);
 
@@ -63,7 +65,7 @@ const Actions = ({ state, setstate, isInvited }) => {
 
   return (
     <>
-      <nav className="sideActionMenu-nav">
+      <nav style={{ backgroundColor: mytheme || "#6e00c8" }} className="sideActionMenu-nav">
         <Tooltip title="Ouvrir/Fermer le menu">
           <IconButton className={classes.button} onClick={handleClickOpenMenu}>
             <MenuIcon fontSize="large" />

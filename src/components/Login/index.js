@@ -65,7 +65,7 @@ export default () => {
   };
 
   useEffect(() => {
-    if (message.length) {
+    if (message) {
       setLoading(false);
     }
   }, [message]);
