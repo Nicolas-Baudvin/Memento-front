@@ -6,6 +6,7 @@ import EditUsername from '../Views/changeUsername';
 import EditPassword from '../Views/changePassword';
 import EditEmail from '../Views/changeEmail';
 import DeleteAccount from '../Views/deleteAccount';
+import Themes from '../Views/themes';
 
 
 export default ({
@@ -18,17 +19,20 @@ export default ({
       <div className="settings-body">
         <Typography className={classes.dynamicTitle}>{state.currentMenu}</Typography>
         {
-            state.currentMenu === "Mon Compte" && <EditUsername state={state} setstate={setstate} />
-          }
+          state.currentMenu === "Mon Compte" && <EditUsername state={state} setstate={setstate} />
+        }
         {
-            state.currentMenu === "Changer de mot de passe" && <EditPassword state={state} setstate={setstate} />
-          }
+          state.currentMenu === "Changer de mot de passe" && <EditPassword state={state} setstate={setstate} />
+        }
         {
-            state.currentMenu === "Changer d'email" && <EditEmail state={state} setstate={setstate} />
-          }
+          state.currentMenu === "Changer d'email" && <EditEmail state={state} setstate={setstate} />
+        }
         {
-            state.currentMenu === "Supprimer mon compte" && <DeleteAccount state={state} setstate={setstate} closeConfirm={closeConfirm} />
-          }
+          state.currentMenu === "Supprimer mon compte" && <DeleteAccount state={state} setstate={setstate} closeConfirm={closeConfirm} />
+        }
+        {
+          state.currentMenu === "Thèmes" && <Themes />
+        }
       </div>
     </div>
   </div>

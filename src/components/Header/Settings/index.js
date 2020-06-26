@@ -83,7 +83,7 @@ export default ({
   };
 
   const body = (<>
-    <div className="modal-header">
+    <div style={{ backgroundColor: datas.mytheme || "6e00c8" }} className="modal-header">
       <Typography className={classes.title}>Paramètres utilisateurs</Typography>
     </div>
     <div className="modal-body">
