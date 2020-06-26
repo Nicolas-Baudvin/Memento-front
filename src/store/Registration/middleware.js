@@ -15,7 +15,8 @@ import {
   UPDATE_PASSWORD,
   FORGOT_PASSWORD,
   logOut,
-  DELETE_ACCOUNT
+  DELETE_ACCOUNT,
+  UPDATE_THEME
 } from "./actions";
 import { successMessage } from "../Popup/actions";
 
@@ -26,6 +27,30 @@ export default (store) => (next) => (action) => {
     case LOGOUT: {
       localStorage.clear();
       next(action);
+      break;
+    }
+    case UPDATE_THEME: {
+      const { token, userID } = state.userData.datas;
+      const { theme } = action;
+      console.log("mw", theme)
+      axios({
+        method: 'PATCH',
+        url: `${process.env.API_URL}auth/change-theme/`,
+        data: {
+          userID,
+          theme
+        },
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+        .then((res) => {
+          action.data = res.data;
+          const cryptedData = cryptUserData(res.data);
+          localStorage.setItem("udta", cryptedData);
+          next(action);
+        })
+        .catch((err) => errorHandler(err, store.dispatch));
       break;
     }
     case SUBMIT_LOGIN_FORM: {

@@ -6,6 +6,12 @@ export const UPDATE_EMAIL = "action-UPDATE_EMAIL";
 export const UPDATE_PASSWORD = "action-UPDATE_PASSWORD";
 export const FORGOT_PASSWORD = "action-FORGOT_PASSWORD";
 export const DELETE_ACCOUNT = "action-DELETE_ACCOUNT";
+export const UPDATE_THEME = "UPDATE_THEME";
+
+export const updateTheme = (theme) => ({
+  type: UPDATE_THEME,
+  theme
+});
 
 export const updateUsername = (username) => ({
   type: UPDATE_USERNAME,
