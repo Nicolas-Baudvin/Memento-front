@@ -4,7 +4,9 @@ Memento est une application web dont le but est de pouvoir créer des listes de 
 Vous pouvez y inviter vos amis et ainsi partager en temps réel votre tableau de listes.
 
 EDIT: Le projet est désormais [en ligne](https://mymemento.fr).
+
 EDIT2: Le kanban du projet V2 est disponible [à cette addresse](https://www.mymemento.fr/public/My%20Memento/5ee93a246fb1eb00172347b0)
+
 Pensez à faire un CTRL+f5 une fois sur le site pour vider votre cache et mettre le site à jour.
 
  1. **But du projet**
