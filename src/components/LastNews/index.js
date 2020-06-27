@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactMarkDown from 'react-markdown';
 
-import ChangeLogs from '../../../assets/changelog.md';
+import ChangeLogs from '../../../changelog.md';
 
 // Styles
 import './style.scss';
