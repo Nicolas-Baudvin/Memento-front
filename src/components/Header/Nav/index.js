@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     color: '#fff',
     fontSize: '1.3em',
     '&:hover': {
-      backgroundColor: 'rgba(76,0,138,0.3)'
+      backgroundColor: (props) => props.theme.hovered
     },
     [theme.breakpoints.down('sm')]: {
       display: 'none',
@@ -41,7 +41,7 @@ export default ({
 }) => {
   const { datas } = useSelector((GlobalState) => GlobalState.userData);
   const history = useHistory();
-  const classes = useStyles();
+  const classes = useStyles({ theme: datas.mytheme });
   const dispatch = useDispatch();
 
   const [selectedTitle, setSelectedTitle] = useState();

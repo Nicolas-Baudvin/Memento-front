@@ -25,7 +25,7 @@ const useStyles = makeStyles(() => ({
     color: '#2185d0'
   },
   button: {
-    color: '#6E00C8'
+    color: (props) => props.theme.color || "#6e00c8"
   },
   menuHeader: {
     fontSize: '1.1em',
@@ -46,14 +46,18 @@ const useStyles = makeStyles(() => ({
     padding: '.4em',
   },
   submit: {
-    backgroundColor: '#6E00C8',
+    backgroundColor: (props) => props.theme.color,
     color: '#fff',
-    margin: '1em'
+    margin: '1em',
+    '&:hover': {
+      backgroundColor: (props) => props.theme.hovered
+    }
   }
 }));
 
 const TaskMenu = ({ task, list }) => {
-  const classes = useStyles();
+  const { mytheme } = useSelector((GlobalState) => GlobalState.userData.datas);
+  const classes = useStyles({ theme: mytheme });
   const dispatch = useDispatch();
   const { currentSocket } = useSelector((GlobalState) => GlobalState.sockets);
   const initialState = { [task._id]: task.title };

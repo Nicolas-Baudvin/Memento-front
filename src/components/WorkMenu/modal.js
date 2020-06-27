@@ -3,7 +3,7 @@ import {
   Modal, Button, TextField, Typography, makeStyles
 } from '@material-ui/core';
 import cx from 'classnames';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // styles
 import "./style.scss";
@@ -37,6 +37,12 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     color: 'white',
     borderRadius: '5px 5px 0 0',
+  },
+  openBtn: {
+    backgroundColor: (props) => props.theme.color || "#6e00c8",
+    '&:hover': {
+      backgroundColor: (props) => props.theme.hovered
+    }
   }
 }));
 
@@ -44,7 +50,8 @@ export default ({
   state, handleClickImg, setstate
 }) => {
   const dispatch = useDispatch();
-  const classes = useStyles();
+  const { mytheme } = useSelector((GlobalState) => GlobalState.userData.datas);
+  const classes = useStyles({ theme: mytheme });
   const imgs = [
     "/assets/tab-bg1.webp",
     "/assets/tab-bg2.webp",
@@ -112,7 +119,7 @@ export default ({
 
   return (
     <>
-      <Button color="primary" variant="contained" onClick={handleOpen}>
+      <Button className={classes.openBtn} color="primary" variant="contained" onClick={handleOpen}>
         Créer un tableau
       </Button>
       <Modal

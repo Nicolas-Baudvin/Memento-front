@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-around'
   },
   avatar: {
-    backgroundColor: '#6e00c8',
+    backgroundColor: (props) => props.theme.color || "#6e00c8",
   },
   root: {
     margin: '1em',
@@ -35,12 +35,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default ({ openThisTab, tabs }) => {
-  const classes = useStyles();
+  const { mytheme } = useSelector((GlobalState) => GlobalState.userData.datas);
+  const classes = useStyles({ theme: mytheme });
   const initialState = {
     open: false,
     pic: []
   };
-  const { mytheme } = useSelector((GlobalState) => GlobalState.userData.datas);
 
   const [state, setstate] = useState(initialState);
 
@@ -54,7 +54,7 @@ export default ({ openThisTab, tabs }) => {
             <CardHeader
               title={tab.name}
               avatar={
-                <Avatar style={{ backgroundColor: mytheme || "#6e00c8" }} className={classes.avatar}>
+                <Avatar className={classes.avatar}>
                   {tab.owner.substring(0, 1)}
                 </Avatar>
               }

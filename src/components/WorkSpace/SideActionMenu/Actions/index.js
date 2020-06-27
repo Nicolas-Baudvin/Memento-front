@@ -65,7 +65,7 @@ const Actions = ({ state, setstate, isInvited }) => {
 
   return (
     <>
-      <nav style={{ backgroundColor: mytheme || "#6e00c8" }} className="sideActionMenu-nav">
+      <nav style={{ backgroundColor: mytheme.color || "#6e00c8" }} className="sideActionMenu-nav">
         <Tooltip title="Ouvrir/Fermer le menu">
           <IconButton className={classes.button} onClick={handleClickOpenMenu}>
             <MenuIcon fontSize="large" />

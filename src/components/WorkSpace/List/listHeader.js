@@ -14,17 +14,17 @@ import { deleteList, updateList } from "../../../store/Lists/actions";
 const useStyles = makeStyles(() => ({
   button: {
     color: '#fff',
-    backgroundColor: '#6E00C8',
+    backgroundColor: (props) => props.theme.color,
     '&:hover': {
-      backgroundColor: '#6100B1',
+      backgroundColor: (props) => props.theme.hovered,
     }
   },
   submit: {
     color: '#fff',
-    backgroundColor: '#6E00C8',
+    backgroundColor: (props) => props.theme.color,
     margin: '1em 0',
     '&:hover': {
-      backgroundColor: '#6100B1',
+      backgroundColor: (props) => props.theme.hovered,
     }
   },
   paper: {
@@ -45,9 +45,9 @@ const useStyles = makeStyles(() => ({
 }));
 
 const ListHeader = ({ list, isPublic }) => {
-  const classes = useStyles();
-  const initialState = {};
   const { mytheme } = useSelector((GlobalState) => GlobalState.userData.datas);
+  const classes = useStyles({ theme: mytheme });
+  const initialState = {};
   const [state, setstate] = useState(initialState);
   const dispatch = useDispatch();
 
@@ -79,14 +79,13 @@ const ListHeader = ({ list, isPublic }) => {
   };
 
   return (
-    <div style={{ backgroundColor: mytheme || "#6e00c8" }} className="list-header">
+    <div style={{ backgroundColor: mytheme.color || "#6e00c8" }} className="list-header">
       <h2 className="list-header-title show"> {list.name} </h2>
       {
         !isPublic
         && <>
           <Tooltip title="Paramètres de la liste...">
             <IconButton
-              style={{ backgroundColor: mytheme || "#6e00c8" }}
               className={classes.button}
               onClick={handleClick}
             >

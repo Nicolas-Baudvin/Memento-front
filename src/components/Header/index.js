@@ -14,7 +14,6 @@ import Title from './Title';
 export default ({ isPublic }) => {
   const { pathname } = useLocation();
   const { mytheme } = useSelector((GlobalState) => GlobalState.userData.datas);
-  console.log(mytheme);
 
   const initialState = {
     show: false,
@@ -40,7 +39,7 @@ export default ({ isPublic }) => {
   }, []);
 
   return (
-    <header className="workmenu-header" style={pathname === "/vos-tableaux/" || pathname === "/vos-tableaux" ? { backgroundColor: mytheme || "#6E00C8" } : {}}>
+    <header className="workmenu-header" style={pathname === "/vos-tableaux/" || pathname === "/vos-tableaux" ? { backgroundColor: mytheme.color || "#6E00C8" } : {}}>
       <Title state={state} />
       <Nav state={state} setstate={setstate} isPublic={isPublic} />
     </header>

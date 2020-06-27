@@ -8,11 +8,11 @@ import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import { updateTheme } from "../../../../store/Registration/actions";
 
 const themes = [
-  { color: "#1ac8ed", title: "Cyan" },
-  { color: "#f03a47", title: "Rouge" },
-  { color: "#6e00c8", title: "Violet" }, // base color
-  { color: "#002d67", title: "Bleu foncé" },
-  { color: "#71c800", title: "Vert" }
+  { color: "#1ac8ed", title: "Cyan", hovered: "#13bce1" },
+  { color: "#f03a47", title: "Rouge", hovered: "#cb242f" },
+  { color: "#6e00c8", title: "Violet", hovered: "#5d00a9" }, // base color
+  { color: "#002d67", title: "Bleu foncé", hovered: "#002659" },
+  { color: "#71c800", title: "Vert", hovered: "#5FA800" }
 ];
 
 const useStyles = makeStyles(() => ({
@@ -42,6 +42,12 @@ const useStyles = makeStyles(() => ({
   input: {
     display: 'flex',
     alignItems: 'center',
+    '& > div': {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center'
+
+    }
   }
 }));
 
@@ -53,9 +59,9 @@ export default () => {
   const [value, setValue] = useState(mytheme || "#6e00c8");
 
   const handleChangeTheme = (e) => {
-    console.log(e.target.value);
-    setValue(e.target.value);
-    dispatch(updateTheme(e.target.value));
+    const color = themes.filter((item) => item.color === e.target.value)[0];
+    setValue(color);
+    dispatch(updateTheme(color));
   };
 
   return (
@@ -65,7 +71,7 @@ export default () => {
         <Select
           labelId="theme-label"
           id="theme"
-          value={value}
+          value={value.color}
           onChange={handleChangeTheme}
           className={classes.input}
         >

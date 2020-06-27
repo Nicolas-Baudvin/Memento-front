@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import cx from 'classnames';
 import { Button, TextField, Divider, makeStyles } from '@material-ui/core';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
 // Utils
@@ -15,12 +15,17 @@ const useStyles = makeStyles(() => ({
   },
   button: {
     margin: '1em 0',
-    backgroundColor: '#6E00C8'
+    backgroundColor: (props) => props.theme.color || "#6e00c8",
+    '&:hover': {
+      backgroundColor: (props) => props.theme.hovered
+    }
   }
 }));
 
 const About = ({ currentTab, isInvited }) => {
-  const classes = useStyles();
+  const { mytheme } = useSelector((GlobalState) => GlobalState.userData.datas);
+
+  const classes = useStyles({ theme: mytheme });
   const dispatch = useDispatch();
   const picsPath = [
     { path: "/assets/tab-bg1.webp", isSelected: false, key: 1 },

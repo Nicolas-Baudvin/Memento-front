@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'none',
     color: '#fff',
     '&:hover': {
-      backgroundColor: 'rgba(76,0,138,0.3)'
+      backgroundColor: (props) => props.theme.hovered
     },
     [theme.breakpoints.down("sm")]: {
       display: 'inline'
@@ -26,11 +26,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default ({ handleOpen }) => {
+  const { datas } = useSelector((globalstate) => globalstate.userData);
   const history = useHistory();
   const [anchor, setAnchor] = useState(null);
-  const classes = useStyles();
+  const classes = useStyles({ theme: datas.mytheme });
   const dispatch = useDispatch();
-  const { datas } = useSelector((globalstate) => globalstate.userData);
 
   const handleClick = (e) => setAnchor(e.currentTarget);
 

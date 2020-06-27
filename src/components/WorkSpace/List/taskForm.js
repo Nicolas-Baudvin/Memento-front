@@ -11,17 +11,17 @@ const useStyles = makeStyles(() => ({
     resize: 'vertical',
   },
   button: {
-    backgroundColor: (props) => props.color || "#6e00c8",
+    backgroundColor: (props) => props.theme.color || "#6e00c8",
     color: '#fff',
     '&:hover': {
-      backgroundColor: '#6100B1'
+      backgroundColor: (props) => props.theme.hovered
     }
   }
 }));
 
 const TaskForm = ({ list }) => {
   const { mytheme } = useSelector((GlobalState) => GlobalState.userData.datas);
-  const classes = useStyles({ color: mytheme });
+  const classes = useStyles({ theme: mytheme });
   const dispatch = useDispatch();
   const [state, setstate] = useState({});
 

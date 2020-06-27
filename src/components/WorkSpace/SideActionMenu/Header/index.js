@@ -1,12 +1,13 @@
 import React from 'react';
 import { Divider, Avatar, makeStyles, withStyles, Badge, Tooltip } from '@material-ui/core';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import Search from './Search';
 
 const useStyles = makeStyles(() => ({
   avatar: {
-    backgroundColor: '#6E00C8',
+    backgroundColor: (props) => props.theme.color || "#6e00c8",
   },
   divider: {
     margin: '1em 0'
@@ -43,7 +44,8 @@ const StyledBadge = withStyles((theme) => ({
 }))(Badge);
 
 const Header = ({ state, currentSocket }) => {
-  const classes = useStyles();
+  const { mytheme } = useSelector((GlobalState) => GlobalState.userData.datas);
+  const classes = useStyles({ theme: mytheme });
   return (Object.keys(currentSocket).length !== 0 && (<>
     <h2 className="sideActionMenu-title">Menu</h2>
     <Divider className={classes.divider} variant="middle" />

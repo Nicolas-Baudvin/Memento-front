@@ -34,10 +34,10 @@ const useStyles = makeStyles((theme) => ({
     margin: 4,
   },
   button: {
-    backgroundColor: (props) => props.color || "#6e00c8",
+    backgroundColor: (props) => props.theme.color || "#6e00c8",
     color: '#fff',
     '&:hover': {
-      backgroundColor: '#5800A0',
+      backgroundColor: (props) => props.theme.hovered,
     },
     [theme.breakpoints.down('md')]: {
       width: '90px',
@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default ({ currentTab, copyToClipBoard, mytheme }) => {
-  const classes = useStyles({ color: mytheme });
+  const classes = useStyles({ theme: mytheme });
   const inputValue = `https://www.mymemento.fr/public/${currentTab.name}/${currentTab._id}`;
   return (<Paper className={classes.root} onSubmit={copyToClipBoard} component="form">
     <Tooltip title="Ce lien te permet d'inviter tout le monde sur ton tableau. Contrairement aux invités privés, ils n'auront aucun droit.">

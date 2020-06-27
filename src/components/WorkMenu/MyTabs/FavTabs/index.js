@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-around'
   },
   avatar: {
-    backgroundColor: '#6e00c8',
+    backgroundColor: (props) => props.theme.color || "#6e00c8",
   },
   root: {
     margin: '0 1em',
@@ -33,7 +33,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default ({ openThisTab }) => {
-  const classes = useStyles();
+  const { mytheme } = useSelector((GlobalState) => GlobalState.userData.datas);
+  const classes = useStyles({ theme: mytheme });
   const dispatch = useDispatch();
   const [state, setstate] = useState({});
   const { favs, favsTabs } = useSelector((GlobalState) => GlobalState.myfavs);

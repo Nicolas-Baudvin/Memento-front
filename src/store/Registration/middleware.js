@@ -32,7 +32,6 @@ export default (store) => (next) => (action) => {
     case UPDATE_THEME: {
       const { token, userID } = state.userData.datas;
       const { theme } = action;
-      console.log("mw", theme)
       axios({
         method: 'PATCH',
         url: `${process.env.API_URL}auth/change-theme/`,

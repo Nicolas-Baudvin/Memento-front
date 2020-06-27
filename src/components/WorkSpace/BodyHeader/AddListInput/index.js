@@ -39,10 +39,10 @@ const useStyles = makeStyles((theme) => ({
     margin: 4,
   },
   button: {
-    backgroundColor: (props) => props.color || "#6e00c8",
+    backgroundColor: (props) => props.theme.color || "#6e00c8",
     color: '#fff',
     '&:hover': {
-      backgroundColor: '#5800A0',
+      backgroundColor: (props) => props.theme.hovered,
     },
     [theme.breakpoints.down('md')]: {
       width: '90px',
@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const AddListInput = ({ currentTab, mytheme }) => {
-  const classes = useStyles({ color: mytheme });
+  const classes = useStyles({ theme: mytheme });
   const dispatch = useDispatch();
 
   const [addlist, setAddlist] = useState('');

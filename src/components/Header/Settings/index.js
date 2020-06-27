@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     color: '#fff',
     fontSize: '1.3em',
     '&:hover': {
-      backgroundColor: 'rgba(76,0,138,0.3)'
+      backgroundColor: (props) => props.theme.hovered
     },
     [theme.breakpoints.down('sm')]: {
       display: 'none',
@@ -63,8 +63,8 @@ const useStyles = makeStyles((theme) => ({
 export default ({
   handleOpen, isOpen, handleClose
 }) => {
-  const classes = useStyles();
   const { datas } = useSelector(((GlobalState) => GlobalState.userData));
+  const classes = useStyles({ theme: datas.mytheme });
   const initialState = {
     currentMenu: 'Mon Compte',
     username: datas.username,
@@ -83,7 +83,7 @@ export default ({
   };
 
   const body = (<>
-    <div style={{ backgroundColor: datas.mytheme || "6e00c8" }} className="modal-header">
+    <div style={{ backgroundColor: datas.mytheme.color || "6e00c8" }} className="modal-header">
       <Typography className={classes.title}>Paramètres utilisateurs</Typography>
     </div>
     <div className="modal-body">

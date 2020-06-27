@@ -9,7 +9,10 @@ import { findMessages } from '../../../../store/Chat/actions';
 
 const useStyles = makeStyles(() => ({
   button: {
-    backgroundColor: '#6E00C8',
+    backgroundColor: (props) => props.theme.color || "#6e00c8",
+    '&:hover': {
+      backgroundColor: (props) => props.theme.hovered || "#6e00c8",
+    },
     margin: '1em 0',
     width: '150px'
   },
@@ -20,11 +23,11 @@ const useStyles = makeStyles(() => ({
 }));
 
 export default () => {
-  const classes = useStyles();
+  const { username, mytheme } = useSelector((GlobalState) => GlobalState.userData.datas);
+  const classes = useStyles({ theme: mytheme });
   const dispatch = useDispatch();
   const [message, setMessage] = useState();
   const { messages } = useSelector((GlobalState) => GlobalState.chat);
-  const { username } = useSelector((GlobalState) => GlobalState.userData.datas);
 
   const handleSubmit = (e) => {
     e.preventDefault();
