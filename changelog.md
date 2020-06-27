@@ -1,6 +1,6 @@
 # Changelogs
 
-## V2.3.0 en développement
+## V2.3.0 déployée le 27 juin 2020 à 10h30 ✔️
 
 ### **Nouveautés**
 
@@ -9,7 +9,7 @@
 ### **Améliorations diverses**
 
 - Amélioration de l'expérience utilisateur sur la page mon compte
-- Affichage des liens publics plus clair, les espaces sont désormais affichés avec leur code ascii hx
+- Affichage des liens publics plus clair, les espaces sont désormais affichés avec leur code ascii
 
 ## V2.2.1 mise à jour déployée le 23/06/2020 ✔️
 
