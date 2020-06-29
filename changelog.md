@@ -1,5 +1,11 @@
 # Changelogs
 
+## V2.3.1 déployée le 29/06/2020 à 15h10 ✔️
+
+### **Améliorations diverses**
+
+- Petites améliorations mineures d'experience utilisateur
+
 ## V2.3.0 déployée le 27 juin 2020 à 10h30 ✔️
 
 ### **Nouveautés**
