@@ -18,8 +18,7 @@ export default () => {
 
   const getNewsPic = async (img) => {
     const pic = await loadPic(img.path);
-    switch (img.name)
-    {
+    switch (img.name) {
       case "News": {
         setNewsPic(pic);
         break;
