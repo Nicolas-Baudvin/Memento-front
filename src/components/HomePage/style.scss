@@ -38,7 +38,6 @@
                 position: absolute;
                 top: 35%;
                 left: 10%;
-                transform: translate(0, -50%);
                 width: 70%;
 
                 h1 {
@@ -55,11 +54,15 @@
     }
 
     &-header {
+        position: relative;
+        top: 0;
+        width: 100%;
         padding: 1em;
         display: flex;
         justify-content: space-between;
         align-items: center;
         background-color: #fff;
+        animation: fromTopToBot 1s ease-in-out forwards;
 
         &-buttons {
             display: flex;
@@ -95,12 +98,49 @@
     }
 }
 
+@keyframes slideinDesktop {
+    from {
+        opacity: 0;
+        left: 0%;
+    }
+
+    to {
+        opacity: 1;
+        left: 10%;
+    }
+
+}
+
+@keyframes slideinSmartPhone {
+    from {
+        opacity: 0;
+        left: 40%;
+
+    }
+
+    to {
+        opacity: 1;
+        left: 50%;
+        transform: translate(-50%, 0);
+    }
+}
+
+@keyframes fromTopToBot {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
 @media only screen and (max-width: 1920px) and (min-width: 1515px) {
     .homePage {
         &-body {
             &-block {
                 &-title {
-                    top: 40%;
+                    animation: slideinDesktop 1s ease-in-out forwards;
+                    top: 30%;
 
                     h1 {
                         font-size: 7em;
@@ -120,6 +160,7 @@
         &-body {
             &-block {
                 &-title {
+                    animation: slideinDesktop 1s ease-in-out forwards;
                     top: 40%;
 
                     h1 {
@@ -145,6 +186,7 @@
                 }
 
                 &-title {
+                    animation: slideinDesktop 1s ease-in-out forwards;
                     top: 40%;
 
                     h1 {
@@ -185,18 +227,20 @@
                 &-title {
                     top: 20%;
                     left: 50%;
-                    transform: translate(-50%, 0);
                     width: 100%;
                     padding: 1em;
                     display: flex;
                     flex-direction: column;
+                    animation: slideinSmartPhone 1s ease-in-out forwards;
 
                     h1 {
                         font-size: 2em;
+                        text-align: center;
                     }
 
                     h2 {
                         font-size: 1.5em;
+                        text-align: center;
                     }
                 }
 
@@ -210,6 +254,7 @@
                 }
             }
         }
+
         &-header {
             &-buttons {
                 p {
@@ -224,6 +269,17 @@
     .homePage {
         &-body {
             &-block {
+                &-title {
+                    animation: slideinSmartPhone 1s ease-in-out forwards;
+
+                    h1 {
+                        text-align: center;
+                    }
+                    h2 {
+                        text-align: center;
+                    }
+                }
+
                 img {
                     width: 300px;
                 }
@@ -236,6 +292,7 @@
                     font-size: 2em;
                 }
             }
+
             &-buttons {
                 p {
                     display: none;

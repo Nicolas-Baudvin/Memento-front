@@ -9,7 +9,7 @@ export default () => (<>
   <Helmet>
     <title> My Memento - Page d'accueil - Bienvenue sur My Memento</title>
     <meta charSet="utf-8" />
-    <meta name="description" content="Bienvenue sur My Memento ! Nous mettons à votre disposition cette application afin de vous aider dans votre organisaton quotidienne personnelle ou professionnelle" />
+    <meta name="description" content="Création de Todo lists partageables en temps réel avec ses proches ou collègues" />
     <link rel="canonical" href="https://mymemento.fr/" />
   </Helmet>
   <div className="homePage">
