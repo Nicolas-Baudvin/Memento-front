@@ -14,7 +14,6 @@ export default () => (
     <Helmet>
       <meta charSet="utf-8" />
       <title>Memento - Page de connexion</title>
-      <link rel="canonical" href="https://www.mymemento.fr/" />
     </Helmet>
     <Header />
     <main className="homepage">
