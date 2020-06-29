@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import Proptypes from 'prop-types';
 
 // Actions
 import { newCurrentTab } from "../../../store/Tabs/actions";
@@ -10,19 +11,13 @@ import Tabs from '../tabs';
 import Modal from "../modal";
 import FavTabs from './FavTabs';
 
-export default ({
+const MyTabs = ({
   setstate,
   state,
   tabs
 }) => {
   const history = useHistory();
   const dispatch = useDispatch();
-
-  const handleClickImg = (num, path) => setstate({
-    ...state,
-    imgSelected: num,
-    imgPath: path
-  });
 
   const openThisTab = (tabId, name) => () => {
     dispatch(newCurrentTab(tabId));
@@ -36,7 +31,6 @@ export default ({
           Mes Tableaux
         </h2>
         <Modal
-          handleClickImg={handleClickImg}
           state={state}
           setstate={setstate}
         />
@@ -49,3 +43,11 @@ export default ({
     </div>
   );
 };
+
+MyTabs.propTypes = {
+  state: Proptypes.object.isRequired,
+  setstate: Proptypes.func.isRequired,
+  tabs: Proptypes.array.isRequired
+};
+
+export default MyTabs;

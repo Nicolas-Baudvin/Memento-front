@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Modal, Button, TextField, Typography, makeStyles
 } from '@material-ui/core';
@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default ({
-  state, handleClickImg, setstate
+  state, setstate
 }) => {
   const dispatch = useDispatch();
   const { mytheme } = useSelector((GlobalState) => GlobalState.userData.datas);
@@ -61,6 +61,12 @@ export default ({
     "/assets/tab-bg6.webp",
     "/assets/tab-bg7.webp",
   ];
+
+  const handleClickImg = (num, path) => setstate({
+    ...state,
+    imgSelected: num,
+    imgPath: path
+  });
 
   const handleClose = () => setstate({ ...state, isOpen: false });
 
@@ -78,8 +84,13 @@ export default ({
       return setstate({ ...state, tabNameError: "Vous devez choisir un nom pour votre tableau" });
     }
     handleClose();
-    setstate({ ...state, tabNameError: '', error: '' });
-    return dispatch(newTab({ imgPath, tabName, num: imgSelected }));
+    dispatch(newTab({ imgPath, tabName, num: imgSelected }));
+    setstate({
+      ...state,
+      tabNameError: '',
+      error: '',
+      tabName: ''
+    });
   };
 
   const body = (<>
@@ -115,7 +126,7 @@ export default ({
         Créer
       </Button>
     </div>
-  </>)
+  </>);
 
   return (
     <>
