@@ -1,9 +1,10 @@
 import React from 'react';
+import Proptypes from 'prop-types';
 
 import DragDropContext from '../DragDropContext';
 import BodyHeader from '../BodyHeader';
 
-export default ({
+const WorkspaceBody = ({
   currentSocket, isInvited, currentTab, userID, isPublic
 }) => (
   <div className="workspace-body">
@@ -14,3 +15,13 @@ export default ({
     <DragDropContext isPublic={isPublic} isInvited={isInvited} currentTab={currentTab} />
   </div>
 );
+
+WorkspaceBody.propTypes = {
+  currentSocket: Proptypes.object.isRequired,
+  isInvited: Proptypes.bool.isRequired,
+  currentTab: Proptypes.object.isRequired,
+  userID: Proptypes.string.isRequired,
+  isPublic: Proptypes.bool.isRequired
+};
+
+export default WorkspaceBody;

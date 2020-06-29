@@ -67,7 +67,7 @@ const Tasks = ({ tasks, list, isPublic }) => (
           </Tooltip>
 
           <div className="tasks-item-main">
-            <p className="show">{task.title}</p>
+            <p style={{ whiteSpace: 'pre-wrap' }} className="show">{task.title}</p>
             {
               !isPublic && <Menu taskId={task._id} task={task} list={list} />
             }
@@ -81,7 +81,8 @@ const Tasks = ({ tasks, list, isPublic }) => (
 
 Tasks.propTypes = {
   tasks: PropTypes.array.isRequired,
-  list: PropTypes.object.isRequired
+  list: PropTypes.object.isRequired,
+  isPublic: PropTypes.bool.isRequired
 };
 
 export default Tasks;

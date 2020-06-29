@@ -47,7 +47,7 @@ const useStyles = makeStyles(() => ({
 const ListHeader = ({ list, isPublic }) => {
   const { mytheme } = useSelector((GlobalState) => GlobalState.userData.datas);
   const classes = useStyles({ theme: mytheme });
-  const initialState = {};
+  const initialState = { [list._id]: list.name };
   const [state, setstate] = useState(initialState);
   const dispatch = useDispatch();
 
@@ -65,6 +65,7 @@ const ListHeader = ({ list, isPublic }) => {
     e.preventDefault();
     const value = state[list._id];
     if (value) dispatch(updateList({ newTitle: value, list }));
+    handleClose();
   };
 
   const handleChange = (listId) => (e) => {
@@ -104,6 +105,7 @@ const ListHeader = ({ list, isPublic }) => {
                 <TextField
                   label="Changer le nom"
                   onChange={handleChange(list._id)}
+                  value={state[list._id]}
                 />
                 <Divider orientation="vertical" />
                 <Button className={classes.submit} color="primary" type="submit">

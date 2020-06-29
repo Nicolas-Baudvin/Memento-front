@@ -9,6 +9,7 @@ const useStyles = makeStyles(() => ({
   input: {
     margin: '1em 0',
     resize: 'vertical',
+    whiteSpace: 'pre-wrap'
   },
   button: {
     backgroundColor: (props) => props.theme.color || "#6e00c8",
@@ -33,7 +34,13 @@ const TaskForm = ({ list }) => {
 
   return (
     <form onSubmit={addTaskToList} className="list-tasks-input">
-      <TextField value={state[list._id] || ''} className={classes.input} onChange={(e) => setstate({ ...state, [list._id]: e.target.value })} multiline placeholder="Votre tâche ..." />
+      <TextField
+        value={state[list._id] || ''}
+        className={classes.input}
+        onChange={(e) => setstate({ ...state, [list._id]: e.target.value })}
+        multiline
+        placeholder="Votre tâche ..."
+      />
       <Button className={classes.button} type="submit" content="Ajouter la tâche" variant="contained">
         Ajouter la tâche
       </Button>

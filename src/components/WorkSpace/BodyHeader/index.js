@@ -15,14 +15,8 @@ const BodyHeader = ({
   const copyToClipBoard = (e) => {
     e.preventDefault();
     const copy = e.target.querySelector("input");
-    navigator.permissions.query({ name: "clipboard-write" }).then((result) => {
-      if (result.state === "granted" || result.state === "prompt") {
-        copy.select();
-        copy.setSelectionRange(0, 99999);
-
-        document.execCommand('Copy');
-      }
-    });
+    copy.select();
+    document.execCommand("copy");
   };
   return (
     <div className="workspace-body-header">
