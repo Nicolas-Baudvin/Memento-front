@@ -59,13 +59,13 @@ export default (store) => (next) => (action) => {
         data: action.userData
       })
         .then((res) => {
-          store.dispatch(successMessage(res.data.message));
+          const data = res.data;
+          store.dispatch(successMessage(data.message));
+          delete data.message;
 
-          res.data.message = undefined;
-          action.userData = res.data;
-
-          const dataCrypted = cryptUserData(res.data);
+          const dataCrypted = cryptUserData(data);
           localStorage.setItem("udta", dataCrypted);
+          action.userData = data;
           next(action);
         })
         .catch((err) => {
