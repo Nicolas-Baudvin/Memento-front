@@ -16,7 +16,7 @@ RUN npm install --production && npm run build:prod \
     && rm /etc/nginx/nginx.conf \
     && cp /app/nginx.conf  /etc/nginx/
 
-EXPOSE 5000
+EXPOSE 3000
 VOLUME /app/dist
 
 CMD service nginx start && npm run start
