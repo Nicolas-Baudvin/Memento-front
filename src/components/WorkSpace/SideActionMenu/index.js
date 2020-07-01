@@ -11,6 +11,7 @@ import Chat from './Chat';
 import About from './About';
 import Header from './Header';
 import Rights from './Rights';
+import Invitation from './Invitation';
 
 // Actions
 import { tabAction } from "../../../store/ActionsOnWorkSpace/actions";
@@ -60,6 +61,9 @@ const SideActionMenu = ({ isInvited }) => {
         }
         {
           state.view === "rights" && !isInvited && <Rights currentSocket={currentSocket} />
+        }
+        {
+          state.view === "invitation" && !isInvited && <Invitation />
         }
       </div>
     </div>

@@ -12,6 +12,7 @@ import TableChartIcon from '@material-ui/icons/TableChart';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import StarIcon from '@material-ui/icons/Star';
 import PublicIcon from '@material-ui/icons/Public';
+import EmailIcon from '@material-ui/icons/Email';
 
 // Actions
 import { addFav, deleteFav, myFavs } from "../../../../store/Favs/actions";
@@ -97,6 +98,14 @@ const Actions = ({ state, setstate, isInvited }) => {
               && <Tooltip title="Droits des invités">
                 <IconButton onClick={handleClickChangeView("rights")} className={classes.button}>
                   <SupervisorAccountIcon fontSize="large" />
+                </IconButton>
+              </Tooltip>
+            }
+            {
+              !isInvited
+              && <Tooltip title="Inviter un ami">
+                <IconButton onClick={handleClickChangeView("invitation")} className={classes.button}>
+                  <EmailIcon fontSize="large" />
                 </IconButton>
               </Tooltip>
             }
