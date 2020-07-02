@@ -21,10 +21,6 @@ const BodyHeader = ({
   return (
     <div className="workspace-body-header">
       {
-        userID === currentTab.userID && currentSocket
-        && <InvitationInput mytheme={mytheme} copyToClipBoard={copyToClipBoard} currentTab={currentTab} currentSocket={currentSocket} />
-      }
-      {
         !isInvited && currentSocket
         && <AddListInput mytheme={mytheme} currentTab={currentTab} />
       }

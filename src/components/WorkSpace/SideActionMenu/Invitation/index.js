@@ -162,7 +162,8 @@ export default () => {
         </Button>
       </form>
       {
-        users && users.length > 0 && users.map((user) => user.username !== username && <Users key={user._id} classes={classes} user={user} />)
+        users && users.length > 0
+        && users.map((user) => user.username !== username && <Users key={user._id} classes={classes} user={user} />)
       }
       {
         value && isFetch && users.length === 0

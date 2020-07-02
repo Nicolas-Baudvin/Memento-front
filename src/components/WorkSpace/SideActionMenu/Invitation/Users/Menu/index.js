@@ -2,12 +2,13 @@ import React from "react";
 import { IconButton, Menu, MenuItem, Tooltip } from "@material-ui/core";
 
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { inviteFriend } from "../../../../../../store/Socket/actions";
 
 
 export default ({ user, classes }) => {
-  const { invitationLink, tab } = useSelector((GlobalState) => GlobalState.sockets.currentSocket);
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const dispatch = useDispatch();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -19,7 +20,7 @@ export default ({ user, classes }) => {
 
   const handleClickSendInvitation = () => {
     console.log(user);
-    // TODO: Send inv
+    dispatch(inviteFriend(user.socketID));
   };
 
   return (<>
