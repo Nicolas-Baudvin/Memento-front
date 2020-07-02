@@ -7,7 +7,7 @@ EDIT: Le projet est désormais [en ligne](https://mymemento.fr).
 
 EDIT2: Le kanban du projet V2 est disponible [à cette addresse](https://www.mymemento.fr/public/My%20Memento/5ee93a246fb1eb00172347b0)
 
-Pensez à faire un CTRL+f5 une fois sur le site pour vider votre cache et mettre le site à jour.
+**Pensez à faire un CTRL+f5 une fois sur le site pour vider votre cache et avoir la dernières version du site !**
 
  1. **But du projet**
 
