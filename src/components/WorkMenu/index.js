@@ -6,7 +6,7 @@ import { Helmet } from 'react-helmet';
 // Actions
 import { myTabs } from "../../store/Tabs/actions";
 import { cleanLists } from "../../store/Lists/actions";
-import { disconnectFromChannel } from "../../store/Socket/actions";
+import { disconnectFromChannel, connectToSocket } from "../../store/Socket/actions";
 
 // Components
 import Header from '../Header';
@@ -34,6 +34,7 @@ export default () => {
     dispatch(disconnectFromChannel());
     dispatch(cleanLists());
     dispatch(myTabs());
+    dispatch(connectToSocket());
   }, []);
 
   const onLoad = () => {

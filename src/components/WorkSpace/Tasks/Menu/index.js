@@ -84,6 +84,7 @@ const TaskMenu = ({ task, list }) => {
 
   const handleClickTaskAssign = (username, selfAssign) => (e) => {
     if (selfAssign) {
+      handleClose();
       return dispatch(taskAssigned({
         taskId: task._id,
         listName: list.name,
@@ -102,7 +103,6 @@ const TaskMenu = ({ task, list }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(updateTaskName({ title: state[task._id], taskId: task._id, oldTitle: task.title }));
-    setstate({ ...state, [task._id]: '' });
     handleClose();
   };
 

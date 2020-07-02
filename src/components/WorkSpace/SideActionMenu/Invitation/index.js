@@ -1,16 +1,26 @@
 import React, { useState } from "react";
 import {
-  Container, makeStyles, Typography, TextField, InputAdornment, Button, Paper, IconButton, Avatar
+  Container,
+  makeStyles,
+  Typography,
+  TextField,
+  InputAdornment,
+  Button
 } from '@material-ui/core';
 import { useSelector } from "react-redux";
 import Axios from "axios";
 
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import SearchIcon from '@material-ui/icons/Search';
 
 import Users from './Users';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    '& > *': {
+      margin: theme.spacing(1),
+    },
+  },
   container: {
     width: '100%',
     padding: '.5em',
@@ -66,13 +76,29 @@ const useStyles = makeStyles(() => ({
   close: {
     color: '#ff0000',
     fontWeight: 'bold'
-  }
+  },
+  offline: {
+    cursor: 'unset',
+    textDecoration: 'line-through',
+    backgroundColor: '#aaa',
+    '&:hover': {
+      cursor: 'unset',
+      textDecoration: 'line-through',
+      backgroundColor: '#aaa',
+    }
+  },
+  online: {}
 }));
 
 export default () => {
-  const { invitationLink, tab } = useSelector((GlobalState) => GlobalState.sockets.currentSocket);
-  const { mytheme, userID, token, username } = useSelector((GlobalState) => GlobalState.userData.datas);
-  const classes = useStyles({ theme: mytheme });
+  const {
+    mytheme,
+    userID,
+    token,
+    username,
+    socketID
+  } = useSelector((GlobalState) => GlobalState.userData.datas);
+  const classes = useStyles({ theme: mytheme, isOnline: Boolean(socketID) });
   const [value, setValue] = useState('');
   const [error, setError] = useState('');
   const [users, setUsers] = useState([]);
@@ -136,7 +162,7 @@ export default () => {
         </Button>
       </form>
       {
-        users && users.length > 0 && users.map((user) => user.username !== username && <Users classes={classes} user={user} />)
+        users && users.length > 0 && users.map((user) => user.username !== username && <Users key={user._id} classes={classes} user={user} />)
       }
       {
         value && isFetch && users.length === 0

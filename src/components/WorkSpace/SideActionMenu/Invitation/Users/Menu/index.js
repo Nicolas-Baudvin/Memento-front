@@ -1,10 +1,12 @@
 import React from "react";
-import { IconButton, Menu, MenuItem } from "@material-ui/core";
+import { IconButton, Menu, MenuItem, Tooltip } from "@material-ui/core";
 
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import { useSelector } from "react-redux";
 
 
 export default ({ user, classes }) => {
+  const { invitationLink, tab } = useSelector((GlobalState) => GlobalState.sockets.currentSocket);
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -31,7 +33,16 @@ export default ({ user, classes }) => {
       open={Boolean(anchorEl)}
       onClose={handleClose}
     >
-      <MenuItem onClick={handleClickSendInvitation}>Inviter {user.username}</MenuItem>
+      {
+        !user.socketID
+        && <Tooltip title="Votre ami n'est pas connecté">
+          <MenuItem className={classes.offline} onClick={handleClickSendInvitation}>Inviter {user.username}</MenuItem>
+        </Tooltip>
+      }
+      {
+        user.socketID
+        && <MenuItem onClick={handleClickSendInvitation}>Inviter {user.username}</MenuItem>
+      }
       <MenuItem className={classes.close} onClick={handleClose}>Fermer le menu</MenuItem>
     </Menu>
   </>
