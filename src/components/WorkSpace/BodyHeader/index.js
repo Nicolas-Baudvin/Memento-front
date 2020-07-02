@@ -8,7 +8,7 @@ import AddListInput from './AddListInput';
 import PublicLink from './PublicLink';
 
 const BodyHeader = ({
-  isInvited, userID, currentTab, currentSocket
+  isInvited, currentTab, currentSocket
 }) => {
   const { mytheme } = useSelector((GlobalState) => GlobalState.userData.datas);
 
@@ -33,7 +33,6 @@ const BodyHeader = ({
 
 BodyHeader.propTypes = {
   isInvited: PropTypes.bool.isRequired,
-  userID: PropTypes.string.isRequired,
   currentTab: PropTypes.object.isRequired,
   currentSocket: PropTypes.object.isRequired
 };

@@ -35,10 +35,10 @@ const useStyles = makeStyles((theme) => ({
     margin: 4,
   },
   button: {
-    backgroundColor: (props) => props.theme.color || "#6e00c8",
+    backgroundColor: (props) => (props.theme ? props.theme.color : "#6e00c8"),
     color: '#fff',
     '&:hover': {
-      backgroundColor: (props) => props.theme.hovered,
+      backgroundColor: (props) => (props.theme ? props.theme.hovered : "#6e00c8"),
     },
     [theme.breakpoints.down('md')]: {
       width: '90px',

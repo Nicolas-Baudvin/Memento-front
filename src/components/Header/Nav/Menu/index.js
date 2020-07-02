@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'none',
     color: '#fff',
     '&:hover': {
-      backgroundColor: (props) => props.theme.hovered
+      backgroundColor: (props) => (props.theme ? props.theme.hovered : "#6e00c8")
     },
     [theme.breakpoints.down("sm")]: {
       display: 'inline'

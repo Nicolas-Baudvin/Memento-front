@@ -14,17 +14,17 @@ import { deleteList, updateList } from "../../../store/Lists/actions";
 const useStyles = makeStyles(() => ({
   button: {
     color: '#fff',
-    backgroundColor: (props) => props.theme.color,
+    backgroundColor: (props) => (props.theme ? props.theme.color : "#6e00c8"),
     '&:hover': {
-      backgroundColor: (props) => props.theme.hovered,
+      backgroundColor: (props) => (props.theme ? props.theme.hovered : "#6e00c8"),
     }
   },
   submit: {
     color: '#fff',
-    backgroundColor: (props) => props.theme.color,
+    backgroundColor: (props) => (props.theme ? props.theme.color : "#6e00c8"),
     margin: '1em 0',
     '&:hover': {
-      backgroundColor: (props) => props.theme.hovered,
+      backgroundColor: (props) => (props.theme ? props.theme.hovered : "#6e00c8"),
     }
   },
   paper: {
@@ -80,7 +80,7 @@ const ListHeader = ({ list, isPublic }) => {
   };
 
   return (
-    <div style={{ backgroundColor: mytheme.color || "#6e00c8" }} className="list-header">
+    <div style={{ backgroundColor: (mytheme ? mytheme.color : "#6e00c8") }} className="list-header">
       <h2 className="list-header-title show"> {list.name} </h2>
       {
         !isPublic

@@ -78,12 +78,11 @@ const WorkSpace = ({ isInvited, isPublic }) => {
       if (currentTab.userID === userID && !isInvited) {
         dispatch(newSocketTab({ id, name }));
       }
-      if (!isInvited && currentTab.userID !== userID) {
+      if (!isInvited && !isPublic && currentTab.userID !== userID) {
         history.push("/");
       }
     }
   }, [currentTab]);
-
   return (
     active ? <LoadPage title="Chargement de votre espace de travail en cours..." active={active} /> : <SearchContext.Provider value={search}>
       <Helmet>
@@ -93,7 +92,7 @@ const WorkSpace = ({ isInvited, isPublic }) => {
       <div data-tabid={id} className="workspace" style={{ backgroundImage: `url(${currentTab && currentTab.imgPath})` }}>
         <Header isPublic={isPublic} />
         <div className="container">
-          <WorkspaceBody isPublic={isPublic} currentSocket={currentSocket} currentTab={currentTab} isInvited={isInvited} userID={userID} />
+          <WorkspaceBody isPublic={isPublic} currentSocket={currentSocket} currentTab={currentTab} isInvited={isInvited} />
           {
             currentSocket && !isPublic && <SideActionMenu guests={currentSocket.guests} isInvited={isInvited} />
           }

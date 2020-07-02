@@ -39,9 +39,9 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '5px 5px 0 0',
   },
   openBtn: {
-    backgroundColor: (props) => props.theme.color || "#6e00c8",
+    backgroundColor: (props) => (props.theme ? props.theme.color : "#6e00c8"),
     '&:hover': {
-      backgroundColor: (props) => props.theme.hovered
+      backgroundColor: (props) => (props.theme ? props.theme.hovered : "#6e00c8")
     }
   }
 }));

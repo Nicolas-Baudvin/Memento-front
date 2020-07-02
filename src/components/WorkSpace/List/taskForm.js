@@ -12,10 +12,10 @@ const useStyles = makeStyles(() => ({
     whiteSpace: 'pre-wrap'
   },
   button: {
-    backgroundColor: (props) => props.theme.color || "#6e00c8",
+    backgroundColor: (props) => (props.theme ? props.theme.color : "#6e00c8"),
     color: '#fff',
     '&:hover': {
-      backgroundColor: (props) => props.theme.hovered
+      backgroundColor: (props) => (props.theme ? props.theme.hovered : "#6e00c8")
     }
   }
 }));

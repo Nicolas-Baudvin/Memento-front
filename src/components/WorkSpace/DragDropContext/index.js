@@ -124,13 +124,15 @@ export default ({ isInvited, currentTab, isPublic }) => {
   };
 
   useEffect(() => {
-    // Tab Owner
-    if (lists) setSortedLists(lists.sort((a, b) => a.order - b.order));
-    if (tasks) setSortedTasks(tasks.sort((a, b) => a.order - b.order));
+    if (!isPublic) {
+      // Tab Owner
+      if (lists) setSortedLists(lists.sort((a, b) => a.order - b.order));
+      if (tasks) setSortedTasks(tasks.sort((a, b) => a.order - b.order));
 
-    // Guests
-    if (fTasks) setSortedFriendTasks(fTasks.sort((a, b) => a.order - b.order));
-    if (fLists) setSortedFriendLists(fLists.sort((a, b) => a.order - b.order));
+      // Guests
+      if (fTasks) setSortedFriendTasks(fTasks.sort((a, b) => a.order - b.order));
+      if (fLists) setSortedFriendLists(fLists.sort((a, b) => a.order - b.order));
+    }
   }, [tasks, lists, fLists, fTasks]);
 
   useEffect(() => {

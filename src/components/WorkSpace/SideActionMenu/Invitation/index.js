@@ -36,10 +36,10 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: '1em 0',
-    backgroundColor: (props) => props.theme.color,
+    backgroundColor: (props) => (props.theme ? props.theme.color : "#6e00c8"),
     color: "#fff",
     '&:hover': {
-      backgroundColor: (props) => props.theme.hovered
+      backgroundColor: (props) => (props.theme ? props.theme.hovered : "#6e00c8")
     },
     width: '200px'
   },
@@ -64,11 +64,11 @@ const useStyles = makeStyles((theme) => ({
     padding: '0'
   },
   avatar: {
-    backgroundColor: (props) => props.theme.color,
+    backgroundColor: (props) => (props.theme ? props.theme.color : "#6e00c8"),
     marginRight: '1em'
   },
   icon: {
-    color: (props) => props.theme.color
+    color: (props) => (props.theme ? props.theme.color : "#6e00c8")
   },
   img: {
     height: '25px'

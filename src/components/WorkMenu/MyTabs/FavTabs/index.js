@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-around'
   },
   avatar: {
-    backgroundColor: (props) => props.theme.color || "#6e00c8",
+    backgroundColor: (props) => (props.theme ? props.theme.color : "#6e00c8"),
   },
   root: {
     margin: '0 1em',

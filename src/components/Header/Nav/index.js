@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     color: '#fff',
     fontSize: '1.3em',
     '&:hover': {
-      backgroundColor: (props) => props.theme.hovered
+      backgroundColor: (props) => (props.theme ? props.theme.hovered : "#6e00c8")
     },
     [theme.breakpoints.down('sm')]: {
       display: 'none',

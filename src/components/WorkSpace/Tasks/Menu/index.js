@@ -25,7 +25,7 @@ const useStyles = makeStyles(() => ({
     color: '#2185d0'
   },
   button: {
-    color: (props) => props.theme.color || "#6e00c8"
+    color: (props) => (props.theme ? props.theme.color : "#6e00c8")
   },
   menuHeader: {
     fontSize: '1.1em',
@@ -46,11 +46,11 @@ const useStyles = makeStyles(() => ({
     padding: '.4em',
   },
   submit: {
-    backgroundColor: (props) => props.theme.color,
+    backgroundColor: (props) => (props.theme ? props.theme.color : "#6e00c8"),
     color: '#fff',
     margin: '1em',
     '&:hover': {
-      backgroundColor: (props) => props.theme.hovered
+      backgroundColor: (props) => (props.theme ? props.theme.hovered : "#6e00c8")
     }
   }
 }));
