@@ -15,6 +15,24 @@ export const SEND_ACTIONS = "action/SEND_ACTIONS";
 export const SEND_TAB = "action/SEND_TAB";
 export const SEND_MESSAGE = "action/SEND_MESSAGE";
 export const CHANGE_USER_ROLE = "CHANGE_USER_ROLE";
+export const CONNECT_TO_SOCKET = "CONNECT_TO_SOCKET";
+export const INVITE_FRIEND = "INVITE_FRIEND";
+export const DECLINE_INV = "DECLINE_INV";
+export const ACCEPT_INV = "ACCEPT_INV";
+
+export const declineInv = (socketID) => ({
+  type: DECLINE_INV,
+  socketID
+});
+
+export const inviteFriend = (socketID) => ({
+  type: INVITE_FRIEND,
+  socketID
+});
+
+export const connectToSocket = () => ({
+  type: CONNECT_TO_SOCKET
+});
 
 export const changeCurrentRole = (guest, isThisAPromotion) => ({
   type: CHANGE_USER_ROLE,

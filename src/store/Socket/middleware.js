@@ -17,7 +17,10 @@ import {
   SEND_ACTIONS,
   SEND_TAB,
   SEND_MESSAGE,
-  CHANGE_USER_ROLE
+  CHANGE_USER_ROLE,
+  CONNECT_TO_SOCKET,
+  INVITE_FRIEND,
+  DECLINE_INV
 } from './actions';
 import { successMessage, failMessage } from '../Popup/actions';
 import { cryptUserData, decryptUserData } from '../../Utils/crypt';
@@ -27,12 +30,53 @@ import { storeActions } from '../ActionsOnWorkSpace/actions';
 import { newMessage } from '../Chat/actions';
 import { listsReorderedByFriend } from '../Lists/actions';
 import { taskReorderedByFriend } from '../Tasks/actions';
+import { newInvitation } from '../InvitationsPopup/actions';
 
 let socket;
 
 export default (store) => (next) => (action) => {
   const state = store.getState();
   switch (action.type) {
+    case INVITE_FRIEND: {
+      const { currentTab } = store.getState().mytabs;
+      const { currentSocket } = store.getState().sockets;
+      const { socketID } = action;
+      if (!socket) break;
+      socket.emit("send invitation", { socketID, currentTab, currentSocket });
+      store.dispatch(successMessage("L'invitation a bien été envoyée"));
+      break;
+    }
+    case DECLINE_INV: {
+      const { username } = store.getState().userData.datas;
+      const { socketID } = action;
+      socket.emit("decline invitation", ({ username, socketID }));
+      break;
+    }
+    case CONNECT_TO_SOCKET: {
+      const { token, userID } = store.getState().userData.datas;
+      if (!socket) {
+        socket = socketIo.connect(process.env.SOCKET_URL);
+        socket.emit("identify", { token, userID });
+
+        socket.on("fail_identify", (err) => {
+          store.dispatch(failMessage("Votre session a expiré. Veuillez vous reconnecter"));
+          store.dispatch(logOut());
+        });
+
+        socket.on("success identify", () => {
+          console.log("connecté au socket");
+        });
+
+        socket.on("send invitation", (data) => {
+          store.dispatch(newInvitation(data));
+        });
+
+        socket.on("decline invitation", (message) => {
+          store.dispatch(failMessage(message));
+        });
+      }
+      break;
+    }
     case CHANGE_USER_ROLE: {
       const link = state.sockets.currentSocket.invitationLink;
       socket.emit("change user role", { userData: action.guest.userData, link, isThisAPromotion: action.isThisAPromotion });
@@ -101,9 +145,9 @@ export default (store) => (next) => (action) => {
       break;
     }
     case DISCONNECT_FROM_CHANNEL: {
-      localStorage.removeItem("socketTab");
+      const { link } = store.getState().sockets.currentSocket;
       if (socket) {
-        socket.emit("end");
+        socket.emit("end", link);
       }
       next(action);
       break;
@@ -118,62 +162,66 @@ export default (store) => (next) => (action) => {
     }
     case CONNECT_TO_FRIEND_TAB: {
       const { link, friendTabId } = action.payload;
-      const { email, username, userID } = state.userData.datas;
-      socket = socketIo.connect("https://fierce-mountain-08890.herokuapp.com/");
+      const { email, username, userID, token } = state.userData.datas;
 
-      socket.emit("identify", { token: state.userData.datas.token, userID: state.userData.datas.userID });
-
-      socket.on("success identify", () => {
-        socket.emit("join tab", { link, friendTabId, userData: { username, email, userID } });
+      if (!socket) {
+        socket = socketIo.connect(process.env.SOCKET_URL);
+        socket.emit("identify", { token, userID });
 
         socket.on("fail_identify", (err) => {
           store.dispatch(failMessage("Votre session a expiré. Veuillez vous reconnecter"));
           store.dispatch(logOut());
         });
 
-        socket.on("tab joined", (data) => {
-          store.dispatch(newFriendTab(data.tabData));
-          action.currentSocket = data.socket;
-          store.dispatch(successMessage(`Vous êtes désormais dans l'instance de ${data.socket.owner.username}`));
-          store.dispatch(storeFriendLists(data.lists));
-          store.dispatch(storeFriendTasks(data.tasks));
-          next(action);
+        socket.on("success identify", () => {
+          console.log("connecté au socket");
         });
+      }
 
-        socket.on("join error", (message) => store.dispatch(failMessage(message.errors)));
+      socket.emit("join tab", { link, friendTabId, userData: { username, email, userID } });
 
-        socket.on("send owner lists", (data) => {
-          if (typeof data.lists === 'string') {
-            const decryptedLists = decryptUserData(data.lists);
-            store.dispatch(storeFriendLists(decryptedLists));
-          }
-          else {
-            store.dispatch(storeFriendLists(data.lists));
-          }
-        });
-
-        socket.on("send owner tasks", (data) => {
-          const decryptedTasks = decryptUserData(data.tasks);
-          store.dispatch(storeFriendTasks(decryptedTasks));
-        });
-
-        socket.on("send tab actions", (actions) => {
-          const decryptedActions = decryptUserData(actions);
-          store.dispatch(storeActions(decryptedActions));
-        });
-
-        socket.on("tab updated", (data) => {
-          const { tab, currentSocket } = data;
-          const decryptedTab = decryptUserData(tab);
-          currentSocket.tab = decryptedTab;
-          store.dispatch(updateTab(decryptedTab));
-          store.dispatch(updateCurrentSocket(currentSocket));
-        });
-
-        socket.on("send message", (messages) => store.dispatch(newMessage(messages)));
-
-        socket.on("change user role", (socketUpdated) => store.dispatch(updateCurrentSocket(socketUpdated)));
+      socket.on("tab joined", (data) => {
+        store.dispatch(newFriendTab(data.tabData));
+        action.currentSocket = data.socket;
+        store.dispatch(successMessage(`Vous êtes désormais dans l'instance de ${data.socket.owner.username}`));
+        store.dispatch(storeFriendLists(data.lists));
+        store.dispatch(storeFriendTasks(data.tasks));
+        next(action);
       });
+
+      socket.on("join error", (message) => store.dispatch(failMessage(message.errors)));
+
+      socket.on("send owner lists", (data) => {
+        if (typeof data.lists === 'string') {
+          const decryptedLists = decryptUserData(data.lists);
+          store.dispatch(storeFriendLists(decryptedLists));
+        }
+        else {
+          store.dispatch(storeFriendLists(data.lists));
+        }
+      });
+
+      socket.on("send owner tasks", (data) => {
+        const decryptedTasks = decryptUserData(data.tasks);
+        store.dispatch(storeFriendTasks(decryptedTasks));
+      });
+
+      socket.on("send tab actions", (actions) => {
+        const decryptedActions = decryptUserData(actions);
+        store.dispatch(storeActions(decryptedActions));
+      });
+
+      socket.on("tab updated", (data) => {
+        const { tab, currentSocket } = data;
+        const decryptedTab = decryptUserData(tab);
+        currentSocket.tab = decryptedTab;
+        store.dispatch(updateTab(decryptedTab));
+        store.dispatch(updateCurrentSocket(currentSocket));
+      });
+
+      socket.on("send message", (messages) => store.dispatch(newMessage(messages)));
+
+      socket.on("change user role", (socketUpdated) => store.dispatch(updateCurrentSocket(socketUpdated)));
 
       socket.on("user leave", (data) => {
         if (data.currentSocket) store.dispatch(updateCurrentSocket(data.currentSocket));
@@ -187,20 +235,32 @@ export default (store) => (next) => (action) => {
     }
     case NEW_SOCKET_TAB: {
       const { id, name } = action.payload;
-      const { token, userID, username } = state.userData.datas;
-      socket = socketIo.connect("https://fierce-mountain-08890.herokuapp.com/");
+      const { userID, username, token } = state.userData.datas;
 
-      socket.emit("identify", { token, userID });
+      if (!socket) {
+        socket = socketIo.connect(process.env.SOCKET_URL);
+        socket.emit("identify", { token, userID });
 
-      socket.on("success identify", () => {
-        socket.emit("new_tab", {
-          id, name, username, userID
+        socket.on("fail_identify", (err) => {
+          store.dispatch(failMessage("Votre session a expiré. Veuillez vous reconnecter"));
+          store.dispatch(logOut());
         });
-      });
 
-      socket.on("fail_identify", (err) => {
-        store.dispatch(failMessage("Votre session a expiré. Veuillez vous reconnecter"));
-        store.dispatch(logOut());
+        socket.on("success identify", () => {
+          console.log("connecté au socket");
+        });
+
+        socket.on("decline invitation", (message) => {
+          store.dispatch(failMessage(message));
+        });
+
+        socket.on("send invitation", (data) => {
+          store.dispatch(newInvitation(data));
+        });
+      }
+
+      socket.emit("new_tab", {
+        id, name, username, userID
       });
 
       socket.on("confirm creation", (data) => {

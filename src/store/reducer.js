@@ -8,6 +8,7 @@ import mytasks from './Tasks/reducer';
 import lastActions from './ActionsOnWorkSpace/reducer';
 import myfavs from './Favs/reducer';
 import chat from './Chat/reducer';
+import invitationPopup from './InvitationsPopup/reducer';
 
 import { LOGOUT } from "./Registration/actions";
 
@@ -20,11 +21,11 @@ const appReducer = combineReducers({
   mytasks,
   lastActions,
   myfavs,
-  chat
+  chat,
+  invitationPopup
 });
 
 const rootReducer = (state, action) => {
-
   if (action.type === LOGOUT) {
     state = {};
   }
