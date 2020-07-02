@@ -1,5 +1,15 @@
 # Changelogs
 
+## V2.4.0 déployée le 02/07/2020 à 15h40✔ ✔️
+
+### **Nouveautés**
+
+- Le système d'invitation a été retravaillé. Les invitations se font désormais dans le menu d'actions sur votre espace de travail.
+
+### **Bugs fix**
+
+- Une page blanche était affichée lorsqu'un utilisateur se rendait sur une page publique.
+
 ## V2.3.1 déployée le 29/06/2020 à 15h10 ✔️
 
 ### **Améliorations diverses**
