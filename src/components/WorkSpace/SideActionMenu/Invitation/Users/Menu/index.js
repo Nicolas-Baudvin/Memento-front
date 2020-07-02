@@ -19,8 +19,9 @@ export default ({ user, classes }) => {
   };
 
   const handleClickSendInvitation = () => {
-    console.log(user);
-    dispatch(inviteFriend(user.socketID));
+    if (user.socketID) {
+      dispatch(inviteFriend(user.socketID));
+    }
   };
 
   return (<>
