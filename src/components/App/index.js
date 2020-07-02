@@ -20,6 +20,7 @@ import EmailChange from '../EmailChange';
 import LastNews from '../LastNews';
 import LegalsMentions from '../LegalsMentions';
 import HomePage from '../HomePage';
+import InvitationPopup from '../InvitationPopup';
 
 // Styles et assets
 import './app.scss';
@@ -91,6 +92,7 @@ const App = () => {
         </Route>
       </Switch>
       <Popup isVisible={isVisible} message={message} isSuccess={isSuccess} />
+      <InvitationPopup />
     </Router>
   );
 };
