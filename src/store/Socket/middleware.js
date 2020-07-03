@@ -64,7 +64,6 @@ export default (store) => (next) => (action) => {
         });
 
         socket.on("success identify", () => {
-          console.log("connecté au socket");
         });
 
         socket.on("send invitation", (data) => {
@@ -73,6 +72,10 @@ export default (store) => (next) => (action) => {
 
         socket.on("decline invitation", (message) => {
           store.dispatch(failMessage(message));
+        });
+
+        socket.on("user leave", (data) => {
+          if (data.currentSocket) store.dispatch(updateCurrentSocket(data.currentSocket));
         });
       }
       break;
@@ -162,7 +165,7 @@ export default (store) => (next) => (action) => {
     }
     case CONNECT_TO_FRIEND_TAB: {
       const { link, friendTabId } = action.payload;
-      const { email, username, userID, token } = state.userData.datas;
+      const { email, username, userID, token, socketID } = state.userData.datas;
 
       if (!socket) {
         socket = socketIo.connect(process.env.SOCKET_URL);
@@ -178,7 +181,7 @@ export default (store) => (next) => (action) => {
         });
       }
 
-      socket.emit("join tab", { link, friendTabId, userData: { username, email, userID } });
+      socket.emit("join tab", { link, friendTabId, userData: { username, email, userID, socketID } });
 
       socket.on("tab joined", (data) => {
         store.dispatch(newFriendTab(data.tabData));
