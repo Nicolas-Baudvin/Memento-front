@@ -1,10 +1,23 @@
 # Changelogs
 
+## V2.4.1 en développement, en cours de rédaction
+
+### **Bugs fixs**
+
+- Les personnes qui se déconnectaient d'un tableau étaient toujours affichées en ligne sur le menu.
+- Les invités n'avaient plus accès aux tâches des listes lorsque le propriétaire était déconnecté.
+- Les couleurs du thème des utilisateurs invités n'étaient pas appliquées sur les listes.
+
+### **Améliorations diverses**
+
+- Visuel des tâches en survol légèrement amélioré.
+
 ## V2.4.0 déployée le 02/07/2020 à 15h40✔ ✔️
 
 ### **Nouveautés**
 
 - Le système d'invitation a été retravaillé. Les invitations se font désormais dans le menu d'actions sur votre espace de travail.
+- Page d'accueil un peu plus vivante.
 
 ### **Bugs fix**
 
