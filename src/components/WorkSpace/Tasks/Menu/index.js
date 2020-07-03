@@ -107,7 +107,7 @@ const TaskMenu = ({ task, list }) => {
   };
 
   return (
-    <>
+    <div>
       <IconButton className={classes.button} onClick={handleClick}>
         <MoreVertIcon />
       </IconButton>
@@ -159,7 +159,7 @@ const TaskMenu = ({ task, list }) => {
           </Paper>
         </MenuItem>
       </Menu>
-    </>
+    </div>
   );
 };
 

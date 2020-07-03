@@ -46,11 +46,11 @@ export default ({ classes, user }) => (
         variant="dot"
         isonline={Boolean(user.socketID)}
       >
-        <Avatar>
+        <Avatar className={classes.avatar}>
           {user.username.substring(0, 1)}
         </Avatar>
       </StyledBadge>
-      <Typography> {user.username} </Typography>
+      <Typography className={classes.username}> {user.username} </Typography>
     </Container>
     <Menu classes={classes} user={user} />
   </Paper>

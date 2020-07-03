@@ -65,7 +65,6 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     backgroundColor: (props) => (props.theme ? props.theme.color : "#6e00c8"),
-    marginRight: '1em'
   },
   icon: {
     color: (props) => (props.theme ? props.theme.color : "#6e00c8")
@@ -87,7 +86,10 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: '#aaa',
     }
   },
-  online: {}
+  online: {},
+  username: {
+    marginLeft: '1em'
+  }
 }));
 
 export default () => {
@@ -130,8 +132,6 @@ export default () => {
         Authorization: `Bearer ${token}`
       }
     });
-    console.log(res.data.users);
-
     if (res.data.users.length === 0) setFetch(true);
     setUsers(res.data.users);
     return setLoading(false);

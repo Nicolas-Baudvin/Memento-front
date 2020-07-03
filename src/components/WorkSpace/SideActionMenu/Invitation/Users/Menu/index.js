@@ -24,7 +24,7 @@ export default ({ user, classes }) => {
     }
   };
 
-  return (<>
+  return (<div>
     <IconButton onClick={handleClick}>
       <MoreVertIcon className={classes.icon} />
     </IconButton>
@@ -47,6 +47,6 @@ export default ({ user, classes }) => {
       }
       <MenuItem className={classes.close} onClick={handleClose}>Fermer le menu</MenuItem>
     </Menu>
-  </>
+  </div>
   );
 };

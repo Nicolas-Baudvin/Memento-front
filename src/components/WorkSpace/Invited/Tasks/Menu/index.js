@@ -109,13 +109,13 @@ export default ({ task, isOp, list }) => {
       onKeyDown={(e) => e.stopPropagation()}
     >
       {
-        isOp && <><MenuItem className={classes.menuHeader}>Ajouter un label</MenuItem>
+        isOp && <div><MenuItem className={classes.menuHeader}>Ajouter un label</MenuItem>
           <Divider variant="middle" />
           <MenuItem onKeyDown={(e) => e.stopPropagation()} autoFocus={false} onClick={handleClickLabel("red")}> <FiberManualRecordIcon className={classes.strong} /> Forte importance</MenuItem>
           <MenuItem onKeyDown={(e) => e.stopPropagation()} autoFocus={false} onClick={handleClickLabel("blue")}> <FiberManualRecordIcon className={classes.middle} /> Moyenne Importance</MenuItem>
           <MenuItem onKeyDown={(e) => e.stopPropagation()} autoFocus={false} onClick={handleClickLabel("green")}> <FiberManualRecordIcon className={classes.weak} /> Faible Importance</MenuItem>
           <Divider variant="middle" />
-        </>
+        </div>
       }
       <MenuItem className={classes.menuHeader}>Assignation de tâche</MenuItem>
       <Divider variant="middle" />
@@ -133,7 +133,7 @@ export default ({ task, isOp, list }) => {
           </MenuItem>))
       }
       {
-        isOp && <>
+        isOp && <div>
           <Divider variant="middle" />
           <MenuItem className={classes.menuHeader}>Édition</MenuItem>
           <Divider variant="middle" />
@@ -146,7 +146,7 @@ export default ({ task, isOp, list }) => {
               </Button>
             </Paper>
           </MenuItem>
-        </>
+        </div>
       }
     </Menu>
   </>
