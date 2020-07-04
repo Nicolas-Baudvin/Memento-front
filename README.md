@@ -17,7 +17,7 @@ J'ai créer ce projet dans le but de monter en compétences sur les technologies
 
 **Front-end** : REACT.JS - Redux - WEBPACK - Jest/Enzyme - Socket.io
 
-**Back-end** : Node.js - Express.js - MongoDB - Mongoose - Socket.io - Jest
+**Back-end** : Node.js - Express.js - MongoDB - Mongoose - Socket.io - Mocha/Chai
 
  3. **MVP**
 
@@ -37,13 +37,13 @@ J'ai créer ce projet dans le but de monter en compétences sur les technologies
     | Ajout au favori d'un tableau                                     | ✔️             |
     | Assignation de tâche                                             | ✔️             |
     | Discussion instantanée dans chaque tableau                       | ✔️             |
-    | Invitation d'amis à rejoindre son tableau                        | ✔️             |
+    | Invitation à rejoindre son tableau                               | ✔️             |
     | Cryptage des données envoyées entre membres                      | ✔️             |
     | Système de droits                                                | ✔️             |
     | Site Responsive                                                  | ✔️             |
     | Changement d'email, oublie de mot de passe                       | ✔️             |
-    |Rendre son tableau Publique| ✔️|
-    | Tests                                                            | en cours        |
+    | Rendre son tableau Publique                                      | ✔️             |
+    | Tests                                                            | en cours      |
 
  4. **ChangeLog**
 
@@ -56,4 +56,3 @@ J'ai créer ce projet dans le but de monter en compétences sur les technologies
 [Le Kanban](https://github.com/users/Nicolas-Baudvin/projects/2)
 
 [Mon Linkedin](https://www.linkedin.com/in/nicolas-baudvin/)
-
