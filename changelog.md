@@ -2,6 +2,11 @@
 
 ## V2.4.1 en développement, en cours de rédaction
 
+### **Améliorations diverses**
+
+- Les opérateurs peuvent changer le nom d'une liste et la supprimer.
+- Refactorisation du code sur le WorkSpace.
+
 ### **Bugs fixs**
 
 - Les personnes qui se déconnectaient d'un tableau étaient toujours affichées en ligne sur le menu.
