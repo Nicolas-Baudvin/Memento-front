@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Draggable } from 'react-beautiful-dnd';
 import PropTypes from 'prop-types';
 
@@ -16,13 +16,15 @@ import './style.scss';
 // Context
 import SearchContext from './searchContext';
 
-const List = ({ isInvited, tasks, lists, currentTab, isPublic }) => {
+const List = ({ isInvited, tasks, lists, currentTab, isPublic, currentSocket }) => {
+  const { username } = useSelector((GlobalState) => GlobalState.userData.datas);
   const search = useContext(SearchContext);
   const dispatch = useDispatch();
   const initialState = {
     sortedTasks: tasks,
   };
   const [state, setstate] = useState(initialState);
+  const [isOp, setOp] = useState(false);
 
   useEffect(() => {
     if (!isInvited) {
@@ -44,6 +46,17 @@ const List = ({ isInvited, tasks, lists, currentTab, isPublic }) => {
     return setstate({ sortedTasks: sort });
   }, [search.value]);
 
+  useEffect(() => {
+    if (Object.keys(currentSocket).length) {
+      if (currentSocket.operators.filter((user) => user.userData.username === username).length > 0) {
+        setOp(true);
+      }
+      else {
+        setOp(false);
+      }
+    }
+  }, [currentSocket]);
+
   return (
     lists.length > 0 && lists.sort((a, b) => a.order - b.order).map((list) => currentTab._id === list.tabId && (
       <Draggable isDragDisabled={isPublic} key={list._id} draggableId={list._id} index={list.order}>
@@ -58,8 +71,10 @@ const List = ({ isInvited, tasks, lists, currentTab, isPublic }) => {
             <ListHeader
               list={list}
               isPublic={isPublic}
+              isOp={isOp}
+              isInvited={isInvited}
             />
-            <TasksContainer isPublic={isPublic} state={state} list={list} />
+            <TasksContainer isPublic={isPublic} state={state} list={list} isInvited={isInvited} isOp={isOp} />
           </div>
         )}
       </Draggable>))

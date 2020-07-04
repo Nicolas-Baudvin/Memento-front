@@ -55,7 +55,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const TaskMenu = ({ task, list }) => {
+const TaskMenu = ({ task, list, isInvited, isOp }) => {
   const { mytheme } = useSelector((GlobalState) => GlobalState.userData.datas);
   const classes = useStyles({ theme: mytheme });
   const dispatch = useDispatch();
@@ -119,45 +119,54 @@ const TaskMenu = ({ task, list }) => {
         keepMounted
         onKeyDown={(e) => e.stopPropagation()}
       >
-        <MenuItem className={classes.menuHeader}>Ajouter un label</MenuItem>
-        <Divider variant="middle" />
-        <MenuItem onKeyDown={(e) => e.stopPropagation()} autoFocus={false} onClick={handleClickLabel("red")}> <FiberManualRecordIcon className={classes.strong} /> Forte importance</MenuItem>
-        <MenuItem onKeyDown={(e) => e.stopPropagation()} autoFocus={false} onClick={handleClickLabel("blue")}> <FiberManualRecordIcon className={classes.middle} /> Moyenne Importance</MenuItem>
-        <MenuItem onKeyDown={(e) => e.stopPropagation()} autoFocus={false} onClick={handleClickLabel("green")}> <FiberManualRecordIcon className={classes.weak} /> Faible Importance</MenuItem>
-        <Divider variant="middle" />
+        {
+
+          (!isInvited || (isInvited && isOp)) && <div>
+            <MenuItem className={classes.menuHeader}>Ajouter un label</MenuItem>
+            <Divider variant="middle" />
+            <MenuItem onKeyDown={(e) => e.stopPropagation()} autoFocus={false} onClick={handleClickLabel("red")}> <FiberManualRecordIcon className={classes.strong} /> Forte importance</MenuItem>
+            <MenuItem onKeyDown={(e) => e.stopPropagation()} autoFocus={false} onClick={handleClickLabel("blue")}> <FiberManualRecordIcon className={classes.middle} /> Moyenne Importance</MenuItem>
+            <MenuItem onKeyDown={(e) => e.stopPropagation()} autoFocus={false} onClick={handleClickLabel("green")}> <FiberManualRecordIcon className={classes.weak} /> Faible Importance</MenuItem>
+            <Divider variant="middle" />
+          </div>
+        }
         <MenuItem className={classes.menuHeader}>Assignation de tâche</MenuItem>
         <Divider variant="middle" />
         <MenuItem onKeyDown={(e) => e.stopPropagation()} onClick={handleClickTaskAssign(null, true)}>S'assigner la tâche</MenuItem>
         {
-          Object.keys(currentSocket).length && currentSocket.guests.map((guest) => (
+          (!isInvited || (isInvited && isOp)) && Object.keys(currentSocket).length && currentSocket.guests.map((guest) => (
             <MenuItem onKeyDown={(e) => e.stopPropagation()} key={guest.userData.username} onClick={handleClickTaskAssign(guest.userData.username, false)}>
               {guest.userData.username}
             </MenuItem>))
         }
         {
-          Object.keys(currentSocket).length && currentSocket.operators.map((guest) => (
+          (!isInvited || (isInvited && isOp)) && Object.keys(currentSocket).length && currentSocket.operators.map((guest) => (
             <MenuItem onKeyDown={(e) => e.stopPropagation()} key={guest.userData.username} onClick={handleClickTaskAssign(guest.userData.username, false)}>
               {guest.userData.username}
             </MenuItem>))
         }
-        <Divider variant="middle" />
-        <MenuItem className={classes.menuHeader}>Édition</MenuItem>
-        <Divider variant="middle" />
-        <MenuItem onKeyDown={(e) => e.stopPropagation()} className={classes.delete} onClick={handleClickDelete}>Supprimer la tâche</MenuItem>
-        <MenuItem onKeyDown={(e) => e.stopPropagation()}>
-          <Paper className={classes.paper} onSubmit={handleSubmit} component="form">
-            <TextField
-              multiline
-              value={state[task._id] || ''}
-              focused
-              onChange={(e) => setstate({ ...state, [task._id]: e.target.value })}
-              label="Changer le nom"
-            />
-            <Button className={classes.submit} type="submit" variant="contained">
-              Changer
-            </Button>
-          </Paper>
-        </MenuItem>
+        {
+          (!isInvited || (isInvited && isOp)) && <div>
+            <Divider variant="middle" />
+            <MenuItem className={classes.menuHeader}>Édition</MenuItem>
+            <Divider variant="middle" />
+            <MenuItem onKeyDown={(e) => e.stopPropagation()} className={classes.delete} onClick={handleClickDelete}>Supprimer la tâche</MenuItem>
+            <MenuItem onKeyDown={(e) => e.stopPropagation()}>
+              <Paper className={classes.paper} onSubmit={handleSubmit} component="form">
+                <TextField
+                  multiline
+                  value={state[task._id] || ''}
+                  focused
+                  onChange={(e) => setstate({ ...state, [task._id]: e.target.value })}
+                  label="Changer le nom"
+                />
+                <Button className={classes.submit} type="submit" variant="contained">
+                  Changer
+                </Button>
+              </Paper>
+            </MenuItem>
+          </div>
+        }
       </Menu>
     </div>
   );
@@ -165,7 +174,9 @@ const TaskMenu = ({ task, list }) => {
 
 TaskMenu.propTypes = {
   task: PropTypes.object.isRequired,
-  list: PropTypes.object.isRequired
+  list: PropTypes.object.isRequired,
+  isInvited: PropTypes.bool.isRequired,
+  isOp: PropTypes.bool.isRequired
 };
 
 export default TaskMenu;

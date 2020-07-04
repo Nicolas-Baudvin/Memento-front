@@ -50,7 +50,7 @@ export const checkImportance = (color) => {
   }
 };
 
-const Tasks = ({ tasks, list, isPublic }) => (
+const Tasks = ({ tasks, list, isPublic, isInvited, isOp }) => (
   tasks.sort((a, b) => a.order - b.order).map((task) => task.listId === list._id
     && <Draggable isDragDisabled={isPublic} index={task.order} key={task._id} draggableId={task._id}>
       {
@@ -69,7 +69,7 @@ const Tasks = ({ tasks, list, isPublic }) => (
           <div className="tasks-item-main">
             <p style={{ whiteSpace: 'pre-wrap' }} className="show">{task.title}</p>
             {
-              !isPublic && <Menu taskId={task._id} task={task} list={list} />
+              !isPublic && <Menu taskId={task._id} task={task} list={list} isInvited={isInvited} isOp={isOp} />
             }
           </div>
           {

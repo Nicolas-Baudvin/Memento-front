@@ -3,7 +3,6 @@ import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { useDispatch, useSelector } from 'react-redux';
 
 // Components
-import InvitedList from '../Invited/Lists';
 import List from "../List";
 import { reorderLists } from '../../../store/Lists/actions';
 import { updateOrder } from '../../../store/Tasks/actions';
@@ -14,6 +13,7 @@ export default ({ isInvited, currentTab, isPublic }) => {
   const { lists } = useSelector((GlobalState) => GlobalState.mylists);
   const { tasks } = useSelector((GlobalState) => GlobalState.mytasks);
   const { fLists, fTasks } = useSelector((GlobalState) => GlobalState.sockets);
+  const { currentSocket } = useSelector((GlobalState) => GlobalState.sockets);
   // Tab Owner
   const [sortedTasks, setSortedTasks] = useState([]);
   const [sortedLists, setSortedLists] = useState([]);
@@ -125,7 +125,7 @@ export default ({ isInvited, currentTab, isPublic }) => {
 
   useEffect(() => {
     if (!isPublic) {
-      // Tab Owner
+      // Owner
       if (!isInvited) {
         if (lists) setSortedLists(lists.sort((a, b) => a.order - b.order));
         if (tasks) setSortedTasks(tasks.sort((a, b) => a.order - b.order));
@@ -141,7 +141,6 @@ export default ({ isInvited, currentTab, isPublic }) => {
 
   useEffect(() => {
     if (isPublic && Object.keys(currentTab).length) {
-      console.log(currentTab);
       if (currentTab.lists && currentTab.tasks) {
         setSortedLists(currentTab.lists.sort((a, b) => a.order - b.order));
         setSortedTasks(currentTab.tasks.sort((a, b) => a.order - b.order));
@@ -152,24 +151,23 @@ export default ({ isInvited, currentTab, isPublic }) => {
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       {
-        !isInvited && Object.keys(currentTab).length > 0 && <Droppable isDropDisabled={isPublic} type="column" droppableId="all-columns" direction="horizontal">
+        Object.keys(currentTab).length > 0 && <Droppable isDropDisabled={isPublic} type="column" droppableId="all-columns" direction="horizontal">
           {(provided) => (<div ref={provided.innerRef} {...provided.droppableProps} className="workspace-body-lists">
             {
-              sortedLists && sortedLists.length > 0 && <List isPublic={isPublic} tasks={sortedTasks} currentTab={currentTab} lists={sortedLists} isInvited={isInvited} />
+              ((sortedLists && sortedLists.length > 0) || (sortedFriendLists && sortedFriendLists.length > 0))
+              && <List
+                isPublic={isPublic}
+                tasks={sortedTasks.length ? sortedTasks : sortedFriendTasks}
+                currentTab={currentTab}
+                lists={sortedLists.length ? sortedLists : sortedFriendLists}
+                isInvited={isInvited}
+                tab={tab}
+                currentSocket={currentSocket}
+              />
             }
             {provided.placeholder}
           </div>
           )}
-        </Droppable>
-      }
-      {
-        isInvited && <Droppable type="column" direction="horizontal" droppableId="all-columns">
-          {
-            (provided) => <div ref={provided.innerRef} {...provided.droppableProps} className="workspace-body-lists">
-              <InvitedList fLists={sortedFriendLists} fTasks={sortedFriendTasks} tab={tab} />
-              {provided.placeholder}
-            </div>
-          }
         </Droppable>
       }
     </DragDropContext>

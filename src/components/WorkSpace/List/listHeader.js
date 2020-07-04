@@ -44,7 +44,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const ListHeader = ({ list, isPublic }) => {
+const ListHeader = ({ list, isPublic, isInvited, isOp }) => {
   const { mytheme } = useSelector((GlobalState) => GlobalState.userData.datas);
   const classes = useStyles({ theme: mytheme });
   const initialState = { [list._id]: list.name };
@@ -83,7 +83,7 @@ const ListHeader = ({ list, isPublic }) => {
     <div style={{ backgroundColor: (mytheme ? mytheme.color : "#6e00c8") }} className="list-header">
       <h2 className="list-header-title show"> {list.name} </h2>
       {
-        !isPublic
+        !isPublic && ((isInvited && isOp) || (!isInvited))
         && <>
           <Tooltip title="Paramètres de la liste...">
             <IconButton
