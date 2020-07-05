@@ -1,6 +1,6 @@
 # Changelogs
 
-## V2.4.1 en développement, en cours de rédaction
+## V2.4.1 déployée le 05/07/2020 à 14h05 ✔️
 
 ### **Améliorations diverses**
 
@@ -17,7 +17,7 @@
 
 - Visuel des tâches en survol légèrement amélioré.
 
-## V2.4.0 déployée le 02/07/2020 à 15h40✔ ✔️
+## V2.4.0 déployée le 02/07/2020 à 15h40 ✔ 
 
 ### **Nouveautés**
 
