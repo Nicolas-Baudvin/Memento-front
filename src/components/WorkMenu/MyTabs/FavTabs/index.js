@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Card, CardHeader, CardMedia, makeStyles, Avatar, Tooltip } from '@material-ui/core';
+import cx from 'classnames';
 
 // Actions
 import { myFavs, myFavstabs } from '../../../../store/Favs/actions';
@@ -13,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
     width: '250px',
     height: '200px',
     cursor: 'pointer',
+    border: 0
   },
   actions: {
     display: 'flex',
@@ -29,6 +31,9 @@ const useStyles = makeStyles((theme) => ({
   },
   header: {
     cursor: 'unset'
+  },
+  focus: {
+    boxShadow: '0 0 15px rgba(0, 0, 0, 0.5)'
   }
 }));
 
@@ -37,6 +42,7 @@ export default ({ openThisTab }) => {
   const classes = useStyles({ theme: mytheme });
   const dispatch = useDispatch();
   const [state, setstate] = useState({});
+  const [isFocus, setFocus] = useState({});
   const { favs, favsTabs } = useSelector((GlobalState) => GlobalState.myfavs);
 
   const getPic = () => {
@@ -75,25 +81,31 @@ export default ({ openThisTab }) => {
     </h2>
     <div className="workmenu-tabs">
       {
-        favsTabs && favsTabs.map((tab) => tab !== null && <Card className={classes.root} key={tab._id}>
-          <CardHeader
-            title={tab.name}
-            avatar={
-              <Avatar className={classes.avatar}>
-                {tab.owner.substring(0, 1)}
-              </Avatar>
-            }
-            subheader={tab.owner}
-            className={classes.header}
-          />
-          <Tooltip title="Cliquez pour accéder à votre tableau">
-            <CardMedia
-              onClick={handleClickOpenTab(tab)}
-              className={classes.image}
-              image={tab.imgPath}
+        favsTabs && favsTabs.map((tab) => {
+          return tab !== null && <Card className={cx(classes.root, { [classes.focus]: isFocus[tab._id] })} key={tab._id}>
+            <CardHeader
+              title={tab.name}
+              avatar={
+                <Avatar className={classes.avatar}>
+                  {tab.owner.substring(0, 1)}
+                </Avatar>
+              }
+              subheader={tab.owner}
+              className={classes.header}
             />
-          </Tooltip>
-        </Card>)
+            <Tooltip title="Cliquez pour accéder à votre tableau">
+              <input
+                type="image"
+                onClick={handleClickOpenTab(tab)}
+                className={classes.image}
+                src={tab.imgPath}
+                alt="background du tableau"
+                onBlur={() => setFocus({ ...isFocus, [tab._id]: false })}
+                onFocus={() => setFocus({ ...isFocus, [tab._id]: true })}
+              />
+            </Tooltip>
+          </Card>;
+        })
       }
       {
         !favsTabs && <p>Vous n'avez pour le moment aucun tableau dans vos favoris</p>

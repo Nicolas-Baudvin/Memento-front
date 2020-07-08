@@ -7,8 +7,8 @@ import Proptypes from 'prop-types';
 import { newCurrentTab } from "../../../store/Tabs/actions";
 
 // Components
-import Tabs from '../tabs';
-import Modal from "../modal";
+import Tabs from './Tabs';
+import Modal from "../Modal";
 import FavTabs from './FavTabs';
 
 const MyTabs = ({

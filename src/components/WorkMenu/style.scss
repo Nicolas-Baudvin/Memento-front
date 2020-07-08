@@ -1,3 +1,5 @@
+@import "../../styles/vars";
+
 .workmenu {
     display: flex;
     flex-direction: column;
@@ -116,7 +118,7 @@
     }
 
     &-header {
-        background-color: #6E00C8;
+        background-color: $background-color;
         width: 100%;
         padding: 1em;
         border-radius: 5px 5px 0 0;
@@ -128,13 +130,13 @@
 
     &-content {
         width: 100%;
-        background-color: #fff;
+        background-color: $white;
         padding: 1em;
     }
 
     &-actions {
         width: 100%;
-        background-color: #fff;
+        background-color: $white;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -149,7 +151,7 @@
 }
 
 .img-selected {
-    box-shadow: 0 0 0 5px #08A0CE;
+    box-shadow: 0 0 0 5px $selected;
 }
 
 .black {

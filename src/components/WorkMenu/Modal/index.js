@@ -6,10 +6,10 @@ import cx from 'classnames';
 import { useDispatch, useSelector } from "react-redux";
 
 // styles
-import "./style.scss";
+import "../style.scss";
 
 // Actions
-import { newTab } from "../../store/Tabs/actions";
+import { newTab } from "../../../store/Tabs/actions";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -43,6 +43,9 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       backgroundColor: (props) => (props.theme ? props.theme.hovered : "#6e00c8")
     }
+  },
+  focus: {
+    boxShadow: '0 0 0 5px rgba(8, 160, 206, .6)'
   }
 }));
 
@@ -102,15 +105,26 @@ export default ({
       <h3>Choississez une image de fond</h3>
       <ul className="modal-list">
         {
-          imgs.map((path, i) => (
-            <li
-              onClick={() => handleClickImg(i + 1, path)}
-              className={cx("modal-list__item", { "img-selected": state.imgSelected === i + 1 })}
-              key={path}
-            >
-              <img className="modal-img" src={path} alt={`background ${i}`} />
-            </li>
-          ))
+          imgs.map((path, i) => {
+            const [isFocus, setFocus] = useState(false);
+            return (
+              <li
+                onClick={() => handleClickImg(i + 1, path)}
+                className={cx("modal-list__item", { "img-selected": state.imgSelected === i + 1, [classes.focus]: isFocus })}
+                key={path}
+              >
+                <input
+                  onFocus={() => setFocus(true)}
+                  onBlur={() => setFocus(false)}
+                  className="modal-img"
+                  type="image"
+                  src={path}
+                  alt={`background ${i}`}
+                  onSelect={() => handleClickImg(i + 1, path)}
+                />
+              </li>
+            )
+          })
         }
 
       </ul>
