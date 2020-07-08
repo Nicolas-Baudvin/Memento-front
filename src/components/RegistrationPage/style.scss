@@ -1,4 +1,4 @@
-.homepage {
+.registration {
     padding: 3em;
     display: flex;
     flex-direction: column;
@@ -33,7 +33,7 @@
 }
 
 @media only screen and (max-width: 1080px) and (min-width: 767px) {
-    .homepage {
+    .registration {
         padding: 0.5em;
         min-height: 100%;
         &-title {
@@ -50,7 +50,7 @@
 }
 
 @media only screen and (max-width: 766px) {
-    .homepage {
+    .registration {
         padding: 0.5em;
         min-height: 100%;
 

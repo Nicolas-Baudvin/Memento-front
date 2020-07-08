@@ -15,8 +15,8 @@ import UsernameInput from './Inputs/username';
 import ConfPassInput from './Inputs/confPass';
 
 // Actions
-import { submitLoginForm, submitSignupForm } from "../../store/Registration/actions";
-import { failMessage } from "../../store/Popup/actions";
+import { submitLoginForm, submitSignupForm } from "../../../store/Registration/actions";
+import { failMessage } from "../../../store/Popup/actions";
 
 export default () => {
   const dispatch = useDispatch();

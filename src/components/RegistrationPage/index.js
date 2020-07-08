@@ -5,7 +5,7 @@ import { Helmet } from 'react-helmet';
 import "./style.scss";
 
 // Components
-import Registration from "../Login";
+import Login from "./Login";
 import Header from '../HomePage/Header';
 
 
@@ -16,11 +16,11 @@ export default () => (
       <title>Memento - Page de connexion</title>
     </Helmet>
     <Header />
-    <main className="homepage">
-      <h1 className="homepage-title">Bienvenue sur <strong>My Memento</strong></h1>
-      <h3 className="homepage-subtitle">Votre gestionnaire de listes de tâches !</h3>
-      <div className="homepage-registration">
-        <Registration />
+    <main className="registration">
+      <h1 className="registration-title">Bienvenue sur <strong>My Memento</strong></h1>
+      <h3 className="registration-subtitle">Votre gestionnaire de listes de tâches !</h3>
+      <div className="registration-registration">
+        <Login />
       </div>
     </main>
   </>

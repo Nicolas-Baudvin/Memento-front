@@ -1,10 +1,12 @@
+@import "../../../styles/vars";
+
 .form {
     align-self: center;
     position: relative;
     display: flex;
     flex-direction: column;
     width: 100%;
-    background-color: #fff;
+    background-color: $white;
     align-items: center;
     border-radius: 15px;
 
@@ -44,7 +46,7 @@
         position: relative;
         display: flex;
         justify-content: space-around;
-        background-color: #6E00C8;
+        background-color: $background-color;
         width: 100%;
         border-radius: 15px 15px 0 0;
         padding: 2em 0;
