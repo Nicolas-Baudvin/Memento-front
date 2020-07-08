@@ -13,6 +13,7 @@ import Header from '../Header';
 import MyTabs from './MyTabs';
 import Footer from '../Footer';
 import LoadPage from '../LoadPage';
+import Team from './Team';
 
 export default () => {
   const dispatch = useDispatch();
@@ -56,8 +57,8 @@ export default () => {
         <main className="workmenu-body">
           <MyTabs tabs={tabs} state={state} setstate={setstate} handleOpen={handleOpen} />
         </main>
+        <Team />
       </div>
-      <Footer />
     </>
   );
 };

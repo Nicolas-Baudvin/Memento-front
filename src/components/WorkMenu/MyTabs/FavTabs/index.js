@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Card, CardHeader, CardMedia, makeStyles, Avatar, Tooltip } from '@material-ui/core';
+import { Card, CardHeader, makeStyles, Avatar, Tooltip } from '@material-ui/core';
 import cx from 'classnames';
 
 // Actions
@@ -9,7 +9,7 @@ import { myFavs, myFavstabs } from '../../../../store/Favs/actions';
 // Utils
 import loadPic from '../../../../Utils/loadPic';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   image: {
     width: '250px',
     height: '200px',

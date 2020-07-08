@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useState } from "react";
-import { Card, CardHeader, CardMedia, makeStyles, Avatar, Tooltip, IconButton } from '@material-ui/core';
+import { Card, CardHeader, makeStyles, Avatar, Tooltip, IconButton } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { useSelector } from "react-redux";
 import cx from 'classnames';
@@ -11,7 +11,7 @@ import Confirm from '../../Confirm';
 // Styles & Icons
 import "../../style.scss";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   image: {
     width: '250px',
     height: '200px',
