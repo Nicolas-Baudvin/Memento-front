@@ -4,6 +4,8 @@
 
 ### **Nouveautés**
 
+- Liste d'amis
+
 ### **Améliorations diverses**
 
 - Petite réorganisation de l'arborescence des composants React
