@@ -123,7 +123,7 @@ export default () => {
     setLoading(true);
     const res = await Axios({
       method: 'post',
-      url: `${process.env.API_URL}auth/find-friend/`,
+      url: `${process.env.API_URL}auth/user/find`,
       data: {
         userID,
         friendName: value.toLowerCase()
