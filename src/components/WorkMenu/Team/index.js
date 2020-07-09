@@ -8,6 +8,7 @@ import Axios from "axios";
 import SearchIcon from '@material-ui/icons/Search';
 import MailIcon from '@material-ui/icons/Mail';
 import { sendInvToBeFriend } from "../../../store/Socket/actions";
+import { decryptUserData } from '../../../Utils/crypt';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -104,9 +105,9 @@ export default () => {
         Authorization: `Bearer ${token}`
       }
     });
-
-    setResult(res.data.users);
     console.log(res);
+    const decryptedResult = decryptUserData(res.data.users);
+    setResult(decryptedResult);
   };
 
   const handleClickSendInvitation = (user) => () => {
