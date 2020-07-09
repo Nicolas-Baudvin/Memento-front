@@ -13,6 +13,7 @@ import Axios from "axios";
 import SearchIcon from '@material-ui/icons/Search';
 
 import Users from './Users';
+import { decryptUserData } from "../../../../Utils/crypt";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -132,8 +133,9 @@ export default () => {
         Authorization: `Bearer ${token}`
       }
     });
-    if (res.data.users.length === 0) setFetch(true);
-    setUsers(res.data.users);
+    const result = decryptUserData(res.data.users);
+    if (result.length === 0) setFetch(true);
+    setUsers(result);
     return setLoading(false);
   };
 
