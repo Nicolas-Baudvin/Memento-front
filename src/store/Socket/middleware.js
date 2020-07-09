@@ -20,7 +20,8 @@ import {
   CHANGE_USER_ROLE,
   CONNECT_TO_SOCKET,
   INVITE_FRIEND,
-  DECLINE_INV
+  DECLINE_INV,
+  SEND_INV_TO_BE_FRIEND
 } from './actions';
 import { successMessage, failMessage } from '../Popup/actions';
 import { cryptUserData, decryptUserData } from '../../Utils/crypt';
@@ -37,6 +38,12 @@ let socket;
 export default (store) => (next) => (action) => {
   const state = store.getState();
   switch (action.type) {
+    case SEND_INV_TO_BE_FRIEND: {
+      const { username } = state.userData.datas;
+      const { to } = action;
+      socket.emit("invitation to be friend", { to, from: { username } });
+      break;
+    }
     case INVITE_FRIEND: {
       const { currentTab } = store.getState().mytabs;
       const { currentSocket } = store.getState().sockets;

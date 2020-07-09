@@ -19,6 +19,12 @@ export const CONNECT_TO_SOCKET = "CONNECT_TO_SOCKET";
 export const INVITE_FRIEND = "INVITE_FRIEND";
 export const DECLINE_INV = "DECLINE_INV";
 export const ACCEPT_INV = "ACCEPT_INV";
+export const SEND_INV_TO_BE_FRIEND = "SEND_INV_TO_BE_FRIEND";
+
+export const sendInvToBeFriend = (to) => ({
+  type: SEND_INV_TO_BE_FRIEND,
+  to
+});
 
 export const declineInv = (socketID) => ({
   type: DECLINE_INV,
