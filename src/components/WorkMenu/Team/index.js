@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import { Container, makeStyles, IconButton, Typography, Tooltip, TextField, InputAdornment, Paper } from "@material-ui/core";
+import { Container, makeStyles, IconButton, Typography, Tooltip, TextField, InputAdornment, Paper, Avatar } from "@material-ui/core";
 import GroupIcon from '@material-ui/icons/Group';
 import cx from 'classnames';
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Axios from "axios";
 
 import SearchIcon from '@material-ui/icons/Search';
 import MailIcon from '@material-ui/icons/Mail';
+import { sendInvToBeFriend } from "../../../store/Socket/actions";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -18,7 +19,6 @@ const useStyles = makeStyles(() => ({
     padding: '0',
     borderRadius: '5px',
     zIndex: '1000',
-    backgroundColor: '#fff',
     transition: ".3s ease-in-out"
   },
   container: {
@@ -39,7 +39,7 @@ const useStyles = makeStyles(() => ({
     flexDirection: 'column',
     alignItems: 'center',
     boxShadow: '0 2px 5px rgba(0,0,0,.3)',
-
+    backgroundColor: 'rgba(250,250,250,.9)'
   },
   icon: {
     color: '#fff',
@@ -58,15 +58,15 @@ const useStyles = makeStyles(() => ({
     color: (props) => props.theme.color || "#6e00c8"
   },
   invitation: {
-    color: (props) => props.theme.color
+    color: (props) => props.theme.color || "#6e00c8"
   },
   paper: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
     width: '90%',
-    padding: '0 1em',
-    margin: '.5em 0'
+    padding: '.2em 1em',
+    margin: '.5em auto'
   },
   username: {
     fontWeight: 'bold'
@@ -74,16 +74,21 @@ const useStyles = makeStyles(() => ({
   result: {
     width: '100%',
     height: '150px',
-    overflowY: 'auto'
+    overflowY: 'auto',
+    padding: '0'
+  },
+  avatar: {
+    backgroundColor: (props) => props.theme?.color || "#6e00c8"
   }
 }));
 
 export default () => {
-  const { mytheme, token } = useSelector((GlobalState) => GlobalState.userData.datas);
+  const { mytheme, token, userID } = useSelector((GlobalState) => GlobalState.userData.datas);
   const [isOpen, setOpen] = useState(false);
   const [friendName, setFriendName] = useState('');
   const [result, setResult] = useState([]);
   const classes = useStyles({ theme: mytheme, isOpen });
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -92,7 +97,8 @@ export default () => {
       url: `${process.env.API_URL}auth/user/find`,
       method: 'POST',
       data: {
-        friendName
+        friendName,
+        userID
       },
       headers: {
         Authorization: `Bearer ${token}`
@@ -101,6 +107,11 @@ export default () => {
 
     setResult(res.data.users);
     console.log(res);
+  };
+
+  const handleClickSendInvitation = (user) => () => {
+    dispatch(sendInvToBeFriend({ ...user }));
+    console.log(user);
   };
 
   return (
@@ -133,9 +144,12 @@ export default () => {
         </form>
         <Container className={classes.result}>
           {
-            result && result.map((user) => <Paper className={classes.paper}>
+            result && result.map((user) => <Paper key={user._id} className={classes.paper}>
+              <Avatar className={classes.avatar}>
+                {user.username.substring(0, 1)}
+              </Avatar>
               <Typography className={classes.username}> {user.username} </Typography>
-              <IconButton>
+              <IconButton onClick={handleClickSendInvitation(user)}>
                 <MailIcon className={classes.invitation} />
               </IconButton>
             </Paper>)
