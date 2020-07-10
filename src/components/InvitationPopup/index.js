@@ -7,26 +7,22 @@ import {
   DialogContentText,
   DialogActions,
   Slide,
-  makeStyles,
   Tooltip
 } from '@material-ui/core';
 import { useSelector, useDispatch } from "react-redux";
 import { accept, decline } from "../../store/InvitationsPopup/actions";
+import { acceptFriendInvitation } from "../../store/Socket/actions";
 
 const Transition = React.forwardRef((props, ref) => <Slide direction="up" ref={ref} {...props} />);
 
-const useStyles = makeStyles(() => ({
-
-}));
-
 export default () => {
-  const classes = useStyles();
   const dispatch = useDispatch();
   const {
     isOpen,
     message,
     link,
-    owner // owner socket id
+    owner, // owner socket ID
+    isInvitationToBeFriend,
   } = useSelector((GlobalState) => GlobalState.invitationPopup);
 
   const handleDecline = () => {
@@ -34,8 +30,14 @@ export default () => {
   };
 
   const handleAccept = () => {
-    window.location.href = link;
-    dispatch(accept());
+    if (!isInvitationToBeFriend) {
+      window.location.href = link;
+      dispatch(accept());
+    }
+    else {
+      dispatch(acceptFriendInvitation(owner, false));
+      dispatch(accept());
+    }
   };
 
   return (
