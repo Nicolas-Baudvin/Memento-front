@@ -16,10 +16,17 @@ export const SEND_TAB = "action/SEND_TAB";
 export const SEND_MESSAGE = "action/SEND_MESSAGE";
 export const CHANGE_USER_ROLE = "CHANGE_USER_ROLE";
 export const CONNECT_TO_SOCKET = "CONNECT_TO_SOCKET";
-export const INVITE_FRIEND = "INVITE_FRIEND";
+export const INVITE_USER = "INVITE_USER";
 export const DECLINE_INV = "DECLINE_INV";
 export const ACCEPT_INV = "ACCEPT_INV";
 export const SEND_INV_TO_BE_FRIEND = "SEND_INV_TO_BE_FRIEND";
+export const ACCEPT_FRIEND_INVITATION = "ACCEPT_FRIEND_INVITATION";
+
+export const acceptFriendInvitation = (owner, isFromNotif) => ({
+  type: ACCEPT_FRIEND_INVITATION,
+  owner,
+  isFromNotif
+});
 
 export const sendInvToBeFriend = (to) => ({
   type: SEND_INV_TO_BE_FRIEND,
@@ -32,7 +39,7 @@ export const declineInv = (socketID) => ({
 });
 
 export const inviteFriend = (socketID) => ({
-  type: INVITE_FRIEND,
+  type: INVITE_USER,
   socketID
 });
 

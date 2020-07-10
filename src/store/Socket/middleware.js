@@ -19,9 +19,10 @@ import {
   SEND_MESSAGE,
   CHANGE_USER_ROLE,
   CONNECT_TO_SOCKET,
-  INVITE_FRIEND,
+  INVITE_USER,
   DECLINE_INV,
-  SEND_INV_TO_BE_FRIEND
+  SEND_INV_TO_BE_FRIEND,
+  ACCEPT_FRIEND_INVITATION
 } from './actions';
 import { successMessage, failMessage } from '../Popup/actions';
 import { cryptUserData, decryptUserData } from '../../Utils/crypt';
@@ -32,19 +33,26 @@ import { newMessage } from '../Chat/actions';
 import { listsReorderedByFriend } from '../Lists/actions';
 import { taskReorderedByFriend } from '../Tasks/actions';
 import { newInvitation } from '../InvitationsPopup/actions';
+import { newFriend } from '../Friends/actions';
 
 let socket;
 
 export default (store) => (next) => (action) => {
   const state = store.getState();
   switch (action.type) {
+    case ACCEPT_FRIEND_INVITATION: {
+      const { userID } = state.userData.datas;
+      const { owner, isFromNotif } = action;
+      socket.emit("accept friend invitation", { owner, isFromNotif, userID });
+      break;
+    }
     case SEND_INV_TO_BE_FRIEND: {
       const { username } = state.userData.datas;
       const { to } = action;
       socket.emit("invitation to be friend", { to, from: { username } });
       break;
     }
-    case INVITE_FRIEND: {
+    case INVITE_USER: {
       const { currentTab } = store.getState().mytabs;
       const { currentSocket } = store.getState().sockets;
       const { socketID } = action;
@@ -70,7 +78,8 @@ export default (store) => (next) => (action) => {
           store.dispatch(logOut());
         });
 
-        socket.on("success identify", () => {
+        socket.on("success identify", (notifs) => {
+          console.log(notifs);
         });
 
         socket.on("send invitation", (data) => {
@@ -83,6 +92,30 @@ export default (store) => (next) => (action) => {
 
         socket.on("user leave", (data) => {
           if (data.currentSocket) store.dispatch(updateCurrentSocket(data.currentSocket));
+        });
+
+        socket.on("invitation to be friend", (data) => {
+          console.log(data);
+          store.dispatch(newInvitation({
+            invitationLink: false,
+            message: data.message,
+            owner: data.from,
+            isInvitationToBeFriend: true
+          }));
+        });
+
+        socket.on("accept friend invitation", (data) => {
+          store.dispatch(successMessage(data.msg));
+          store.dispatch(newFriend(data.friends));
+        });
+
+        socket.on("confirm accept invitation", (data) => {
+          store.dispatch(successMessage(data.msg));
+          store.dispatch(newFriend(data.friends));
+        });
+
+        socket.on("already friends", (data) => {
+          store.dispatch(failMessage(data.message));
         });
       }
       break;
@@ -172,7 +205,9 @@ export default (store) => (next) => (action) => {
     }
     case CONNECT_TO_FRIEND_TAB: {
       const { link, friendTabId } = action.payload;
-      const { email, username, userID, token, socketID } = state.userData.datas;
+      const {
+        email, username, userID, token, socketID
+      } = state.userData.datas;
 
       if (!socket) {
         socket = socketIo.connect(process.env.SOCKET_URL);
@@ -188,7 +223,13 @@ export default (store) => (next) => (action) => {
         });
       }
 
-      socket.emit("join tab", { link, friendTabId, userData: { username, email, userID, socketID } });
+      socket.emit("join tab", {
+        link,
+        friendTabId,
+        userData: {
+          username, email, userID, socketID
+        }
+      });
 
       socket.on("tab joined", (data) => {
         store.dispatch(newFriendTab(data.tabData));

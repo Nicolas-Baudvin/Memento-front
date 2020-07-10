@@ -4,7 +4,8 @@ const initialState = {
   isOpen: false,
   message: '',
   link: '',
-  owner: ''
+  owner: '',
+  isInvitationToBeFriend: false
 };
 
 export default (state = initialState, action) => {
@@ -24,11 +25,19 @@ export default (state = initialState, action) => {
       };
     }
     case NEW_INVITATION: {
+      const {
+        message,
+        invitationLink: link,
+        owner,
+        isInvitationToBeFriend
+      } = action.data;
+      console.log(action);
       return {
         isOpen: true,
-        message: action.data.message,
-        link: action.data.invitationLink,
-        owner: action.data.owner
+        message,
+        link,
+        owner: isInvitationToBeFriend ? owner.username : owner,
+        isInvitationToBeFriend
       };
     }
     default: {
