@@ -42,6 +42,7 @@ const useStyles = makeStyles(() => ({
 export default ({ openThisTab, tabs }) => {
   const { mytheme } = useSelector((GlobalState) => GlobalState.userData.datas);
   const classes = useStyles({ theme: mytheme });
+  const [isFocus, setFocus] = useState({});
   const initialState = {
     open: false,
     pic: []
@@ -55,9 +56,8 @@ export default ({ openThisTab, tabs }) => {
     <div className="workmenu-tabs">
       {
         tabs.map((tab) => {
-          const [isFocus, setFocus] = useState(false);
           return (
-            <Card className={cx(classes.root, { [classes.focus]: isFocus })} key={tab._id}>
+            <Card className={cx(classes.root, { [classes.focus]: isFocus[tab._id] })} key={tab._id}>
               <CardHeader
                 title={tab.name}
                 avatar={
@@ -92,8 +92,8 @@ export default ({ openThisTab, tabs }) => {
                   className={classes.image}
                   src={tab.resizedImgPath}
                   alt="background du tableau"
-                  onFocus={() => setFocus(true)}
-                  onBlur={() => setFocus(false)}
+                  onFocus={() => setFocus({ ...isFocus, [tab._id]: true })}
+                  onBlur={() => setFocus({ ...isFocus, [tab._id]: false })}
                 />
               </Tooltip>
             </Card>
