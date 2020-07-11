@@ -8,12 +8,12 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case NEW_FRIEND: {
       return {
-        list: action.friends
+        list: [...action.friends]
       };
     }
     case DELETE_FRIEND: {
       return {
-        list: action.friends
+        list: [...action.friends]
       };
     }
     default: {

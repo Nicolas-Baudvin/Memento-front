@@ -34,6 +34,7 @@ import { listsReorderedByFriend } from '../Lists/actions';
 import { taskReorderedByFriend } from '../Tasks/actions';
 import { newInvitation } from '../InvitationsPopup/actions';
 import { newFriend } from '../Friends/actions';
+import { newNotif } from '../Notifs/actions';
 
 let socket;
 
@@ -78,8 +79,9 @@ export default (store) => (next) => (action) => {
           store.dispatch(logOut());
         });
 
-        socket.on("success identify", (notifs) => {
-          console.log(notifs);
+        socket.on("success identify", (data) => {
+          store.dispatch(newFriend(data.friends));
+          store.dispatch(newNotif(data.notifs));
         });
 
         socket.on("send invitation", (data) => {
@@ -116,6 +118,10 @@ export default (store) => (next) => (action) => {
 
         socket.on("already friends", (data) => {
           store.dispatch(failMessage(data.message));
+        });
+
+        socket.on("update friend list", (friendsList) => {
+          store.dispatch(newFriend(friendsList));
         });
       }
       break;

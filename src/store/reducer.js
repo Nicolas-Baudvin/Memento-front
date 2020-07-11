@@ -10,6 +10,7 @@ import myfavs from './Favs/reducer';
 import chat from './Chat/reducer';
 import invitationPopup from './InvitationsPopup/reducer';
 import friends from './Friends/reducer';
+import notifs from './Notifs/reducer';
 
 import { LOGOUT } from "./Registration/actions";
 
