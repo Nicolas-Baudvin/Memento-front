@@ -1,14 +1,15 @@
 import React, { useState } from "react";
-import { Container, makeStyles, IconButton, Typography, Tooltip, TextField, InputAdornment, Paper, Avatar } from "@material-ui/core";
-import GroupIcon from '@material-ui/icons/Group';
+import {
+  Container,
+  makeStyles,
+} from "@material-ui/core";
 import cx from 'classnames';
-import { useSelector, useDispatch } from "react-redux";
-import Axios from "axios";
+import { useSelector } from "react-redux";
 
-import SearchIcon from '@material-ui/icons/Search';
-import MailIcon from '@material-ui/icons/Mail';
-import { sendInvToBeFriend } from "../../../store/Socket/actions";
-import { decryptUserData } from '../../../Utils/crypt';
+// Components
+import SearchFriends from './SearchFriends';
+import FriendsList from './Friends';
+import MenuButton from './MenuButton';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -79,83 +80,26 @@ const useStyles = makeStyles(() => ({
     padding: '0'
   },
   avatar: {
-    backgroundColor: (props) => props.theme?.color || "#6e00c8"
+    backgroundColor: (props) => props.theme?.color || "#6e00c8",
+    fontWeight: 'bold'
+  },
+  iconMenu: {
+    color: (props) => props.theme?.color || "#6e00c8"
   }
 }));
 
 export default () => {
   const { mytheme, token, userID } = useSelector((GlobalState) => GlobalState.userData.datas);
+  const { list } = useSelector((GlobalState) => GlobalState.friends);
   const [isOpen, setOpen] = useState(false);
-  const [friendName, setFriendName] = useState('');
-  const [result, setResult] = useState([]);
   const classes = useStyles({ theme: mytheme, isOpen });
-  const dispatch = useDispatch();
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const res = await Axios({
-      url: `${process.env.API_URL}auth/user/find`,
-      method: 'POST',
-      data: {
-        friendName,
-        userID
-      },
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
-    console.log(res);
-    const decryptedResult = decryptUserData(res.data.users);
-    setResult(decryptedResult);
-  };
-
-  const handleClickSendInvitation = (user) => () => {
-    dispatch(sendInvToBeFriend({ ...user }));
-    console.log(user);
-  };
 
   return (
     <Container className={classes.root}>
-      <Container className={cx(classes.container, classes.menu)}>
-        <Tooltip title="Votre liste d'amis">
-          <IconButton onClick={() => setOpen(!isOpen)} className={classes.menuButton}>
-            <GroupIcon className={classes.icon} />
-          </IconButton>
-        </Tooltip>
-      </Container>
+      <MenuButton classes={classes} setOpen={setOpen} isOpen={isOpen} />
       <Container className={cx(classes.container, classes.body)}>
-        <Typography className={classes.title} component="h2"> Liste d'amis </Typography>
-        <form onSubmit={handleSubmit}>
-          <TextField
-            className={classes.search}
-            onChange={(e) => setFriendName(e.target.value.toLowerCase())}
-            value={friendName}
-            variant="outlined"
-            label="Rechercher quelqu'un"
-            size="small"
-            InputProps={{
-              endAdornment: (
-                <InputAdornment>
-                  <SearchIcon />
-                </InputAdornment>
-              )
-            }}
-          />
-        </form>
-        <Container className={classes.result}>
-          {
-            result && result.map((user) => <Paper key={user._id} className={classes.paper}>
-              <Avatar className={classes.avatar}>
-                {user.username.substring(0, 1)}
-              </Avatar>
-              <Typography className={classes.username}> {user.username} </Typography>
-              <IconButton onClick={handleClickSendInvitation(user)}>
-                <MailIcon className={classes.invitation} />
-              </IconButton>
-            </Paper>)
-          }
-        </Container>
+        <SearchFriends classes={classes} token={token} userID={userID} />
+        <FriendsList classes={classes} list={list} />
       </Container>
     </Container>
   );
