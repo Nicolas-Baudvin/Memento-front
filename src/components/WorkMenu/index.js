@@ -13,6 +13,7 @@ import Header from '../Header';
 import MyTabs from './MyTabs';
 import LoadPage from '../LoadPage';
 import Team from './Team';
+import Notifs from './Notifs';
 
 export default () => {
   const dispatch = useDispatch();
@@ -58,6 +59,7 @@ export default () => {
         </main>
         <Team />
       </div>
+      <Notifs />
     </>
   );
 };
