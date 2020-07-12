@@ -25,7 +25,8 @@ const appReducer = combineReducers({
   myfavs,
   chat,
   invitationPopup,
-  friends
+  friends,
+  notifs
 });
 
 const rootReducer = (state, action) => {
