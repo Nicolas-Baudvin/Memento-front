@@ -21,6 +21,11 @@ export const DECLINE_INV = "DECLINE_INV";
 export const ACCEPT_INV = "ACCEPT_INV";
 export const SEND_INV_TO_BE_FRIEND = "SEND_INV_TO_BE_FRIEND";
 export const ACCEPT_FRIEND_INVITATION = "ACCEPT_FRIEND_INVITATION";
+export const DISCONNECT_FROM_SOCKET = "DISCONNECT_FROM_SOCKET";
+
+export const disconnectFromSocket = () => ({
+  type: DISCONNECT_FROM_SOCKET
+});
 
 export const acceptFriendInvitation = (owner, isFromNotif) => ({
   type: ACCEPT_FRIEND_INVITATION,

@@ -22,7 +22,8 @@ import {
   INVITE_USER,
   DECLINE_INV,
   SEND_INV_TO_BE_FRIEND,
-  ACCEPT_FRIEND_INVITATION
+  ACCEPT_FRIEND_INVITATION,
+  DISCONNECT_FROM_SOCKET
 } from './actions';
 import { successMessage, failMessage } from '../Popup/actions';
 import { cryptUserData, decryptUserData } from '../../Utils/crypt';
@@ -41,6 +42,11 @@ let socket;
 export default (store) => (next) => (action) => {
   const state = store.getState();
   switch (action.type) {
+    case DISCONNECT_FROM_SOCKET: {
+      socket.emit("off");
+      socket = null;
+      break;
+    }
     case ACCEPT_FRIEND_INVITATION: {
       const { userID } = state.userData.datas;
       const { owner, isFromNotif } = action;
@@ -80,6 +86,7 @@ export default (store) => (next) => (action) => {
         });
 
         socket.on("success identify", (data) => {
+          console.log(data);
           store.dispatch(newFriend(data.friends));
           store.dispatch(newNotif(data.notifs));
         });
