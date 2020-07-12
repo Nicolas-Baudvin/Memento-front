@@ -19,6 +19,7 @@ import {
   UPDATE_THEME
 } from "./actions";
 import { successMessage } from "../Popup/actions";
+import { disconnectFromSocket } from "../Socket/actions";
 
 export default (store) => (next) => (action) => {
   const state = store.getState();
@@ -27,6 +28,7 @@ export default (store) => (next) => (action) => {
     case LOGOUT: {
       localStorage.clear();
       next(action);
+      store.dispatch(disconnectFromSocket());
       break;
     }
     case UPDATE_THEME: {
