@@ -87,7 +87,7 @@ export default () => {
             </Avatar>
           </StyledBadge>
           <Typography> {friend.username} </Typography>
-          <Menu />
+          <Menu friend={friend} />
         </Paper>)
       }
     </Container>

@@ -2,10 +2,11 @@ import React from 'react';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { IconButton, makeStyles } from '@material-ui/core';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
+import { deleteFriend } from '../../../../../store/Socket/actions';
 
 const useStyles = makeStyles(() => ({
   buttonIcon: {
@@ -20,10 +21,11 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-export default () => {
+export default ({ friend }) => {
   const { mytheme } = useSelector((GlobalState) => GlobalState.userData.datas);
   const classes = useStyles({ theme: mytheme });
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const dispatch = useDispatch();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -31,6 +33,12 @@ export default () => {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleClickDeleteFriend = () => () => {
+    console.log(friend);
+    dispatch(deleteFriend(friend));
+    handleClose();
   };
 
   return (
@@ -49,7 +57,7 @@ export default () => {
           Inviter à un tableau
           <ArrowRightIcon className={classes.iconMenu} />
         </MenuItem>
-        <MenuItem onClick={handleClose}>Supprimer des amis</MenuItem>
+        <MenuItem onClick={handleClickDeleteFriend()}>Supprimer des amis</MenuItem>
         <MenuItem className={classes.closeMenu} onClick={handleClose}>Fermer</MenuItem>
       </Menu>
     </div>
