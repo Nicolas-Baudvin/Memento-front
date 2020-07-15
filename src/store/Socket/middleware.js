@@ -23,7 +23,9 @@ import {
   DECLINE_INV,
   SEND_INV_TO_BE_FRIEND,
   ACCEPT_FRIEND_INVITATION,
-  DISCONNECT_FROM_SOCKET
+  DISCONNECT_FROM_SOCKET,
+  DELETE_FRIEND,
+  DELETE_NOTIF
 } from './actions';
 import { successMessage, failMessage } from '../Popup/actions';
 import { cryptUserData, decryptUserData } from '../../Utils/crypt';
@@ -42,6 +44,18 @@ let socket;
 export default (store) => (next) => (action) => {
   const state = store.getState();
   switch (action.type) {
+    case DELETE_NOTIF: {
+      const { userID } = state.userData.datas;
+      const { notif } = action;
+      socket.emit("delete notif", { notif, userID });
+      break;
+    }
+    case DELETE_FRIEND: {
+      const { userID } = state.userData.datas;
+      const { friend } = action;
+      socket.emit("delete friend", { userID, friend });
+      break;
+    }
     case DISCONNECT_FROM_SOCKET: {
       socket.emit("off");
       socket = null;
@@ -86,7 +100,6 @@ export default (store) => (next) => (action) => {
         });
 
         socket.on("success identify", (data) => {
-          console.log(data);
           store.dispatch(newFriend(data.friends));
           store.dispatch(newNotif(data.notifs));
         });
@@ -104,7 +117,6 @@ export default (store) => (next) => (action) => {
         });
 
         socket.on("invitation to be friend", (data) => {
-          console.log(data);
           store.dispatch(newInvitation({
             invitationLink: false,
             message: data.message,
@@ -129,6 +141,14 @@ export default (store) => (next) => (action) => {
 
         socket.on("update friend list", (friendsList) => {
           store.dispatch(newFriend(friendsList));
+        });
+
+        socket.on("err", (error) => {
+          store.dispatch(failMessage(error.msg));
+        });
+
+        socket.on("update notifs", (notifs) => {
+          store.dispatch(newNotif(notifs));
         });
       }
       break;

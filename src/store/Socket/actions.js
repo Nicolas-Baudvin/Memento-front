@@ -22,6 +22,18 @@ export const ACCEPT_INV = "ACCEPT_INV";
 export const SEND_INV_TO_BE_FRIEND = "SEND_INV_TO_BE_FRIEND";
 export const ACCEPT_FRIEND_INVITATION = "ACCEPT_FRIEND_INVITATION";
 export const DISCONNECT_FROM_SOCKET = "DISCONNECT_FROM_SOCKET";
+export const DELETE_FRIEND = "DELETE_FRIEND";
+export const DELETE_NOTIF = "DELETE_NOTIF";
+
+export const deleteNotif = (notif) => ({
+  type: DELETE_NOTIF,
+  notif
+});
+
+export const deleteFriend = (friend) => ({
+  type: DELETE_FRIEND,
+  friend
+});
 
 export const disconnectFromSocket = () => ({
   type: DISCONNECT_FROM_SOCKET
