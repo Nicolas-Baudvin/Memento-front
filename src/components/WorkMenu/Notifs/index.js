@@ -3,10 +3,11 @@ import { Tooltip, IconButton, Typography, Divider, Paper, Button } from '@materi
 import cx from 'classnames';
 import { makeStyles } from '@material-ui/core/styles';
 import Badge from '@material-ui/core/Badge';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import CloseIcon from '@material-ui/icons/Close';
+import { deleteNotif } from '../../../store/Socket/actions';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -67,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
   },
   open: {
     opacity: '1',
-    width: '250px',
+    width: '300px',
     height: '400px',
     padding: '1em'
   },
@@ -84,9 +85,9 @@ const useStyles = makeStyles((theme) => ({
   },
   iconBtn: {
     padding: '.8em',
-    backgroundColor: (props) => props.theme.color,
+    backgroundColor: '#ff0000',
     '&:hover': {
-      backgroundColor: (props) => props.theme.hovered
+      backgroundColor: "#CA0000"
     }
   },
   header: {
@@ -105,6 +106,7 @@ const useStyles = makeStyles((theme) => ({
   notif: {
     display: 'flex',
     alignItems: 'center',
+    flexDirection: 'column',
     justifyContent: 'space-between',
     padding: '.5em'
   },
@@ -116,13 +118,17 @@ const useStyles = makeStyles((theme) => ({
     margin: '0 .3em'
   },
   accept: {
-    backgroundcolor: (props) => props.theme.color,
+    backgroundColor: (props) => props.theme.color,
+    color: 'white',
     '&:hover': {
-      backgroundcolor: (props) => props.theme.hovered,
+      backgroundColor: (props) => props.theme.hovered,
     }
   },
   decline: {
 
+  },
+  notifTitle: {
+    fontSize: '1.2em'
   }
 }));
 
@@ -132,6 +138,7 @@ export default () => {
   const classes = useStyles({ theme: mytheme });
   const [open, setOpen] = useState(false);
   const [openIcon, setOpenIcon] = useState(false);
+  const dispatch = useDispatch();
 
   const handleClick = () => {
     if (!open) {
@@ -148,6 +155,14 @@ export default () => {
     }
   };
 
+  const declineNotif = (notif) => () => {
+    dispatch(deleteNotif(notif));
+  };
+
+  const acceptNotif = (notif) => () => {
+
+  };
+
   const circle = <Tooltip title={`Vous avez ${list.length} notification${list.length > 1 ? "s" : ""}`}>
     <div onClick={handleClick} className={cx(classes.shape, classes.shapeCircle, { [classes.openShape]: openIcon, [classes.closeShape]: !openIcon })}>
       <NotificationsIcon fontSize="large" className={classes.icon} />
@@ -162,20 +177,20 @@ export default () => {
       </Badge>
       <div className={cx(classes.menu, { [classes.open]: open, [classes.close]: !open })}>
         <div className={classes.header}>
-          <IconButton onClick={handleClick} className={classes.iconBtn}>
+          <IconButton color="secondary" onClick={handleClick} className={classes.iconBtn}>
             <CloseIcon className={classes.icon} />
           </IconButton>
-          <Typography className={classes.title}> Notifications </Typography>
+          <Typography align="center" className={classes.title}> Notifications </Typography>
         </div>
         <Divider className={classes.divider} variant="middle" />
         {
-            list && list.map((notif) => <Paper className={classes.notif}>
-              <Typography component="p"> {notif.title} </Typography>
+            list && list.map((notif) => <Paper key={notif.from} className={classes.notif}>
+              <Typography className={classes.notifTitle} component="p"> {notif.title} </Typography>
               <div className={classes.groupButton}>
-                <Button variant="contained" className={cx(classes.buttons, classes.accept)}>
+                <Button onClick={acceptNotif(notif)} variant="contained" className={cx(classes.buttons, classes.accept)}>
                   Accepter
                 </Button>
-                <Button variant="contained" color="secondary" className={cx(classes.buttons, classes.decline)}>
+                <Button onClick={declineNotif(notif)} variant="contained" color="secondary" className={cx(classes.buttons, classes.decline)}>
                   Refuser
                 </Button>
               </div>
