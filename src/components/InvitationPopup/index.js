@@ -21,7 +21,7 @@ export default () => {
     isOpen,
     message,
     link,
-    owner, // owner socket ID
+    owner,
     isInvitationToBeFriend,
   } = useSelector((GlobalState) => GlobalState.invitationPopup);
 
