@@ -5,6 +5,7 @@
 ### **Nouveautés**
 
 - Liste d'amis
+- Notifications
 
 ### **Améliorations diverses**
 
