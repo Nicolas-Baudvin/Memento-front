@@ -163,7 +163,7 @@ export default () => {
         {circle}
       </Badge>
       <div className={cx(classes.menu, { [classes.open]: open, [classes.close]: !open })}>
-        <Header classes={classes} />
+        <Header classes={classes} handleClick={handleClick} />
         <Divider className={classes.divider} variant="middle" />
         <List list={list} classes={classes} />
         {
