@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import { Tooltip, IconButton, Typography, Divider, Paper, Button } from '@material-ui/core';
+import { Tooltip, Typography, Divider } from '@material-ui/core';
 import cx from 'classnames';
 import { makeStyles } from '@material-ui/core/styles';
 import Badge from '@material-ui/core/Badge';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import CloseIcon from '@material-ui/icons/Close';
-import { deleteNotif, acceptFriendInvitation } from '../../../store/Socket/actions';
+
+import List from './List';
+import Header from './Header';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -128,12 +129,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default () => {
-  const { mytheme, username } = useSelector((GlobalState) => GlobalState.userData.datas);
+  const { mytheme } = useSelector((GlobalState) => GlobalState.userData.datas);
   const { list } = useSelector((GlobalState) => GlobalState.notifs);
   const classes = useStyles({ theme: mytheme });
   const [open, setOpen] = useState(false);
   const [openIcon, setOpenIcon] = useState(false);
-  const dispatch = useDispatch();
 
   const handleClick = () => {
     if (!open) {
@@ -150,14 +150,6 @@ export default () => {
     }
   };
 
-  const declineNotif = (notif) => () => {
-    dispatch(deleteNotif(notif));
-  };
-
-  const acceptNotif = (notif) => () => {
-    dispatch(acceptFriendInvitation(notif.from, true, notif._id));
-  };
-
   const circle = <Tooltip title={`Vous avez ${list.length} notification${list.length > 1 ? "s" : ""}`}>
     <div onClick={handleClick} className={cx(classes.shape, classes.shapeCircle, { [classes.openShape]: openIcon, [classes.closeShape]: !openIcon })}>
       <NotificationsIcon fontSize="large" className={classes.icon} />
@@ -171,26 +163,9 @@ export default () => {
         {circle}
       </Badge>
       <div className={cx(classes.menu, { [classes.open]: open, [classes.close]: !open })}>
-        <div className={classes.header}>
-          <IconButton color="secondary" onClick={handleClick} className={classes.iconBtn}>
-            <CloseIcon className={classes.icon} />
-          </IconButton>
-          <Typography align="center" className={classes.title}> Notifications </Typography>
-        </div>
+        <Header classes={classes} />
         <Divider className={classes.divider} variant="middle" />
-        {
-          list && list.map((notif) => <Paper key={notif.from} className={classes.notif}>
-            <Typography className={classes.notifTitle} component="p"> {notif.title} </Typography>
-            <div className={classes.groupButton}>
-              <Button onClick={acceptNotif(notif)} variant="contained" className={cx(classes.buttons, classes.accept)}>
-                Accepter
-              </Button>
-              <Button onClick={declineNotif(notif)} variant="contained" color="secondary" className={cx(classes.buttons, classes.decline)}>
-                Ignorer
-              </Button>
-            </div>
-          </Paper>)
-        }
+        <List list={list} classes={classes} />
         {
           list.length === 0 && <Typography align="center" component="p"> Aucune notification </Typography>
         }
