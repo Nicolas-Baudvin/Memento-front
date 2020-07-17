@@ -63,8 +63,8 @@ export default (store) => (next) => (action) => {
     }
     case ACCEPT_FRIEND_INVITATION: {
       const { userID } = state.userData.datas;
-      const { owner, isFromNotif } = action;
-      socket.emit("accept friend invitation", { owner, isFromNotif, userID });
+      const { owner, isFromNotif, notifId } = action;
+      socket.emit("accept friend invitation", { owner, isFromNotif, userID, notifId });
       break;
     }
     case SEND_INV_TO_BE_FRIEND: {
@@ -133,6 +133,9 @@ export default (store) => (next) => (action) => {
         socket.on("confirm accept invitation", (data) => {
           store.dispatch(successMessage(data.msg));
           store.dispatch(newFriend(data.friends));
+          if (data.notifs) {
+            store.dispatch(newNotif(data.notif));
+          }
         });
 
         socket.on("already friends", (data) => {
@@ -149,6 +152,10 @@ export default (store) => (next) => (action) => {
 
         socket.on("update notifs", (notifs) => {
           store.dispatch(newNotif(notifs));
+        });
+
+        socket.on("confirm invitation sent", (message) => {
+          store.dispatch(successMessage(message));
         });
       }
       break;
