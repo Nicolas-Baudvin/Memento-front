@@ -39,10 +39,11 @@ export const disconnectFromSocket = () => ({
   type: DISCONNECT_FROM_SOCKET
 });
 
-export const acceptFriendInvitation = (owner, isFromNotif) => ({
+export const acceptFriendInvitation = (owner, isFromNotif, notifId) => ({
   type: ACCEPT_FRIEND_INVITATION,
   owner,
-  isFromNotif
+  isFromNotif,
+  notifId
 });
 
 export const sendInvToBeFriend = (to) => ({
