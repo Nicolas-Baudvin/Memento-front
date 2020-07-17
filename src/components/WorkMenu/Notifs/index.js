@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import CloseIcon from '@material-ui/icons/Close';
-import { deleteNotif } from '../../../store/Socket/actions';
+import { deleteNotif, acceptFriendInvitation } from '../../../store/Socket/actions';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -57,9 +57,6 @@ const useStyles = makeStyles((theme) => ({
   hiddenItem: {
     display: 'none'
   },
-  badge: {
-
-  },
   hidden: {
     opacity: '0',
   },
@@ -108,7 +105,8 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    padding: '.5em'
+    padding: '.5em',
+    margin: '.5em 0'
   },
   groupButton: {
     display: 'flex',
@@ -124,16 +122,13 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: (props) => props.theme.hovered,
     }
   },
-  decline: {
-
-  },
   notifTitle: {
     fontSize: '1.2em'
   }
 }));
 
 export default () => {
-  const { mytheme } = useSelector((GlobalState) => GlobalState.userData.datas);
+  const { mytheme, username } = useSelector((GlobalState) => GlobalState.userData.datas);
   const { list } = useSelector((GlobalState) => GlobalState.notifs);
   const classes = useStyles({ theme: mytheme });
   const [open, setOpen] = useState(false);
@@ -160,7 +155,7 @@ export default () => {
   };
 
   const acceptNotif = (notif) => () => {
-
+    dispatch(acceptFriendInvitation(notif.from, true, notif._id));
   };
 
   const circle = <Tooltip title={`Vous avez ${list.length} notification${list.length > 1 ? "s" : ""}`}>
@@ -184,17 +179,17 @@ export default () => {
         </div>
         <Divider className={classes.divider} variant="middle" />
         {
-            list && list.map((notif) => <Paper key={notif.from} className={classes.notif}>
-              <Typography className={classes.notifTitle} component="p"> {notif.title} </Typography>
-              <div className={classes.groupButton}>
-                <Button onClick={acceptNotif(notif)} variant="contained" className={cx(classes.buttons, classes.accept)}>
-                  Accepter
-                </Button>
-                <Button onClick={declineNotif(notif)} variant="contained" color="secondary" className={cx(classes.buttons, classes.decline)}>
-                  Refuser
-                </Button>
-              </div>
-            </Paper>)
+          list && list.map((notif) => <Paper key={notif.from} className={classes.notif}>
+            <Typography className={classes.notifTitle} component="p"> {notif.title} </Typography>
+            <div className={classes.groupButton}>
+              <Button onClick={acceptNotif(notif)} variant="contained" className={cx(classes.buttons, classes.accept)}>
+                Accepter
+              </Button>
+              <Button onClick={declineNotif(notif)} variant="contained" color="secondary" className={cx(classes.buttons, classes.decline)}>
+                Ignorer
+              </Button>
+            </div>
+          </Paper>)
         }
         {
           list.length === 0 && <Typography align="center" component="p"> Aucune notification </Typography>
