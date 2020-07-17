@@ -11,7 +11,6 @@ import {
 import { useSelector } from "react-redux";
 
 import Menu from './Menu';
-import { useEffect } from "react";
 
 const StyledBadge = withStyles((theme) => ({
   badge: {
