@@ -1,12 +1,11 @@
 import React from 'react';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import { IconButton, makeStyles } from '@material-ui/core';
+import { IconButton, makeStyles, Divider } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
 
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import ArrowRightIcon from '@material-ui/icons/ArrowRight';
-import { deleteFriend } from '../../../../../store/Socket/actions';
+import { deleteFriend, inviteFriend } from '../../../../../store/Socket/actions';
 
 const useStyles = makeStyles(() => ({
   buttonIcon: {
@@ -18,11 +17,21 @@ const useStyles = makeStyles(() => ({
   },
   iconMenu: {
     color: (props) => props.theme.color || "#6e00c8"
+  },
+  menuTitle: {
+    fontWeight: 'bold',
+    textAlign: 'center',
+    fontSize: '1.2em',
+    cursor: 'unset',
+    '&:hover': {
+      backgroundColor: '#fff',
+    }
   }
 }));
 
 export default ({ friend }) => {
   const { mytheme } = useSelector((GlobalState) => GlobalState.userData.datas);
+  const { tabs } = useSelector((GlobalState) => GlobalState.mytabs);
   const classes = useStyles({ theme: mytheme });
   const [anchorEl, setAnchorEl] = React.useState(null);
   const dispatch = useDispatch();
@@ -36,9 +45,12 @@ export default ({ friend }) => {
   };
 
   const handleClickDeleteFriend = () => () => {
-    console.log(friend);
     dispatch(deleteFriend(friend));
     handleClose();
+  };
+
+  const sendInvitationToTab = (tab) => () => {
+    dispatch(inviteFriend(friend.socketID, true, tab));
   };
 
   return (
@@ -53,10 +65,14 @@ export default ({ friend }) => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose}>
+        <MenuItem component="h2" className={classes.menuTitle}>
           Inviter à un tableau
-          <ArrowRightIcon className={classes.iconMenu} />
         </MenuItem>
+        <Divider variant="middle" />
+        {
+          tabs.map((tab) => <MenuItem key={tab._id} onClick={sendInvitationToTab(tab)}> {tab.name} </MenuItem>)
+        }
+        <Divider variant="middle" />
         <MenuItem onClick={handleClickDeleteFriend()}>Supprimer des amis</MenuItem>
         <MenuItem className={classes.closeMenu} onClick={handleClose}>Fermer</MenuItem>
       </Menu>
