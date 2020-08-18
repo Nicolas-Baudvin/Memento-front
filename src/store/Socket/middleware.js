@@ -74,10 +74,12 @@ export default (store) => (next) => (action) => {
       break;
     }
     case INVITE_USER: {
-      const { currentTab } = store.getState().mytabs;
-      const { currentSocket } = store.getState().sockets;
-      const { socketID } = action;
       if (!socket) break;
+
+      const { currentTab } = store.getState().mytabs;
+      const { username } = store.getState().userData.datas;
+      const { currentSocket } = store.getState().sockets;
+      const { socketID, isFromFriendsList, tab } = action;
       socket.emit("send invitation", { socketID, currentTab, currentSocket });
       store.dispatch(successMessage("L'invitation a bien été envoyée"));
       break;

@@ -56,9 +56,11 @@ export const declineInv = (socketID) => ({
   socketID
 });
 
-export const inviteFriend = (socketID) => ({
+export const inviteFriend = (socketID, isFromFriendsList, tab) => ({
   type: INVITE_USER,
-  socketID
+  socketID,
+  isFromFriendsList,
+  tab
 });
 
 export const connectToSocket = () => ({
