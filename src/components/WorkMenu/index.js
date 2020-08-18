@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import "./style.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { Helmet } from 'react-helmet';
+import "./style.scss";
 
 // Actions
 import { myTabs } from "../../store/Tabs/actions";
@@ -12,6 +12,7 @@ import { disconnectFromChannel, connectToSocket } from "../../store/Socket/actio
 import Header from '../Header';
 import MyTabs from './MyTabs';
 import LoadPage from '../LoadPage';
+import Team from './Team';
 import Notifs from './Notifs';
 
 export default () => {
@@ -56,6 +57,7 @@ export default () => {
         <main className="workmenu-body">
           <MyTabs tabs={tabs} state={state} setstate={setstate} handleOpen={handleOpen} />
         </main>
+        <Team />
       </div>
       <Notifs />
     </>
