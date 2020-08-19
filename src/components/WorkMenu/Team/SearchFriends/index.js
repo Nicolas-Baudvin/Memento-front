@@ -5,9 +5,13 @@ import {
 import Axios from "axios";
 import { useDispatch } from "react-redux";
 
+
 // Icons
 import SearchIcon from '@material-ui/icons/Search';
 import MailIcon from '@material-ui/icons/Mail';
+
+// Actions
+import { failMessage } from '../../../../store/Popup/actions';
 
 // Utils
 import { decryptUserData } from "../../../../Utils/crypt";
@@ -20,6 +24,10 @@ export default ({ classes, token, userID }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!friendName) {
+      return dispatch(failMessage("Echec de la recherche : Elle doit comporter au moins 1 caractère"));
+    }
 
     const res = await Axios({
       url: `${process.env.API_URL}auth/user/find`,
