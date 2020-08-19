@@ -10,7 +10,6 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import List from './List';
 import Header from './Header';
 
-
 const useStyles = makeStyles((theme) => ({
   root: {
     position: 'fixed',
@@ -150,7 +149,7 @@ export default () => {
     }
   };
 
-  const circle = <Tooltip title={`Vous avez ${list.length} notification${list.length > 1 ? "s" : ""}`}>
+  const circle = <Tooltip title={`Vous avez ${list ? list.length : 0} notification${list && list.length > 1 ? "s" : ""}`}>
     <div onClick={handleClick} className={cx(classes.shape, classes.shapeCircle, { [classes.openShape]: openIcon, [classes.closeShape]: !openIcon })}>
       <NotificationsIcon fontSize="large" className={classes.icon} />
     </div>
@@ -159,7 +158,7 @@ export default () => {
 
   return (
     <div className={classes.root}>
-      <Badge className={cx({ [classes.hiddenItem]: open })} color="secondary" overlap="circle" badgeContent={list.length}>
+      <Badge className={cx({ [classes.hiddenItem]: open })} color="secondary" overlap="circle" badgeContent={list ? list.length : 0}>
         {circle}
       </Badge>
       <div className={cx(classes.menu, { [classes.open]: open, [classes.close]: !open })}>
@@ -167,7 +166,7 @@ export default () => {
         <Divider className={classes.divider} variant="middle" />
         <List list={list} classes={classes} />
         {
-          list.length === 0 && <Typography align="center" component="p"> Aucune notification </Typography>
+          list && list.length === 0 && <Typography align="center" component="p"> Aucune notification </Typography>
         }
       </div>
     </div>
