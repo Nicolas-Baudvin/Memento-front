@@ -40,13 +40,20 @@ export default ({ classes, token, userID }) => {
     dispatch(sendInvToBeFriend(user));
   };
 
+  const handleSearchFriend = (e) => {
+    setFriendName(e.target.value.toLowerCase());
+    if (!e.target.value.length) {
+      setResult([]);
+    }
+  };
+
   return (
     <>
       <Typography className={classes.title} component="h2"> Liste d'amis </Typography>
       <form onSubmit={handleSubmit}>
         <TextField
           className={classes.search}
-          onChange={(e) => setFriendName(e.target.value.toLowerCase())}
+          onChange={handleSearchFriend}
           value={friendName}
           variant="outlined"
           label="Rechercher quelqu'un"
