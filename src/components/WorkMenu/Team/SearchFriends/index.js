@@ -5,17 +5,16 @@ import {
 import Axios from "axios";
 import { useDispatch } from "react-redux";
 
-
 // Icons
 import SearchIcon from '@material-ui/icons/Search';
 import MailIcon from '@material-ui/icons/Mail';
 
 // Actions
 import { failMessage } from '../../../../store/Popup/actions';
+import { sendInvToBeFriend } from "../../../../store/Socket/actions";
 
 // Utils
 import { decryptUserData } from "../../../../Utils/crypt";
-import { sendInvToBeFriend } from "../../../../store/Socket/actions";
 
 export default ({ classes, token, userID }) => {
   const dispatch = useDispatch();
@@ -40,8 +39,11 @@ export default ({ classes, token, userID }) => {
         Authorization: `Bearer ${token}`
       }
     });
+    if (res.data?.users && !res.data.users.length) {
+      return dispatch(failMessage(`Aucun résultat pour votre recherche ${friendName}`));
+    }
     const decryptedResult = decryptUserData(res.data.users);
-    setResult(decryptedResult);
+    return setResult(decryptedResult);
   };
 
   const handleClickSendInvitation = (user) => () => {
