@@ -115,6 +115,9 @@ export default () => {
     else {
       setError('');
     }
+    if (!e.target.value) {
+      setUsers([]);
+    }
     setValue(e.target.value);
   };
 
@@ -134,7 +137,15 @@ export default () => {
       }
     });
     const result = decryptUserData(res.data.users);
-    if (result.length === 0) setFetch(true);
+
+    if (result.length === 0) {
+      setFetch(true);
+    }
+
+    if (!value.length) {
+      setError("Vous devez au moins écrire 1 caractère pour la recherche");
+    }
+
     setUsers(result);
     return setLoading(false);
   };
