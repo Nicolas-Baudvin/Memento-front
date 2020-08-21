@@ -1,6 +1,6 @@
 import React from "react";
 import {
-  Container, Typography, Paper, IconButton, Avatar, withStyles, Badge
+  Container, Typography, Paper, Avatar, withStyles, Badge
 } from '@material-ui/core';
 
 import Menu from './Menu';
