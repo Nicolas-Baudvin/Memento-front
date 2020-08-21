@@ -143,7 +143,7 @@ export default () => {
     }
 
     if (!value.length) {
-      setError("Vous devez au moins écrire 1 caractère pour la recherche");
+      return setError("Vous devez au moins écrire 1 caractère pour la recherche");
     }
 
     setUsers(result);
