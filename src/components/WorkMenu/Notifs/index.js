@@ -106,7 +106,8 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     justifyContent: 'space-between',
     padding: '.5em',
-    margin: '.5em 0'
+    margin: '.5em 0',
+    overflowY: 'auto'
   },
   groupButton: {
     display: 'flex',
