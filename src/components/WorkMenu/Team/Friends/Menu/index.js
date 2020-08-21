@@ -5,6 +5,9 @@ import { IconButton, makeStyles, Divider } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
 
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+
+// Actions
+import { failMessage } from '../../../../../store/Popup/actions';
 import { deleteFriend, inviteFriend } from '../../../../../store/Socket/actions';
 
 const useStyles = makeStyles(() => ({
@@ -26,13 +29,20 @@ const useStyles = makeStyles(() => ({
     '&:hover': {
       backgroundColor: '#fff',
     }
+  },
+  'is-disabled': {
+    '&:hover': {
+      backgroundColor: (props) => (props.isConnected ? "rgba(0,0,0,0.04)" : "#fff"),
+      cursor: (props) => (props.isConnected ? "pointer" : "not-allowed"),
+      textDecoration: (props) => (props.isConnected ? "normal" : "line-through")
+    }
   }
 }));
 
 export default ({ friend }) => {
   const { mytheme } = useSelector((GlobalState) => GlobalState.userData.datas);
   const { tabs } = useSelector((GlobalState) => GlobalState.mytabs);
-  const classes = useStyles({ theme: mytheme });
+  const classes = useStyles({ theme: mytheme, isConnected: Boolean(friend.socketID) });
   const [anchorEl, setAnchorEl] = React.useState(null);
   const dispatch = useDispatch();
 
@@ -50,7 +60,10 @@ export default ({ friend }) => {
   };
 
   const sendInvitationToTab = (tab) => () => {
-    dispatch(inviteFriend(friend.socketID, true, tab));
+    if (!friend.socketID) {
+      return dispatch(failMessage("Votre ami n'est pas connecté, impossible de l'inviter sur le tableau"));
+    }
+    return dispatch(inviteFriend(friend.socketID, true, tab));
   };
 
   return (
@@ -70,7 +83,7 @@ export default ({ friend }) => {
         </MenuItem>
         <Divider variant="middle" />
         {
-          tabs.map((tab) => <MenuItem key={tab._id} onClick={sendInvitationToTab(tab)}> {tab.name} </MenuItem>)
+          tabs.map((tab) => <MenuItem className={classes['is-disabled']} disabled={Boolean(friend.socketID)} key={tab._id} onClick={sendInvitationToTab(tab)}> {tab.name} </MenuItem>)
         }
         <Divider variant="middle" />
         <MenuItem onClick={handleClickDeleteFriend()}>Supprimer des amis</MenuItem>
