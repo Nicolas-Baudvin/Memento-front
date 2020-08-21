@@ -123,7 +123,10 @@ export default () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!value || value.length > 30) return setError("Un pseudo fait entre 1 et 30 caractères");
+    if (!value || value.length > 30) {
+      return setError("Un pseudo fait entre 1 et 30 caractères");
+    }
+
     setLoading(true);
     const res = await Axios({
       method: 'post',
@@ -140,10 +143,6 @@ export default () => {
 
     if (result.length === 0) {
       setFetch(true);
-    }
-
-    if (!value.length) {
-      return setError("Vous devez au moins écrire 1 caractère pour la recherche");
     }
 
     setUsers(result);
