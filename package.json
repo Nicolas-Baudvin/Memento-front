@@ -29,8 +29,8 @@
   "license": "MIT",
   "devDependencies": {
     "@babel/register": "^7.10.5",
-    "@testing-library/jest-dom": "^5.11.3",
-    "@testing-library/react": "^10.4.8",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^10.4.9",
     "@testing-library/react-hooks": "^3.4.1",
     "@testing-library/user-event": "^10.4.1",
     "babel-eslint": "^10.1.0",
@@ -72,7 +72,7 @@
     "build:prod:win": "set NODE_ENV=production && webpack --mode production"
   },
   "dependencies": {
-    "@babel/core": "^7.11.1",
+    "@babel/core": "^7.11.4",
     "@babel/plugin-proposal-class-properties": "^7.10.4",
     "@babel/plugin-proposal-object-rest-spread": "^7.11.0",
     "@babel/polyfill": "^7.10.4",
@@ -90,7 +90,7 @@
     "css-loader": "^3.6.0",
     "dotenv": "^8.2.0",
     "file-loader": "^6.0.0",
-    "html-loader": "^1.1.0",
+    "html-loader": "^1.2.1",
     "html-webpack-plugin": "^4.3.0",
     "markdown-loader": "^5.1.0",
     "mini-css-extract-plugin": "^0.9.0",
