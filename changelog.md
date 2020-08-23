@@ -12,6 +12,10 @@
 - Petite réorganisation de l'arborescence des composants React
 - Le site peut être parcouru avec la tabulation sans problèmes.
 
+### **Corrections de bugs**
+
+- Crash lors du chargement d'un tableau
+
 ## V2.4.1 déployée le 05/07/2020 à 14h05 ✔️
 
 ### **Améliorations diverses**
