@@ -57,9 +57,9 @@ export default () => {
         <main className="workmenu-body">
           <MyTabs tabs={tabs} state={state} setstate={setstate} handleOpen={handleOpen} />
         </main>
-        {/* <Team /> */}
+        <Team />
       </div>
-      {/* <Notifs /> */}
+      <Notifs />
     </>
   );
 };

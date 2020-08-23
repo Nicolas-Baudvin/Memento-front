@@ -102,8 +102,8 @@ export default (store) => (next) => (action) => {
         });
 
         socket.on("success identify", (data) => {
-          // store.dispatch(newFriend(data.friends));
-          // store.dispatch(newNotif(data.notifs));
+          store.dispatch(newFriend(data.friends));
+          store.dispatch(newNotif(data.notifs));
         });
 
         socket.on("send invitation", (data) => {
