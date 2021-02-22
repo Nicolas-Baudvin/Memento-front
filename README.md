@@ -3,7 +3,7 @@
 Memento est une application web dont le but est de pouvoir créer des listes de tâches et de les trier comme bon vous semble.
 Vous pouvez y inviter vos amis et ainsi partager en temps réel votre tableau de listes.
 
-Refonte du projet en cours : https://github.com/Nicolas-Baudvin/memento-front-reworked/blob/master/README.md
+Refonte du projet en cours : https://github.com/Nicolas-Baudvin/memento-front-reworked/
 
 **Pensez à faire un CTRL+f5 une fois sur le site pour vider votre cache et avoir la dernière version du site !**
 
