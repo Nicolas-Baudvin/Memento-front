@@ -41,8 +41,6 @@ J'ai créer ce projet dans le but de monter en compétences sur les technologies
     | Site Responsive                                                  | ✔️             |
     | Changement d'email, oublie de mot de passe                       | ✔️             |
     | Rendre son tableau Publique                                      | ✔️             |
-    | Liste d'amis                                                     | en cours      |
-    | Tests                                                            | en cours      |
 
  4. **ChangeLog**
 
