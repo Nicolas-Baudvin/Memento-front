@@ -55,7 +55,7 @@
     "ignore-styles": "*",
     "jest": "^25.5.4",
     "null-loader": "^3.0.0",
-    "postcss": "^7.0.32",
+    "postcss": "^7.0.36",
     "prop-types": "^15.7.2",
     "redux-mock-store": "^1.5.4",
     "sinon": "^9.0.3",
